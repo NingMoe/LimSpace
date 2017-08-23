@@ -1,0 +1,208 @@
+body {
+  background: #f4f8fb;
+  margin: 0;
+  padding: 0;
+}
+
+/* 隐藏数字输入框的上下滚动空间 */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#order h3,
+#pay h3 {
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  padding: 10px 0;
+  margin: 0;
+}
+
+#order {
+  background: #fffbf0;
+  color: #dc9500;
+  font-size: 13px;
+  margin-bottom: 15px;
+  padding: 0 10px;
+}
+#order tr {
+  height: 25px;
+}
+#order td.term {
+  font-weight: 700;
+  margin-right: 12px;
+}
+
+#pay {
+  font-size: 13px;
+}
+#pay h3 {
+  border-bottom: 1px solid #e3e3e3;
+}
+/* 除提交按钮外的表单区域，包括标题 */
+#pay .input-wrapper {
+  background: #fff;
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+  padding: 0 10px 5px 10px;
+}
+/* 表单左侧 label */
+#pay label {
+  display: block;
+  width: 70px;
+  text-align: right;
+  padding-right: 14px;
+  color: #666;
+}
+#pay tr {
+  height: 55px;
+}
+/* 每个输入框 */
+#pay input {
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  background: #f4f8fb;
+  border-radius: 4px;
+  border: 0;
+}
+
+#pay .fluid {
+  display: -webkit-box;
+}
+/* .fluid 下每个输入框自适应平分剩余宽度 */
+#pay .fluid input {
+  -webkit-box-flex: 1;
+  display: block;
+}
+
+/* 有效期的月、年文字 */
+#pay .expire {
+  padding: 0 15px;
+  line-height: 42px;
+}
+
+/* 图片验证码输入框 */
+#pay .verify-inputs {
+  margin-right: 130px;
+}
+/* 图片验证码右侧图片和刷新按钮 */
+#pay .verify-buttons {
+  float: right;
+  width: 120px;
+}
+/* 图片验证码的 wrapper div */
+#pay .verify-buttons div {
+  width: 80px;
+  height: 40px;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  display: inline-block;
+}
+#pay .verify-buttons img {
+  width: 80px;
+  height: 40px;
+}
+/* 图片验证码刷新按钮 */
+#pay .verify-buttons a {
+  width: 36px;
+  height: 40px;
+  background: url(../img/refresh.png) no-repeat center;
+  background-size: 18px 17px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* 支付按钮的 wrapper div */
+#pay .submit-wrapper {
+  padding: 0 10px;
+}
+/* 支付按钮 */
+#pay .submit-wrapper input {
+  display: block;
+  height: 42px;
+  line-height: 42px;
+  width: 100%;
+  margin: 15px 0;
+  background: #6e1396;
+  border-radius: 4px;
+  font-size: 18px;
+  color: #fff;
+}
+
+/* 信用卡卡号整个 div 模拟成输入框样式 */
+#pay .cardno-wrapper {
+  background: #f4f8fb;
+  border-radius: 4px;
+}
+/* 信用卡卡号每4位一个输入框 */
+#pay .cardno-wrapper input {
+  -webkit-box-flex: 1;
+  display: block;
+}
+/* 信用卡卡号每4位之间的分隔符 */
+#pay .cardno-wrapper .sep {
+  width: 12px;
+  border-top: 1px solid #e3e3e3;
+  height: 0;
+  margin: 20px 5px 21px;
+}
+
+/* 提示文字 */
+#pay tr.msg {
+  height: 15px;
+  line-height: 15px;
+  font-size: 12px;
+  color: #666;
+}
+#pay tr.msg td {
+  padding-left: 84px;
+  padding-bottom: 5px;
+}
+/* 提示文字头部的 * 文字 */
+#pay tr.msg td em {
+  color: red;
+  padding-right: 5px;
+  font-style: normal;
+}
+
+/* 获取动态密码按钮 */
+#pay a.get-verify-code {
+  display: block;
+  padding: 0 8px;
+  height: 42px;
+  line-height: 42px;
+  margin-left: 10px;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  color: #666;
+}
+
+/* 错误消息 */
+.toast {
+  position: fixed;
+  z-index: 1;
+}
+.toast p {
+  color: #a94442;
+  background: #f2dede;
+  margin: 0;
+  padding: 15px;
+  border: 1px solid #ebccd1;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.toast.show p {
+  animation: show 5s;
+}
+
+@keyframes show {
+    0%   { opacity: 0; }
+    20%  { opacity: 1; }
+    20%  { opacity: 1; }
+    100% { opacity: 0; }
+}

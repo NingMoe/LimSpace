@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PromotionDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Promotion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="expire_time" property="expireTime" jdbcType="TIMESTAMP" />
+    <result column="times" property="times" jdbcType="INTEGER" />
+    <result column="invalid" property="invalid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="newcomer" property="newcomer" jdbcType="INTEGER" />
+    <result column="min_hit" property="minHit" jdbcType="INTEGER" />
+    <result column="max_hit" property="maxHit" jdbcType="INTEGER" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, rate, description, expire_time, times,  invalid, status, create_time, 
+    update_time, type, newcomer, min_hit, max_hit,begin_time ,code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_promotion
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_promotion
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.Promotion" >
+    insert into t_promotion (id, name, rate, 
+      description, expire_time, times, 
+       invalid, status, create_time, 
+      update_time, type, newcomer, 
+      min_hit, max_hit)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{rate,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{expireTime,jdbcType=TIMESTAMP}, #{times,jdbcType=INTEGER}, 
+       #{invalid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{newcomer,jdbcType=INTEGER}, 
+      #{minHit,jdbcType=INTEGER}, #{maxHit,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.Promotion" >
+    insert into t_promotion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="expireTime != null" >
+        expire_time,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="newcomer != null" >
+        newcomer,
+      </if>
+      <if test="minHit != null" >
+        min_hit,
+      </if>
+      <if test="maxHit != null" >
+        max_hit,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="expireTime != null" >
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="newcomer != null" >
+        #{newcomer,jdbcType=INTEGER},
+      </if>
+      <if test="minHit != null" >
+        #{minHit,jdbcType=INTEGER},
+      </if>
+      <if test="maxHit != null" >
+        #{maxHit,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.Promotion" >
+    update t_promotion
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="expireTime != null" >
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="newcomer != null" >
+        newcomer = #{newcomer,jdbcType=INTEGER},
+      </if>
+      <if test="minHit != null" >
+        min_hit = #{minHit,jdbcType=INTEGER},
+      </if>
+      <if test="maxHit != null" >
+        max_hit = #{maxHit,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+    	 begin_time =  #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="code != null" >
+         code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Promotion" >
+    update t_promotion
+    set name = #{name,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      times = #{times,jdbcType=INTEGER},
+      invalid = #{invalid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      newcomer = #{newcomer,jdbcType=INTEGER},
+      min_hit = #{minHit,jdbcType=INTEGER},
+      max_hit = #{maxHit,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=INTEGER},
+      code = #{code,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectPromotionList" parameterType="java.util.Map" resultMap="BaseResultMap">
+ 	select 
+    <include refid="Base_Column_List" />
+    from t_promotion
+    where <include refid="base_where"></include>
+    <if test="sort == null or sort == ''">
+			order by create_time desc 
+	</if>
+	<if test="limit != null and limit != '' and offset != null and offset !=''">
+		LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+	</if>
+  </select>
+  
+   <select id="selectPromotionCount" parameterType="java.util.Map" resultType="java.lang.Long">
+ 	select  count(*)
+    from t_promotion
+    where<include refid="base_where"></include>
+  </select>
+  
+<sql id="base_where" >
+ 	1=1 and invalid=0 
+  	 <if test="name !=null and name !=''">
+  	and name like CONCAT(CONCAT('%',#{name,jdbcType=VARCHAR}),'%')
+  	</if>
+ 	<if test="startTime != null and  startTime !=''">
+		and  create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime != null and  endTime !=''">
+		and  create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+	</if>
+  </sql>
+</mapper>

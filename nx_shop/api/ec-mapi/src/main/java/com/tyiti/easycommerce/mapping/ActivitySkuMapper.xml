@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.ActivitySkuDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Sku" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="invalid" property="invalid" jdbcType="INTEGER" />
+    <result column="inventory" property="inventory" jdbcType="INTEGER"></result>
+  </resultMap>
+  
+  <resultMap id="ActivitySkuMap" type="com.tyiti.easycommerce.entity.ActivitySku" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="activity_price" property="activityPrice" jdbcType="DECIMAL" />
+    <result column="inventory" property="inventory" jdbcType="INTEGER" />
+    <result column="reserved_inventory" property="reservedInventory" jdbcType="INTEGER" />
+    <result column="discounted_price" property="discountedPrice" jdbcType="DECIMAL" />
+    <result column="discount" property="discount" jdbcType="DECIMAL" />
+    <result column="purchase_num" property="purchaseNum" jdbcType="INTEGER" />
+    <result column="sold_num" property="soldNum" jdbcType="INTEGER" />
+    <result column="top_rank" property="topRank" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, activity_id, sku_id, sku_name, price, activity_price, inventory, discounted_price, 
+    discount, reserved_inventory, purchase_num, sold_num, top_rank,create_time, update_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="ActivitySkuMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_activity_sku
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.ActivitySku" >
+    update t_activity_sku
+    <set >
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuName != null" >
+        sku_name = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="activityPrice != null" >
+        activity_price = #{activityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="inventory != null" >
+        inventory = #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="discountedPrice != null" >
+        discounted_price = #{discountedPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="reservedInventory != null" >
+        reserved_inventory = #{reservedInventory,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseNum != null" >
+        purchase_num = #{purchaseNum,jdbcType=INTEGER},
+      </if>
+      <if test="soldNum != null" >
+        sold_num = #{soldNum,jdbcType=INTEGER},
+      </if>
+      <if test="topRank != null" >
+        top_rank = #{topRank,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 获取所有sku(过滤掉参加秒杀活动的sku) -->
+  <select id="getAllSku" resultMap="BaseResultMap" parameterType="java.util.Map">
+	SELECT
+		s.id,
+		s.`name`,
+		s.`status`,
+		s.price,
+		s.invalid,
+		s.inventory
+	FROM
+		t_sku s
+	WHERE
+		s.pickup != 1
+	AND s.invalid != 1
+	AND	s.id NOT IN (
+			SELECT
+				a.sku_id
+			FROM
+				t_activity_sku a
+			LEFT JOIN t_activity c ON a.activity_id = c.id
+			WHERE
+				c.activity_status != 2
+			AND (
+				(
+					c.activity_type = 2
+					AND a.reserved_inventory > 0
+				)
+				OR (
+					c.activity_type = 1
+					AND (
+						(
+							<![CDATA[ c.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+						AND <![CDATA[ c.start_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+						)
+						OR (
+							<![CDATA[ c.start_time <= #{startTime,jdbcType=TIMESTAMP}]]>
+						AND <![CDATA[ c.end_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+						)
+					)
+				)
+			)
+		);
+		 
+  </select>
+  
+  <!-- 根据条件搜索sku -->
+  <select id="searchByConditions" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	SELECT
+		s.id,
+		s.`name`,
+		s.`status`,
+		s.price,
+		s.invalid,
+		s.inventory
+	FROM
+		t_sku s
+	LEFT JOIN t_spu p ON p.id = s.spu_id
+	LEFT JOIN t_category y ON y.id = p.category_id
+	WHERE
+		s.pickup != 1
+	AND s.invalid != 1
+	AND	s.id NOT IN (
+			SELECT
+				a.sku_id
+			FROM
+				t_activity_sku a
+			LEFT JOIN t_activity c ON a.activity_id = c.id
+			WHERE
+				c.activity_status != 2
+			AND (
+				(
+					c.activity_type = 2
+					AND a.reserved_inventory > 0
+				)
+				OR (
+					c.activity_type = 1
+					AND (
+						(
+							<![CDATA[ c.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+						AND <![CDATA[ c.start_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+						)
+						OR (
+							<![CDATA[ c.start_time <= #{startTime,jdbcType=TIMESTAMP}]]>
+						AND <![CDATA[ c.end_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+						)
+					)
+				)
+			)
+		)
+	<if test = "categoryIds != null and categoryIds.length != 0">
+	AND p.category_id in 
+	<foreach collection="categoryIds" item = "categoryId" index="index"  open="(" close=")" separator=",">
+		#{categoryId}
+	</foreach>
+	</if>
+	<if test="status != null">
+	AND s.`status` = #{status, jdbcType=INTEGER}
+	</if>
+	<if test="skuId != null">
+	AND s.id = #{skuId, jdbcType=INTEGER}
+	</if>
+  </select>
+  
+  <!-- 保存参加活动的sku信息 -->
+  <insert id="saveActivitySku" parameterType="java.util.List">
+          INSERT INTO t_activity_sku(activity_id, sku_id, sku_name, price, activity_price, inventory, discounted_price,discount,reserved_inventory,purchase_num) values
+       <foreach collection="list" item="activitySku" index="index" open="(" separator="),(" close=")"> 
+                  #{activitySku.activityId},
+                  #{activitySku.skuId},
+                  #{activitySku.skuName},
+                  #{activitySku.price},
+                  #{activitySku.activityPrice},
+                  #{activitySku.inventory},
+                  #{activitySku.discountedPrice},
+                  #{activitySku.discount},
+                  #{activitySku.reservedInventory},
+                  #{activitySku.purchaseNum}
+        </foreach>
+	</insert>
+	
+	<!-- 删除参加活动的sku信息 -->
+	<delete id="deleteSkuByActivityId" parameterType="java.lang.Integer">
+		DELETE
+			FROM
+				t_activity_sku
+			WHERE
+				activity_id = #{activityId,jdbcType=INTEGER};		
+	</delete>
+	
+	<!-- 修改t_sku表中库存 -->
+	<update id="updateSkuInventory" parameterType="java.util.List">
+		update t_sku 
+		<trim prefix="set" suffixOverrides=",">
+			<trim prefix="inventory = case" suffix="end,">
+				<foreach collection="list"  item="activitySku" index="index">
+					when id = #{activitySku.skuId} then inventory-#{activitySku.inventory}
+				</foreach>
+			</trim>
+		</trim>
+		where
+		<foreach collection="list" separator="or" item="activitySku" index="index">
+			id = #{activitySku.skuId}
+		</foreach>
+	</update>
+  <!-- 根据活动id查询所有参与此活动的sku信息 -->
+  <select id="getActivitySkuById" parameterType="java.lang.Integer" resultMap="ActivitySkuMap">
+  	SELECT
+		s.id,
+		s.activity_id,
+		s.sku_id,
+		s.sku_name,
+		s.price,
+		s.activity_price,
+		s.discounted_price,
+		s.discount,
+		s.purchase_num,
+		s.sold_num,
+		s.reserved_inventory,
+		s.top_rank,
+		u.inventory <!-- 库存从t_sku表中实时获取 -->
+	FROM
+		t_activity_sku s
+	LEFT JOIN t_sku u ON s.sku_id = u.id
+	WHERE
+		s.activity_id = #{id,jdbcType=INTEGER}
+        ORDER BY top_rank desc;
+  </select>
+  
+  <!-- 补仓 -->
+  <update id="updateReservedInventoryById" parameterType="java.util.Map">
+	UPDATE t_activity_sku s
+	INNER JOIN t_sku k ON s.sku_id = k.id
+	SET s.reserved_inventory = IFNULL(s.reserved_inventory, 0) + #{inventory,jdbcType=INTEGER},
+	 s.inventory = IFNULL(s.inventory, 0) + #{inventory,jdbcType=INTEGER},
+	 k.inventory = k.inventory - #{inventory,jdbcType=INTEGER}
+	WHERE
+		s.id = #{id,jdbcType=INTEGER};
+  </update>
+  
+  <!-- 创建活动保存之前，先查询是否有冲突的skuId -->
+  <select id="getActivitySku" parameterType="java.util.Map" resultType="java.util.Map">
+  		SELECT
+				a.sku_id as skuId
+			FROM
+				t_activity_sku a
+			LEFT JOIN t_activity c ON a.activity_id = c.id
+			WHERE
+				c.activity_status != 2
+			AND (
+				(
+					c.activity_type = 2
+					AND a.reserved_inventory > 0
+				)
+				OR (
+					c.activity_type = 1
+					AND (
+						(
+							<![CDATA[ c.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+						AND <![CDATA[ c.start_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+						)
+						OR (
+							<![CDATA[ c.start_time <= #{startTime,jdbcType=TIMESTAMP}]]>
+						AND <![CDATA[ c.end_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+						)
+					)
+				)
+			)
+  </select>
+</mapper>

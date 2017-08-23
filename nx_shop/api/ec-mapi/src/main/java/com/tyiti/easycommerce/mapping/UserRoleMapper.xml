@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 用户角色授权表的数据访问实现 -->
+<!-- author rainyhao -->
+<!-- since 2016-04-11 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.UserRoleDao" >
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.UserRole" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="role_id" property="roleId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id, user_id, role_id
+	</sql>
+	<delete id="delete" parameterType="java.lang.Integer" >
+		delete from t_user_role
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<!-- 按用户删除 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-13 -->
+	<delete id="deleteByUserId" parameterType="java.lang.Integer">
+		delete from t_user_role where user_id = #{userId,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.UserRole" >
+		insert into t_user_role (id, user_id, role_id)
+		values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
+	</insert>
+	
+	<!-- 批量写一个集体 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-13 -->
+	<insert id="insertList" parameterType="java.util.List">
+		insert into t_user_role (user_id, role_id)
+		values
+		<foreach collection="entities" item="i" separator=",">
+			(#{i.userId,jdbcType=INTEGER}, #{i.roleId,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+</mapper>

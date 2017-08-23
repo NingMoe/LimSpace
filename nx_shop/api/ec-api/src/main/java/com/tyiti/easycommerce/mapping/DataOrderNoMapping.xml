@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.DataOrderNoMappingDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.DataOrderNoMapping">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="source" property="source" jdbcType="VARCHAR" />
+		<result column="target" property="target" jdbcType="VARCHAR" />
+	</resultMap>
+
+   <select id="getBySource" resultType="com.tyiti.easycommerce.entity.DataOrderNoMapping" resultMap="BaseResultMap">  
+        select * from t_data_order_no_mapping where source = #{source}
+    </select>
+</mapper>

@@ -1,0 +1,14 @@
+<div class="pj-site-container survey">
+	<ul class="troubles">
+	<% _.each(leaveMessageType.data,function(item){%>
+      <li><input type="radio" id="checkbox<%=item.id%>" name='reason' value="<%=item.id%>"/><label for="checkbox<%=item.id%>"></label><%= item.name%></span></li>
+      <li>|</li>
+    <%})%>
+    </ul>
+    <div class="intext">
+    	<textarea placeholder="告诉我们您宝贵的意见吧，么么哒~" maxlength="80"  cols="17" rows="20"></textarea>
+    	<i class="watch">1/80</i>
+    </div>
+   
+   <button class="submit" disabled>提交</button>
+</div>

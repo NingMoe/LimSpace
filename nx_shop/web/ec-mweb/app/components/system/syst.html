@@ -1,0 +1,101 @@
+<style>
+	label {
+	  width: 100px;
+	  text-align: right;
+	  padding-right: 10px;
+	}
+	.form-control {
+	  display: inline-block;
+	  width: auto;
+	}
+	.modal-footer {
+	  text-align: center;
+	}
+	.modal-body {
+	  padding-top: 5px;
+	}
+	.form-group {
+	  margin-top: 5px;
+	  margin-bottom: 5px;
+	}
+</style>
+<div id="system-container">
+  <button type="button" class="btn btn-default pull-right" ng-click="events.add()">添加用户</button>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>手机号</th>
+        <th>姓名</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+	<tbody>
+	  <tr ng-repeat="item in user">
+	  	<td>{{item.tel}}</td>
+	  	<td>{{item.name}}</td>
+	  	<td>{{item.status=="ENABLED" ? '启用中':'禁用'}}</td>
+	  	<td>{{item.createTime| date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+      <td>
+      	<a class="template" ng-click="events.enable(item)" ng-if="item.status=='DISABLED'">启用</a>
+        <a class="template" ng-click="events.enable(item)" ng-if="item.status=='ENABLED'">停用</a>
+      	<a class="template" ng-click="events.reset(item)">重置密码</a>
+        <a class="template" ng-click="events.modify(item)">修改</a>
+      </td>
+	  </tr> 
+    </tbody>
+  </table>
+</div>
+<!-- 翻页 -->
+<div class="pagination-wrapper paggerCommon">
+  <ul class="pager">
+    <li ng-if="pagination.page>1"><a ng-click="loadding(pagination.page-1)">上一页</a></li>
+    <li><input type="text" ng-model="paggerInput"> <button class="btn btn-default btn-sm" ng-click="loadding(paggerInput)" >go</button></li>
+    <li  ng-if="pagination.page<pagination.totalPage"><a ng-click="loadding(pagination.page+1)" >下一页</a></li>
+    <li>{{pagination.page}}/{{pagination.totalPage}}页</li>
+  </ul>
+</div>
+
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">添加用户</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="err-msg">
+          <ul ng-show="form.$submitted && form.$invalid">
+            <li ng-show="form.tel.$error.required">请填写手机号</li>
+            <li ng-show="form.name.$error.required">请填写姓名</li>
+          </ul>
+        </div>
+
+        <form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+          <div class="form-group">
+            <label for="name">手机号</label>
+            <input class="form-control" name="tel" ng-model="adduser.tel" required>
+          </div>
+          <div class="form-group">
+            <label for="name">姓名</label>
+            <input class="form-control" name="name" ng-model="adduser.name" required>
+          </div>
+          <div class="form-group">
+            <label for="name">角色列表</label>
+            <span ng-repeat="r in roles" ng-if="r.status=='ENABLED'">
+            	<label for="role"><input type="checkbox"  ng-checked="{{r.checked}}" value="{{r.id}}"/>{{r.name}}</label>
+            </span>
+          </div>
+		  <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="events.save(form)">保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

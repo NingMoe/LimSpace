@@ -1,0 +1,20 @@
+<div class="purchase">
+  <ul>
+   <% _.each(findActivitySku.data, function(index,item) { %>
+       <li onclick="location.href='#product/<%= index.id%>'">     
+         <img src="<%=config.imgHost %><%=index.imagesOriginal.split(',')[0] %>"/>
+         <p><% if (index.skuName.length >21) { %><%=index.skuName.substr(0,21) %> ...<%} else { %><%=index.skuName%> <% } %></p>
+         <div>
+           <span>￥<%= index.activityPrice%>&nbsp;<br/><a href="javascript:void(0)">原价￥<%= index.price%></a></span>
+           <% if(index.reservedInventory && findActivitySku.data[0].startTime < new Date().getTime()){%>
+            <a href="javascript:void(0)">购买</a>
+            <% } else if(findActivitySku.data[0].startTime > new Date().getTime()){%>
+            <a href="javascript:void(0)" style="color: #caccd2;border-color:#caccd2;">未开始</a>
+           <% }else{%>
+            <a href="javascript:void(0)" style="color: #caccd2;border-color:#caccd2;">已结束</a>
+           <% } %>
+         </div>
+      </li>
+    <% })%>
+  </ul>
+</div>

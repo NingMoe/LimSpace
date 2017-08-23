@@ -1,0 +1,165 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<div class="panel-title">新增上下架</div>
+	</div>
+	<div class="panel-body group_create">
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-horizontal" role="form" name="form" novalidate>
+					<!--<div class="form-group">
+						<label class="col-md-3 control-label">
+                            	组合名称：
+                        </label>
+						<div class="col-md-5">
+							<input type="text" class="form-control" name="name" placeholder="" ng-model="newCoupon.name" required ng-maxlength="20">
+						</div>
+						<span ng-show="(form.name.$dirty|| form.$submitted)  && form.name.$invalid" class="alert alert-danger">
+								<span ng-show="form.name.$error.required">优惠券名称不能为空。</span>
+						<span ng-show="form.name.$error.maxlength">优惠券名称不能超过20个字符。</span>
+						</span>
+					</div>-->
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+							选  择：
+						</label>
+						<span class="mrl10"><input type="radio" name="type" ng-model="skutype" value="1"  ng-change="raioChange(1)">上 架 </span>
+						<span class="mrl10"><input type="radio" name="type" ng-model="skutype" value="2"  ng-change="raioChange(2)">下 架 </span>
+						<span class="mrl10"><input type="radio" name="type" ng-model="skutype" value="3"  ng-checked="true" required  ng-change="raioChange(3)">上下架 </span>
+					</div>
+					<div class="form-group" ng-show="skutype==1 || skutype==3">
+						<label class="col-md-3 control-label">
+							上架时间：
+						</label>
+						<div class="col-md-5">
+							<input id="onTime" name="onTime" type="text" class="form-control" ng-model="onTime">
+						</div>
+						<span ng-if="errorDateMess1" class="alert alert-danger">
+								<span >{{errorDateMess1}}</span>
+						</span>
+					</div>
+					<div class="form-group" ng-show="skutype==2 || skutype==3">
+						<label class="col-md-3 control-label">
+							下架时间：
+						</label>
+						<div class="col-md-5">
+							<input id="offTime" name="offTime" type="text" class="form-control" ng-model="offTime">
+						</div>
+						<span ng-if="errorDateMess2" class="alert alert-danger">
+								<span >{{errorDateMess2}}</span>
+						</span>
+					</div>
+					<div class="form-group">
+						<div class="col-md-11">
+							<!--<div class="mrt10">-->
+							<select name="type" class="form-control" ng-model="tagType1" ng-change="changeTags('1',tagType1)">
+								<option value="">-- 全部 --</option>
+								<option ng-repeat="x in tagsArray1" value="{{x.id}}">{{x.text}}</option>
+							</select>
+							<select ng-show="deepth>1" name="type" class="form-control" ng-model="tagType2" ng-change="changeTags('2',tagType2)">
+								<option value="">-- 全部 --</option>
+								<option ng-repeat="x in tagsArray2" value="{{x.id}}">{{x.text}}</option>
+							</select>
+							<select ng-show="deepth>2" name="type" class="form-control" ng-model="tagType3" ng-change="changeTags('3',tagType3)">
+								<option value="">-- 全部 --</option>
+								<option ng-repeat="x in tagsArray3" value="{{x.id}}">{{x.text}}</option>
+							</select>
+							<select ng-show="deepth>3" name="type" class="form-control" ng-model="tagType4" ng-change="changeTags('4',tagType4)">
+								<option value="">-- 全部 --</option>
+								<option ng-repeat="x in tagsArray4" value="{{x.id}}">{{x.text}}</option>
+							</select>
+							<span ng-if="errorMessage3 && !newCoupon.refId" class="alert alert-danger">
+								 <span >请选择sku。</span>
+							</span>
+							<!--
+								<span class="pull-right">
+								<input type="text" class="form-control" name="name" placeholder="" ng-model="newCoupon.name" required ng-maxlength="20">
+								<button class="btn btn-default" ng-click="addCouponInfo()" >查找</button>
+								</span>-->
+
+							<table class="table">
+								<thead>
+									<tr>
+										<span ng-if="errorDateMess3" class="alert alert-danger">
+								                     {{errorDateMess3}}
+									               </span>
+									</tr>
+									<tr>
+										<th><input id="checkallSkus" type="checkbox" ng-click="checkAllSku()">全选</th>
+										<th>skuId</th>
+										<th width="60%">商品名称</th>
+										<th>ERP编码</th>
+										<th>上下架状态</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="sku in skuList">
+										<td>
+											<input class="cbSkus" type="checkbox" ng-model="sku.checked" ng-change="changedSku()">
+										</td>
+										<td>{{sku.id}}</td>
+										<td>{{sku.name}}</td>
+										<td>{{sku.erp_code}}</td>
+										<td>{{sku.status==true?"上架":"下架"}}</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+						<!--</div>-->
+					</div>
+					<div class="form-group">
+						<div class="col-md-offset-3 col-md-9">
+							<a ng-href="#/shelves" class="btn btn-primary">返回列表</a>
+							<button class="btn btn-success" ng-click="addSkuTime()">确认选择</button>
+						</div>
+					</div>
+					<br/>
+					<div class="form-group">
+						<div class="col-md-11">
+							<table class="table">
+								<thead>
+									<tr>
+										<!--	<th><input id="checkallwSkus" type="checkbox" ng-click="checkAllwSku()"></th>-->
+										<!--<th>SKUID</th>-->
+										<th>名称</th>
+										<!--<th>类型</th>-->
+										<th>上架时间</th>
+										<th>下架时间</th>
+										<th>状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="sssm in skus">
+										<!--<td><input class="cbwSkus" type="checkbox" ng-model="warningSku.checked" ng-change="changedwSku()"></td>-->
+										<td>{{sssm.sku.name}}</td>
+										<!--	<td>{{sssm.type}}</td>-->
+										<td>{{sssm.onTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+										<td>{{sssm.offTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+										<td>{{sssm.status}}</td>
+										<td>
+											<a class="template btn" ng-click="delSSS(sssm)">删除</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<!--<button type="button" class="btn btn-primary" ng-click="delWarningSku()" ng-disabled="warningSku.total == 0">删除</bbutton>-->
+							<div class="pagination-wrapper paggerCommon">
+								<ul class="pager">
+									<li ng-if="pagination.zIndex>1">
+										<a ng-click="Inits(pagination.zIndex-1)">上一页</a>
+									</li>
+									<li><input type="text" ng-model="paggerInput"> <button class="btn btn-default btn-sm" ng-click="Inits(paggerInput)">go</button></li>
+									<li ng-if="pagination.zIndex<pagination.totalPage">
+										<a ng-click="Inits(pagination.zIndex+1)">下一页</a>
+									</li>
+									<li>{{pagination.zIndex}}/{{pagination.totalPage}}页</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,52 @@
+<div ng-controller="BillController">
+<form class="form-inline" ng-submit="updateLocation()">
+  <div class="form-group">
+  	订单类型：
+    <label>
+    	 <select  name="stateMap" ng-model="selected"  ng-change="events.selectChanage()"
+                                          ng-options="stateMap.name  for stateMap  in stateMaps">
+         </select>
+    </label>
+    <input type="text" class="form-control" id="receiveStartTime" name="startTime" placeholder="开始时间" ng-model="searchInput.startTime">
+    <input type="text" class="form-control" id="receiveendTime"  name="endTime" placeholder="结束时间" ng-model="searchInput.endTime">
+  </div>
+  <button type="submit" class="btn btn-primary" ng-click="events.search()">搜索</button>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>订单类型</th>
+      <th>订单日期</th>
+      <th>退单日期</th>
+      <th>订单号</th>
+      <th>产品号</th>
+      <th>产品名称</th>
+      <th>订单金额</th>
+      <th>佣金比例</th>
+      <th>佣金金额</th>
+      <th>结算总金额</th>
+      <th>联系人</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="bill in bills">
+      <td>{{$index+1}}</td>
+      <td>{{bill.orderType}}</td>
+      <td>{{bill.orderTime|date:'yyyy-MM-dd HH:mm:ss' }}</td>
+      <td >{{bill.returnTime|date:'yyyy-MM-dd HH:mm:ss' }}</td>
+      <td>{{bill.no}}</td>
+      <td>{{bill.third_party_id}}</td>
+      <td>{{bill.sku_name}}</td>
+      <td>{{(bill.third_party_amount*bill.sku_count).toFixed(2)}}</td>
+      <td >{{bill.commission_rate}}%</td>
+      <td >{{((((bill.third_party_amount*bill.sku_count))*bill.commission_rate)/100).toFixed(2)}}</td>
+      <td >{{(bill.third_party_amount-bill.third_party_amount*0.2).toFixed(2)}}</td>
+      <td>{{bill.address_mobile}}</td>
+    </tr>
+  </tbody>
+</table>
+<uib-pagination total-items="page.totalCount" ng-model="page.currentPage" max-size="10" items-per-page="page.pageSize" 
+		previous-text="上一页" next-text="下一页" ng-change="pageChanged()" class="samplePage pagination-sm" boundary-link-numbers="true">
+</uib-pagination> 
+</div>

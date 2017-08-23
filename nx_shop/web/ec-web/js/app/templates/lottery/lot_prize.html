@@ -1,0 +1,82 @@
+<div >
+    <div class="prizeHead">
+     <img src="../img/prizeHead.jpg"/>
+     <img class="mt_30" src="../img/prizeRad.png"/>
+    </div>
+    <div class="prizeContent bgPrice mt_10">
+        <% _.each(prizeList.list, function(item,name) { %>
+            <div class="prizeItem">
+                <div class="prizeTitle"><%=item.name%></div>
+                <div class="dlin full">
+                    <% _.each(item.skus, function(sku,index) { %>
+                       <% if (item.skus.length%3==1&&item.skus.length==index+1){%>
+                        <div class="itemCont spit1">
+                            <div class="itemPic">
+                                <img src="<%=config %><%=sku.imagesOriginal.split(',')[0]%>@360w_240h">
+                            </div>
+                            <div class="itemC">
+                                <div><%=sku.name%></div>
+                                <div><span class="priceOr">￥<%=sku.originalPrice%></span> <span>￥<%=sku.price%></span></div>
+                                <div class="s3">
+                                    <%if(name>=pLe){%>
+                                      <% if(sku.inventory) { %>
+                                      <a href="/?#product/<%=sku.id%>">立即领奖</a>
+                                      <%}else{%>
+                                      <a style="background: #d7d7d7;">已兑完</a>
+                                      <%}%>
+                                    <%}else{%>
+                                      <a>未中奖</a>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </div>
+                       <%}else if(item.skus.length%3==2&&(item.skus.length==index+1 || item.skus.length==index+2)){%>
+                        <div class="itemCont spit2 <%=(index+1)%3==2?'ml1':''%>">
+                            <div class="">
+                                <img src="<%=config %><%=sku.imagesOriginal.split(',')[0]%>@360w_240h">
+                            </div>
+                            <div class="itemCL">
+                                <div class="s1"><%=sku.name%></div>
+                                <div class="s2"><span class="priceOr">￥<%=sku.originalPrice%></span> <span>￥<%=sku.price%></span></div>
+                                <div class="s3">
+                                    <%if(name>=pLe){%>
+                                    <% if(sku.inventory) { %>
+                                      <a href="/?#product/<%=sku.id%>">立即领奖</a>
+                                    <%}else{%>
+                                      <a style="background: #d7d7d7;">已兑完</a>
+                                    <%}%>
+                                    <%}else{%>
+                                    <a>未中奖</a>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </div>
+                       <%}else{%>
+                            <div class="itemCont spit3 <%=(index+1)%3!=1?'ml1':''%>">
+                                <div class="">
+                                    <img src="<%=config %><%=sku.imagesOriginal.split(',')[0]%>@360w_240h">
+                                </div>
+                                <div class="itemCL">
+                                    <div class="s1"><%=sku.name%></div>
+                                    <div class="s2"><span class="priceOr">￥<%=sku.originalPrice%></span> <span>￥<%=sku.price%></span></div>
+                                    <div class="s3">
+                                        <%if(name>=pLe){%>
+                                        <% if(sku.inventory) { %>
+                                          <a href="/?#product/<%=sku.id%>">立即领奖</a>
+                                        <%}else{%>
+                                          <a style="background: #d7d7d7;">已兑完</a>
+                                        <%}%>
+                                        <%}else{%>
+                                        <a>未中奖</a>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                       <% }%>
+                    <%})%>
+
+                </div>
+            </div>
+        <%})%>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="" >
+  <a ui-sref="couponAdd" class="btn btn-primary btn-success pull-right">新增</a>
+</div>
+<div></div>
+<form class="form-inline">
+  <div class="form-group">
+    <label>优惠券类别</label>
+    <!--<input type="text" class="form-control" placeholder="优惠券类别" ng-model="searchInput.type">-->
+    <select class="form-control" ng-model="searchInput.type" ng-change="getData(1)" >
+      <option value="">-- 全部 --</option>
+      <option ng-repeat="x in couponType" value="{{x.id}}">{{x.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>活动状态</label>
+    <select name="couType" class="form-control" ng-model="searchInput.activeStatus" ng-change="getData(1)">
+      <option value="">-- 全部 --</option>
+      <option ng-repeat="c in couActivStas" value="{{c.id}}">{{c.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>活动名称</label>
+    <input type="text" class="form-control" placeholder="优惠券名称" ng-model="searchInput.name">
+  </div>
+
+  <div class="form-group"><button type="button" class="btn btn-primary" ng-click="getData(1)">搜索</button></div>
+</form>
+<div class="mrt10">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>活动名称</th>
+        <th>金额</th>
+        <th>种类</th>
+        <th>满/用</th>
+        <th>类别</th>
+        <th>发放量</th>
+        <th>剩余库存</th>
+        <th>已发放</th>
+        <th>已使用</th>
+        <th>状态</th>
+          <!--<th>数量</th>-->
+        <th>优惠券id</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="info in couponInfos">
+        <td>{{info.name}}</td>
+        <td>{{info.discount}}</td>
+        <td><span ng-if="info.type==1">优惠券</span>
+            <span ng-if="info.type==2">优惠码</span>
+            <span ng-if="info.type==3">代金券</span>
+            <span ng-if="info.type==4">代金码</span>
+        </td>
+        <td><span ng-if="!info.threshold">--</span>{{info.threshold}}</td>
+        <td><span ng-if="info.scope==1">全场通用</span><span ng-if="info.scope==2">SKU</span><span ng-if="info.scope==3">标签</span></td>
+        <td>{{info.count}}</td>
+        <td>{{info.count-info.receivedNum}}</td>
+        <td>{{info.receivedNum}}</td>
+        <td>{{info.usedNum}}</td>
+        <td>
+           <span ng-if="info.activeStatus == 0 && info.stop==0">未开始</span>
+           <span ng-if="info.activeStatus == 1 && info.stop==0">活动中</span>
+            <span ng-if="info.activeStatus == 2&& info.stop==0">结束</span>
+           <span ng-if="info.stop==1">强制结束</span>
+        </td>
+        <td>{{info.id}}</td>
+        <td>
+            <a  ng-if="info.type == 2||info.type == 4" ng-click="exportCode(info.id)">导出</a>
+            <a ui-sref="couponInfoDetail({couponInfoId:info.id})">详情</a>
+            <a  ng-if="info.activeStatus == 1||info.activeStatus == 0" ui-sref="couponEdit({couponInfoId:info.id})">编辑</a>
+            <a ng-if="(info.activeStatus == 1||info.activeStatus == 0) && info.stop !=1" href="javascript:;" ng-click="overCouponInfo(info.id)">结束</a>
+            <a ng-if="info.stop == 1 || info.activeStatus == 2  " href="javascript:;" ng-click="deleteCouponInfo(info.id)">删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="pagination-wrapper paggerCommon">
+  <ul class="pager">
+    <li ng-if="pagination.zIndex>1"><a ng-click="getData(pagination.zIndex-1)">上一页</a></li>
+    <li><input type="text" ng-model="paggerInput" > <button class="btn btn-default btn-sm" ng-click="getData(paggerInput)" >go</button></li>
+    <li  ng-if="pagination.zIndex<pagination.totalPage"><a ng-click="getData(pagination.zIndex+1)" >下一页</a></li>
+    <li>{{pagination.zIndex}}/{{pagination.totalPage}}页</li>
+  </ul>
+</div>

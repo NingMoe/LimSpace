@@ -1,0 +1,109 @@
+ <div class="pj-site-container user">
+  <div class="header">
+    <div class="center-top" onclick="location.href='#selfmsg'" >
+    	<span><img src="./img/touxiang@2x.png"/></span>
+    	<p class="mobile"><%= mobile.substr(0,4) %>****<%= mobile.substr(8,11) %></p>
+    </div>
+  	<ul>
+  		<li class="Pending-payment" onclick="location.href='#order/type/1'">待付款
+  		 <% if(orders.toPay.length > 0) {%>
+  		  <i><%= orders.toPay.length %></i>
+  		 <% } %>
+  		</li>
+  		<li class="Receipt-goods" onclick="location.href='#order/type/2'">待收货
+  		<% if(orders.toReceive.length <= 9 && orders.toReceive.length > 0 ) { %>
+  		 <i><%= orders.toReceive.length %></i>
+        <% } else if(orders.toReceive.length > 9 ) { %>
+          <i>9</i>
+        <% } else {%>
+        <% }%>
+  		</li>
+  		<li class="Return" onclick="location.href='#order/type/3'">退换货</li>
+  	</ul>
+    <a href="javascript:;" class="hidden creditprogress" data-creditstate="<%=userdata.data.creditState%>" data-userType="<%=userdata.data.userType %>">
+    <div class="userFxb hidden">
+
+      <p>完善资料&nbsp&nbsp领取额度</p>
+      <ul class="clearfix">
+        <li><img src="../img/idcardFxb.png" alt=""></li>
+        <li class="line"></li>
+        <li><img src="../img/personFxb.png" alt=""></li>
+        <li class="line"></li>
+        <li><img src="../img/cardFxb.png" alt=""></li>
+        <li class="line"></li>
+        <li><img src="../img/lianxirenFxb.png" alt=""></li>
+      </ul>
+      <ul class="clearfix text">
+        <li>个人资料</li>
+        <li>身份验证</li>
+        <li>银行卡</li>
+        <li>联系人</li>
+      </ul>
+      <button>立即完善</button>
+    </div>
+
+      <div class="creditlimit hidden">
+        <div>信用剩余额度（元）</div>
+        <span><%=userdata.data.useSum %></span>
+        <p>信用总额度</p>
+        <p>￥<%=userdata.data.creditSum %></p>
+      </div>
+    </a>
+  </div>
+  <ul class="list">
+
+    <li class="person hidden" onclick="location.href='#personmessage'">
+      <p><span>个人信息</span></p>
+    </li>
+    <li class="order" onclick="location.href='#order/type/0'">
+      <p><span>我的订单</span></p>
+    </li>
+    <li class="bill hidden" onclick="location.href='#MyBill'">
+      <p><span>我的账单</span></p>
+    </li>
+    <li class="coup" onclick="location.href='#couponList'">
+      <p><span>我的优惠券</span></p>
+    </li>
+  	<li class="address" onclick="location.href='#address'">
+  		<p><span>我的地址</span></p>
+  	</li>
+    <li class="shares hidden" onclick="location.href='#share'">
+      <p><span>分享有礼</span></p>
+    </li>
+  	<li class="password" onclick="location.href='#modify'">
+  		<p><span>修改登录密码</span></p>
+  	</li>
+    <li class="paymodify hidden" onclick="location.href='#paymodify'">
+      <p><span>修改支付密码</span></p>
+    </li>
+    <li class="favorite" onclick="location.href='#favorite'">
+      <p><span>我的收藏</span></p>
+    </li>
+  	<li class="common-problem" onclick="location.href='#problem'">
+  		<p><span>常见问题</span></p>
+  	</li>
+  	<%if(config.sys == 'ceb'){%>
+  	<li class="survey" onclick="location.href='#leaveMessage'">
+  		<p><span>意见反馈</span></p>
+  		<div class="count"></div>
+  	</li>
+  	<%}else{%>
+  	<li class="survey" onclick="location.href='#survey'">
+  		<p><span>意见反馈</span></p>
+  		<div class="count"></div>
+  	</li>
+	<%}%>
+  	<li class="customer-service">
+  		<p><span>客服电话</span></p>
+  	</li>
+  	<li class="sign-out">
+  		<p><span>退出登录</span></p>
+  	</li>
+  </ul>
+ </div>
+ <div class="pj-action-add">
+    <a href="#home" class="home">首页</a>
+    <a href="#category" class="category">分类</a>
+    <a href="#MyBill" class="credit">还款</a>
+    <a href="#user" class="user active">我的</a>
+ </div>

@@ -1,0 +1,29 @@
+<div class="pj-site-container return">
+  <p class="orderid">订单号:&nbsp;<%= resp.data.no %></p>
+  <h3>商品信息</h3>
+  <dl>
+    <dt><img src="<%= config.imgHost %><%= resp.data.orderSku[0].skuHeadThumbnail %>@160h_160w"></dt>
+    <dd>
+      <p><%= resp.data.orderSku[0].skuName %></p>
+      <span>规格:&nbsp;<% if (resp.data.orderSku[0].skuAttribute.length > 13) { %><%=resp.data.orderSku[0].skuAttribute.substr(0,13) %> ...<%} else { %><%=resp.data.orderSku[0].skuAttribute%> <% } %></span>
+      <span class="clearfix"><i>￥<%=resp.data.orderSku[0].skuPrice.toFixed(2) %></i><b>X<%=resp.data.orderSku[0].skuCount %></b></span>
+    </dd>
+  </dl>
+  <div class="reason">
+    <h4>退货原因<span>(必填)</span></h4>
+    <ul>
+      <li><input type="radio" id="checkbox1" name='reason' value="1"/><label for="checkbox1"></label>国家法律所规定的三包内造成的质量问题</li>
+      <li><input type="radio" id="checkbox2" name='reason' value="2"/><label for="checkbox2"></label>到货物流损</li>
+      <li><input type="radio" id="checkbox3" name='reason' value="3"/><label for="checkbox3"></label>商品描述与网站不符等</li>
+      <li><input type="radio" id="checkbox4" name='reason' value="4"/><label for="checkbox4"></label>错发、漏发/缺件</li>
+      <li><input type="radio" id="checkbox5" name='reason' value="5"/><label for="checkbox5"></label>其他原因</li>
+    </ul>
+  </div>
+  
+  <div class="title">
+    <h4>问题描述<span>(必填)</span></h4>
+    <textarea placeholder="请简短文字描述问题"></textarea>
+  </div>
+
+  <button class="button">提交</button>
+</div>

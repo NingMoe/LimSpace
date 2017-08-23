@@ -1,0 +1,371 @@
+.header{
+   border-bottom: none;
+   height:auto;
+   width: 100%;
+}
+.index .header{
+	margin: 5px 0;
+}
+.header>img{
+	width: 100%;
+	min-height: 100px;
+	display:block;
+	padding: 0;
+	margin:0;
+}
+
+div.seckill{
+	top:15px;
+}
+
+.seckill .seckill_nav{
+	background:#2c2d2d;
+	width: -webkit-calc(100%);
+	height:47px;
+	position: relative;
+	margin-top: 10px;
+}
+.seckill .wrap{
+    width: -webkit-calc(100%/5);
+    height: 47px;
+    position: absolute;
+    top: 0px;
+    left: -webkit-calc(100%/5*2);
+    z-index: 2;
+}
+.tyfq .seckill .wrap,.ceb .seckill .wrap{
+	background: #ff6633;
+}
+.thb .seckill .wrap{
+	background: rgb(243, 47, 48);
+}
+.seckill .nav{
+	width:-webkit-calc(100%);
+	height: 47px;
+	position:absolute;
+	top:0;
+	left: 0;
+	z-index: 3;
+	overflow-x: scroll;
+	scrollbar-shadow-color:#fff;
+}
+
+-webkit-scrollbar-track {
+		color: #fff;
+		opacity: 1;
+	}
+.seckill .nav .seckill_ul{
+	list-style: none;
+	height: 47px;
+	position: relative;
+}
+
+.seckill .nav .seckill_ul li{
+	float: left;
+	height: 47px;
+	
+}
+
+div.seckill .nav .seckill_ul li a{
+	width: 100%;
+	height: 44px;
+	color: #fff;
+	text-align: center;
+	display: inline-block;
+    text-decoration: none;
+    color: #2e353b;
+    padding-top: 3px;
+}
+
+div.seckill .nav .seckill_ul li a h3{
+	font-size: 22px;
+	line-height: 22px;
+	color: #fff;
+}
+div.seckill .nav .seckill_ul li a h4{
+	font-size: 14px;
+	line-height: 18px;
+	color: #fff;
+}
+
+.tyfq div.seckill .angle,.ceb div.seckill .angle{
+	width: 19px;
+	height: 12px;
+	left: -webkit-calc(100%/2 - 9px);
+	top: 44px;
+	position: absolute;
+	bottom:-9px;
+	background-image: url('../img/jiao.png');
+	background-size: 19px 12px;
+	background-position:center;
+}
+.thb div.seckill .angle{
+	width: 19px;
+	height: 12px;
+	left: -webkit-calc(100%/2);
+	top: 44px;
+	position: absolute;
+	bottom:-9px;
+	background-image: url('../img/jiao@2x.png');
+	background-size: 19px 12px;
+	background-position:center;
+	margin-left: -9px;
+}
+
+
+.surplus{
+    width: 100%;
+    height: 23px;
+	padding: 14px 0 7px 0;
+}
+.surplus h2{
+	font-size: 15px;
+	color:#666;
+	padding-left: 4%;
+	display: inline-block;
+}
+.surplus .seckill-timer {
+    display: inline-block;
+    overflow: hidden;
+    
+    vertical-align: middle;
+    float: right;
+    margin-right: 10px;
+}
+.surplus .seckill-time-left {
+    border-radius: 2px 0 0 2px;
+    padding-left: 2px;
+}
+.surplus .seckill-time-right {
+    border-radius: 0 2px 2px 0;
+    padding-right: 2px;
+}
+.surplus .seckill-time-separator {
+    width: 10px;
+}
+.surplus .seckill-time {
+    background: #3d3d3d;
+    color: #fff;
+   display: inline-block;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 12px;
+    line-height: 11px;
+}
+div.seckill .shopp{
+	padding-bottom: 40px;
+}
+
+div.seckill .shopp dl{
+	width: 100%;
+	height: auto;
+	height: 144px;
+	display: block;
+	background: #fff;	
+}
+div.seckill .shopp li{
+	border-bottom: 1px solid  #e3e3e9;
+}
+div.seckill .shopp dl dt{
+	width: 130px;
+    height: 130px;
+    overflow: hidden;
+    float: left;
+    margin: 2px 4px;
+}
+div.seckill .shopp dl dt img{
+    width: 100%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+div.seckill .shopp dl dd{
+	width: -webkit-calc( 100% - 144px);
+	height: 100%;
+	float: left;
+}
+div.seckill .shopp dl dd p{
+	width: 100%;
+	height:40px;
+	line-height: 20px;
+    font-size: 14px;
+    overflow: hidden;
+    margin-top: 8px;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+div.seckill .shopp .price{
+	width: 100%;
+	height: 40px;
+	margin-top: 20px;
+}
+div.seckill .shopp .price div{
+   width: 50%;
+   height: 40px;
+
+   margin-left: 5px;
+   float: left;
+}
+.tyfq div.seckill .shopp .price div b,.ceb div.seckill .shopp .price div b{
+	display: inline-block;
+	font-weight: bold;
+	color: #ff6633;
+	font-size: 20px;
+	margin-top: 3px;
+}
+.thb div.seckill .shopp .price div b{
+	display: inline-block;
+	font-weight: bold;
+	color: rgb(243, 47, 48) ;
+	font-size: 20px;
+	margin-top: 3px;
+}
+
+.tyfq div.seckill .shopp .price div b i,.ceb div.seckill .shopp .price div b i{
+	font-weight: normal;
+	color: #ff6633;
+	font-size: 13px;
+
+}
+.thb div.seckill .shopp .price div b i{
+	font-weight: normal;
+	color: rgb(243, 47, 48) ;
+	font-size: 13px;
+
+}
+div.seckill .shopp .price div span{
+	display: block;
+	color: #d5d5d5;
+	text-decoration:line-through;
+	font-size: 13px;
+	margin-top: 7px;
+}
+.tyfq div.seckill .shopp .stock button,.ceb div.seckill .shopp .stock button{
+	float: right;
+    display: block;
+    width: 70px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    background: #ff6633;
+    text-align: center;
+    margin-top: -4px;
+    border: 0;
+}
+.thb div.seckill .shopp .stock button{
+	float: right;
+    display: block;
+    width: 70px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    background: rgb(243, 47, 48) ;
+    text-align: center;
+    margin-top: -4px;
+    border: 0;
+}
+div.seckill .shopp .stock button.state{
+	background: #999999;
+}
+
+div.seckill .shopp .stock{
+	width: 100%;
+	height: 35px;
+	position: relative;
+}
+div.seckill .shopp .stock progress{
+    width: 97px;
+    height: 12px;
+    line-height: 12px;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    margin-left: -8px;
+}
+div.seckill .shopp .stock progress {
+    width: 98px;
+    height: 12px;
+    line-height: 12px;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    margin-left: -8px;
+    background:#ddd;
+    border-radius:25px;
+    overflow: hidden;
+}
+
+div.seckill .shopp .stock progress::-moz-progress-bar{
+	  background: #ddd; 
+	  border-radius:25px;
+	 }
+div.seckill .shopp .stock progress::-webkit-progress-bar{ 
+	background:#ddd;
+	border-radius:25px;
+ }
+.tyfq div.seckill .shopp .stock progress::-webkit-progress-value ,.ceb div.seckill .shopp .stock progress::-webkit-progress-value  { 
+	background:#f63;border-radius:25px;
+ }
+
+.thb div.seckill .shopp .stock progress::-webkit-progress-value  { 
+	background: rgb(243, 47, 48) ;
+	border-radius:25px; 
+	}
+div.seckill .shopp .stock i{
+	position: absolute;
+	z-index: 2;
+	font-size: 12px;
+	line-height:12px;
+	color: #fff;
+	left: 8px;
+	top:15px;
+	width: 84px;
+	height: 12px;
+	line-height: 12px;
+    text-align: center;
+    -webkit-transform:scale(0.9);
+}
+div.seckill .shopp .stock span{
+	float: right;
+	font-size: 12px;
+	position: absolute;
+	top:14px;
+	right:5px;
+	color: #dcdcdc;
+}
+
+div.seckill .shopp .stock button.disable{
+	background:#999999;
+}
+.swiper-container {
+        width: 100%;
+        height: 47px;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        width: 60%;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .swiper-slide:nth-child(2n) {
+        width: 40%;
+    }
+    .swiper-slide:nth-child(3n) {
+        width: 20%;
+    }

@@ -1,0 +1,194 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-default" ng-click="doRefund(data)" ng-disabled="data.status != 0">退款</button>
+</div>
+
+<h2>退款信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>退款金额</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.refundAmount}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div ng-if="downPayment">
+<h2>首付款</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>金额</th>
+      <th>支付流水号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{downPayment.Amount}}</td>
+      <td>{{downPayment.PayNo}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div ng-if="billList">
+<h2>已还账单</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>账单编号</th>
+      <th>本金</th>
+	  <th>服务费</th>
+      <th>滞纳金</th>
+      <th>支付流水号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in billList">
+      <td>{{item.billNo}}</td>
+      <td>{{item.baseAmount}}</td>
+	  <td>{{item.chargeAmount}}</td>
+      <td>{{item.overdueFine}}</td>
+      <td>{{item.payNo}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>订单信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>订单编号</th>
+      <th>下单时间</th>
+      <th>订单状态</th>
+      <th>分期数</th>
+      <th>订单金额</th>
+      <th>优惠金额</th>
+      	<th ng-if="configSys != 'ceb'"> 首付金额</th>
+	<th ng-if="configSys != 'thb'">分期金额</th>
+      <th>支付状态</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.orderNo}}</td>
+      <td>{{data.createTime |date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{data.orderStatusText}}</td>
+      <td>{{data.installmentMonths}}</td>
+      <td>{{data.totalPrice}}</td>
+      <td>{{data.totalCoupon}}</td>
+       <td ng-if="configSys != 'ceb'">{{data.downPayment}}</td>
+			<td ng-if="configSys != 'thb'">{{data.installmentAmount}}</td>
+       <td >已付款</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>订购人信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>手机号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.mobile}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>商品清单</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>商品编号</th>
+      <th>商品</th>
+      <th>图片</th>
+      <th>价格</th>
+      <th>数量</th>
+      <th>合计</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.erpCode}}</td>
+      <td>{{data.skuName}}</td>
+      <td ng-if="data.erpCode != 'koo'">
+      	<img style="height: 100px;" src="{{imgHost}}/{{data.skuHeadThumbnail}}">
+      </td>
+      <td ng-if="data.erpCode == 'koo'">
+      	<img style="height: 100px;" src="{{data.skuHeadThumbnail}}">
+      </td>
+      <td>{{data.skuPirce}}</td>
+      <td>{{data.skuCount}}</td>
+      <td>{{data.totalPrice}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="tablehr">
+  <span><B>共计</B>：{{data.totalPrice}}</span>
+</div>
+<h2>优惠信息</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th>优惠类型</th>
+    <th style="width: 100px;">合计</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="cou in discount">
+    <td>{{cou.typeText}} <span ng-if="cou.type==1||cou.type==2">（满{{cou.threshold}}减{{cou.discount}}）</span></td>
+    <td>{{cou.discount}}</td>
+  </tr>
+  </tbody>
+</table>
+<div class="tablehr">
+  <span><B>共计优惠</B>：{{data.totalCoupon}}</span>
+</div>
+
+<h2>操作日志</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th style="width: 60px; align: center;">序号</th>
+      <th style="width: 180px; align: center;">时间</th>
+      <th style="width: 100px; align: center;">操作</th>
+      <th style="width: 100px; align: center;">操作人</th>
+      <!-- <th>备注</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="log in logs">
+      <td>{{$index + 1}}</td>
+      <td>{{log.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{log.message}}</td>
+      <td>{{log.operatorName}}</td>
+      <!-- <td></td> -->
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal fade" id="refund-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">退款：{{preparedRefund.productName}}，{{preparedRefund.memberName}}({{preparedRefund.memberPhone}})</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" name="refundAmount" placeholder="退款金额" value="" autofocus ng-model="refundAmount">
+        <em ng-show="amountErr">{{amountErr}}</em>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="refund()">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

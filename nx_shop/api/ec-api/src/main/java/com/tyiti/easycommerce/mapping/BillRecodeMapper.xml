@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.BillRecodeDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.BillRecode">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="bill_id" property="billId" jdbcType="VARCHAR" />
+		<result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+		<result column="pay_no" property="payNo" jdbcType="VARCHAR" />
+		<result column="pay_state" property="payState" jdbcType="VARCHAR" />
+
+		<result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="refund_time" property="refundTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<insert id="addBillRecode" parameterType="com.tyiti.easycommerce.entity.BillRecode"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into
+		t_bill_record
+		(bill_id, pay_state, create_time, trade_no,pay_no)
+		values
+		(#{orderId}, #{payState}, now(), #{tradeNo},#{payNo})
+	</insert>
+
+	<insert id="insertBillRecode" parameterType="com.tyiti.easycommerce.entity.BillRecode"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO t_bill_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="billId!= null and billId!=''">
+				bill_id,
+			</if>
+			<if test="tradeNo != null and tradeNo!=''">
+				trade_no,
+			</if>
+			<if test="payState != null and payState !=''">
+				pay_state,
+			</if>
+			<if test="payTime != null and payTime != ''">
+				pay_time,
+			</if>
+			<if test="payNo != null and payNo !=''">
+				pay_no,
+			</if>
+			<if test="accNo != null and accNo !=''">
+				acc_no,
+			</if>
+			<if test="cstName != null and cstName !=''">
+				cst_name,
+			</if>
+			<if test="openId != null and openId !=''">
+				openId,
+			</if>
+			<if test="isSubscribe != null and isSubscribe !=''">
+				is_subscribe,
+			</if>
+			<if test="ip!= null and ip!=''">
+				ip,
+			</if>
+			<if test="createTime!= null and createTime!=''">
+				create_time,
+			</if>
+			<if test="refundTime != null and refundTime!=''">
+				refund_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="billId!= null and billId!=''">
+				#{billId},
+			</if>
+			<if test="tradeNo != null and tradeNo!=''">
+				#{tradeNo},
+			</if>
+			<if test="payState != null and payState !=''">
+				#{payState},
+			</if>
+			<if test="payTime != null and payTime != ''">
+				#{payTime},
+			</if>
+			<if test="payNo != null and payNo !=''">
+				#{payNo},
+			</if>
+			<if test="accNo != null and accNo !=''">
+				#{accNo},
+			</if>
+			<if test="cstName != null and cstName !=''">
+				#{cstName},
+			</if>
+			<if test="openId != null and openId != ''">
+				#{openId},
+			</if>
+			<if test="isSubscribe != null and isSubscribe !=''">
+				#{isSubscribe},
+			</if>
+			<if test="ip!= null and ip!=''">
+				#{ip},
+			</if>
+			<if test="createTime!= null and createTime!=''">
+				#{createTime},
+			</if>
+			<if test="refundTime != null and refundTime !=''">
+				#{refundTime},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 支付成功，修改流水表支付状态 -->
+	<update id="updateBillRecode" parameterType="com.tyiti.easycommerce.entity.BillRecode">
+		update
+		t_bill_record
+		p
+		set
+		p.pay_state='A2',
+		p.pay_no = #{payNo},
+		p.acc_no = #{accNo},
+		p.cst_name = #{cstName},
+		p.ip = #{ip},
+		p.pay_time = now()
+		where
+		p.trade_no = #{tradeNo};
+	</update>
+
+	<!-- 通过支付流水号修改 -->
+	<update id="updatePayStateByPayNo" parameterType="com.tyiti.easycommerce.entity.BillRecode">
+		update
+		t_bill_record p
+		set
+		p.pay_state=#{payState}
+		where
+		p.pay_no = #{payNo};
+	</update>
+
+	<!--是否存在记录 -->
+	<select id="getCount" parameterType="com.tyiti.easycommerce.entity.BillRecode"
+		resultType="java.lang.Integer">
+		SELECT COUNT(0) FROM
+		t_bill_record where bill_id=#{billId}
+		and pay_no=#{payNo}
+	</select>
+
+</mapper>

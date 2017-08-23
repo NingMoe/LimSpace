@@ -1,0 +1,85 @@
+<div class="pj-site-container idcardcredit contactPerson sign" style="width: 100%;height:100%;background: #fff!important">
+  <img src="../img/contacts.png" alt="" />
+  <p>联系人信息</p>
+  <div class="information">
+        <p class="contacts">直系亲属</p>
+        <% if(data[0]){ %>
+            <% if(data[0].verifyState == 'A1' || data[0].verifyState == 'A2'){ %>
+                <p class="familyname"><input placeholder="请输入姓名" name="familyname" value="<%=data[0].contactName %>" lial></p>
+                <div class="familyrelationship">
+                    <% if(data[0].relationship == '') {%>
+                      <span>请选择亲属关系</span>
+                    <%} else if(data[0].relationship == 'A1'){ %>
+                      <span data-value="A1">父母</span>
+                    <%} else if(data[0].relationship == 'A2'){ %>
+                      <span data-value="A2">配偶</span>
+                    <%} else if(data[0].relationship == 'A3'){ %>
+                      <span data-value="A3">子女</span>
+                    <% } %>
+                    <ul style="display: none">
+                        <li data-value="A1">父母</li>
+                        <li data-value="A2">配偶</li>
+                        <li data-value="A3">子女</li>
+                    </ul>
+                </div>
+                <p class="familytel"><input placeholder="请输入11位手机号" name="familytel" value="<%=data[0].contactPhone %>" lial></p>
+            <% }else if(data[0].verifyState == 'A3' || data[0].verifyState == 'A4'){%>
+                <p class="familyname"><input placeholder="请输入姓名" name="familyname" value="<%=data[0].contactName %>" lial disabled="disabled"></p>
+                <div class="familyrelationship">
+                    <% if(data[0].relationship == '') {%>
+                      <span>请选择亲属关系</span>
+                    <%} else if(data[0].relationship == 'A1'){ %>
+                      <span data-value="A1">父母</span>
+                    <%} else if(data[0].relationship == 'A2'){ %>
+                      <span data-value="A2">配偶</span>
+                    <%} else if(data[0].relationship == 'A3'){ %>
+                      <span data-value="A3">子女</span>
+                    <% } %>
+                    <ul style="display: none">
+                        <li data-value="A1">父母</li>
+                        <li data-value="A2">配偶</li>
+                        <li data-value="A3">子女</li>
+                    </ul>
+                </div>
+                <p class="familytel"><input placeholder="请输入11位手机号" name="familytel" value="<%=data[0].contactPhone %>" lial disabled="disabled"></p>
+            <% } %>
+        <% } else {%>
+          <p class="familyname"><input placeholder="请输入姓名" name="familyname" value="" lial></p>
+          <div class="familyrelationship">
+              <span>请选择亲属关系</span>
+              <ul style="display: none;">
+                <li data-value="A1">父母</li>
+                <li data-value="A2">配偶</li>
+                <li data-value="A3">子女</li>
+              </ul>
+          </div>
+          <p class="familytel"><input placeholder="请输入11位手机号" name="familytel" value="" lial></p>
+        <% } %>
+        
+        <p class="contacts">朋友</p>
+        <% if(data[1]){ %>
+            <% if(data[1].verifyState == 'A1' || data[1].verifyState == 'A2'){ %>
+              <p class="friendname"><input placeholder="请输入姓名" name="friendname" value="<%=data[1].contactName %>" lial></p>
+              <p class="friendtel"><input placeholder="请输入11位手机号" name="friendtel" value="<%=data[1].contactPhone %>" lial></p>
+            <% }else if(data[1].verifyState == 'A3' || data[1].verifyState == 'A4'){%>
+              <p class="friendname"><input placeholder="请输入姓名" name="friendname" value="<%=data[1].contactName %>" lial disabled="disabled"></p>
+              <p class="friendtel"><input placeholder="请输入11位手机号" name="friendtel" value="<%=data[1].contactPhone %>" lial disabled="disabled"></p>
+            <% } %>
+        <% } else {%>
+          <p class="friendname"><input placeholder="请输入姓名" name="friendname" value="" lial></p>
+          <p class="friendtel"><input placeholder="请输入11位手机号" name="friendtel" value="" lial></p>
+        <% } %>
+        
+        <p class="prompt"></p>
+        <% if(data[0]){ %>
+          <% if(data[0].verifyState){ %>
+            <p><button class="submint" data-verifyState="<%=data[0].verifyState %>">下一步</button></p>
+          <% }else{ %>   
+            <p><button class="submint" data-verifyState="">下一步</button></p>
+          <% } %> 
+        <% }else{ %>   
+            <p><button class="submint" data-verifyState="">下一步</button></p> 
+        <% } %> 
+    </div>
+    <div class="z_box100 hidden"><img class="loading" src="../img/loading_circle_40b82ef.gif" alt=""></div>
+</div>

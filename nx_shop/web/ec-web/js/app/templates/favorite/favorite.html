@@ -1,0 +1,64 @@
+<div class="pj-site-container categorylist">
+  <!-- <div class="search">
+    <span></span>
+    <input type="text" placeholder="iphone6s"></input>
+  </div> -->
+  <% if(data != ''){ %>
+    <ul>
+    <%  _.each(data,function(item){ %>
+      <%if(item.erpCode=='koo'){ %>
+        <li class="clearfix"  onclick="location.href='#orientalindex/<%= item.id %>'">
+          <img src="<%= item.imagesOriginal.split(',')[0] %>">
+          <div class="home_box">
+            <div class="nav_box">
+            <p><% if (item.name.length >30) { %><%=item.name.substr(0,30) %> ...<%} else { %><%=item.name%> <% } %> </p>
+              <% if(item.installment){%>
+                  <div class="states"><i>月供 </i><span>￥<%= (item.price/item.installment.split(",")[item.installment.split(",").length-1]).toFixed(2)%></span> <h2>x<h3><%=item.installment.split(",")[item.installment.split(",").length-1] %></h3></h2>
+                  </div>
+              <%}%>
+            </div>
+            <div class="nav_box last-div states">
+              <div><span>￥<%= item.price.toFixed(2)%></span></div>
+            </div>
+            <div class="statesthb last-div hidden">
+              <span>￥<%= item.price%></span>
+              <span>￥<%= item.originalPrice%></span>
+            </div>
+          </div>
+          <!-- <span class="commodity"><%= item.name.substr(0,30) %></span>
+          <span class="activity">满赠</span>
+          <span class="price">￥<%= item.price%></span>
+          <span class="original-price">￥<%= item.original_price%></span> -->
+        </li>
+      <% }else{%>
+        <li class="clearfix"  onclick="location.href='#product/<%= item.id %>'">
+          <img src="<%= config+item.imagesOriginal.split(',')[0] %>">
+        <div class="home_box">
+          <div class="nav_box">
+          <p><% if (item.name.length >30) { %><%=item.name.substr(0,30) %> ...<%} else { %><%=item.name%> <% } %> </p>
+            <% if(item.installment){%>
+                <div class="states"><i>月供 </i><span>￥<%= (item.price/item.installment.split(",")[item.installment.split(",").length-1]).toFixed(2)%></span> <h2>x<h3><%=item.installment.split(",")[item.installment.split(",").length-1] %></h3></h2>
+                </div>
+            <%}%>
+          </div>
+          <div class="nav_box last-div states">
+            <div><span>￥<%= item.price.toFixed(2)%></span></div>
+          </div>
+          <div class="statesthb last-div hidden">
+            <span>￥<%= item.price%></span>
+            <span>￥<%= item.originalPrice%></span>
+          </div>
+        </div>
+        <!-- <span class="commodity"><%= item.name.substr(0,30) %></span>
+        <span class="activity">满赠</span>
+        <span class="price">￥<%= item.price%></span>
+        <span class="original-price">￥<%= item.original_price%></span> -->
+      </li>
+      <% }%>
+    <% }) %>
+    </ul>
+  <% } else{ %>
+      <img src="../img/wushoucang(1).png" alt="" style="display: block;width: 131px;height: 107px;margin: 140px auto 20px;">
+      <p style="font-size: 15px;color: #666;text-align: center;">任性的你，暂无收藏内容</p>
+  <% } %>
+</div>

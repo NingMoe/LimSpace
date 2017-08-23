@@ -1,0 +1,54 @@
+<div class="select-region" style="display: none;">
+ <header class="ui-bar main-header default addres">
+   <ul>
+     <li class="tit-one" data-level="1">请选择</li>
+     <li class="tit-two" data-level="2">请选择</li>
+     <li data-level="3">请选择</li>
+   </ul>
+ </header>
+ <div class="pj-site-container addres-cont" style="position: absolute;top:44px;width: 100%;">
+   <div>
+     <ul class="one state" data-level="1"></ul>
+     <ul class="two city" data-level="2"></ul>
+     <ul class="three county" data-level="3"></ul>
+    </div>
+  </div>
+</div>
+
+<div class="pj-site-container idcardcredit jobInformation sign" style="width: 100%;height:100%;background: #fff!important">
+  <img src="../img/company.png" alt="" />
+  <p>公司信息</p>
+  <div class="information">
+      <% if(data.companyName){ %>
+        <% if(data.verifyState == 'A1' || data.verifyState == 'A2'){ %>
+          <p class="jobname"><input placeholder="公司名称" name="jobname" value="<%=data.companyName %>" optional readonly></p>
+        <% }else if(data.verifyState == 'A3' || data.verifyState == 'A4'){%>
+          <p class="jobname"><input placeholder="公司名称" name="jobname" value="<%=data.companyName %>" optional disabled="disabled" readonly></p>
+        <% } %>
+      <% } else {%>
+          <p class="jobname"><input placeholder="公司名称" name="jobname" value="" optional readonly></p>
+      <% } %>
+        <% if(data.province && data.city && data.county){ %>
+          <% if(data.verifyState == 'A1' || data.verifyState == 'A2'){ %>
+            <p class="jobaddress"><input placeholder="公司所在地区" name="jobaddress" value="<%=data.province+data.city+data.county %>" optional readonly></p>
+          <% }else if(data.verifyState == 'A3' || data.verifyState == 'A4'){%>
+            <p class="jobaddress"><input placeholder="公司所在地区" name="jobaddress" value="<%=data.province+data.city+data.county %>" optional disabled="disabled" readonly></p>
+          <% } %>
+        <% } else {%>
+        <p class="jobaddress"><input placeholder="公司所在地区" name="jobaddress" value="" optional readonly></p>
+        <% } %>
+        <% if(data.companyAddress){ %>
+          <% if(data.verifyState == 'A1' || data.verifyState == 'A2'){ %>
+            <p class="detailaddress"><input placeholder="请填写公司详细地址" name="detailaddress" value="<%=data.companyAddress %>" optional></p>
+          <% }else if(data.verifyState == 'A3' || data.verifyState == 'A4'){%>
+            <p class="detailaddress"><input placeholder="请填写公司详细地址" name="detailaddress" value="<%=data.companyAddress %>" optional disabled="disabled"></p>
+          <% } %>
+        <% } else {%>
+        <p class="detailaddress"><input placeholder="请填写公司详细地址" name="detailaddress" value="" optional></p>
+        <% } %>
+        <p class="prompt"></p>
+        <p><button class="submint" data-verifyState="<%=data.verifyState %>" data-state="<%=data.state %>" data-emailSuf="<%=data.emailSuf %>">下一步</button></p>
+      
+    </div>
+    <div class="z_box100 hidden"><img class="loading" src="../img/loading_circle_40b82ef.gif" alt=""></div>
+</div>

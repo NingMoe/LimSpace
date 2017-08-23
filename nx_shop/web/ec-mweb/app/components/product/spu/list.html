@@ -1,0 +1,42 @@
+<div class="spu-container" ng-class="{'show-tree': showTree}">
+  <!--a class="toggle-tree" ng-click="events.toggleTree()">{{showTree ? '隐藏' : '显示'}}分类树</a-->
+  <form class="form-inline" ng-submit="events.search()">
+	  <div class="form-group">
+	    <label for="spuName">SPU名称</label>
+	    <input type="text" class="form-control" name="spuName" placeholder="商品名称" ng-model="searchInput.spuName">
+	  </div>
+	  <button type="submit" class="btn btn-primary">搜索</button>
+	</form>
+  <a ng-show="currentId > 0 && currentNode.level == 2 && currentNode.hasTemplate" class="btn btn-primary pull-right" ui-sref="addSpu({categoryId: currentId})">添加SPU到{{currentNode.text}}</a>
+  <a ng-show="currentId > 0 && currentNode.level == 2 && !currentNode.hasTemplate" class="btn btn-primary pull-right" ui-sref="categoryTemplate({id: currentNode.id})">新建{{currentNode.text}}的模板</a>
+
+
+  <div id="tree-container" class="pull-left">
+    <div id="tree"></div>
+  </div>
+
+  <div class="spu-list-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th style="width: 300px;">SPU标题</th>
+          <th>创建时间</th>
+          <th>更新时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="spu in spus">
+          <td>{{$index + 1}}</td>
+          <td>{{spu.name}}</td>
+          <td>{{spu.createTime | date: 'yyyy-MM-dd HH:mm'}}</td>
+          <td>{{spu.updateTime | date: 'yyyy-MM-dd HH:mm'}}</td>
+          <td>
+            <a ng-href="#/product/spu/{{spu.id}}">编辑</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

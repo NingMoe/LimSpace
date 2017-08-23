@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PromotionRaffleDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.PromotionRaffle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="prize_id" property="prizeId" jdbcType="INTEGER" />
+    <result column="promotion_id" property="promotionId" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="CHAR" />
+    <result column="is_receive" property="isReceive" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="expire_time" property="expireTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, prize_id, promotion_id, code, create_time, real_name, mobile, is_receive, 
+    address, update_time, expire_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_promotion_raffle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_promotion_raffle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.PromotionRaffle" >
+    insert into t_promotion_raffle (id, user_id, prize_id, 
+      promotion_id, code, create_time, 
+      real_name, mobile, is_receive, 
+      address, update_time, expire_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{prizeId,jdbcType=INTEGER}, 
+      #{promotionId,jdbcType=INTEGER}, #{code,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{realName,jdbcType=VARCHAR}, #{mobile,jdbcType=CHAR}, #{isReceive,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.PromotionRaffle" >
+    insert into t_promotion_raffle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="prizeId != null" >
+        prize_id,
+      </if>
+      <if test="promotionId != null" >
+        promotion_id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="isReceive != null" >
+        is_receive,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="expireTime != null" >
+        expire_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="prizeId != null" >
+        #{prizeId,jdbcType=INTEGER},
+      </if>
+      <if test="promotionId != null" >
+        #{promotionId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="isReceive != null" >
+        #{isReceive,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null" >
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.PromotionRaffle" >
+    update t_promotion_raffle
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="prizeId != null" >
+        prize_id = #{prizeId,jdbcType=INTEGER},
+      </if>
+      <if test="promotionId != null" >
+        promotion_id = #{promotionId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="isReceive != null" >
+        is_receive = #{isReceive,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTime != null" >
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.PromotionRaffle" >
+    update t_promotion_raffle
+    set user_id = #{userId,jdbcType=INTEGER},
+      prize_id = #{prizeId,jdbcType=INTEGER},
+      promotion_id = #{promotionId,jdbcType=INTEGER},
+      code = #{code,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      real_name = #{realName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=CHAR},
+      is_receive = #{isReceive,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectPromotionRaffleList" parameterType="java.util.Map" resultType="java.util.Map">
+ 	select 
+    t1.id ,t2.name promotionName ,t3.name prizeName ,t4.mobile mobile ,t1.real_name realName ,t1.is_receive isReceive ,
+    t1.address ,t1.create_time createTime ,t1.expire_time expireTime ,
+    case when t1.code = 0 then '中奖了'  
+    	 when t1.code = 3 then '未中奖'
+    	 when t1.code = 4 then '无奖品可抽'
+    	 when t1.code = 5 then '异常' end  codeText
+    from t_promotion_raffle  t1 
+    left join t_promotion t2 on t1.promotion_id = t2.id 
+    left join t_promotion_prize t3 on t3.id = t1.prize_id
+    left join t_user t4 on t4.id = t1.user_id
+    where <include refid="base_where"></include>
+    <if test="sort == null or sort == ''">
+			order by t1.create_time desc 
+	</if>
+	<if test="limit != null and offset != null">
+		LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+	</if>
+  </select>
+  
+   <select id="selectPromotionRaffleCount" parameterType="java.util.Map" resultType="java.lang.Long">
+ 	select  count(*)
+    from t_promotion_raffle t1
+    left join t_promotion t2 on t1.promotion_id = t2.id 
+    left join t_promotion_prize t3 on t3.id = t1.prize_id
+    left join t_user t4 on t4.id = t1.user_id
+    where<include refid="base_where"></include>
+  </select>
+  
+<sql id="base_where" >
+ 	1=1  
+ 	 <if test="promotionId !=null and promotionId !=''">
+  	and t2.id =  #{promotionId,jdbcType=INTEGER} 
+  	</if>
+  	 <if test="name !=null and name !=''">
+  	and t1.name like CONCAT(CONCAT('%',#{name,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="mobile !=null and mobile !=''">
+  	and t4.mobile = #{mobile,jdbcType=VARCHAR}
+  	</if>
+ 	<if test="startTime != null and  startTime !=''">
+		and  t1.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime != null and  endTime !=''">
+		and  t1.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+	</if>
+  </sql>
+</mapper>

@@ -1,0 +1,1197 @@
+.quota progress{
+    margin: 0 auto;
+    display: block;
+    height: 6px;
+    margin-top: 6px;
+    margin-left: 20%;
+}
+.quota button{
+	display: inline-block;
+    float: left;
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+}
+.quota{
+	padding-bottom: 10px;
+}
+.selfmsg .list{
+	width: 100%;
+  padding-bottom: 71px;
+  /*padding-top:12px;*/
+}
+.selfmsg .list li{
+	width:100%;
+  background: #fff;
+}
+.selfmsg .list .pto p span{
+ line-height: 66px;
+}
+.selfmsg .list li p{
+	width: 96%;
+	height:50px;
+  margin-left:10px;
+	/*float: left;*/
+  position:relative;
+	background:url('../img/jiantou@2x.png') no-repeat;
+	background-size: 23px 23px;
+	background-position: 100% center;
+  border-bottom: 1px solid #e3e3e3;
+}
+.selfmsg .list li p span{
+  display: inline;
+	font-size: 15px;
+	color: #333333;
+	line-height: 50px;
+}
+.selfmsg .list .pto p{
+  height:66px;
+  line-height: 66px;
+}
+.selfmsg .list .pto p i{
+  width: 40px;
+  height:40px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-top:13px;
+}
+.selfmsg .list .pto p i img{
+  width: 40px;
+  margin-top:-webkit-calc(50% - 20px);
+}
+.selfmsg .list .bdphone p{
+  background: none;
+}
+.selfmsg .list li p i{
+  position:absolute;
+  right:23px;
+  line-height: 50px;
+  color:#999999;
+  width:200px;
+  text-align: right;
+  display: inline-block;
+  height:50px;
+}
+.selfmsg .list .bdphone p i{
+  position:absolute;
+  right:10px;
+}
+/*改变昵称*/
+.selfmsg .mask{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:100%;
+  background: #000;
+  opacity: 0.6;
+}
+.selfmsg .changenick .nk,.selfmsg .changesex .sx{
+  width:88%;
+  height:150px;
+  background: #fff;
+  border-radius: 12px;
+  position: absolute;;
+  left:0;
+  right:0;
+  margin: -75% auto ;
+}
+.selfmsg .changenick .nk{
+  width:88%;
+  height:150px;
+  z-index: 900;
+}
+.selfmsg .changenick .nk h3,.selfmsg .changesex .sx h3{
+  height:50px;
+  line-height: 50px;
+  text-align: center;
+}
+.selfmsg .changenick .nk input{
+  width:70%;
+  height:34px;
+  border: 1px solid #e3e3e3;
+  box-shadow: none;
+  display: block;
+  margin:0 auto;
+  font-size: 14px;
+  padding-left:10px;
+}
+.selfmsg .changenick .nk .judge{
+  border-top:1px solid #e3e3e3;
+  margin-top:15px;
+}
+.selfmsg .changenick .nk span{
+  height:41px;
+  display: inline-block;
+  text-decoration: none;
+  width:48%;
+  text-align: center;
+  line-height: 44px;
+  font-size: 17px;
+}
+.selfmsg .changenick .clear{
+  color:#666666;
+  border-right:1px solid #e3e3e3;
+}
+.selfmsg .changenick .sure{
+  color:#dd2727;
+}
+/*改变性别*/
+.selfmsg .changesex{
+  display: none;
+}
+.selfmsg .changesex .sx{
+  width:70%;
+  height:220px;
+  z-index: 900;
+}
+.selfmsg .changesex .sx h3{
+  border-bottom: 1px solid #e3e3e3;
+}
+.selfmsg .changesex .sx p{
+  display: inline-block;
+  width:48%;
+  text-align: center;
+  text-decoration: none;
+  color:#000;
+}
+.selfmsg .changesex .sx img{
+  width:80px;
+  margin:20px 0 15px;
+}
+.selfmsg .changesex .sx span{
+  position:absolute;
+
+}
+.mask{
+ z-index: 202;
+}
+/*日期插件*/
+#datescroll div{float: left;margin-left: 10%;padding-right: 22px;}
+#datescroll_datetime div{float: left;margin-left: 10%;padding-right: 22px;}
+#yearwrapper{position: absolute;left: 0;top:45px;bottom: 60px;width:80%;}
+#monthwrapper{position: absolute;left: 26%;top:45px;bottom: 60px;width:80%;}
+#daywrapper{position: absolute;left: 50%;top:45px;bottom: 60px;width:80%;}
+#yearwrapper ul li{color: #666666;font-size: 14px;}
+#monthwrapper ul li{color: #666666;font-size: 14px;}
+#daywrapper ul li{color: #666666;font-size: 14px;}
+#markyear{position:relative; margin-left: 76px;top:-2px;}
+#markmonth{position:relative; margin-left: 40px;top:-2px;}
+#markday{position:relative; margin-left: 42px;top:-2px;}
+#dateheader{width: 100%;height: 50px;background: #79C12F;text-align: center;color: #fff;line-height: 50px;font-size: 20px;}
+#setcancle ul{text-align: center;line-height: 70px; margin:1px auto;font-size: 20px;}
+#setcancle ul li{border-radius:3px;float: left;width: 40%;height: 30px;list-style-type: none;font-size:16px;}
+#dateconfirm{position: absolute;color:#333;right:20px;}
+#datecancle{position: absolute;left:20px;width: 40%;color:#333;}
+#dateshadow{display: none;z-index: 202;position: absolute;width: 100%;height: 100%;top:0;left:0;right:0;margin:0 auto;background: #000; filter:alpha(Opacity=50);-moz-opacity:0.5;opacity: 0.5;}
+#datePage{font-size: 22px; border-radius: 3px; background: #fff;position:absolute;top:15%;left:0;right:0;margin:0 auto;
+width: 80%;;height: 306px;border-radius: 12px;z-index:9999999;}
+#datetitle{width: 100%;height:50px;text-align: center;color:#000;line-height: 50px; font-size: 16px;}
+#datetitle h1{font-weight:normal;}
+#datemark{border-left:2px solid #dd2727;font-size: 10px; line-height: 36px; color:#dd2727;left:5%;width: 90%;height: 37px;position:absolute;top:128px; background: #fff;}
+#datemark a#markyear{margin-left:34%;position:absolute;}
+#datemark a#markmonth{margin-left:60%;position:absolute;}
+#datemark a#markday{margin-left:86%;position:absolute;}
+#timemark{font-size: 18px;left:5%;width: 90%;height: 20px;position:absolute;top:242px;background:#fff;}
+#datescroll{width:94%; margin:8px 3%;height: 185px; background: #f7f6f6;text-align: center;line-height: 40px;}
+#datescroll_datetime{display: none;background:#F8F8F8;width:94%; margin:10px 3%;margin-top: 10px;border: 1px solid #E0E0E0;border-radius: 4px;height: 120px;text-align: center;line-height: 40px;}
+#yearwrapper ul,#monthwrapper ul,#daywrapper ul{width:40%;}
+#Hourwrapper ul,#Minutewrapper ul,#Secondwrapper ul{width:40%;}
+#dateFooter{width:100%;background: #fff;height: 70px;bottom: 0px;position: absolute;border-radius: 12px;}
+.person div{
+    padding-top: 15px;
+}
+.person div p{
+    height: 50px;
+    line-height: 50px;
+    padding-left: 15px;
+    color: #666;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+}
+.person div p span{
+    color: #ccc;
+}
+.person div p i{
+    display: inline-block;
+    width: 48px;
+}
+.person div p:last-child{
+    border-bottom: none;
+}
+.person h3{
+    color: #999;
+    margin-left: 15px;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+}
+.person ul{
+    background: #fff;
+    width: 100%;
+}
+.person ul li{
+    margin: 0 15px;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #ccc;
+    width: -webkit-calc( 100% - 30px);
+}
+.person ul li:last-child{
+    border-bottom: none;
+}
+.person ul li span:nth-child(1){
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+}
+.person ul li span:nth-child(2){
+    width: 48%;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+}
+.person ul li span:nth-child(3){
+    width: 25%;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+}
+.person  .mycard{
+    height: 50px;
+    line-height: 50px;
+    padding-left: 15px;
+    margin-top: 15px;
+    background: url(../img/right1.jpg) no-repeat #fff;
+    background-size: 12px 21px;
+    background-position: 95% center;
+}
+.bankcard ul{
+    padding-top: 15px;
+}
+.bankcard ul li{
+    margin-bottom: 10px;
+    background: #fff;
+    height: 50px;
+    color: #666;
+    padding-left: 19px;
+    line-height: 50px;
+}
+.bankcard ul li img{
+    width: 37px;
+    height: 37px;
+    float: left;
+    margin-top: 23px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.bankcard ul li p{
+    padding-top: 22px;
+    display: inline-block;
+    float: left;
+}
+.bankcard ul li span{
+    display: block;
+    margin-top: 10px;
+    color: #ccc;
+    float: left;
+}
+.bankcard>img{
+    width: 109px;
+    display: block;
+    padding-top: 148px;
+    margin: 0 auto;
+}
+.bankcard>p{
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 20px;
+}
+.idcardcredit>img{
+    width: 77px;
+    display: block;
+    padding-top: 80px;
+    margin: 0 auto;
+}
+.idcardcredit>p{
+    text-align: center;
+    font-size: 14px;
+    color: #89d16e;
+    margin-top: 10px;
+}
+.jobInformation>p{
+    color: #80bedf;
+}
+.contactPerson>p{
+    color: #ff852a;
+}
+.emailVerification>p{
+    color: #b4c0f6;
+}
+.creditcard>p{
+    color: #f5bb3f;
+}
+
+.idcardcredit .prompt{
+    color: red;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+}
+.idcardcredit .information .realname input{
+    background:#fff url('../img/realname@2x.png')  no-repeat;
+    background-size:16px 17px;
+    background-position: 0px center;
+    width: -webkit-calc(100% - 30px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+    height: 45px;
+    line-height: 16px;
+}
+.idcardcredit .information .idcard input{
+    background:#fff url('../img/idcard@2x.png')  no-repeat;
+    background-size:19px 15px;
+    background-position: 0px center;
+    width: -webkit-calc(100% - 30px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+}
+.idcardcredit .information .jobname input{
+    background:#fff url('../img/jobname.png')  no-repeat;
+    background-size:19px 17px;
+    background-position: 0px center;
+    width: -webkit-calc(100% - 30px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+    height: 45px;
+    line-height: 16px;
+}
+.idcardcredit .information .jobaddress input{
+    background:#fff url('../img/jobaddress.png')  no-repeat;
+    background-size:21px 16px;
+    background-position: 0px center;
+    width: -webkit-calc(100% - 30px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+    height: 45px;
+    line-height: 16px;
+}
+.idcardcredit .information .detailaddress input{
+    width: -webkit-calc(100% - 30px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+    height: 45px;
+    line-height: 16px;
+    background: #fff;
+}
+.idcardcredit .information .familyname input,.idcardcredit .information .friendname input{
+    background:#fff url('../img/contactname.png')  no-repeat;
+    background-size:16px 17px;
+    background-position: 0px center;
+    width: -webkit-calc(100% - 30px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+    height: 45px;
+    line-height: 16px;
+}
+.idcardcredit .information .familyrelationship{
+    background: url(../img/contact.png) no-repeat;
+    background-size: 17px 15px;
+    background-position: 5% 15px;
+    width: 95%;
+    min-height: 45px;
+    line-height: 16px;
+    border: none;
+    font-size: 14px;
+    position: relative;
+    z-index: 10;
+    padding-left: 5%;
+}
+.idcardcredit .information .familyrelationship{
+    position: relative;
+}
+.idcardcredit .information .familyrelationship span{
+    position: absolute;
+    z-index: 2;
+    left: 47px;
+    top: 0;
+    width: 50%;
+    text-align: left;
+    color: #aaa;
+    line-height: 45px;
+}
+.idcardcredit .information .familytel input,.idcardcredit .information .friendtel input{
+    background:#fff url('../img/contacttel.png')  no-repeat;
+    background-size:13px 19px;
+    background-position: 0px center;
+    width: -webkit-calc(100% - 30px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+    height: 45px;
+    line-height: 16px;
+}
+.idcardcredit .information .email input{
+    background:#fff url('../img/email@2x.png')  no-repeat;
+    background-size:18px 13px;
+    background-position: 0px center;
+    width: -webkit-calc(100% - 150px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+    height: 45px;
+    line-height: 16px;
+}
+.idcardcredit .information .bankcard input{
+    background:#fff url('../img/bankcard.png')  no-repeat;
+    background-size:17px 13px;
+    background-position: 0px center;
+    width: -webkit-calc(100% - 130px);
+    overflow: hidden;
+    text-indent:0;
+    padding-left: 30px;
+    height: 45px;
+    line-height: 16px;
+}
+.idcardcredit .information .realname,
+.idcardcredit .information .idcard,
+.idcardcredit .information .jobname,
+.idcardcredit .information .jobaddress,
+.idcardcredit .information .detailaddress,
+.idcardcredit .information .familyname,
+.idcardcredit .information .familyrelationship,
+.idcardcredit .information .familytel,
+.idcardcredit .information .friendname,
+.idcardcredit .information .friendtel,
+.idcardcredit .information .email,
+.idcardcredit .information .bankcard{
+    border-bottom: 1px solid #ccc;
+}
+.tyfq .idcardcredit .information p.contacts{
+    width: 80%!important;
+    height: 15px;
+    line-height: 15px;
+    font-size: 14px;
+    margin-left: 11px!important;
+    border-left: 2px solid #fe852a;
+    color: #747474;
+    padding-left: 8px;
+    margin-top: 15px;
+}
+.emailVerification .information p.email span{
+    width: 50px;
+    margin-left: 10px;
+    color: #b4c0f6;
+}
+.tyfq .idcardcredit .information p .submint{
+    background: #89d16e;
+    margin-bottom: 50px;
+}
+.tyfq .jobInformation .information p .submint{
+    background: #80bedf;
+}
+.tyfq .contactPerson .information p .submint{
+    background: #ff852a;
+}
+.tyfq .emailVerification .information p .submint{
+    background: #b4c0f6;
+}
+.tyfq .creditcard .information p .submint{
+    background: #f5bb3f;
+}
+.progress div img{
+    width: 29px;
+    height: 29px;
+    float: left;
+    margin-right: 17px;
+}
+.progress div span.time{
+    width: 70px;
+    height: 29px;
+    font-size: 12px;
+    color: #ccc;
+    float: left;
+    margin-left: 22px;
+    margin-right: 17px;
+}
+.progress div div{
+    float: left;
+    font-size: 15px;
+}
+.progress div.submit{
+    padding-top: 30px;
+}
+.progress .submittext{
+    line-height: 29px;
+}
+.progress .review{
+    font-size: 12px;
+    color: #666;
+}
+.progress .line1{
+    width: -webkit-calc( 100% - 123px );
+    height: 53px;
+    border-left: 1px solid #fe852a;
+    margin-left: 122px;
+}
+.progress .line2{
+    width: -webkit-calc( 100% - 123px );
+    height: 53px;
+    border-left: 1px solid #ccc;
+    margin-left: 122px;
+}
+.progress .conclusion{
+    color: #fe852a;
+}
+.progress .conclusion span{
+    font-size: 12px;
+}
+.progress .conclusion div{
+    background: url(../img/conclusion-tyfq@2x.png) no-repeat;
+    background-size: 207px 40px;
+    width: 150px;
+    padding: 3px 13px;
+    margin-top: -3px;
+    margin-left: -13px;
+    height: 40px;
+}
+.progress .buttonprogress{
+    padding: 100px;
+    background: #fff;
+}
+.progress .buttonprogress>button ,.progress .buttonprogress>a{
+    width: 100px;
+    height: 30px;
+    background: #fe852a;
+    display: block;
+    border-radius: 5px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+    color: #fff;
+    border: 0;
+}
+.z_box100 .loading{
+    position: fixed;
+    left: -webkit-calc(50% - 25px );
+    top: -webkit-calc(50% - 27px )
+}
+.progress div.z_box100 img{
+	width: 40px;
+	height: 40px;
+}
+.user .header .userFxb{
+    width: 100%;
+    height: 157px;
+    padding-top: 30px;
+    background: #ff8833;
+}
+.user .header .userFxb p{
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+}
+.user .header .userFxb ul{
+    margin:0 auto;
+    text-align: center;
+    padding-left: -webkit-calc(50% - 112px);
+    padding-top: 23px;
+}
+.user .header .userFxb .text{
+    padding-left: -webkit-calc(50% - 130px);
+    padding-top: 0px;
+}
+.user .header .userFxb ul li{
+    width: 32px;
+    height: 32px;
+    float: left;
+}
+.user .header .userFxb .text li{
+    width: 65px;
+    font-size: 9px;
+}
+.user .header .userFxb ul li img{
+    width: 32px;
+    height: 32px;
+    margin:0;
+}
+.user .header .userFxb ul li.line{
+    margin: 0 2px;
+    border-bottom: 1px solid #ffdf8c;
+    margin-top: -18px;
+    width: 28px;
+}
+.user .header .userFxb button{
+    width: 133px;
+    height: 28px;
+    border:none;
+    border-radius: 5px;
+    background: #fff;
+    color: #ff852a;
+    margin-top: 8px; 
+}
+.CorporateName .search{
+    width: -webkit-calc(100% - 18px);
+    padding: 9px;
+    height: 31px;
+    line-height: 31px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.CorporateName .search input{
+    width: 80%;
+    border-radius: 5px;
+    color: #9f9f9f;
+    border: none;
+    float: left;
+    height: 31px;
+    line-height: 31px;
+    padding: 0;
+    background: url(../img/search@2x.png) no-repeat #e9e9e9;
+    background-size: 16px;
+    background-position: 10px center;
+    text-indent: 35px;
+}
+.CorporateName .search button{
+    background: #ff852a;
+    color: #fff;
+    width: -webkit-calc(20% - 13px);
+    margin-left: 13px;
+    border: none;
+    border-radius: 5px;
+    float: left;
+    height: 31px;
+    line-height: 31px;
+}
+.CorporateName dl dt{
+    width: 100%;
+    background: #ecedee;
+    font-size: 15px;
+    line-height: 24px;
+    color: #333;
+    text-indent: 10px;
+}
+.CorporateName dl dd{
+    width: 100%;
+    font-size: 15px;
+    line-height: 34px;
+    text-indent: 16px;
+    border-bottom: 1px solid #ccc;
+}
+.CorporateName>dl>dd:last-child{
+    border-bottom: none;
+}
+.CorporateName ul{
+    width: -webkit-calc(100% - 22px);
+    padding: 0 11px;
+    border-top: 6px solid #ecedee;
+}
+.CorporateName ul li{
+    width:100%;
+    border-bottom: 1px solid #ccc;
+    height: 40px;
+    line-height: 40px;
+    text-indent: 5px;
+}
+.share{
+  background: #fcedd3;
+  width:100%;
+  overflow: hidden;
+}
+.share .top{
+  height:30%;
+}
+.share .top img{
+  width:100%;
+}
+.share .shareto{
+  width:82%;
+  height:35px;
+  display: block;
+  position: relative;;
+  background: #e2890e;
+  border: none;
+  border-radius: 5px;
+  color:#fff;
+  left:0;
+  right:0;
+  margin:17% auto 0;
+}
+.share .rule .title img{
+  width:25%;
+}
+.share .rule{
+  overflow: hidden;
+  margin:50px auto 10px;
+  position: relative;
+  margin-left:12px;
+}
+.share .rule ul{
+  margin:0 18px 40px 18px;
+}
+.share .rule ul li{
+  margin:12px 0px 10px 6px;
+  font-size: 14px;
+  list-style:decimal;
+  line-height: 22px;
+}
+.share .guide{
+  position: absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background: #000;
+  opacity: 0.7;
+  display: none;
+}
+.share .guidein{
+  display: none;
+}
+.share .guidein img{
+  position: absolute;
+  right:25px;
+  top:25px;
+  width:31px;
+}
+.share .guidein p{
+  color:#fff;
+  font-size: 20px;
+  position: absolute;
+  top:73px;
+  left:150px;
+}
+.share .guidein input{
+  position: absolute;
+  top:265px;
+  border:1px solid #fff;
+  border-radius: 5px;
+  background: none;
+  color:#fff;
+  display: block;
+  width:60%;
+  height:35px;
+  left:0;
+  right:0;
+  margin: auto;
+}
+.sharefriend .top img{
+  width:100%;
+}
+.sharefriend{
+  color:#1a1a1a;
+  width:100%;
+  height:100%;
+  background: #fcedd3;
+}
+.sharefriend input{
+  background:none;
+  border:1px solid #df8f0f;
+  border-radius: 2px;
+  height:28px;
+  padding-left:5px;
+}
+.sharefriend label{
+  display: block;
+  margin-bottom: 20px;
+}
+.sharefriend .msg{
+  margin-left:58px;
+    margin-top:12px;
+  font-size: 14px;
+}
+.sharefriend .msg p{
+  margin:14px 0 24px;
+  color:#1a1a1a;
+}
+.sharefriend .msg .Telephone{
+  width:58%;
+  margin-left:6px;
+}
+.sharefriend .msg .code{
+  width:42%;
+  margin-left: 6px;
+}
+.sharefriend .msg .obtain{
+  padding:0 16px;
+  background: #e9594b;
+  border: none;
+  border-radius: 2px;
+  margin-left:4px;
+  color:#fff;
+  font-size:12px;
+  height:30px;
+  line-height: 30px;
+}
+.sharefriend .msg .psd{
+  width:57%;
+  margin-left:20px;
+}
+.sharefriend .msg .sub{
+  width:83%;
+  height:35px;
+  background: #df8f0f;
+  border: none;
+  border-radius: 5px;
+  margin-top:15%;
+  color:#fff;
+}
+.sharefriend .draw{
+  width:87%;
+  height:173px;
+  background: #f9eba5;
+  border:4px solid #fff;
+  border-radius: 2px;
+  position: absolute;
+  top:30%;
+  left:0;
+  right:0;
+  margin:0 auto ;
+  display: none;
+}
+.sharefriend .draw .close{
+  width:25px;
+  height:25px;
+  border:2px solid #fff;
+  border-radius: 100%;
+  color:#fff;
+  text-align: center;
+  line-height: 24px;
+  background: #f1cb19;
+  position: absolute;
+  top:-10px;
+  right:-10px;
+
+}
+.sharefriend .gohome{
+  text-align: center;
+  height:30px;
+  line-height: 30px;
+  color:#e9594b;
+  width:83%;
+  display: block;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: right;
+  text-decoration: none;
+}
+.sharefriend .draw p{
+  text-align: center;
+  font-size: 16px;
+  color:#0e0e0e;
+  margin-top:30px;
+  line-height: 22px;
+}
+
+.sharefriend .draw .goshop,.sharefriend .draw .sure{
+  width:84%;
+  height:33px;
+  background: #ed7146;
+  margin:0 auto;
+  display: block;
+  margin-top: 36px;
+}
+.sharefrend .draw .win,.sharefrend .draw .lose{
+  display: none;
+}
+/*意见反馈*/
+.tips{
+	width: 100%;
+}
+.tips p{
+    margin: 50px auto 40px;
+    width: 70%;
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    line-height: 20px;
+}
+.tippic{
+	width: 60%;
+	margin: 0 auto;
+}
+.tippic>div{
+	float: left;
+}
+.tippic div:last-child{
+	float: right;
+}
+.tippic div p{
+	margin: 10px auto;
+	font-size: 12px;
+	color: #333;
+}
+.tippic .picwrap{
+	width: 50px;
+	height: auto;
+}
+.tippic div img{
+	width: 100%;
+}
+.tippic .message{
+	position: relative;
+}
+.tippic .picwrap .num{
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	position: absolute;
+    left: 49px;
+    top: -3px;
+	background: red;
+	color: #fff;
+	text-align: center;
+	line-height: 14px;
+}
+/*反馈问题*/
+.survey{
+	width: 100%;
+}
+.survey .troubles{
+	width: 100%;
+}
+.survey .troubles{
+    width: 93%;
+    height: 50px;
+    background: #fff;
+    display: flex;
+    padding-left: 3%;
+    padding-right: 4%;
+}
+.survey .troubles li:nth-child(odd){
+float: left;
+    margin: 17px 0;
+    flex: 1;
+    text-indent: -webkit-calc(15% - 16px);
+    font-size: 16px;
+    position: relative;
+}
+.survey .troubles li:nth-child(even){
+	float: left;
+	margin: 18px 0;
+	color: #e3e3e3;
+	width: 1px;
+	font-size: 14px;
+}
+.survey .troubles li:last-child{
+	display: none;
+}
+.survey .troubles li input{
+	display: none;
+}
+.survey .intext{
+	background: #fff;
+	margin-top: 10px;
+	width: 100%;
+}
+.survey .intext textarea{
+	border: 0;
+	width: 90%;
+	font-size: 16px;
+	height: 156px;
+    text-indent: 0;
+}
+.survey .troubles li label {
+    position: absolute;
+    left: -webkit-calc(46% - 45px);
+    top: 1px;
+    z-index: 6;
+    width: 15px;
+    height: 15px;
+    background: url(../img/wentiweixuan.png);
+    background-size: 15px;
+    text-indent: -100em;
+    margin-left: 8px;
+}
+.survey .troubles li input:checked+label {
+    background: url(../img/wentiyixuan.png);
+    background-size: 15px;
+}
+.survey button.submit {
+    width: 90%;
+    height: 40px;
+    line-height: 30px;
+    text-align: center;
+    background: #ccc;
+    border-radius: 5px;
+    margin-left: 5%;
+    border: none;
+    margin-top: 48px;
+    color: #fff;
+    font-size: 16px;
+}
+/*我的消息*/
+.mymessage{
+	width: 100%;
+}
+.mymessage li{
+	width: 100%;
+	background: #fff;
+	margin-bottom: 12px;
+}
+.mymessage li dl{
+	width: 92%;
+    min-height: 80px;
+    margin-left: 5%;
+    border-bottom: 1px #e3e3e3 dashed;
+    padding: 19px 3% 7px 0;
+    overflow: hidden;
+}
+.mymessage dt{
+	width: 40px;
+	float: left;
+}
+.mymessage li dl dd{
+	width: -webkit-calc(100% - 50px);
+    float: left;
+    margin-left: 10px;
+    height: 80px;
+	overflow: hidden;
+}
+.mymessage dt img{
+	width: 100%;
+}
+.mymessage li dl dd p:first-child{
+	font-size: 14px;
+	color: #333;
+	margin-bottom: 15px;
+}
+.mymessage li dl dd p:last-child{
+	font-size: 16px;
+	color: #666;
+	line-height: 24px;
+	word-break: break-all;
+}
+.mymessage .showmore{
+    width: 94%;
+    height: 24px;
+    font-size: 12px;
+    color: #999;
+    padding-left: 5%;
+    padding-top: 10px;
+    background: url(../../../../img/fankuijiantou.png) no-repeat 95% 10px;
+    background-size: 12px 12px;
+}
+.user .survey{
+	position: relative;
+}
+.user .count{
+	width: 7px;
+	height: 7px;
+	background: red;
+	border-radius: 50%;
+	position: absolute;
+	right: 30px;
+	top: 20px;
+	display: none;
+}
+.contactPerson .information .familyrelationship ul{
+    display: block;
+    width: 80%;
+    color: #666;
+    font-size: 12px;
+    line-height: 28px;
+    padding-left: 30px;
+    padding-top: 45px;
+}
+.tipone{
+    width: 100%;
+    color: #777;
+    margin-top: 20px;
+}
+.tipone p{
+	max-width: 160px;
+	margin: 32% auto;
+	padding-top: 100px;
+	padding-left: 14px;
+    font-size: 16px;
+}
+.list-li{
+ 	position:relative;
+    -webkit-transform: translateX(0px);
+ }
+.btn{
+ 	position: absolute;
+ 	top: 0;
+ 	right: -60px;
+ 	font-size: 16px;
+ 	text-align: center;
+ 	background: #ef2423;
+ 	color: #fff;
+ 	width: 60px;
+}
+.mymessage{
+	overflow: hidden;
+}
+
+.mymessage .delderansform {
+    -webkit-transform: translateX(0px);
+    -webkit-transition: -webkit-transform 0.1s 0s;
+}
+.mymessage .shantransform {
+    -webkit-transform: translateX(-60px);
+    -webkit-transition: -webkit-transform 0.1s 0s;
+}
+/*反馈问题survey*/
+.watch{
+    position: absolute;
+    left: 0;
+    bottom: 60px;
+    color: #999;
+    font-size: 12px;
+    display: block;
+    width: -webkit-calc(100% - 4px);
+    text-indent: 88%;
+    background: #fff;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 4px;
+    overflow: hidden;
+}
+/*重新加载页面*/
+.reload{
+	background: #fff;
+	/*height: 100%;*/
+}
+.reload .reloadwrap{
+    width: 164px;
+    height: 182px;
+	padding-top: 150px;
+	margin: 0 auto;
+}
+.reload .reloadwrap img{
+	width: 100%;
+	height: 100%;
+}
+.reload p{
+	width: 146px;
+	margin: 0 auto;
+	font-size: 16px;
+	color: #999;
+	margin-top: 15px;
+	margin-bottom: 25px;
+}
+.reloadBtn{
+    width: 75px;
+    height: 24px;
+    padding: 8px 24px;
+    margin: 0 auto;
+    border: 1px solid #ff852a;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 5px;
+    color: #ff852a;
+}
+.reloadBtn img{
+	width: 100%;
+	height: 100%;
+}

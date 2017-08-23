@@ -1,0 +1,147 @@
+<style>
+#list-container {
+  margin-left: 250px;
+}
+form {
+
+}
+label {
+  width: 70px;
+  text-align: right;
+  padding-right: 10px;
+}
+.form-control {
+  display: inline-block;
+  width: auto;
+}
+.upload {
+}
+.modal-footer {
+  text-align: center;
+}
+.seo {
+  width: 400px;
+}
+.modal-body {
+  padding-top: 5px;
+}
+.form-group {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#list-container a {
+  cursor: pointer;
+}
+
+.category-icon {
+      width: 40px;
+    height: 40px;
+    border: 1px solid #eee;
+}
+
+</style>
+
+<div id="tree-container" class="pull-left">
+  <div id="tree"></div>
+</div>
+<div id="list-container">
+  <button type="button" class="btn btn-default pull-right" ng-click="events.add()" ng-if="!currentNode.text">添加一级分类</button>
+  <button type="button" class="btn btn-default pull-right" ng-click="events.add()" ng-if="currentNode.level < 2 && currentNode.text">添加分类到{{currentNode.text}}</button>
+
+  <a class="btn btn-primary pull-right" ng-if="currentNode.level == 2 && !currentNode.hasTemplate" ui-sref="categoryTemplate({id: currentNode.id})">新建模板</a>
+
+  <a class="btn btn-primary pull-right" ng-if="currentNode.level == 2 && currentNode.hasTemplate" ui-sref="listSpu({categoryId: currentNode.id})">SPU管理</a>
+  <a style="margin-right: 10px;" class="btn btn-primary pull-right" ng-if="currentNode.level == 2 && currentNode.hasTemplate" ui-sref="categoryTemplate({id: currentNode.id})">编辑模板</a>
+
+  <table class="table table-striped" ng-show="!currentNode.level || currentNode.level < 2">
+    <thead>
+      <tr>
+        <th>排序</th>
+        <th>名称</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="node in currentNode.nodes" ng-class="{danger: node.data.status}">
+        <td>{{$index + 1}}</td>
+        <td>{{node.text}}</td>
+        <td>
+          <a class="template" ng-click="events.modify(node)">修改</a>
+          <a class="template" ng-click="events.remove(node)">删除</a>
+          <a class="template" ng-click="events.rank(node)">排序</a>
+          <a class="template" ng-if="node.level == 2 && !node.hasTemplate" ui-sref="categoryTemplate({id: node.id})">新建模板</a>
+          <a class="template" ng-if="node.level == 2 && node.hasTemplate" ui-sref="categoryTemplate({id: node.id})">编辑模板</a>
+          <a class="template" ng-if="node.level == 2 && node.hasTemplate" ui-sref="listSpu({categoryId: node.id})">SPU管理</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">添加分类</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="err-msg">
+          <ul ng-show="form.$submitted && form.$invalid">
+            <li ng-show="form.name.$error.required">请填写分类名称</li>
+          </ul>
+        </div>
+
+        <form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+          <label for="name">上级分类</label><span>{{currentNode.text || '无'}}</span>
+          <div class="form-group">
+            <label for="name">分类名称</label>
+            <input class="form-control" name="name" ng-model="category.name" required>
+          </div>
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="events.save(form)">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="rankModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">分类排序</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="err-msg">
+          <ul ng-show="rankForm.$submitted && rankForm.$invalid">
+            <li ng-show="rankForm.rank.$error.required">请填写排序值</li>
+          </ul>
+        </div>
+
+        <div class="desc">
+          <span>{{rankNode.text}}当前排序为<em>{{rankNode.rank}}</em></span>，<span>从<em>1</em>开始</span>，<span>最大<em>{{currentNode.nodes.length}}</em></span>
+        </div>
+        <form name="rankForm" novalidate ng-submit="events.doRank(rankForm)" class="css-form">
+          <div class="form-group">
+            <label for="rank">排序</label>
+            <input class="form-control" name="rank" ng-model="rankNode.newRank" required min=1>
+          </div>
+
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="events.doRank(rankForm)">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

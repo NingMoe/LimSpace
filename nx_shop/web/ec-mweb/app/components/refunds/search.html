@@ -1,0 +1,96 @@
+<div id="system-container">
+	<form class="form-inline" ng-submit="updateLocation()">
+	  <div class="form-group">
+	    <label for="orderNo">订单编号</label>
+	    <input type="text" class="form-control" name="orderNo" placeholder="订单编号" ng-model="searchInput.orderNo">
+	  </div>
+	
+	  <!--div class="form-group">
+	    <label for="code">售后编号</label>
+	    <input type="text" class="form-control" name="code" placeholder="售后编号" ng-model="searchInput.code">
+	  </div-->
+	
+	  <div class="form-group">
+	    <label>申请时间</label>
+	    <input type="text" class="form-control" name="startTime" placeholder="开始时间" ng-model="searchInput.startTime">
+	
+	    <input type="text" class="form-control" name="endTime" placeholder="结束时间" ng-model="searchInput.endTime">
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="cancelStatus">退款类型</label>
+	    <select name="cancelStatus" ng-model="searchInput.cancelStatus" ng-options="cancelStatus.cancelStatus as cancelStatus.name for cancelStatus in cancelStatusMap">
+	      <option value="">全部</option>
+	    </select>
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="status">退款状态</label>
+	    <select name="status" ng-model="searchInput.status" ng-options="status.status as status.name for status in statusMap">
+	      <option value="">全部</option>
+	    </select>
+	  </div>
+	
+	  <br>
+	  <button type="submit" class="btn btn-primary">搜索</button>
+	</form>
+	
+	<!-- +快速筛选 -->
+	<div class="btn-group quick-search">
+	  <a class="btn btn-default" ui-sref="refundsSearch({status: null})" ng-class="{'active': isQuickSearch && !params.status}">全部</a>
+	  <a class="btn btn-default" ui-sref="refundsSearch({status: 0})" ng-class="{'active': isQuickSearch && params.status == 0}">待退款</a>
+	</div>
+	<!-- -快速筛选 -->
+	
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th>&nbsp;</th>
+	      <th>订单号</th>
+	      <th style="width: 120px;">商品名称</th>
+	      <th>单价</th>
+	      <th>数量</th>
+				<th>总价</th>
+	      <th>分期数</th>
+	      <th>退款金额</th>
+	      <th>优惠金额</th>
+		<th ng-if="configSys != 'ceb'"> 首付金额</th>
+		<th ng-if="configSys != 'thb'">分期金额</th>
+	
+	      <th>买家手机号</th>
+	      <th style="width: 50px;">售后类型</th>
+	      <th>退款状态</th>
+	      <th>订单状态</th>
+	      <th>申请时间</th>
+	      <th>操作</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr ng-repeat="refund in refunds">
+	      <td><input type="checkbox" ng-model="refund.checked" ng-change="changed()"></td>
+	      <td>{{refund.orderNo}}</td>
+	      <td style="width: 120px;word-break: break-all;">{{refund.skuName}}</td>
+	      <td>{{refund.skuPrice}}</td>
+	      <td>{{refund.skuCount}}</td>
+	      <td>{{(refund.skuPrice*refund.skuCount).toFixed(2)}}</td>
+	      <td>{{refund.installmentMonths}}</td>
+	      <td>{{refund.amount}}</td>
+	      <td>{{refund.discount}}</td>
+	      <td ng-if="configSys != 'ceb'">{{refund.downPayment}}</td>
+				<td ng-if="configSys != 'thb'">{{refund.installmentAmount}}</td>
+	      <td>{{refund.mobile}}</td>
+	      <td>{{refund.cancelStatusText}}</td>
+	      <td>{{refund.statusText}}</td>
+	      <td>{{refund.orderStatusText}}</td>
+	      <td>{{refund.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+	      <td>
+	        <a ng-if="refund.status == 0" ng-click="doRefund(refund)">退款</a>
+	        <a ng-href="#refunds/{{refund.id}}" target="_blank">查看</a>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
+<uib-pagination total-items="page.totalCount" ng-model="page.currentPage" max-size="10" items-per-page="page.pageSize" 
+		previous-text="上一页" next-text="下一页" ng-change="pageChanged()" class="samplePage pagination-sm" boundary-link-numbers="true">
+  </uib-pagination> 

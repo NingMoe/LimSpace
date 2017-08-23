@@ -1,0 +1,64 @@
+<div >
+    <div class="prizeHead">
+        <img src="../img/lot_pro_head.jpg"/>
+    </div>
+    <div class="prizeContent bgProduct mt_30">
+        <% _.each(proList.list, function(item,name) { %>
+            <div class="prizeItem">
+                <!-- <div class="prizeTitle <%=name==0?'':'mt_10'%>">
+                    <%if(name==0){%>
+                    <img src="../img/children_zhineng.png" />
+                   <% }else if(name==1){%>
+                    <img src="../img/children_zaojiao.png" />
+                    <%}else{%>
+                    <img src="../img/children_buyi.png" />
+                   <% }%>
+
+                </div> -->
+                <div class="mt_13 dlin">
+                    <% _.each(item.skus, function(sku,index) { %>
+                      <% if (item.skus.length%2==1&&item.skus.length==index+1){%>
+                        <div class="itemCont pmt5">
+                            <div class="itemPic">
+                                <img src="<%=config %><%=sku.imagesOriginal.split(',')[0]%>@360w_240h">
+                            </div>
+                            <div class="itemCO">
+                                <div class="s1"><span><%=sku.name%></span> </div>
+                                <div><span class="priceOr">￥<%=sku.originalPrice%></span> <span class="price">￥<%=sku.price%></span></div>
+                                <div class="s3"><a href="/?#product/<%=sku.id%>">立即购买</a></div>
+                            </div>
+                        </div>
+                      <% }else{%>
+                        <div class="itemCont pt2">
+                            <div class="">
+                                <img src="<%=config %><%=sku.imagesOriginal.split(',')[0]%>@360w_240h">
+                            </div>
+                            <div class="itemCL">
+                                <div class="s1"><span><%=sku.name%></span></div>
+                                <div class="s2"><span class="priceOr">￥<%=sku.originalPrice%></span> <span class="price">￥<%=sku.price%></span></div>
+                                <div class="s3"><a href="/?#product/<%=sku.id%>">立即购买</a></div>
+                            </div>
+                        </div>
+                      <%}%>
+
+                    <%})%>
+
+                </div>
+
+            </div>
+        <%})%>
+
+        <div class="pro_hr"></div>
+        <div class="pro_guize">活动规则</div>
+        <div class="pro_guicont">
+            <p><span class="gt">1、</span><span class="gc">同一特卖商品，每个用户ID仅限购买1件。</span></p>
+            <p><span class="gt">2、</span><span class="gc">活动商品数量有限，先到先得！</span></p>
+            <p><span class="gt">3、</span><span class="gc">本次活动商品不邮寄，请于活动现场（山西阳泉）领取商品。</span></p>
+            <p><span class="gt">4、</span><span class="gc">本次活动最终解释权归淘惠帮商城所有。</span></p>
+        </div>
+        <a href="#trailer" class="trailer"><img src="../img/trailer.png" alt="" /></a>
+    </div>
+    <div class='bglog' style="display: none;"></div>
+    <div class='dilog start' style="display: none;"><span class='dihi'></span><p>活动未开始，抢购时间7月12日 00:00-23:59</p><a href="#home" class='prompt'>去首页</a></div>
+    <div class='dilog end' style="display: none;"><span class='dihi'></span><p>活动已结束，莫着急，下期抢购时间7月19日 00:00-23:59</p><a href="#home" class='prompt'>去首页</a></div>
+</div>

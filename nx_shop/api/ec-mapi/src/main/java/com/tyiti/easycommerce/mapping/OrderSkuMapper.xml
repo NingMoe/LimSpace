@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.OrderSkuDao">
+    <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.OrderSku">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+        <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+        <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+        <result column="sku_description" property="skuDescription" jdbcType="VARCHAR" />
+        <result column="sku_detail" property="skuDetail" jdbcType="VARCHAR" />
+        <result column="sku_erp_code" property="skuErpCode" jdbcType="VARCHAR" />
+        <result column="sku_head_thumbnail" property="skuHeadThumbnail" jdbcType="VARCHAR" />
+        <result column="sku_count" property="skuCount" jdbcType="INTEGER" />
+        <result column="sku_price" property="skuPrice" jdbcType="DECIMAL" />
+        <result column="sku_original_price" property="skuOriginalPrice" jdbcType="DECIMAL" />
+        <result column="sku_attribute" property="skuAttribute" jdbcType="VARCHAR" />
+        <result column="activity_type" property="activityType" jdbcType="INTEGER" />
+        <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+        <result column="commission_rate" property="commissionRate" jdbcType="DECIMAL" />
+        <result column="third_party_Id" property="thirdPartyId" jdbcType="VARCHAR" />
+        <result column="avg_price" property="avgPrice" jdbcType="DECIMAL" />
+        <result column="fact_amount" property="factAmount" jdbcType="DECIMAL" />
+        <result column="return_count" property="returnCount" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="select_column_list">
+        id, order_id, sku_id, sku_name, sku_description, sku_detail, sku_erp_code, sku_head_thumbnail, sku_count, sku_price, sku_original_price, sku_attribute, 
+        activity_type, activity_id,commission_rate,third_party_Id
+    </sql>
+        
+    <sql id="insert_column_list">
+		order_id, sku_id, sku_name, sku_description, sku_detail, sku_erp_code, sku_head_thumbnail, sku_count, sku_price,
+		 sku_original_price, sku_attribute,commission_rate,third_party_Id
+    </sql>
+    
+    <select id="getById" resultType="com.tyiti.easycommerce.entity.OrderSku" resultMap="BaseResultMap">  
+        select <include refid="select_column_list"/> from t_order_sku where id = #{id}
+    </select>
+
+    <select id="getByOrderId" resultType="com.tyiti.easycommerce.entity.OrderSku" resultMap="BaseResultMap">  
+        select <include refid="select_column_list"/> from t_order_sku where order_id = #{orderId}
+    </select>
+    
+    <select id="getByCriteria" resultType="com.tyiti.easycommerce.entity.OrderSku" resultMap="BaseResultMap">  
+        select <include refid="select_column_list"/> from t_order_sku  
+        <where>
+            <if test="orderId != null">
+                order_id = #{orderId}
+            </if>
+        </where>
+    </select>   
+    
+    <!-- 统计指定条件的订单中,所有商品总数 -->
+    <!-- author rainyhao -->
+    <!-- since 2016-03-31 -->
+    <select id="sumOrderSkuTotal" resultType="java.lang.Integer" parameterType="com.tyiti.easycommerce.entity.OrderSku">
+    	select sum(a.sku_count) from t_order_sku a 
+		left join t_order b on (a.order_id=b.id)
+		<where>
+			<if test="custId != null">
+				b.cust_id = #{custId,jdbcType=INTEGER}
+			</if>
+			<if test="skuId != null">
+				and a.sku_id = #{skuId,jdbcType=INTEGER}
+			</if>
+			<if test="activityType != null">
+				and a.activity_type = #{activityType,jdbcType=INTEGER]
+			</if>
+			<if test="activityId != null">
+				and a.activity_id = #{activityId,jdbcType=INTEGER}
+			</if>
+		</where>
+    </select>
+    
+    <!-- 按指定的条件查数量 -->
+    <!-- author rainyhao -->
+    <!-- since 2016-04-01 -->
+    <select id="count" resultType="java.lang.Integer" parameterType="com.tyiti.easycommerce.entity.OrderSku">
+    	select count(0) from t_order_sku a
+    	left join t_order b on (a.order_id=b.id)
+    	<where>
+    		<if test="custId != null">
+    			b.cust_id = #{custId,jdbcType=INTEGER}
+    		</if>
+    		<if test="skuId != null">
+    			and a.sku_id = #{skuId,jdbcType=INTEGER}
+    		</if>
+    		<if test="activityType != null">
+    			and a.activity_type = #{activityType,jdbcType=INTEGER}
+    		</if>
+    		<if test="activityId != null">
+    			and a.activity_id = #{activityId,jdbcType=INTEGER}
+    		</if>
+    	</where>
+    </select>
+    
+    <insert id="addOrderSku" parameterType="com.tyiti.easycommerce.entity.OrderSku" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO t_order_sku(<include refid="insert_column_list"/>) 
+        VALUES (#{orderId}, #{skuId}, #{skuName}, #{skuDescription}, #{skuDetail}, #{skuErpCode}, #{skuHeadThumbnail}, #{skuCount}, #{skuPrice}, #{skuOriginalPrice}, #{skuAttribute},#{commissionRate}, #{thirdPartyId})
+    </insert>
+    
+    <update id="updateReturnCount" parameterType="java.lang.Integer">
+    	update t_order_sku 
+    	set return_count =IFNULL(return_count,0)+#{returnCount}
+    	where id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.LeaveMessageDao">
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.LeaveMessage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cust_id" property="custId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="manager_id" property="managerId" jdbcType="INTEGER" />
+    <result column="leave_time" property="leaveTime" jdbcType="TIMESTAMP" />
+    <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="leave_ip" property="leaveIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tyiti.easycommerce.entity.LeaveMessage" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cust_id, status, manager_id, leave_time, reply_time, leave_ip
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_leave_message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_leave_message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.LeaveMessage" >
+    insert into t_leave_message (id, cust_id, status, 
+      manager_id, leave_time, reply_time, 
+      leave_ip, content)
+    values (#{id,jdbcType=INTEGER}, #{custId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{managerId,jdbcType=INTEGER}, #{leaveTime,jdbcType=TIMESTAMP}, #{replyTime,jdbcType=TIMESTAMP}, 
+      #{leaveIp,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.tyiti.easycommerce.entity.LeaveMessage" >
+    insert into t_leave_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="managerId != null" >
+        manager_id,
+      </if>
+      <if test="leaveTime != null" >
+        leave_time,
+      </if>
+      <if test="replyTime != null" >
+        reply_time,
+      </if>
+      <if test="leaveIp != null" >
+        leave_ip,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="leaveTime != null" >
+        #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveIp != null" >
+        #{leaveIp,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.LeaveMessage" >
+    update t_leave_message
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="managerId != null" >
+        manager_id = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="leaveTime != null" >
+        leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyTime != null" >
+        reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveIp != null" >
+        leave_ip = #{leaveIp,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tyiti.easycommerce.entity.LeaveMessage" >
+    update t_leave_message
+    set cust_id = #{custId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      manager_id = #{managerId,jdbcType=INTEGER},
+      leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      leave_ip = #{leaveIp,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.LeaveMessage" >
+    update t_leave_message
+    set cust_id = #{custId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      manager_id = #{managerId,jdbcType=INTEGER},
+      leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      leave_ip = #{leaveIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

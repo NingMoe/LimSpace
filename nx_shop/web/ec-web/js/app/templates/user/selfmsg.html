@@ -1,0 +1,55 @@
+<div class="pj-site-container selfmsg">
+  <ul class="list">
+    <li class="pto">
+      <p><span>头像</span><i><img src="./img/touxian@2x.png" alt="头像" /></i></p>
+    </li>
+    <li class="nick">
+      <p><span>昵称</span><i><%= data.nickName%></i></p>
+    </li>
+
+    <li class="sex">
+      <p><span>性别</span>
+       <% if(data.gender ==1){%>
+        <i>女</i>
+      <% }else{%>
+        <i>男</i>
+      <% } %>
+      </p>
+    </li>
+    <li class="birthday">
+      <p class="birth"><span>生日</span><i id="beginTime"><%= data.birthday%></i></p>
+    </li>
+    <li class="bdphone">
+      <p><span>绑定手机</span><i><%= data.mobile.substr(0,4) %>****<%= data.mobile.substr(8,11) %></i></p>
+    </li>
+  </ul>
+<!-- 修改时弹出的遮罩层 -->
+  <div class="changenick" style="display:none;">
+    <div class="mask"></div>
+    <div class="nk">
+      <h3>修改昵称</h3>
+      <input class="nki" type="text" name="chagenick" placeholder="请输入您的昵称">
+      <div class="judge">
+        <span class="clear">取消</span>
+        <span class="sure">确定</span>
+      </div>
+    </div>
+  </div>
+  <div class="changesex">
+    <div class="mask"></div>
+    <div class="sx">
+      <h3>选择性别</h3>
+      <p  class="man"><img src="img/man.png"/></p>
+      <p  class="woman"><img src="img/guangda_woman.png"/></p>
+      <p class="sure">男</p>
+      <p class="clear">女</p>
+    </div>
+  </div>
+</div>
+<div id="datePlugin"></div>
+<div class="pj-action-add">
+   <a href="#home" class="home">首页</a>
+   <a href="#category" class="category">分类</a>
+   <a href="#credit" class="credit">授信</a>
+   <a href="#user" class="user active">我的</a>
+</div>

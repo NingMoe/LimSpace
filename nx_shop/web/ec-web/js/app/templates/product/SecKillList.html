@@ -1,0 +1,82 @@
+<div class="header">
+  <% if (banner) { %>
+    <img class="banner" src="<%= imgHost %><%= banner %>"/>
+  <% } %>  
+</div>
+<div class="pj-site-container seckill">
+  <div class="seckill_nav"></div>
+  <div class="wrap"></div>
+  <i class="angle"></i>
+  <div class="nav swiper-container swiper-container-horizontal" id="nav">
+    <ul class='seckill_ul swiper-wrapper'>
+      <li class="clickLi swiper-slide"></li>
+      <li class="clickLi swiper-slide"></li>
+      <% _.each(findActivity.data, function(item,index) { %>
+      <li class="clickLi swiper-slide"  data-index="<%= index + 1 %>">
+        <a data-id="<%= item.id%>" data-start="<%= item.start_time %>" data-end="<%= item.end_time %>" data-status="<%= item.activity_status %>" data-now_time="<%= item.now_time %>" href="javascript:void(0)">
+          <!-- <h3><%= item.newstart_time%></h3> -->
+          <h3><%= formatTime(item.start_time) %></h3>
+          <%if (item.activity_status == 0) {%>
+          <h4>未开始</h4>
+          <%} else if (item.activity_status == 1) {%>
+          <h4>进行中</h4>
+          <%} else {%>
+          <h4>已结束</h4>
+          <%}%>
+            
+         </a>
+      </li>
+      <%})%>
+      <li class="clickLi swiper-slide"></li>
+      <li class="clickLi swiper-slide"></li>
+    </ul>
+  </div>
+  <div class="surplus">
+    <h2><%= flashSale.activity_status == 0 ?  '距离本次活动开始' : (flashSale.activity_status == 1 ? '距离本次活动结束' : '本次活动已结束') %></h2>
+    <% if (flashSale.activity_status != 2) { %>
+    <div class="seckill-timer" id="seckill_time">
+      <span class="seckill-time seckill-time-left hour"></span>
+      <span class="seckill-time-separator">:</span>
+      <span class="seckill-time seckill-time-left min"></span>
+      <span class="seckill-time-separator">:</span>
+      <span class="seckill-time seckill-time-left second"></span>
+    </div>
+    <% } %>
+  </div>
+  <ul class="shopp">
+    <% _.each(findActivitySku.data, function(item) { %>
+      <li data-skuid="<%= item.skuId %>" data-activity="<%= item.activityId %>">
+        <dl>
+          <dt><img src="<%=imgHost %><%= item.imagesOriginal.split(',')[0]%>"></dt>
+        <dd>
+          <p><%= item.skuName %></p>
+          <div class="price">
+            <div><b><i>￥</i><%= item.activityPrice.toFixed(2) %></b><span>￥<%= item.price.toFixed(2) %></span></div>
+          </div>
+          <div class="stock">
+            <%if(item.soldNum < item.inventory) { %>
+            <i>已售出:<%= (item.soldNum / item.inventory*100).toFixed(2) %> %</i>
+            <progress class="progress" max="<%= item.inventory %>" value="<%= item.soldNum %>"></progress>
+            <% }else if(item.soldNum >= item.inventory) { %>
+            <i>全部售罄</i>
+            <progress class="progress" max="<%= item.inventory %>" value="<%= item.soldNum %>"></progress>
+            <% } %>
+            <% if(item.status == 0) { %>
+            <button data-skuid="<%= item.skuId %>" class="disable" disabled="disabled">未开始</button>
+            <% } else if (item.status == 1) { %>
+              <% if(item.soldNum < item.inventory) { %>
+                <button data-skuid="<%= item.skuId %>" data-activity="<%= item.activityId %>">抢购</button>
+              <% } else { %>
+                <button data-skuid="<%= item.skuId %>" class="disable" disabled="disabled">已抢光</button>
+              <% } %>
+            <% } else if (item.status == 2) { %>
+              <button data-skuid="<%= item.skuId %>" class="disable" disabled="disabled">已结束</button>
+            <% } %>
+          </div>
+        </dd>
+        </dl>
+      </li>
+    <% }) %>
+  </ul>  
+ </div>
+

@@ -1,0 +1,164 @@
+<style>
+	/*#system-container {
+	  margin-left: 250px;
+	}*/
+	
+	label {
+		width: 100px;
+		text-align: right;
+		padding-right: 10px;
+	}
+	
+	.form-control {
+		display: inline-block;
+		width: auto;
+	}
+	
+	.modal-footer {
+		text-align: center;
+	}
+	
+	.modal-body {
+		padding-top: 5px;
+	}
+	
+	.form-group {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+</style>
+<!-- {{sysuser}} -->
+<div id="system-container">
+	<h1 ng-if="promotionName">{{promotionName}}</h1> 
+	<button type="button" class="btn btn-default pull-right" ng-click="events.add()">添加奖项</button>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>奖品名称</th>
+				<th>库存</th>
+				<th>中奖数量</th>
+				<th>虚拟物品</th>
+				<th>虚拟价值</th>
+				<th>中奖率</th>
+				<th>过期时间</th>
+				<th>有效时长</th>
+				<th>创建时间</th>
+				<th>描述</th>
+				<th width="5%"> 操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in prizeList">
+				<td>{{item.name}}</td>
+				<td>{{item.inventory}}</td>
+				<td>{{item.awardedAmount}}</td>
+				<td>{{item.virtualType}}</td>
+				<td>{{item.virtualValue}}</td>
+				<td>{{item.rate}}</td>
+				<td>{{item.expireTime|| '--' | date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+			 	<td>{{item.expireSeconds}}</td>
+				<td>{{item.createTime| date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+				<td>{{item.description}}</td>
+				<td>
+					<a class="template" ng-click="events.modify(item)">修改</a>
+					<a class="template" ng-click="events.del(item)">删除</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center">奖项维护</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="err-msg">
+					<ul ng-show="form.$submitted && form.$invalid">
+						<li ng-show="form.name.$error.required">请填奖项名称</li>
+						<li ng-show="form.rate.$error.required">请填写中奖率</li>
+						<li ng-show="form.inventory.$error.required">请填写库存</li>
+						<li ng-show="form.description.$error.required">请填写描述</li>
+					</ul>
+				</div>
+
+				<form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+					<div class="form-group">
+						<label for="name">活动名称</label>
+						<input class="form-control"   ng-model="promotionName" readonly="true" >
+					</div>
+					<div class="form-group">
+						<label for="name">奖项名称</label>
+						<input class="form-control" name="name" ng-model="prize.name" required>
+					</div>
+					<div class="form-group">
+						<label for="name">中奖率</label>
+						<input class="form-control" name="rate" ng-model="prize.rate" required>
+					</div>
+					 <div class="form-group">
+						<label for="name">库存</label>
+						<input class="form-control" name="inventory" ng-model="prize.inventory" required>
+					</div>
+					 
+					<div class="form-group">
+						<label for="name">描述</label>
+						<input class="form-control" name="description" ng-model="prize.description" required>
+					</div>
+					<div class="form-group">
+						<label for="name">虚拟类型</label>
+						<input type="checkbox" name="virtualType" ng-model="prize.virtualType" ng-true-value="1">代金券
+						<input type="checkbox" name="virtualType" ng-model="prize.virtualType" ng-true-value="2">虚拟币
+						<input type="checkbox" name="virtualType" ng-model="prize.virtualType" ng-true-value="3">积分
+
+					</div>
+					<div class="form-group">
+						<label for="name">虚拟价值</label>
+						<input class="form-control" name="virtualValue" ng-model="prize.virtualValue">
+					</div>
+					<div class="form-group">
+						<label for="name">过期时间</label>
+						<input class="form-control" name="expireTime" ng-model="prize.expireTime">
+					</div>
+					 <div class="form-group">
+						<label for="name">失效(s)</label>
+						<input class="form-control" name="expireSeconds" ng-model="prize.expireSeconds">
+					</div>
+					 <div class="form-group" id="upload-container">
+						<div>
+							<label for="name">奖项图片</label>
+							<a class="btn btn-primary" pl-upload pl-multi-selection="false" pl-progress-model="prize.upload.percent" pl-auto-upload="true" pl-files-model="prize.upload.files" on-file-uploaded="prize.upload.onFileUploaded($up, $file)">上传</a>
+						</div>
+						<div>
+							<ul class="file-list">
+								<li data-id="{{file.id}}" ng-repeat="file in upload.files" class="upload-progress clearfix">
+									<div class="file-info pull-left">{{file.name}}({{plupload.formatSize(file.size)}})</div>
+									<div class="progress pull-left">
+										<div class="progress-bar" style="width: {{file.percent}}%"></div>
+									</div>
+								</li>
+							</ul>
+							<div class="carousel old clearfix" ng-show="prize.imageUrl && prize.upload.files.length==undefined">
+								<img ng-src="{{imgHost}}/{{prize.imageUrl}}@160w_160h">
+							</div>
+							<div class="carousel preview clearfix" ng-show="prize.upload.files.length > 0">
+								<img ng-src="{{imgHost}}/{{prize.upload.files[prize.upload.files.length-1].path}}@160w_160h">
+							</div>
+						</div>
+					</div>
+					<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" ng-click="events.save(form)">保存</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

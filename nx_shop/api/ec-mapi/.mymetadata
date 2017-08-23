@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="easycommerce-management-api"
+  id="myeclipse.1461636688627"
+  context-root="/mapi"
+  j2ee-spec="1.7"
+  archive="easycommerce-management-api.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,252 @@
+.describe {
+	background: #fff;
+}
+.describe p {
+	font-size: 12px;
+    color: #666;
+    width: 84%;
+    margin-left: 2%;
+    line-height: 20px;
+}
+.Attribute .show_pies {
+    width: 95%;
+    margin: 0 auto;
+}
+.course {
+	background: #fff;
+	line-height: 46px;
+	font-size: 14px;
+	color: #666;
+    border-bottom: 1px solid #f3f3f3;
+}
+.course span:nth-child(1) {
+	background: url(../img/keshi.png) no-repeat;
+	background-size: 16px;
+	background-position: left center;
+    margin-left: 2%;
+    padding-left: 22px;
+    margin-right: 10%;
+}
+.course span:nth-child(2) {
+	background: url(../img/youxiaoqi.png) no-repeat;
+	background-size: 16px;
+	background-position: left center;
+    padding-left: 22px;
+}
+.typeTab {
+	border: none;
+}
+.Attribute .static {
+    position: static;
+    background: #f4f8fb;
+}
+.Attribute .fixed {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #fff;
+}
+.orientalindex .typeTab span {
+	width: 33%;
+	/*border-bottom: 1px solid #e3e3e3;*/
+	/*color: #333;*/
+	height: 46px;
+	line-height: 46px;
+	background: #fff;
+}
+.tyfq .typeTab .clickspan ,.ceb .typeTab .clickspan{
+	border-bottom: 2px solid #ff6633;
+	color: #ff6633;
+}
+.thb .typeTab .clickspan {
+	border-bottom: 2px solid rgb(243, 47, 48);
+	color: rgb(243, 47, 48);
+}
+.typeTabs{
+	width: 100%;
+	height: 40px;
+}
+.details {
+	line-height: 1px;
+    border-bottom: 1px solid #ccc;
+    width: 60%;
+    margin: 20px auto; 
+    text-align: center;
+}
+.details span {
+	background: #f4f8fb;
+	padding: 0 10px;
+}
+.type_list img {
+	width: 100%;
+	height: auto;
+}
+.orientalindex .type_list>div:first-child,.orientalindex .type_list>div:last-child{
+	display: none;
+}
+.orientalindex .type_list>div:nth-child(2){
+	display: block;
+}
+.tyfq .parameter .model div:last-child .clspan ,.ceb .parameter .model div:last-child .clspan{
+	border: 1px solid #ff6633;
+	color: #ff6633;
+}
+.thb .parameter .model div:last-child .clspan {
+	border: 1px solid rgb(243, 47, 48);
+	color: rgb(243, 47, 48);
+}
+.parameter .model div:last-child a {
+	color: #666;
+	padding: 3px 15px;
+	margin:5px 3% 12px 0;
+}
+.month {
+	color: #666;
+	font-size: 14px;
+	background: #fff4f0;
+}
+.tyfq .month i,.ceb .month i {
+	color: #ff6633;
+	font-weight: bold;
+}
+.thb .month i {
+	color: rgb(243, 47, 48);
+	font-weight: bold;
+}
+.parameter .model div:first-child {
+	float: none;
+}
+.Attribute .list_ul > li {
+	border-bottom: none;
+}
+.Attribute .show_pies{
+	width: 100%;
+}
+.Attribute .show_pies > div {
+	width: 95%;
+	text-indent: 0;
+	margin-left: 2%;
+}
+.Attribute .courselist li {
+	
+}
+.Attribute .courselist li div {
+	width: 100%;
+	height: 60px;
+}
+.Attribute .courselist li div p {
+	width: 100%;
+	font-size: 13px;
+    line-height: 25px;
+    padding-left: 32px;
+}
+.Attribute .courselist li div p:nth-child(1){
+	padding-top: 5px;
+}
+.Attribute .courselist li ul {
+	background: #f5f5f5;
+	display: none;
+}
+.Attribute .courselist li ul li div p {
+	padding-left: 45px;
+}
+.Attribute .courselist li ul li ul li div p {
+	padding-left: 65px;
+}
+.Attribute .courselist>li:nth-child(1) .nochild{
+	background: url(../img/line1.png) no-repeat 10px 13px;
+	background-size: 8px 60px;
+}
+.Attribute .courselist>li .nochild{
+	background: url(../img/line3.png) no-repeat 10px 0px;
+	background-size: 8px 60px;
+}
+.Attribute .courselist>li:nth-child(1) .close{
+	background: url(../img/line1.png) no-repeat 10px 13px,url(../img/right.png) no-repeat 95% 18px ;
+	background-size: 8px 60px,20px 20px;
+}
+
+.Attribute .courselist>li .close{
+	background: url(../img/line3.png) no-repeat 10px 0px,url(../img/right.png) no-repeat 95% 18px ;
+	background-size: 8px 60px,20px 20px;
+}
+.Attribute .courselist>li>ul>li>div {
+	background: url(../img/line2.png) no-repeat 10px 0px;
+	background-size: 8px 60px;
+}
+.Attribute .courselist>li:nth-child(1) .spread{
+	background: url(../img/line1.png) no-repeat 10px 13px,url(../img/up.png) no-repeat 95% 18px ;
+	background-size: 8px 60px,20px 20px;
+	
+}
+.Attribute .courselist>li .spread {
+	background: url(../img/line3.png) no-repeat 10px 0px,url(../img/up.png) no-repeat 95% 18px ;
+	background-size: 8px 60px,20px 20px;
+}
+/*退课须知*/
+.notice {
+	height: 45px;
+	background:url(../img/right1.jpg) no-repeat 98% center #fff;
+	background-size: 13px 21px;
+	line-height: 45px; 
+	margin-bottom: 12px;
+	border-bottom: 1px solid #f3f3f3;
+}
+.notice span{
+	background: url(../img/xuzhi.png) no-repeat left center;
+	background-size: 16px;
+	margin-left: 2%;
+	padding-left: 20px;
+	color: #666;
+	font-size: 14px;
+}
+.noticeorder {
+	margin-top: 10px;
+	padding-left: 2%;
+	clear: both;
+}
+.noticeorder .noticecheckbox {
+	width: 22px;
+	height:22px;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	float: left;
+}
+.noticeorder .noticecheckbox .noticecheckboxInput{
+	position:absolute;
+	z-index:10;
+	width:22px;
+	height:22px;
+	background:none;
+	border:none;
+    top: -3px;
+    left: -4px;
+    -webkit-appearance:none;
+}
+.noticeorder .noticecheckbox label {
+	position:absolute;
+	z-index:9;
+	top:0;
+	left:0;
+	width:22px;
+	height:22px;
+	background:url("../img/weixuanze.png") no-repeat 3px;
+	background-size:16px 16px;
+}
+.noticeorder .noticecheckbox .noticecheckboxInput:checked +label{
+	background:url("../img/xuanze.png") no-repeat 3px;
+	background-size:16px 16px;
+
+}
+.noticeorder p {
+	font-size: 13px;
+	color: #333;
+	float: left;
+	line-height: 20px;
+	margin-left: 10px;
+}
+.noticeorder p a{
+	color: #f63;
+	text-decoration: none;
+}

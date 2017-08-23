@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<report name="制单" fileName="制单导出">
+	<report-header>
+		<column name="客户来源" mapping="custSource" />
+		<column name="子订单号" mapping="sonNo" />
+		<column name="渠道" mapping="custSource"></column>
+		<column name="订购日期" mapping="createTime" datatype="date"
+			format="yyyy-MM-dd HH:mm:ss" />
+		<column name="持卡人" mapping="realName" />
+		<column name="持卡人电话" mapping="mobile" />
+		<column name="信用卡号" mapping="creditCard"/>
+		<column name="身份证号" mapping="cardId"/>
+		<column name="收货人" mapping="addressName" />
+		<column name="联系电话" mapping="addressMobile" />
+		<column name="其他联系方式" mapping="otherTel"/>
+		<column name="邮政编码" mapping="addressZip"/>
+		<column name="送货地址" mapping="addressFullText" />
+		<column name="客户备注" mapping="custComment"/>
+		<column name="商品编号" mapping="erpCode"/>
+		<column name="产品名称" mapping="skuName"/>
+		<column name="颜色" mapping="skuAttribute"/>
+		<column name="规格" mapping="skuAttributeUnuse"/>
+		<column name="产品价格" mapping="skuPrice"/>
+		<column name="产品数量" mapping="skuCount"/>
+		<column name="订单金额" mapping="totalPrice"/>
+		<column name="分期数" mapping="installmentMonths"/>
+		<column name="银行扣点" mapping="bankRate"/>
+		<column name="银行手续费" mapping="bankExtract"/>
+		<column name="应回款金额 " mapping="refund"/>
+		<column name="客户支付价格 " mapping="custPayed"/>
+		<column name="优惠券 " mapping="discount"/>
+		<column name="积分 " mapping="score"/>
+		<column name="其他补贴 " mapping="otherSubsidy"/>
+		<column name="赠品信息" mapping="giftInfo"/>
+		<column name="发票抬头" mapping="receipt"/>
+		 <column name="发货要求" mapping="needs"/>
+		 <column name="主订单号" mapping="mainNo"/>
+	</report-header>
+	<dataSource serviceClassId="orderService" serviceMethod="promoteOrdersExport" />
+</report>

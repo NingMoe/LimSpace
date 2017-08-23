@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.HistorySearchDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.HistorySearch">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="query_text" property="queryText" jdbcType="VARCHAR" />
+		<result column="query_times" property="queryTimes" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="BOOLEAN" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="adduser" parameterType="com.tyiti.easycommerce.entity.HistorySearch"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_history_search (query_text,query_times,user_id,status,create_time,update_time)
+		values (#{queryText},1,#{userId},1,now(),now()) 
+
+	</insert>
+	
+	<insert id="addnull" parameterType="com.tyiti.easycommerce.entity.HistorySearch"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_history_search (query_text,query_times,user_id,status,create_time,update_time)
+		values (#{queryText},1,null,1,now(),now()) 
+	</insert>	
+	
+	<update id="updateuser" parameterType="com.tyiti.easycommerce.entity.HistorySearch">
+		update t_history_search set query_times = query_times + 1,update_time = now()
+		where query_text = #{queryText} and user_id = #{userId};
+	</update>
+	
+	<update id="updatenull" parameterType="com.tyiti.easycommerce.entity.HistorySearch">
+		update t_history_search set query_times = query_times + 1,update_time = now()
+		where query_text = #{queryText} and user_id is null ;
+	</update>
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.HeadlineDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Headline">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="link" property="link" jdbcType="VARCHAR" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="invalid" property="invalid" jdbcType="BIT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">id,title,link,start_time,end_time,rank,invalid,
+		create_time,update_time
+	</sql>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.tyiti.easycommerce.entity.Headline">
+		insert into t_headline
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="title != null">
+				title,
+			</if>
+			<if test="link != null">
+				link,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="end_time != null">
+				endTime,
+			</if>
+			<if test="rank != null">
+				rank,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="link != null">
+				#{link,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="end_time != null">
+				#{end_time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rank != null">
+				#{rank,jdbcType=INTEGER},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="getHeadlineList" resultMap="BaseResultMap"
+		parameterType="com.tyiti.easycommerce.entity.Headline">
+		select
+		<include refid="Base_Column_List" />
+		from t_headline
+		where 1=1
+		<if test="id != null">
+			and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="title != null">
+			and title = #{title,jdbcType=VARCHAR}
+		</if>
+		<if test="invalid != null">
+			and invalid = #{invalid,jdbcType=VARCHAR}
+		</if>
+		order by rank,update_time desc
+	</select>
+
+	<select id="getInvalidList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_headline
+		where
+		invalid=0
+		AND start_time &lt; now()
+		AND end_time   &gt;now()
+		order by id desc,rank desc ,update_time desc
+	</select>
+
+	<update id="updateHeadlineByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Headline">
+		update t_headline
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="link != null">
+				link = #{link,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rank != null">
+				rank=#{rank,jdbcType=INTEGER},
+			</if>
+			<if test="invalid != null">
+				invalid=#{invalid,jdbcType=BIT},
+			</if>
+			update_time=now(),
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateInvalid">
+		update t_headline set invalid=1
+		where end_time &lt;
+		NOW()
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_headline
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.TagSkuDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.TagSku" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
+    <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tag_id, sku_id, rank, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tag_sku
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_tag_sku
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.TagSku" >
+    insert into t_tag_sku (id, tag_id, sku_id, 
+      rank, create_time)
+    values (#{id,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
+      #{rank,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.TagSku" >
+    insert into t_tag_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tagId != null" >
+        tag_id,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null" >
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.TagSku" >
+    update t_tag_sku
+    <set >
+      <if test="tagId != null" >
+        tag_id = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.TagSku" >
+    update t_tag_sku
+    set tag_id = #{tagId,jdbcType=INTEGER},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      rank = #{rank,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByTagId" parameterType="java.util.Map" >
+	  delete from t_tag_sku
+	  where tag_id = #{tagId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertRows" parameterType="java.util.List">
+        INSERT INTO t_tag_sku (`tag_id`, `sku_id`, `rank`, `create_time`) VALUES
+        <foreach item="tagSku" index="index" collection="tagSkus" open="(" separator="), (" close=")">
+            #{tagSku.tagId}, #{tagSku.skuId}, #{tagSku.rank}, NOW()
+        </foreach>
+    </insert>
+
+    <update id="updateRows" parameterType="java.util.List">
+        <foreach item="tagSku" index="index" collection="tagSkus" separator=";">
+            UPDATE t_tag_sku SET invalid = 0, rank = #{tagSku.rank, jdbcType=INTEGER}, update_time = NOW()
+            WHERE id = #{tagSku.id, jdbcType=INTEGER}
+        </foreach>
+    </update>
+</mapper>

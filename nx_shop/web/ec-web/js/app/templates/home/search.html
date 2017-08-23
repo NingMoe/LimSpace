@@ -1,0 +1,26 @@
+<div class="s-search-wrap  listhistory">
+	<input type="text" placeholder="请输入您感兴趣的商品名" />
+	<span class="search_btn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</div>
+<div class="s-search-hot">
+	<div class="s-search-hot-tit">热门搜索</div>
+	<div class="s-search-keywords">
+		<ul>
+			<% _.each(hotwords, function(item) { %>
+			<li><%= item.queryText %></li>
+			<% }) %>
+		</ul>
+	</div>
+</div>
+<div class="s-search-history">
+	<div class="s-search-history-tit">
+		<span>历史搜索</span>
+		<span class="delete"><img src="../../../../img/delete.png" /></span>
+	</div>
+	<div class="s-search-words">
+		<ul id="list">
+
+		</ul>
+
+	</div>
+</div>

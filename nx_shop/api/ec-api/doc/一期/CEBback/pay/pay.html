@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>光大信用卡支付</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <div id="toast-wrapper">
+      <div class="toast"><p></p></div>
+    </div>
+    <div id="order">
+      <h3>订单信息</h3>
+      <table>
+        <tbody>
+          <tr><td class="term">订单编号:</td><td>1234567890</td></tr>
+          <tr><td class="term">订单时间:</td><td>2016-04-18 20:43:00</td></tr>
+          <tr><td class="term">分期期数:</td><td>12期</td></tr>
+          <tr><td class="term">订单金额:</td><td>18.00元</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="pay">
+      <form>
+        <div class="input-wrapper">
+          <h3>支付信息</h3>
+          <table>
+            <tbody>
+              <tr>
+                <td><label for="part1">信用卡卡号</label></td>
+                <td>
+                  <div class="cardno-wrapper fluid">
+                    <input type="number" name="part1" maxlength="4">
+                    <div class="sep"></div>
+                    <input type="number" name="part2" maxlength="4">
+                    <div class="sep"></div>
+                    <input type="number" name="part3" maxlength="4">
+                    <div class="sep"></div>
+                    <input type="number" name="part4" maxlength="4">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><label for="month">有效期</label></td>
+                <td>
+                  <div class="fluid">
+                    <input type="number" name="month" maxlength="2">
+                    <span class="expire">月</span>
+                    <input type="number" name="year" maxlength="2">
+                    <span class="expire">年</span>
+                  </div>
+                </td>
+              </tr>
+              <tr class="msg"><td colspan="2"><em>*</em>请输入卡片正面的有效期，如09/13</td></tr>
+
+              <tr><td><label for="cvv2">CVV2</label></td><td><input name="cvv2"></td></tr>
+              <tr class="msg"><td colspan="2"><em>*</em>请输入卡片背面7位数字的后三位</td></tr>
+
+              <tr>
+                <td><label for="verifyImage">验证码</label></td>
+                <td>
+                  <div class="verify-buttons">
+                    <div class="verify-image"><img src="./img/verify.png"></div><a class="refresh-verify-image"></a>
+                  </div>
+                  <div class="verify-inputs">
+                    <input name="verifyImage">
+                  </div>
+                </td>
+              </tr>
+              <tr class="msg"><td colspan="2"><em>*</em>请输入图片上的数字或字母</td></tr>
+
+              <tr><td><label for="payPassword">交易密码</label></td><td><input type="password" maxlength="6" name="payPassword"></td></tr>
+              <tr>
+                <td><label for="verifyCode">动态密码</label></td>
+                <td>
+                  <div class="fluid">
+                    <input type="number" maxlength="6" name="verifyCode">
+                    <a class="get-verify-code">获取动态密码</a>
+                  </div>
+                </td>
+              </tr>
+              <tr class="msg"><td colspan="2"><em>*</em>请输入您手机收到的6位动态密码</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="submit-wrapper">
+          <input type="submit" value="支付">
+        </div>
+      </form>
+    </div>
+  </body>
+<script src="./js/jquery-1.12.3.js"></script>
+<script src="./js/jquery.validate.js"></script>
+<script src="./js/main.js"></script>
+</html>

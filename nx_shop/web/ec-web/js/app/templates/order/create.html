@@ -1,0 +1,130 @@
+ <div class="pj-site-container confirm">
+    <% if(isKoo) {%>
+      <div class="prompt">预留手机号为接收新东方课程账号密码短信的号码</div>
+    <% } %>
+    <dl class="dl_box clearfix">
+       <dt>
+          <% if( isKoo ) {%>
+          <img src="<%= product.sku.imagesOriginal.split(',')[0]%>"/>
+          <% } else { %>
+          <img src="<%= config.imgHost %><%= product.sku.imagesOriginal.split(',')[0]%>"/>
+          <% } %>
+        </dt>
+       <dd>
+         <p><% if (product.sku.name.length > 26) { %><%=product.sku.name.substr(0,26) %> ...<%} else { %><%=product.sku.name%> <% } %></p>
+         <span>规格:&nbsp;<% if (product.specs.length > 13) { %><%=product.specs.substr(0,13) %> ...<%} else { %><%=product.specs%> <% } %></span>
+         <span class="clearfix"><i class="thbcolor"><%= activity !== null ? activity.activityPrice : product.sku.price %></i><b>X<%= params.count %></b></span>
+       </dd>
+    </dl>
+    <ul class="ul_box">
+      <% if(!isKoo){%>
+        <% if(address) { %>
+          <li class="one ">收货地址 <a class="edit-address thbcolor" href="/?#address?selectedId=<%= address.id %>">选择收货地址</a></li>
+          <li class="two">
+            <div class="addressBg"></div>
+            <div class="addressDress">
+               <p class="area"><%= address.username %> &nbsp; <%= address.mobile %></p>
+               <p class="street"><%= address.fullText %></p>
+            </div>
+
+          </li>
+        <% } else {%>
+           <li class="one borderOneN">收货地址 <a class="edit-address" href="/?#address">选择收货地址</a></li>
+        <% } %>
+        <li class="three"></li>
+      <% } %>
+
+        <li class="four order_coupon borderOneN">优惠劵 / 代金券<span class="">
+          <!-- 当有活动时判断是否使用优惠券，不使用优惠券显示优惠不可用 -->
+          <% if(activity) {%>
+            <% if(activity.coupon == 0) {%>
+              <i style="margin-right: 20px;font-size: 12px;color: #ddd;">优惠不可用</i>
+            <% }else{ %>
+              <% if (!coupon) { %>
+                <i style="margin-right: 20px;font-size: 12px;color: #ddd;">0张可用</i>
+              <% } else if (coupon.selected) { %>
+                <i class="useNum">-<%= coupon.selected.coupon.discount %></i>
+              <% } else { %>
+                <i class="useNum"><%= coupon.availableCount %>张可用</i>
+              <% } %>
+            <% } %>
+          <% } else {%>
+            <% if (!coupon) { %>
+              <i style="margin-right: 20px;font-size: 12px;color: #ddd;">0张可用</i>
+            <% } else if (coupon.selected) { %>
+              <i class="useNum">-<%= coupon.selected.coupon.discount %></i>
+            <% } else { %>
+              <i class="useNum"><%= coupon.availableCount %>张可用</i>
+            <% } %>
+          <% } %>
+        </span></li>
+        <% if(!isKoo){%>
+        <li class="three"></li>
+        <li class="four invoice-wrapper">发票<i class="bill">
+          <% if(params.invoice) {%>
+            <b><%= params.invoice %></b>
+          <% } else if (address && address.username) {%>
+            <b> <%= address.username %></b>
+          <% } else { %>
+            <b> 个人</b>
+          <% } %>
+        </i></span></li>
+        <% } %>
+        <li class="three"></li>
+        <li class="one">付款信息</li>
+         <li class="five borderNone">商品总额:<span><i>￥<%= order.totalSkuPrice.toFixed(2) %></i></span></li>
+        <li class="five borderNone">优惠金额:<span><i id="couponMoney">￥-<%= order.discount.toFixed(2) %></i></span></li>
+        <% if (config.installment) { %>
+        <li class="five fenqi borderNone">分期信息:<span><i id="couponFenqi">￥<%= (order.orderPrice / params.installmentMonths).toFixed(2) %> x <%= params.installmentMonths %></i></span></li>
+        <% } %>
+        <li class="five borderTop"><span class="yfcolor">应付金额&nbsp&nbsp&nbsp<i class="thbcolor" id="couponActMoney">￥<%= order.orderPrice.toFixed(2) %></i></span></li>
+    </ul>
+    <% if(isKoo) {%>
+    <div class="reservemobile">
+      <span class="tel">预留手机号</span><input type="tel" />
+    </div>
+    <div class="noticeorder clearfix">
+      <div class="noticecheckbox">
+        <input type="checkbox" value="1" class="noticecheckboxInput" name="checkbox" />
+        <label></label>
+      </div>
+      <p>同意<a href="#notice" class="registermessage">《退换货规则》</a></p>
+    </div>
+	  <button class="button disabled" disabled="disabled">去支付</button>
+    <% }else{ %>
+     <% if(address) { %>
+        <button class="button thbbackground">去支付</button>
+     <% } else {%>
+        <button class="button disabled" disabled="disabled">去支付</button>
+     <% } %>
+	<% } %>
+ </div>
+ <form method='post'>
+   <input type='submit' id='submitpay' style='display:none' value='提交' name='name'>
+ </form>
+<div class="z_box100 hidden" style="height:100%"></div>
+<div class="z_box101 paypassword hidden">
+    <a href="javascript:void(0)">x</a>
+    <h2>请输入支付密码</h2>
+    <h3 class="mess"></h3>
+    <span class="alieditContainer"  id="payPassword_container">
+        <input type="tel" tabindex="1" id="payPassword_rsainput"  name="payPassword_rsainput" class="ui-input i-text sixDigitPassword" oncontextmenu="return false" onpaste="return false" oncopy="return false"  oncut="return false" autocomplete="off" value="" maxlength="6" minlength="6" style="outline: none; margin-left: -9.99rem;" />
+        <div class="sixDigitPassword" onclick="" tabindex="0" >
+          <i style="border-left-width: 0;"><b></b></i>
+          <i><b></b></i>
+          <i><b></b></i>
+          <i><b></b></i>
+          <i><b></b></i>
+          <i><b></b></i>
+        </div>
+    </span>
+</div>
+<div class="z_box101 set hidden">
+    <a href="javascript:void(0)">x</a>
+    <h2>设置支付密码验证用户信息</h2>
+    <h3 class="mess"></h3>
+    <p><span>手机号</span><input type="text" value="" disabled="disabled" name="mobile"/></p>
+    <p><span>验证码</span><input class="returncode" type="text" value="" name="verifyCode"/><button class="codebut">获取验证码</button></p>
+    <p><span>身份证号</span><input type="text" value="" name="idCard"/></p>
+    <p><button class="submit">下一步</button></p>
+</div>

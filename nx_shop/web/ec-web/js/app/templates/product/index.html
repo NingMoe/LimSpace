@@ -1,0 +1,166 @@
+<div class="m-scooch m-fluid m-scooch-photos">
+  <!-- the slider -->
+  <div class="m-scooch-inner">
+    <!-- the items -->
+  <% if(resp.sku.erpCode == 'koo'){%>
+    	<div class="m-item m-active">
+       	<img class="detail" src="<%= resp.sku.imagesOriginal %>">
+    	</div>
+  <% }else{%>
+    <% _.each(resp.maximg, function(item) { %>
+	    <div class="m-item m-active">
+	       	<img class="detail" src="<%= config.imgHost %><%= item %>@1:2">
+	    </div>
+  	<% }) %>
+  <% }%>
+  </div>
+  <!-- the controls -->
+  <div class="m-scooch-controls m-scooch-bulleted">
+    <% _.each(resp.maximg, function(item,name) { %>
+    	<a href="#" data-m-slide="<%=name+1 %>"></a>
+  	<% }) %>
+  </div>
+</div>
+
+<div class="pj-site-container Attribute">
+  <div class="tit"> 
+    <p>
+    	<%= resp.sku.name %>
+    </p>
+  </div>
+  <div class="show_pies <%= Activity ? '' : 'borderB' %>">
+    <div>￥<span class="unitprice" data-price="<%=resp.sku.price%>"><%= resp.sku.price.toFixed(2)%></span>
+      <% if(Activity){%>
+        <span class="sm_tit">原价￥<%= Activity.data[0].price %> </span>
+      <%}%>
+       	<span class="<%= resp.sku.isFavorite ? 'isFavorite' : 'favorite' %>" data-favoriteindex = "<%=resp.sku.isFavorite ? '1' : '0'%>"  data-skuid="<%=resp.sku.id%>">收藏</span>
+    </div>
+  </div>
+  <% if(Activity){%>
+   	<% if(!resp.displayspan) {%>
+      <div class="activitys <%= Activity.data[0].activityType == 1 ? '' : 'borderB' %>">
+        <span>限购</span>活动期间每人限购<%= Activity.data[0].purchaseNum %>件
+      </div>
+    <%}%>
+  <%}%>
+  <% if(Activity){%>
+    <div class="count_wrap <%= Activity.data[0].activityType == 1 ? 'actives' : 'none'%>">
+   	  <div class="Countdown">
+        <span>距离秒杀结束：</span>
+        <div class="seckillTimer">
+	        <span class="seckill-time  hour"></span>
+	        <span class="seckill-time_separator">:</span>
+	        <span class="seckill-time  min"></span>
+	        <span class="seckill-time_separator">:</span>
+	        <span class="seckill-time  second"></span>
+        </div>
+      </div>
+    </div>
+  <%}%>
+  <ul class="list_ul"> 
+    <li class="att_three"></li>
+    <li class="parameter">
+    <% _.each(resp.spuAttrs, function(item) { %>
+	    <div class="model clearfix">
+	      <div><%=item.attr.name %>：</div>
+	      <div>
+	      <% _.each(item.attrValues, function(attr,name) { %>
+	        <% if (attr.active) { %>
+	          <a class="clspan"><%= name %></a>
+	        <% } else { %>
+		        <% if (attr.skuId) { %>
+		          <a  href="#product/<%= attr.skuId %>"><%= name %></a>
+		        <% } else { %>
+		          <a style="border:1px solid #EFE9E9;color:#E8E6E6"><%= name %></a>
+		        <% } %>
+	        <% } %>
+	      <% }) %>
+	      </div>
+	    </div>
+    <% }) %>
+    <div class="model clearfix">
+      <div>件数：</div>
+      <% if(resp.sku.purchaseNum){%>
+        <div class="first-pay" style="margin-left: 0;">
+      <% }else{%>
+        <div class="first-pay">
+      <% }%>
+        <input class="min" name="" type="button" value="" />
+        <input class="text_box" name="goodnum" type="tel" value="1" />
+        <input class="add" name="" type="button" value="" />
+      </div>
+      <% if(Activity) {%>
+        <% if(resp.sku.purchaseNum){%>
+          <% if(!resp.displayspan) {%>
+        		<span style="font-size: 12px;margin-top: 10px;display: inline-block;float:right;margin-right:20px;vertical-align: bottom;">每人限购<%= resp.sku.purchaseNum%>件</span>
+          <% }%>
+        <% }%>
+      <% }%>
+    </div>
+    <div class="model clearfix">
+      <div>期数：</div>
+      <div class="installment">
+      <% if(resp.sku.installment){ %>
+        <% _.each(resp.sku.installment.split(','),function(item,index){%>
+            <% if(!(resp.sku.installment.split(',')[resp.sku.installment.split(',').length-1])){%>
+                <% if((resp.sku.installment.split(',').length -2) == index) {%>
+                  <a href="javascript:void(0)" class="clspan"><%= item%>期</a>
+                <%} else {%>
+                  <% if((resp.sku.installment.split(',').length -1) > index){%>
+                    <a href="javascript:void(0)" class="<%= resp.sku.installment.split(',').length == index ? 'clspan' : ''%>"><%= item%>期</a>
+                  <% } %>
+               <% }%>
+            <% }else{ %>
+              <% if((resp.sku.installment.split(',').length -1) == index) {%>
+                  <a href="javascript:void(0)" class="clspan"><%= item%>期</a>
+               <%} else {%>
+                  <a href="javascript:void(0)"><%= item%>期</a>
+               <% }%>
+            <% } %>
+        <% }) %>
+      <% } %>
+      </div>
+    </div>
+    <div class="message">
+      <!--   支付额度=商品价格*件数-首付
+             服务费=支付额度*费率/100
+             订单总价=商品价格*件数+服务费*期数
+             月供=支付额度/期数+服务费 -->
+      <p class="month" data-installment="">月供：￥<%= (((resp.sku.price/resp.sku.installment.split(',')[resp.sku.installment.split(",").length-1])) + resp.sku.price * stageRateData[resp.sku.installment.split(',')[resp.sku.installment.split(",").length-1]] / 100 ).toFixed(2) %> * <%=resp.sku.installment.split(',')[resp.sku.installment.split(",").length-1]%>
+      期</p>
+    </div>
+   </li>
+   <li class="icon"><span class="real">正品销售</span><span class="genius">全国联保</span><span class="fast">闪电发货</span></li>
+   </ul>
+   <div class="typeTab">
+      <span class="clickspan">图文详情</span>
+   </div>
+   <div class="type_list">
+     <div>
+        <P><%= resp.sku.description %></P>
+     </div>
+   </div>
+</div>
+
+<div class="pj-action-add  index_but buy">
+  <% if(Activity) {%>
+    <% if(Activity.data[0].reservedInventory <= 0) {%>
+      <button class="submint" disabled="disabled" style="background: #ddd">已售罄</button>
+      <% }else {%>
+          <% if(!resp.sku.noo){%>
+            <button class="submint" disabled="disabled" style="background:#ddd">已达到活动购买上限</button>
+          <% } else {%>
+           <button class="submint" data-id="<%= resp.sku.id %>" data-headthumbnail="<%= resp.sku.headThumbnail %>">立即购买</button>
+          <% }%>
+    <%}%>
+  <% }else{ %>
+      <% if(resp.sku.inventory <= 0){%>
+          <button class="submint" disabled="disabled" style="background: #ddd">已售罄</button>
+      <% }else{%>
+      
+       <button class="submint" data-id="<%= resp.sku.id %>" data-headthumbnail="<%= resp.sku.headThumbnail %>">立即购买</button>
+     <% } %>
+  <% } %>
+</div>
+
+

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<report name="SKU" fileName="商品导出">
+	<report-header>
+		<column name="ID" mapping="id" />
+		<column name="商品名称" mapping="name" />
+		<column name="商品价格" mapping="price"></column>
+		<column name="分期数" mapping="installment"></column>
+		<column name="上下架" mapping="status"></column>
+		<column name="库存" mapping="inventory"></column>
+		<column name="ERP-CODE" mapping="erp_code" />
+	</report-header>
+	<dataSource serviceClassId="skuService" serviceMethod="exportSkus" />
+</report>

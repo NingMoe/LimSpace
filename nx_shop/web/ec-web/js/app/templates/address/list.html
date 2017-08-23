@@ -1,0 +1,28 @@
+ <div class="pj-site-container add">
+  <ul>
+ <% _.each(data, function(item) { %>
+   
+    <% if (item.id == selectedId) {%>
+        <li class="active">
+     <% } else { %>
+        <li>
+     <% } %>
+      <dl>
+        <dd data-id ="<%=item.id %>">
+          <P data-username ="<%=item.username %>" data-mobile ="<%=item.mobile %>"><%=item.username %> <%=item.mobile %></P>
+          <P>
+          <% if (item.isDefault) {%>
+          <span>默认</span>
+          <% } %>
+          <%=item.fullText %></P>
+        </dd>
+        <dt>
+          <a class="edit" href="#address/edit/<%=item.id%>thisurl=#address"></a>
+          <a class="delete" data-id="<%=item.id %>">删除</a>
+        </dt>
+      </dl>
+    </li>
+ <% }) %>
+  </ul>
+  <button class="button">添加新地址</button>
+ </div>

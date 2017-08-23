@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.SkuShelvesScheduleDao">
+	<resultMap id="BaseResultMap"
+		type="com.tyiti.easycommerce.entity.SkuShelvesSchedule">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sku_id" property="skuId" jdbcType="INTEGER" />
+		<result column="on_time" property="onTime" jdbcType="TIMESTAMP" />
+		<result column="off_time" property="offTime" jdbcType="TIMESTAMP" />
+		<result column="invalid" property="invalid" jdbcType="BIT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="SkuAndTimeResultMap"
+		type="com.tyiti.easycommerce.entity.SkuShelvesSchedule">
+		<id column="ss_id" property="id" jdbcType="INTEGER" />
+		<result column="ss_sku_id" property="skuId" jdbcType="INTEGER" />
+		<result column="ss_on_time" property="onTime" jdbcType="TIMESTAMP" />
+		<result column="ss_off_time" property="offTime" jdbcType="TIMESTAMP" />
+		<result column="ss_invalid" property="invalid" jdbcType="BIT" />
+		<result column="ss_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="ss_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<collection property="sku" ofType="com.tyiti.easycommerce.entity.Sku"
+			resultMap="SkuResultMap">
+		</collection>
+	</resultMap>
+	<!-- <collection property="sku" ofType="com.tyiti.easycommerce.entity.Sku" 
+		resultMap="SkuResultMap"> </collection> -->
+	<resultMap id="SkuResultMap" type="com.tyiti.easycommerce.entity.Sku">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="spu_id" property="spuId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="erp_code" property="erpCode" jdbcType="VARCHAR" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="original_price" property="originalPrice"
+			jdbcType="DECIMAL" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="installment" property="installment" jdbcType="VARCHAR" />
+		<result column="head_thumbnail" property="headThumbnail"
+			jdbcType="VARCHAR" />
+		<result column="is_default" property="isDefault" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="inventory" property="inventory" jdbcType="INTEGER" />
+		<result column="description" property="description" jdbcType="LONGVARCHAR" />
+		<result column="detail" property="detail" jdbcType="LONGVARCHAR" />
+		<result column="images_thumbnail" property="imagesThumbnail"
+			jdbcType="LONGVARCHAR" />
+		<result column="images_original" property="imagesOriginal"
+			jdbcType="LONGVARCHAR" />
+		<result column="pickup" property="pickup" jdbcType="INTEGER" />
+		<result column="warning_inventory" property="warningInventory"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">id,sku_id,on_time,off_time,invalid,create_time,update_time
+	</sql>
+
+	<sql id="SkuBase_Column_List">
+		ss.id ss_id,ss.sku_id ss_id,ss.on_time
+		ss_on_time,ss.off_time
+		ss_off_time,ss.invalid ss_invalid,
+		ss.create_time ss_create_time,ss.update_time ss_update_time,s.id,
+		s.spu_id, s.name,
+		s.erp_code, s.invalid, s.status,
+		s.original_price,
+		s.price,installment, s.head_thumbnail,s.is_default,s.create_time,
+		s.update_time,
+		s.inventory,s.description, s.detail,
+		s.images_thumbnail,
+		s.images_original,s.pickup,s.warning_inventory
+	</sql>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.tyiti.easycommerce.entity.SkuShelvesSchedule">
+		insert into t_sku_shelves_schedule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="skuId != null">
+				sku_id,
+			</if>
+			<if test="onTime != null">
+				on_time,
+			</if>
+			<if test="offTime != null">
+				off_time,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="skuId != null">
+				#{skuId,jdbcType=INTEGER},
+			</if>
+			<if test="onTime != null">
+				#{onTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="offTime != null">
+				#{offTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertRows" parameterType="java.util.List">
+		INSERT INTO t_sku_shelves_schedule (`sku_id`, `on_time`,
+		`off_time`,`invalid`,`create_time`) VALUES
+		<foreach item="sss" index="index" collection="sssList" open="("
+			separator="), (" close=")">
+			#{sss.skuId}, #{sss.onTime},#{sss.offTime},0,
+			NOW()
+		</foreach>
+	</insert>
+
+	<select id="getSSSList" resultMap="BaseResultMap"
+		parameterType="com.tyiti.easycommerce.entity.SkuShelvesSchedule">
+		select
+		<include refid="Base_Column_List" />
+		from t_sku_shelves_schedule
+		where 1=1
+		<if test="id != null">
+			and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="skuId != null">
+			and sku_id = #{skuId,jdbcType=INTEGER}
+		</if>
+		<if test="invalid != null">
+			and invalid = #{invalid,jdbcType=BIT}
+		</if>
+	</select>
+
+	<select id="getSSS" resultMap="BaseResultMap"
+		parameterType="com.tyiti.easycommerce.entity.SkuShelvesSchedule">
+		select
+		<include refid="Base_Column_List" />
+		from t_sku_shelves_schedule
+		where 1=1
+		<if test="id != null">
+			and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="skuId != null">
+			and sku_id = #{skuId,jdbcType=INTEGER}
+		</if>
+		<if test="invalid != null">
+			and invalid = #{invalid,jdbcType=BIT}
+		</if>
+	</select>
+
+	<select id="getskuSSSList" resultMap="SkuAndTimeResultMap"
+		parameterType="com.tyiti.easycommerce.entity.SkuShelvesSchedule">
+		select
+		<include refid="SkuBase_Column_List" />
+		from t_sku_shelves_schedule ss
+		LEFT JOIN t_sku s on ss.sku_id=s.id
+		where 1=1
+		<if test="id != null">
+			and ss.id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="skuId != null">
+			and ss.sku_id = #{skuId,jdbcType=INTEGER}
+		</if>
+		<if test="invalid != null">
+			and ss.invalid = #{invalid,jdbcType=BIT}
+		</if>
+		<if test="limit !=null and offset!=null">
+			limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="getskuSSSListCount" resultType="java.lang.Integer">
+		select count(0) from t_sku_shelves_schedule ss
+		LEFT JOIN t_sku s on
+		ss.sku_id=s.id
+		where 1=1
+		<if test="id != null">
+			and ss.id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="skuId != null">
+			and ss.sku_id = #{skuId,jdbcType=INTEGER}
+		</if>
+		<if test="invalid != null">
+			and ss.invalid = #{invalid,jdbcType=BIT}
+		</if>
+	</select>
+
+	<update id="endSSSById" parameterType="java.lang.Integer">
+		update
+		t_sku_shelves_schedule set invalid =1
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="endSSSBySkuId" parameterType="java.lang.Integer">
+		update
+		t_sku_shelves_schedule set invalid =1
+		where sku_id =
+		#{skuId,jdbcType=INTEGER}
+	</update>
+
+	<!-- 定时上架 -->
+	<update id="timeOnShelves" parameterType="java.util.List">
+		update t_sku set status=1 where id IN
+		<foreach item="sss" index="index" collection="skuIdsList"
+			open="(" separator="," close=")">
+			#{sss.skuId}
+		</foreach>
+	</update>
+	<!-- 定时下架 -->
+	<update id="timeOffShelves" parameterType="java.util.List">
+		update t_sku set status=0 where id IN
+		<foreach item="sss" index="index" collection="skuIdsList"
+			open="(" separator="," close=")">
+			#{sss.skuId}
+		</foreach>
+	</update>
+
+	<!-- 定时修改状态 活动已结束 -->
+	<update id="timeShelvesInvalid">
+		UPDATE t_sku_shelves_schedule set invalid=1 where
+		(on_time &lt; NOW() and off_time &lt; NOW())
+		or (on_time &lt; NOW() and off_time is null)
+		or (off_time &lt; NOW() and on_time is null)
+		and invalid=0
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_sku_shelves_schedule
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!--获取上架数据 -->
+	<select id="getOnTimeList" resultMap="BaseResultMap">
+		select sku_id from
+		t_sku_shelves_schedule
+		where (off_time &gt; NOW() or off_time is null)
+		AND
+		date(on_time)=CURDATE()
+		AND hour(on_time)=hour(NOW())
+		AND
+		minute(on_time)=minute(now())
+		AND invalid=0
+	</select>
+
+	<!--获取下架数据 -->
+	<select id="getOffTimeList" resultMap="BaseResultMap">
+		select sku_id from
+		t_sku_shelves_schedule
+		where date(off_time)=CURDATE()
+		AND
+		hour(off_time)=hour(NOW())
+		AND minute(off_time)=minute(now())
+		AND
+		invalid=0
+	</select>
+
+	<!--查询列表总数 -->
+	<select id="selectSkuByTagIdLists" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT
+		tag.id as tag_id,
+		sku.id ,
+		tag.rank,
+		sku.`name`,
+		sku.description,
+		sku.detail,
+		sku.status,
+		sku.erp_code,
+		sku.invalid,
+		sku.original_price,
+		sku.price,
+		sku.installment,
+		sku.head_thumbnail,
+		sku.images_thumbnail,
+		sku.images_original,
+		sku.is_default,
+		sku.create_time,
+		sku.update_time,
+		sku.inventory,
+		sku.spu_id
+		FROM
+		t_tag AS tag
+		JOIN t_tag_sku AS ts ON
+		ts.tag_id = tag.id and ts.invalid = 0
+		JOIN t_sku AS sku ON sku.id =
+		ts.sku_id and sku.invalid = 0
+		where 1=1 and
+		tag.invalid = 0 and
+		tag.status = 1
+		and sku.id not in (select
+		sku_id
+		from
+		t_sku_shelves_schedule sss where
+		sss.invalid=0)
+		<if test="tagId!=null">
+			and tag.id=#{tagId,jdbcType=INTEGER}
+		</if>
+		ORDER BY ts.rank
+		<if test="limit != null and offset != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="selectTagLists" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT k.* FROM t_sku k LEFT JOIN t_tag_sku tk ON k.id = tk.sku_id
+		WHERE tk.invalid = 0 AND tk.tag_id = #{tagId,jdbcType=INTEGER}
+		and
+		k.id
+		not in
+		(select sku_id from t_sku_shelves_schedule sss where
+		sss.invalid=0)
+		ORDER BY tk.rank ASC
+		<if test="limit != null and offset != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+
+</mapper>

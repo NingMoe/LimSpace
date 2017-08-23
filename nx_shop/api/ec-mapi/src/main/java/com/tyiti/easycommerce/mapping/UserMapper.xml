@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.UserDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="CHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="head_img" property="headImg" jdbcType="VARCHAR" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="gender" property="gender" jdbcType="INTEGER" />
+		<result column="id_card" property="idCard" jdbcType="CHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="pay_password" property="payPassword" jdbcType="VARCHAR" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="rec_by_code" property="recByCode" jdbcType="VARCHAR" />
+		<result column="rec_code" property="recCode" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="third_party_type" property="thirdPartyType"
+			jdbcType="INTEGER" />
+		<result column="third_party_id" property="thirdPartyId"
+			jdbcType="VARCHAR" />
+		<result column="open_id" property="openId" jdbcType="VARCHAR" />
+		<result column="company_info_id" property="companyInfoId"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, mobile, real_name, id_card, password, pay_password, invalid, status,
+		rec_by_code,
+		rec_code, create_time, update_time, third_party_type, third_party_id, open_id,
+		company_info_id,head_img,nick_name,birthday,gender,
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.User">
+		insert into t_user (id, mobile, real_name,
+		id_card, password, pay_password,
+		invalid, status, rec_by_code,
+		rec_code, create_time, update_time,
+		third_party_type, third_party_id, open_id,
+		company_info_id)
+		values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=CHAR},
+		#{realName,jdbcType=VARCHAR},
+		#{idCard,jdbcType=CHAR}, #{password,jdbcType=VARCHAR}, #{payPassword,jdbcType=VARCHAR},
+		#{invalid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+		#{recByCode,jdbcType=VARCHAR},
+		#{recCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{thirdPartyType,jdbcType=INTEGER}, #{thirdPartyId,jdbcType=VARCHAR},
+		#{openId,jdbcType=VARCHAR},
+		#{companyInfoId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.User">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="realName != null">
+				real_name,
+			</if>
+			<if test="idCard != null">
+				id_card,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="payPassword != null">
+				pay_password,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="recByCode != null">
+				rec_by_code,
+			</if>
+			<if test="recCode != null">
+				rec_code,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="thirdPartyType != null">
+				third_party_type,
+			</if>
+			<if test="thirdPartyId != null">
+				third_party_id,
+			</if>
+			<if test="openId != null">
+				open_id,
+			</if>
+			<if test="companyInfoId != null">
+				company_info_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=CHAR},
+			</if>
+			<if test="realName != null">
+				#{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null">
+				#{idCard,jdbcType=CHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="payPassword != null">
+				#{payPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="recByCode != null">
+				#{recByCode,jdbcType=VARCHAR},
+			</if>
+			<if test="recCode != null">
+				#{recCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="thirdPartyType != null">
+				#{thirdPartyType,jdbcType=INTEGER},
+			</if>
+			<if test="thirdPartyId != null">
+				#{thirdPartyId,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="companyInfoId != null">
+				#{companyInfoId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.User">
+		update t_user
+		<set>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=CHAR},
+			</if>
+			<if test="realName != null">
+				real_name = #{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null">
+				id_card = #{idCard,jdbcType=CHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="payPassword != null">
+				pay_password = #{payPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="recByCode != null">
+				rec_by_code = #{recByCode,jdbcType=VARCHAR},
+			</if>
+			<if test="recCode != null">
+				rec_code = #{recCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="thirdPartyType != null">
+				third_party_type = #{thirdPartyType,jdbcType=INTEGER},
+			</if>
+			<if test="thirdPartyId != null">
+				third_party_id = #{thirdPartyId,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				open_id = #{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="companyInfoId != null">
+				company_info_id = #{companyInfoId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.User">
+		update t_user
+		set mobile = #{mobile,jdbcType=CHAR},
+		real_name = #{realName,jdbcType=VARCHAR},
+		id_card = #{idCard,jdbcType=CHAR},
+		password = #{password,jdbcType=VARCHAR},
+		pay_password = #{payPassword,jdbcType=VARCHAR},
+		invalid = #{invalid,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		rec_by_code = #{recByCode,jdbcType=VARCHAR},
+		rec_code = #{recCode,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		third_party_type = #{thirdPartyType,jdbcType=INTEGER},
+		third_party_id = #{thirdPartyId,jdbcType=VARCHAR},
+		open_id = #{openId,jdbcType=VARCHAR},
+		company_info_id = #{companyInfoId,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByCustId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from t_user
+		where id = #{custId,jdbcType=INTEGER}
+	</select>
+
+<!-- 查询条件 -->
+	<sql id="where_columns">
+		where 1=1
+		<!-- 真是姓名模糊查询 -->
+		<if test="realName != null and  realName !=''">
+			and tu.real_name like CONCAT(CONCAT('%',
+			#{realName,jdbcType=VARCHAR}),'%')
+		</if>
+		<!-- 昵称模糊查询 -->
+		<if test="nickName != null and  nickName !=''">
+			and tu.nick_name like CONCAT(CONCAT('%',
+			#{nickName,jdbcType=VARCHAR}),'%')
+		</if>
+		<!-- 手机号模糊查询 -->
+		<if test="mobile != null and  mobile !=''">
+			and tu.mobile like CONCAT(CONCAT('%',
+			#{mobile,jdbcType=VARCHAR}),'%')
+		</if>
+		<!-- 注册开始时间 -->
+		<if test="startTime != null">
+			and tu.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+		</if>
+		<!-- 注册结束时间 -->
+		<if test="endTime != null">
+			and tu.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<!-- 状态查询 0: 初始化，1: 已提交授信申请 -->
+		<if test="status != null">
+			and tu.status = #{status,jdbcType=INTEGER}
+		</if>
+		<!-- 通过这个推荐码注册的 -->
+		<if test="recByCode != null and  recByCode !=''">
+			and tu.rec_by_code = #{recByCode,jdbcType=VARCHAR}
+		</if>
+		<!-- 是否有效，默认有效 -->
+		<if test="invalid != null">
+			and tu.invalid = #{invalid,jdbcType=INTEGER}
+		</if>
+		<!-- 推荐码 -->
+		<if test="recCode != null and  recCode !=''">
+			and tu.rec_code = #{recCode,jdbcType=VARCHAR}
+		</if>
+		<!-- 第三方类型，0: 无 1: 信分宝 2：微信openID -->
+		<if test="thirdPartyType != null">
+			and tu.third_party_type =
+			#{thirdPartyType,jdbcType=INTEGER}
+		</if>
+		<!-- 第三方身份标识 -->
+		<if test="thirdPartyId != null">
+			and tu.third_party_id = #{thirdPartyId,jdbcType=VARCHAR}
+		</if>
+		<!-- open_id -->
+		<if test="openId != null and  openId !=''">
+			and tu.open_id = #{openId,jdbcType=VARCHAR}
+		</if>
+		<!-- 微信公司id company_info_id -->
+		<if test="companyInfoId != null">
+			and tu.company_info_id = #{companyInfoId,jdbcType=INTEGER}
+		</if>
+		<!-- 更新时间开始时间 -->
+		<if test="updateStartTime != null">
+			and tu.update_time &gt;=
+			#{updateStartTime,jdbcType=TIMESTAMP}
+		</if>
+		<!-- 更新时间结束时间 -->
+		<if test="updateEndTime != null">
+			and tu.update_time &lt;=
+			#{updateEndTime,jdbcType=TIMESTAMP}
+		</if>
+		<!-- 生日时间开始时间 -->
+		<if test="birthdayStartTime != null and birthdayStartTime!=''">
+			and tu.birthday &gt;=
+			#{birthdayStartTime,jdbcType=TIMESTAMP}
+		</if>
+		<!-- 生日时间结束时间 -->
+		<if test="birthdayEndTime != null and birthdayEndTime!=''">
+			and tu.birthday &lt;=
+			#{birthdayEndTime,jdbcType=TIMESTAMP}
+		</if>
+		<!-- gender 性别 -->
+		<if test="gender != null">
+			and tu.gender = #{gender,jdbcType=INTEGER}
+		</if>
+	</sql>
+
+	<!-- 订单条件查询排序 start -->
+	<sql id="orderby_columns">
+		<if test="sort =='id'">
+			ORDER BY tu.id ${order}
+		</if>
+		<if test="sort =='realName'">
+			ORDER BY tu.real_name ${order}
+		</if>
+		<if test="sort =='mobile'">
+			ORDER BY tu.mobile ${order}
+		</if>
+		<if test="sort =='createTime'">
+			ORDER BY tu.create_time ${order}
+		</if>
+		<if test="sort =='nickName'">
+			ORDER BY tu.nick_name ${order}
+		</if>
+		<if test="sort =='birthday'">
+			ORDER BY tu.birthday ${order}
+		</if>
+		<if test="sort =='gender'">
+			ORDER BY tu.gender ${order}
+		</if>
+		<if test="sort =='updateTime'">
+			ORDER BY tu.update_time ${order}
+		</if>
+	</sql>
+	<!-- 订单条件查询排序 end -->
+
+	<!-- 总条数 -->
+	<select id="selectUserCount" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(*)
+		from t_user tu
+		<include refid="where_columns"></include>
+	</select>
+	<!-- 用户列表 -->
+	<select id="selectUserList" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		<include refid="Base_Column_List"></include>
+		from t_user tu
+		<include refid="where_columns"></include>
+		<if test="sort != null and sort != ''">
+			<include refid="orderby_columns" />
+		</if>
+		<if test="sort == null or sort == ''">
+			order by tu.create_time desc
+		</if>
+		<if test="limit != null and offset != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="getUserList" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from t_user tu
+		<include refid="where_columns"></include>
+		<if test="sort != null and sort != ''">
+			<include refid="orderby_columns" />
+		</if>
+		<if test="sort == null or sort == ''">
+			order by tu.create_time desc
+		</if>
+		<if test="limit != null and offset != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+</mapper>

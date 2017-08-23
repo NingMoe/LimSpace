@@ -1,0 +1,25 @@
+<div class="prizelist">
+  <% _.each(data, function(item) { %>
+  <ul>
+    <li>
+      <div class="prizelistTop">
+        <img src="<%= config %><%= item.imageUrl%>" />
+        <div>
+          <span ><%= item.name%></span>
+          <span>中奖时间：<%=item.createTime %></span>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <% }) %>
+</div>
+<div class='winprizeBj' style="display: none"></div>
+<div class='winprize' style="display: none">
+  <a href="#lottery/prizelist"></a>
+  <img src="">
+  <p></p>
+  <input type="text" placeholder="姓名"></input>
+  <input type="text" placeholder="联系电话"></input>
+  <input type="text" placeholder="收货地址"></input>
+  <button class='submit'>提交</button>
+</div>

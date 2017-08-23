@@ -1,0 +1,76 @@
+<style>
+[type="file"] {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 10000px;
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  cursor: pointer;
+}
+a.upload1 {
+    display: inline-block;
+    border: 2px dashed #ccc;
+    height: 58px;
+    width: 58px;
+    text-align: center;
+    line-height: 56px;
+    font-size: 40px;
+    font-weight: 700;
+    color: #ccc;
+    text-decoration: none;
+    /*vertical-align: bottom;*/
+        position: relative;
+    overflow: hidden;
+}
+a.upload {
+        position: relative;
+    overflow: hidden;
+}
+.hidden-iframe {
+  display: none;
+}
+</style>
+
+<div class="desc">
+<code>1. 只支持 .zip 压缩包格式</code><br>
+<code>2. 压缩包根目录下必须有 index.html 文件</code><br>
+<code>
+3. index.html 末尾加上如下代码：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;script src="/js/lib/zepto.js"&gt;&lt;/script&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;script src="/js/topic.js"&gt;&lt;/script&gt;
+</code><br>
+<code>
+4. 活动起止时间语法:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;body data-before="活动未开始，活动时间8月2日/8月3日9:00-17:00。" data-after="活动已结束，关注淘惠帮，精彩优惠活动不断。" data-break="活动下次开始时间%next%。" data-time1="2016-08-02 09:00:00 - 2016-08-02 17:00:00" data-time2="2016-08-03 09:00:00 - 2016-08-03 17:00:00"&gt;，<br>可以用 data-time1、data-time2 ... 表示多个时间段。<br>
+如果只有活动期间，链接才可以点击，请给链接加上代码：class="js-clickable-when-active"
+</code><br>
+<code>
+5. 优惠券语法: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="javascript:;" class="js-coupon" data-couponid="16"&gt;&lt;img src="" border="0"&gt;&lt;/a&gt;，其中class="js-coupon"固定，data-couponid="16"中的16是优惠券ID。
+</code>
+</div>
+
+<form method="post" enctype="multipart/form-data" target="upload-iframe" class="pull-right">
+  <a href="javascript:;" class="btn btn-primary upload" file-selected="events.fileSelected">新增专题<input type="file" name="file" accept=".zip"></a>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th width="50%">路径</th>
+      <th>更新</th>
+      <th width="5%"> 操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="topic in topics">
+    <td><a href="{{$webHost}}/topic/{{topic.path}}/" target="_blank">{{topic.path}}</a></td>
+      <td>{{topic.lastModified | date : "yyyy-MM-dd HH:mm:ss"}}</td>
+      <td><form method="post" enctype="multipart/form-data" target="upload-iframe"><a href="javascript:;" class="btn btn-primary upload" file-selected="events.fileSelected">覆盖<input type="file" name="file" accept=".zip"><input type="hidden" name="path" value="{{topic.path}}"></a></form></td>
+    </tr>
+  </tbody>
+</table>
+
+<iframe src="about:blank" class="hidden-iframe" name="upload-iframe"></iframe>

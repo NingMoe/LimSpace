@@ -1,0 +1,246 @@
+.confirm .pickupshop{
+    background: url(../img/right1.jpg) no-repeat 98% 15px #fff;
+    background-size: 12px 20px;
+    width: 100%;
+    font-size: 15px;
+    color: #666;
+}
+.confirm .pickupshop h3{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: 70%;
+    position: relative;
+    padding-left: 40px;
+}
+.confirm .pickupshop span{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../img/dingwei.png) no-repeat;
+    background-size: 20px;
+    position: absolute;
+    left: 10px;
+    top: 14px;
+}
+.confirm .pickupshop p.line{
+    width: 100%;
+    height: 4px;
+    background: url(../img/line.png);
+    background-size: 100% 4px;
+}
+.confirm .pickupshop p.address{
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 20px;
+    margin-left: 40px;
+}
+.confirm .pickupprompt{
+    width: -webkit-calc( 100% - 20px);
+    height: 40px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #f23030;
+    padding: 0 10px;
+}
+.pickuplist>p{
+    width: 100%;
+    font-size: 12px;
+    color: #666;
+    height: 31px;
+    line-height: 31px;
+    padding-left: 10px;
+}
+.pickuplist ul{
+    width: 100%;
+    background: #fff;
+    padding: 0 10px;
+}
+.pickuplist ul li{
+    width: -webkit-calc( 100% - 20px);
+    height: 57px;
+    border-bottom: 1px solid #e3e3e3;
+    padding: 15px 0;
+    position: relative;
+}
+.pickuplist ul li h3{
+    font-size: 15px;
+    color: #333;
+}
+.pickuplist ul li p{
+    font-size: 13px;
+    color: #999;
+    margin-top: 8px;
+}
+.pickuplist ul li i{
+    width: 3px;
+    height: 62px;
+    background: #f23030;
+    display: inline-block;
+    position: absolute;
+    left: -10px;
+    top: 13px;
+}
+.detail .pickupshop{
+    width: 100%;
+    font-size: 15px;
+    color: #666;
+    background: #fff;
+    padding-bottom: 1px;
+    border-top: 1px solid #d7d7d7;
+}
+.detail .pickupshop h3{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: 70%;
+    position: relative;
+    padding-left: 40px;
+}
+.detail .pickupshop span{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../img/dingwei.png) no-repeat;
+    background-size: 20px;
+    position: absolute;
+    left: 10px;
+    top: 14px;
+}
+.detail .pickupshop p{
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 20px;
+    margin-left: 40px;
+}
+.detail .pickupprompt{
+    width: -webkit-calc( 100% - 20px);
+    height: 40px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #f23030;
+    padding: 0 10px;
+}
+.detail .home{
+    margin: 20px 0;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    background: #f23030;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    border-radius: 4px;
+    margin-left: 50%;
+}
+.detail .home:last-child{
+    margin-left: 3%;
+    background: #ff6600;
+}
+.return h3{
+    width: -webkit-calc( 100% - 10px );
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    padding-left: 10px;
+    color: #333;
+    border-top: 1px solid #d7d7d7;
+}
+.return .reason{
+    margin-top: 13px;
+    background: #fff;
+    border-bottom: 1px solid #d7d7d7;
+    border-top: 1px solid #d7d7d7;
+}
+.return h4{
+    font-size: 17px;
+    color: #333;
+    margin-left: 10px;
+    height: 45px;
+    line-height: 45px;
+}
+.return h4 span{
+    font-size: 14px;
+    color: #ccc;
+}
+.return .reason li{
+    position: relative;
+    margin-left: 40px;
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 19px;
+}
+.return .reason li input {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    z-index: 5;
+    width: 15px;
+    height: 15px;
+    background:none;
+    border: none;
+    margin-right: 15px;
+    text-indent: -100em;
+}
+.return .reason li label{
+    position: absolute;
+    left: -30px;
+    top: 0;
+    z-index: 6;
+    width: 15px;
+    height: 15px;
+    background: url(../img/weixuan.png);
+    background-size: 15px;
+    margin-right: 15px;
+    text-indent: -100em;
+}
+.return .reason li input:checked+label{
+    background: url(../img/yixuan.png); 
+    background-size: 15px;
+}
+.return .upload{
+    margin: 10px 0 ;
+    text-align: center;
+}
+.return .upload a{
+    display: inline-block;
+    width: 77px;
+    height: 77px;
+    position: relative;
+    border: 1px dashed #ccc; /*#ccc #f4f8fb*/
+    margin: 5px 10px;
+    border-radius: 2px;
+    text-decoration: none;
+    float: left;
+}
+.return .upload a span{
+    display: block;
+    width: 60px;
+    margin-left: 9px;
+    line-height: 15px;
+    height: 67px;
+    vertical-align: middle;
+    font-size: 12px;
+    color: #ccc;
+    background:url(../img/jia.png) no-repeat 20px 3px;
+    background-size:20px;
+    margin-top: 10px;
+    padding-top: 30px;
+     
+}
+.return .upload a img{
+    width: 77px;
+    height: 77px;
+    border:none;
+    overflow: hidden;
+}
+.return .upload a i{
+    width: 20px;
+    height: 20px;
+    background: url(../img/jian.png);
+    background-size: 20px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}

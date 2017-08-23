@@ -1,0 +1,141 @@
+<style media="screen">
+	.search {
+		float: right;
+		height: 34px;
+	}
+
+	input {
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 6px 10px;
+		margin-right: 10px;
+	}
+
+	.time {
+		clear: right;
+		padding-top: 30px;
+	}
+
+	.time button {
+		padding: 3px 10px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		margin-right: 20px;
+	}
+
+	.derive {
+		float: right;
+	}
+
+	.time button:nth-child(3) {
+		margin-right: 150px;
+	}
+
+	.sharefind {
+		margin-top: 30px;
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: 20px;
+		line-height: 30px;
+	}
+
+	tbody {
+		border-bottom: 1px solid #ccc;
+	}
+
+	tr:nth-child(2) {
+		line-height: 36px;
+		color: #000;
+		background: #eee;
+		text-align: center;
+	}
+
+	.allshare {
+		bottom: 10%;
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		background: #ccc;
+		z-index: 200;
+	}
+
+	.allshare i {
+		font-style: normal;
+		font-weight: bold;
+		padding: 0 10px;
+	}
+
+	.allshare span {
+		margin-left: 25px;
+	}
+
+	.paggerCommon{
+		height: 40px;
+	}
+
+</style>
+
+<div id="share">
+	<form class="search" ng-submit="init(1)">
+		<input ng-model="mobile" type="text" placeholder="输入用户手机号">
+		<input type="submit" class="btn-primary" value="搜索">
+	</form>
+	<div class="time">
+		<button ng-model="dateType" value="today" ng-click="clearDate('today')" class="btn btn-primary">今日</button>
+		<button ng-model="dateType" value="week" ng-click="clearDate('week')" class="btn btn-primary">本周</button>
+		<button ng-model="dateType" value="month" ng-click="clearDate('month')" class="btn btn-primary">本月</button>
+		<input type="text" id="startTime" name="startTime" placeholder="起始时间" ng-model="startTime" ng-click="clearDate('date')">
+		<input type="text" id="endTime" name="endTime" placeholder="终止时间" ng-model="endTime" ng-click="clearDate('date')">
+		<button type="button" class="btn btn-primary" ng-click="init(1)">确定</button>
+		<button class="derive btn btn-primary" ng-click="derive()">导出</button>
+	</div>
+	<table class="sharefind">
+		<tr>
+			<th>邀请人</th>
+			<th>邀请时间</th>
+			<th>邀请人数</th>
+			<th>优惠券使用数</th>
+			<th>操作</th>
+		</tr>
+		<tbody ng-repeat="user in shareList">
+			<tr>
+				<td>{{user.sMobile}}</td>
+				<td>{{user.sCreateTime}}</td>
+				<td>{{user.shareNum}}</td>
+				<td>{{user.couponNum}}</td>
+				<td ng-click="status()"><img src="{{src}}" /></td>
+			</tr>
+			<tr style={{hide}}>
+				<td>被邀请人</td>
+				<td>被邀请时间</td>
+				<td>优惠券</td>
+				<td>使用情况</td>
+				<td>操作</td>
+			</tr>
+			<tr style='{{hide}};text-align:center' ng-repeat="list in user.shareUserList">
+				<td>{{list.mobile}}</td>
+				<td>{{list.createTime}}</td>
+				<td>{{list.couponName}}</td>
+				<td>{{list.isUsed}}</td>
+				<td><i ng-hide="{{list.orderId}}">--</i>
+					<a ng-show="{{list.orderId}}" href="#orders/{{list.orderId}}">查看</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="pagination-wrapper paggerCommon">
+		<ul class="pager">
+			<li ng-if="pagination.zIndex>1">
+				<a ng-click="init(pagination.zIndex-1)">上一页</a>
+			</li>
+			<li><input type="text" ng-model="paggerInput"> <button class="btn btn-default btn-sm" ng-click="init(paggerInput)">go</button></li>
+			<li ng-if="pagination.zIndex<pagination.totalPage">
+				<a ng-click="init(pagination.zIndex+1)">下一页</a>
+			</li>
+			<li>{{pagination.zIndex}}/{{pagination.totalPage}}页</li>
+		</ul>
+	</div>
+	<div class="allshare">
+		<span>共计分享</span><i>{{shareall.shareNum}}次</i><span>注册数</span><i>{{shareall.regNum}}人</i><span>发放优惠券</span><i>{{shareall.couponNum}}张</i>
+	</div>
+</div>

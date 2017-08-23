@@ -1,0 +1,10 @@
+<div class="succ">
+  <img src="../../../../img/iconfont-xiaolian@2x.png" />
+  <p>您的奖励提交成功，我们会在3-5个工作日之内把奖励发放到你的手中</p>
+  <% if(localStorage.getItem('lastCount')>0 ) {%>
+  <a href="#lottery" class="lottertBut">您还剩<%= localStorage.getItem('lastCount') %>次抽奖机会</a>
+  <% } else {%>
+  <a href="/?#lottery" class="lottertBut">明日再来</a>
+  <% } %>
+  <a href="/?#home" class="tomallBut">去商城</a>
+</div>

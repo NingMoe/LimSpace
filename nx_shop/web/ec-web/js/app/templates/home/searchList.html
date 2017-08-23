@@ -1,0 +1,39 @@
+<div class="l-list-head">
+	<span class="sortI">综合</span>
+	<span class="sortP">价格</span>
+	<span class="sortN">最新</span>
+	<span class="separate">|</span>
+	<a href="#p_search"><span><img src="../../../../img/L-search.png" alt="" /></span></a>
+</div>
+<div class="pj-site-container searchlist">
+  <ul>
+  <%  _.each(list.sku,function(item){ %>
+    
+    <% if(item.erpCode =='koo') { %>
+    	<li class="clearfix"  onclick="location.href='#orientalindex/<%= item.id %>'">
+    	<img src="<%=item.imagesOriginal.split(',')[0] %>">
+    <%}else{%>
+   		<li class="clearfix"  onclick="location.href='#product/<%= item.id %>'">
+        <img src="<%= config+item.imagesOriginal.split(',')[0] %>">
+     <%}%>
+      <div class="home_box">
+        <div class="nav_box">
+        <p>
+          <% if (item.activityStatus == 1) {%>
+            <span class="activitys"><%= item.activityType == 1 ? '秒杀' : '限购' %></span>
+          <% }%>
+          <%=item.name%>
+        </p>
+          <% if(item.installment){%>
+              <div class="states price_stage"><span>￥<%= ((item.activityPrice ? item.activityPrice : item.price)/item.installment.split(",")[item.installment.split(",").length-1]).toFixed(2)%></span> <h2>x<h3><%=item.installment.split(",")[item.installment.split(",").length-1] %></h3></h2>
+              </div>
+          <%}%>
+        </div>
+        <div class="nav_box last-div states">
+          <div><span>￥<%= item.activityPrice ? item.activityPrice.toFixed(2) : item.price.toFixed(2)%></span></div>
+        </div>
+      </div>
+    </li>
+  <% }) %>
+  </ul>
+</div>

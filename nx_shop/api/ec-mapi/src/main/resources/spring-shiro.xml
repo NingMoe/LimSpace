@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+	<!-- shiro与Spring集成配置, shiro初始化配置 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-10 -->
+	
+	<!-- 权限数据缓存实现 -->
+	<!-- 登录成功后, 将权限信息加载到内存中, 只加载一次 -->
+	<!-- 重新分配权限后, 必须重新登录才能生效 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
+	
+	<!-- 自定义的登录实现及权限加载实现 -->
+	<bean id="accessAuthorizeRealm" class="com.tyiti.easycommerce.shiro.AccessAuthorizeRealm"></bean>
+	
+	<!-- 安全管理 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	    <!-- 登录验证的实现 -->
+	    <property name="realm" ref="accessAuthorizeRealm"></property>
+	    <!-- 如果启用缓存,重新分配权限必须重新登录 -->
+	    <!-- 开发在本地调试的时候为实时看到效果可将这项注释掉, 使权限实时加载 -->
+	    <!-- 部署的时候看实际需要
+	    <property name="cacheManager" ref="cacheManager"></property> -->
+	</bean>
+
+	<bean id="ajaxUserFilter" class="com.tyiti.easycommerce.shiro.AjaxUserFilter"></bean>
+	
+	<!--shiro过滤器配置，bean的id值须与web.xml中的filter-name的值相同 -->
+	<!-- 必须在web.xml中明确声明此过滤器, shiro才会生效 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- shiro的核心安全接口 -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 访问未登录页面是中转到的登录页 -->
+		<property name="loginUrl" value="/sysuser/nologin" />
+		<!-- 登陆成功后要跳转的连接, 用不到, 此处登录只做认证, 中转由前端控制
+		<property name="successUrl" value="/index" /> -->
+		<!-- 未授权时要跳转的连接, 此工程全是接口, 不存在页面, 未授权时输出未授权的json
+		<property name="unauthorizedUrl" value="/views/unauthorized.jsp" /> -->
+		<!-- shiro连接约束配置, url的访问权限配置 -->
+		<!-- 之后具体的接口地址需要什么权限,在controller方法上用@RequiresPermissions来标 -->
+		<property name="filterChainDefinitions">
+			<value>
+			    <!-- anon表示可无授权认证访问, 系统用户登录, 接口, 不需要认证 -->
+				/sysuser/login = anon
+				<!-- 销毁当前subject -->
+				/sysuser/logout = anon
+				<!-- 阿里云图片 -->
+				/oss/callback = anon
+				<!-- anon表示可无授权认证访问, 系统用户登录, 接口, 不需要认证 -->
+				/wxpay/refund/* = anon
+				/orders = anon
+				<!-- 跑批修改15天未签收的订单签收时间 -->
+				/polling/updateReceiptTime = anon
+				<!-- 获取新东方数据定时任务 -->
+				/kooAnalysisData = anon
+				<!-- 导入物流单接口 -->
+				/logisticsImport = anon
+				<!-- 跑批修改活动已结束还没有付款的订单状态 -->
+				/polling/updateOrderStatus = anon				
+				<!-- 定时上下架 -->
+				/timingSku= anon				
+				<!-- 其他所有地址都必须进行登录认证才可以访问 -->
+				/** = user
+				
+				
+			</value>
+		</property>
+		<property name="filters">
+	        <map>
+	            <entry key="user" value-ref="ajaxUserFilter" />
+	        </map>
+	    </property>
+	</bean>
+	
+	<!-- 实现Initializable和Destroyable接口的shrio类 -->
+	<!-- 在适当的时候自动执行init()方法和destory()方法 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<!-- 启用注解标权限 -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+</beans>

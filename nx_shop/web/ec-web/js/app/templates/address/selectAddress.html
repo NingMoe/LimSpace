@@ -1,0 +1,19 @@
+<div class="select-region">
+ <header class="ui-bar main-header default addres">
+   <ul>
+     <li class="tit-one" data-level="1">请选择</li>
+     <li class="tit-two" data-level="2">请选择</li>
+     <li data-level="3">请选择</li>
+   </ul>
+ </header>
+ <div class="pj-site-container addres-cont">
+   <div>
+     <ul class="one state" data-level="1">
+      <%= addressData%>
+      <% _.each(addressData,function(item){%>
+       <li data-id="<%= item.level%>"><%= item.name%></li>
+      <%})%>
+     </ul>
+    </div>
+  </div>
+</div>

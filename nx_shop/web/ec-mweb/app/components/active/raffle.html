@@ -1,0 +1,90 @@
+<style>
+	/*#system-container {
+	  margin-left: 250px;
+	}*/
+	
+	label {
+		width: 100px;
+		text-align: right;
+		padding-right: 10px;
+	}
+	
+	.form-control {
+		display: inline-block;
+		width: auto;
+	}
+	
+	.modal-footer {
+		text-align: center;
+	}
+	
+	.modal-body {
+		padding-top: 5px;
+	}
+	
+	.form-group {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+</style>
+
+
+<div id="system-container">
+	<form class="form-inline" ng-submit="search()" >
+  <div class="form-group">
+    <label for="promotionName">活动名称</label>
+    <select name="promotionName" ng-model="searchInput.promotionId" ng-options="x.id as x.name for x in promotionList">
+      <option value="">全部</option>
+    </select>  </div>
+
+  <div class="form-group">
+    <label for="no">中奖用户</label>
+    <input type="text" class="form-control" name="no" placeholder="中奖用户" ng-model="searchInput.mobile">
+  </div>
+  <br>
+  <div class="form-group">
+    <label>抽奖时间</label>
+    <input type="text" class="form-control" name="startTime" placeholder="开始时间" ng-model="searchInput.startTime">
+
+    <input type="text" class="form-control" name="endTime" placeholder="结束时间" ng-model="searchInput.endTime">
+  </div>
+
+  <button type="submit" class="btn btn-primary">搜索</button>
+</form>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>活动名称</th>
+				<th>中奖用户</th>
+				<th>奖项</th>
+				<th>姓名</th>
+				<th>地址</th>
+				<th>是否领取</th>
+				<th>抽奖时间</th>
+				<th>过期时间</th>
+				<th>状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in raffleList">
+				<td>{{item.promotionName}}</td>
+				<td>{{item.mobile}}</td>
+				<td>{{item.prizeName}}</td>
+				<td>{{item.realName}}</td>
+				<td>{{item.address}}</td>
+				<td>{{item.isReceive==false?'未领':'已领'}}</td>
+				<td>{{item.createTime| date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+				<td>{{item.expireTime|| '--' | date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+				<td>{{item.codeText}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<br/>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default" ng-click="exportAll()" ng-disabled="orders.total == 0">查询结果导出</button>
+	</div>
+</div>
+<uib-pagination total-items="page.totalCount" ng-model="page.currentPage" max-size="10" items-per-page="page.pageSize" 
+		previous-text="上一页" next-text="下一页" ng-change="pageChanged()" class="samplePage pagination-sm" boundary-link-numbers="true">
+  </uib-pagination> 
+ 

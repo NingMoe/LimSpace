@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.KooDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.KooSku" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="spu_id" property="spuId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="erp_code" property="erpCode" jdbcType="VARCHAR" />
+    <result column="invalid" property="invalid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="original_price" property="originalPrice" jdbcType="DECIMAL" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="installment" property="installment" jdbcType="VARCHAR" />
+    <result column="head_thumbnail" property="headThumbnail" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="inventory" property="inventory" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="detail" property="detail" jdbcType="LONGVARCHAR" />
+    <result column="images_thumbnail" property="imagesThumbnail" jdbcType="LONGVARCHAR" />
+    <result column="images_original" property="imagesOriginal" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, spu_id, name, erp_code, invalid, status, original_price, price, installment, head_thumbnail, 
+    is_default, create_time, update_time, inventory,description, detail, images_thumbnail, images_original
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sku
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sku
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.KooSku" useGeneratedKeys="true" keyProperty="id">
+    insert into t_sku (id, spu_id, name, 
+      erp_code, invalid, original_price, 
+      price, installment, head_thumbnail, 
+      is_default, create_time, update_time, 
+      inventory, description, detail, 
+      images_thumbnail, images_original
+      )
+    values (#{id,jdbcType=INTEGER}, #{spuId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{erpCode,jdbcType=VARCHAR}, #{invalid,jdbcType=INTEGER}, #{originalPrice,jdbcType=DECIMAL}, 
+      #{price,jdbcType=DECIMAL}, #{installment,jdbcType=VARCHAR}, #{headThumbnail,jdbcType=VARCHAR}, 
+      #{isDefault,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{inventory,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{detail,jdbcType=LONGVARCHAR}, 
+      #{imagesThumbnail,jdbcType=LONGVARCHAR}, #{imagesOriginal,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.KooSku" useGeneratedKeys="true" keyProperty="id">
+    insert into t_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="spuId != null" >
+        spu_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="erpCode != null" >
+        erp_code,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="originalPrice != null" >
+        original_price,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="installment != null" >
+        installment,
+      </if>
+      <if test="headThumbnail != null" >
+        head_thumbnail,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="inventory != null" >
+        inventory,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="imagesThumbnail != null" >
+        images_thumbnail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="spuId != null" >
+        #{spuId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="erpCode != null" >
+        #{erpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="originalPrice != null" >
+        #{originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="installment != null" >
+        #{installment,jdbcType=VARCHAR},
+      </if>
+      <if test="headThumbnail != null" >
+        #{headThumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inventory != null" >
+        #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagesThumbnail != null" >
+        #{imagesThumbnail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagesOriginal != null" >
+        imagesOriginal = #{imagesOriginal,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.KooSku" >
+    update t_sku
+    <set >
+      <if test="spuId != null" >
+        spu_id = #{spuId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="erpCode != null" >
+        erp_code = #{erpCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="originalPrice != null" >
+        original_price = #{originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="installment != null" >
+        installment = #{installment,jdbcType=VARCHAR},
+      </if>
+      <if test="headThumbnail != null" >
+        head_thumbnail = #{headThumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inventory != null" >
+        inventory = #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagesThumbnail != null" >
+        images_thumbnail = #{imagesThumbnail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagesOriginal != null" >
+        images_original = #{imagesOriginal,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.KooSku" >
+    update t_sku
+    set spu_id = #{spuId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      erp_code = #{erpCode,jdbcType=VARCHAR},
+      invalid = #{invalid,jdbcType=INTEGER},
+      original_price = #{originalPrice,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      installment = #{installment,jdbcType=VARCHAR},
+      head_thumbnail = #{headThumbnail,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      inventory = #{inventory,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getSkuBySpuId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+ 	 select 
+    <include refid="Base_Column_List" />
+    from t_sku
+    where invalid = 0 and  spu_id = #{spuId,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateDeleteBySpuId" parameterType="java.lang.Integer">
+  update t_sku 
+  set invalid =1 
+  where spu_id =#{spuId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="deleteNotInByIds">
+  update   t_sku
+  set invalid =1 
+  where id not in <foreach item="item" index="index" collection="ids"   
+                        open="(" separator="," close=")">  
+                       #{item}  
+               </foreach>  
+ and spu_id = #{spuId}
+  </update>
+  <!-- 根据产品ID查询新东方产品是否已经存在 -->
+  <select id="findSkuProductId" resultMap="BaseResultMap" >
+ 	 select 
+    <include refid="Base_Column_List" />
+    from t_sku
+    where invalid = 0 and  remarks1 = #{productId,jdbcType=VARCHAR}
+  </select>
+   <!-- 根据条件查询Sku商品新东方管理后台专用 -->
+   <select id="findSkuList" parameterType="java.util.Map" resultType="java.util.Map">
+ 	 select t_sku.id, t_sku.spu_id, t_sku.name, t_sku.erp_code, t_sku.invalid,t_sku.`status`, t_sku.original_price, t_sku.price, t_sku.installment, t_sku.head_thumbnail, 
+    t_sku.is_default, t_sku.create_time, t_sku.update_time, t_sku.inventory,t_sku.description, t_sku.detail, t_sku.images_thumbnail, t_sku.images_original,
+    t_sku_ext.field9,t_sku_ext.field10,t_spu.supplier_id
+    from t_spu left join t_sku on t_spu.id = t_sku.spu_id 
+    LEFT JOIN t_sku_ext on t_sku.id=t_sku_ext.sku_id
+    where t_sku.invalid = 0 
+     <if test="status != null" >
+         and t_sku.status = #{status,jdbcType=INTEGER}
+     </if>
+     <if test="supplierId != null" >
+         and t_spu.supplier_id = #{supplierId,jdbcType=INTEGER}
+     </if>
+     <if test="spuId != null" >
+         and t_sku.spu_id = #{spuId,jdbcType=INTEGER}
+     </if>
+     <if test="categoryId != null" >
+         and t_spu.category_id = #{categoryId,jdbcType=INTEGER}
+     </if>
+      order by t_sku.create_time,t_sku.create_time ASC
+  </select>
+  <!-- 根据条件查询Sku商品新东方管理后台专用 -->
+   <select id="findBySkuProductIdList" parameterType="String" resultType="String">
+     SELECT
+			t_sku_ext.field1
+		FROM
+			t_sku inner join t_sku_ext ON t_sku.id = t_sku_ext.sku_id
+		WHERE t_sku.erp_code = #{erpCode,jdbcType=VARCHAR} 
+   </select>
+</mapper>

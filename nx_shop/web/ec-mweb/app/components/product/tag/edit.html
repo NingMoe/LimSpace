@@ -1,0 +1,105 @@
+<div id="tree-container" class="pull-left">
+  <div id="tree"></div>
+</div>
+
+<style>
+  #sku-container {
+    margin-left: 250px;
+  }
+  #sku-container .table {
+    width: 49%;
+    float: left;
+  }
+  #sku-container .status {
+    width: 50px;
+  }
+  .btns {
+    height: 40px;
+  }
+</style>
+
+<div id="sku-container">
+  <div class="btns">
+    <a class="btn btn-primary pull-right" ng-click="events.save($event)" data-loading-text="保存中...">保存</a>
+    <div class="alert alert-success alert-toast pull-right alert-dismissible fade out" role="alert" style="margin-right: 10px;">保存成功</div>
+
+  </div>
+
+  <div class="tables">
+    <table class="table" style="border-right: 1px solid red;">
+      <caption>{{currentNode.text}}分类的SKU</caption>
+      <thead>
+        <tr>
+          <th>选中</th>
+          <th>名称</th>
+          <th>状态</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="sku in skus" ng-class="{warning: !sku.status}">
+          <td><input type="checkbox" ng-model="sku.checked" ng-change="events.change(sku)"></td>
+          <td>{{sku.name}}</td>
+          <td class="status">{{sku.status ? '上架' : '下架'}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="table">
+      <caption ng-if="tag">{{tag.name}}标签的SKU</caption>
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>名称</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="tagSku in tagSkus track by tagSku.id" ng-class="{warning: !tagSku.status}">
+          <td class="status">{{$index + 1}}</td>
+          <td>{{tagSku.name}}</td>
+          <td class="status">{{tagSku.status ? '上架' : '下架'}}</td>
+          <td style="width: 90px;">
+            <a class="not-link" ng-click="events.remove($index)">删除</a>
+            <a class="not-link" ng-click="events.rank($index)">排序</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="rankModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">标签排序</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="err-msg">
+          <ul ng-show="rankForm.$submitted && rankForm.$invalid">
+            <li ng-show="rankForm.rank.$error.required">请填写排序值</li>
+          </ul>
+        </div>
+
+        <div class="desc">
+          <span>{{rankNode.name}}当前排序为<em>{{rankNode.rank}}</em></span>，<span>从<em>1</em>开始</span>，<span>最大<em>{{tagSkus.length}}</em></span>
+        </div>
+        <form name="rankForm" novalidate ng-submit="events.doRank(rankForm)" class="css-form">
+          <div class="form-group">
+            <label for="rank">排序</label>
+            <input class="form-control" name="rank" ng-model="rankNode.newRank" required min=1>
+          </div>
+
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="events.doRank(rankForm)">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

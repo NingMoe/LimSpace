@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.RushBuySkuDao">
+
+	<!--t_rush_buy_sku 全表 -->
+	<sql id="Base_Column">
+		id,
+		rush_buy_id,
+		sku_id ,
+		sku_name,
+		price,
+		original_price,
+		available_times ,
+		available_count ,
+		left_sku ,
+		sold_sku ,
+		return_sku ,
+		create_time
+	</sql>
+   
+   <!--全表映射  -->
+   <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.RushBuySku" >
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="rush_buy_id" property="rushBuyId" jdbcType="INTEGER"/>
+      <result column="sku_id" property="skuId" jdbcType="INTEGER"/>
+      <result column="sku_name" property="skuName" jdbcType="VARCHAR"/>
+      <result column="price" property="price" jdbcType="DECIMAL"/>
+      <result column="original_price" property="originalPrice" jdbcType="DECIMAL"/>
+      <result column="available_times" property="availableTimes" jdbcType="INTEGER"/>
+      <result column="available_count" property="availableCount" jdbcType="INTEGER"/>
+      <result column="left_sku" property="leftSku" jdbcType="INTEGER"/>
+      <result column="sold_sku" property="soldSku" jdbcType="INTEGER"/>
+      <result column="return_sku" property="returnSku" jdbcType="INTEGER"/>
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+   </resultMap>
+   
+   <!-- 订单条件查询where  -->
+	<sql id="where_columns">
+		where 1=1
+		<if test="id != null and  id !=''">
+			and t1.id=#{id,jdbcType=INTEGER}
+		</if>
+		<if test="rushBuyId!=null and rushBuyId!=''">
+		   and t1.rush_buy_id=#{rushBuyId,jdbcType=INTEGER}
+		</if>
+		<if test="skuId!=null and skuId!=''">
+		   and t1.sku_id=#{skuId,jdbcType=INTEGER}
+		</if>
+		<if test="skuName!=null and skuName!=''">
+		   and t1.sku_name=#{skuName,jdbcType=VARCHAR}
+		</if>
+		<if test="price!=null and price!=''">
+		   and t1.price=#{price,jdbcType=DECIMAL}
+		</if>
+		<if test="originalPrice!=null and originalPrice!=''">
+		   and t1.original_price=#{originalPrice,jdbcType=DECIMAL}
+		</if>
+		<if test="availableTimes!=null and availableTimes!=''">
+		   and t1.available_times=#{skuName,jdbcType=INTEGER}
+		</if>
+		<if test="availableCount!=null and availableCount!=''">
+		   and t1.available_count=#{availableCount,jdbcType=INTEGER}
+		</if>
+		<if test="leftSku!=null and leftSku!=''">
+		   and t1.left_sku=#{leftSku,jdbcType=INTEGER}
+		</if>
+		<if test="soldSku!=null and soldSku!=''">
+		   and t1.sold_sku=#{soldSku,jdbcType=INTEGER}
+		</if>
+		<if test="returnSku!=null and returnSku!=''">
+		   and t1.return_sku=#{returnSku,jdbcType=INTEGER}
+		</if>
+		<if test="createTime!=null and createTime!=''">
+		   and t1.create_time=#{createTime,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+   
+   <!-- 订单条件查询排序   -->
+	<sql id="order_columns">
+		<if test="sort =='id'">
+			ORDER BY t1.id ${order}
+		</if>
+		<if test="sort =='rushBuyId'">
+			ORDER BY t1.rush_buy_id ${order}
+		</if>
+		<if test="sort =='skuId'">
+			ORDER BY t1.sku_id ${order}
+		</if>
+		<if test="sort =='skuName'">
+			ORDER BY t1.sku_name ${order}
+		</if>
+		<if test="sort =='price'">
+			ORDER BY t1.price ${order}
+		</if>
+		<if test="sort =='originalPrice'">
+		    ORDER BY t1.original_price ${order}
+		</if>
+		<if test="sort =='availableTimes'">
+			ORDER BY t1.available_times ${order}
+		</if>
+		<if test="sort =='availableCount'">
+			ORDER BY t1.available_count ${order}
+		</if>
+		<if test="sort =='leftSku'">
+			ORDER BY t1.left_sku ${order}
+		</if>
+		<if test="sort =='soldSku'">
+			ORDER BY t1.sold_sku ${order}
+		</if>
+		<if test="sort =='returnSku'">
+			ORDER BY t1.return_sku ${order}
+		</if>
+		<if test="sort =='createTime'">
+			ORDER BY t1.create_time ${order}
+		</if>
+	</sql>
+	
+
+	<!--查询t_rush_buy_sku 的list -->
+	<select id="selectRushBuySkuList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT 
+        <include refid="Base_Column"/> 
+        FROM t_rush_buy_sku t1
+        <include refid="where_columns"/>
+        <if test="sort != null and sort != ''">
+			 <include refid="order_columns" />
+		</if>
+		<if test="sort == null or sort == ''">
+			order by t1.create_time desc 
+		</if>
+		<if test="limit != null and limit != '' and offset != null and offset !=''">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<!--获取总个数 -->
+	<select id="selectRushBuySkuCount" resultType="java.lang.Long">
+		SELECT count(id) FROM t_rush_buy_sku
+	</select>
+	
+	<!--添加秒杀商品  -->
+	<insert id="insertRushBuySku" parameterType="com.tyiti.easycommerce.entity.RushBuySku">
+	 INSERT INTO t_rush_buy_sku
+	 <trim prefix="(" suffix=")" suffixOverrides="," >
+	   <if test="rushBuyId!=null">
+	    rush_buy_id,
+	   </if>
+	   <if test="skuId!=null">
+	   sku_id,
+	   </if>
+	   <if test="skuName!=null">
+	   sku_name,
+	   </if>
+	   <if test="price!=null">
+	   price,
+	   </if>
+	   <if test="originalPrice!=null">
+	   original_price,
+	   </if>
+	   <if test="availableTimes!=null">
+	   available_times,
+	   </if>
+	   <if test="availableCount!=null">
+	    available_count,
+	   </if>
+	   <if test="leftSku!=null">
+	   left_sku,
+	   </if>
+	   <if test="soldSku!=null">
+	   sold_sku,
+	   </if>
+	   <if test="returnSku!=null">
+	    return_sku,
+	   </if>
+	   <if test="createTime!=null">
+	   create_time
+	   </if>
+	 </trim>
+	 values
+	 <trim prefix="(" suffix=")" suffixOverrides=",">
+	   <if test="rushBuyId!=null">
+	    #{rushBuyId,jdbcType=INTEGER},
+	   </if>
+	   <if test="skuId!=null">
+	   #{skuId,jdbcType=INTEGER},
+	   </if>
+	   <if test="skuName!=null">
+	   #{skuName,jdbcType=VARCHAR},
+	   </if>
+	   <if test="price!=null">
+	   #{price,jdbcType=DECIMAL},
+	   </if>
+	   <if test="originalPrice!=null">
+	   #{original_price,jdbcType=DECIMAL}
+	   </if>
+	   <if test="availableTimes!=null">
+	   #{availableTimes,jdbcType=INTEGER},
+	   </if>
+	   <if test="availableCount!=null">
+	    #{availableCount,jdbcType=INTEGER},
+	   </if>
+	   <if test="leftSku!=null">
+	   #{leftSku,jdbcType=INTEGER},
+	   </if>
+	   <if test="soldSku!=null">
+	   #{soldSku,jdbcType=INTEGER},
+	   </if>
+	   <if test="returnSku!=null">
+	    #{returnSku,jdbcType=INTEGER},
+	   </if>
+	   <if test="createTime!=null">
+	   #{createTime,jdbcType=TIMESTAMP}
+	   </if>
+	 </trim>
+   </insert>
+</mapper>

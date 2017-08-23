@@ -1,0 +1,189 @@
+<style>
+#list-container {
+  margin-left: 250px;
+}
+form {
+
+}
+label {
+  width: 70px;
+  text-align: right;
+  padding-right: 10px;
+}
+.form-control {
+  display: inline-block;
+  width: auto;
+}
+.upload {
+}
+.modal-footer {
+  text-align: center;
+}
+.seo {
+  width: 400px;
+}
+.modal-body {
+  padding-top: 5px;
+}
+.form-group {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#list-container a {
+  cursor: pointer;
+}
+
+.category-icon {
+      width: 40px;
+    height: 40px;
+    border: 1px solid #eee;
+}
+
+</style>
+
+<div id="tree-container" class="pull-left">
+  <div id="tree"></div>
+</div>
+
+<div id="list-container">
+  <button type="button" class="btn btn-default pull-right" ng-click="events.add()" ng-if="!currentNode.text">添加一级标签</button>
+  <button type="button" class="btn btn-default pull-right" ng-click="events.add()" ng-if="!currentNode.isLeaf && currentNode.text">添加标签到{{currentNode.text}}</button>
+
+  <a class="btn btn-primary pull-right" ng-if="currentNode.isLeaf" ui-sref="tagSku({tagId: currentNode.id})">SKU管理</a>
+
+  <table class="table table-striped" ng-show="!currentNode.isLeaf">
+    <thead>
+      <tr>
+        <th>排序</th>
+        <th>ID</th>
+        <th>名称</th>
+        <th>代码</th>
+        <th>图标</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="node in currentNode.nodes" ng-class="{danger: node.data.status}">
+        <td>{{$index + 1}}</td>
+        <td>{{node.id}}</td>
+        <td>{{node.text}}</td>
+        <td>{{node.code}}</td>
+        <td ng-if="node.icon"><img class="category-icon" ng-src="{{imgHost}}/{{node.icon}}@40w_40h"></td>
+        <td ng-if="!node.icon">无</td>
+        <td>{{node.status ? '启用中' : '未启用'}}</td>
+        <td>
+          <a class="template" ng-click="events.enable(node, true)" ng-if="!node.status">启用</a>
+          <a class="template" ng-click="events.enable(node, false)" ng-if="node.status">停用</a>
+          <a class="template" ng-click="events.modify(node)">修改</a>
+          <a class="template" ng-click="events.remove(node)">删除</a>
+          <a class="template" ng-click="events.rank(node)">排序</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">{{tag.id ? '修改' : '添加'}}标签</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="err-msg">
+          <ul ng-show="form.$submitted && form.$invalid">
+            <li ng-show="form.name.$error.required">请填写标签名称</li>
+            <li ng-show="form.treeDepth.$error.required">请选择标签层级</li>
+          </ul>
+        </div>
+
+        <form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+          <label for="name">上级标签</label><span>{{currentNode.text || '无'}}</span>
+          <div class="form-group" ng-if="currentId == 0">
+            <label for="treeDepth">标签层级</label>
+            <span ng-if="tag.hasChild">{{tag.treeDepth}}</span>
+            <select name="treeDepth" ng-model="tag.treeDepth" ng-options="treeDepth.text as treeDepth.value for treeDepth in treeDepths" required ng-show="!tag.hasChild">
+              <option value="">请选择</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="name">标签名称</label>
+            <input class="form-control" name="name" ng-model="tag.name" required>
+          </div>
+          <div class="form-group">
+            <label for="code">标签代码</label>
+            <input class="form-control" name="code" ng-model="tag.code">
+          </div>
+          <div class="form-group" id="upload-container">
+            <div>
+              <label>标签图标</label>
+              <a class="btn btn-primary" pl-upload pl-multi-selection="false" pl-progress-model="tag.upload.percent" pl-auto-upload="true" pl-files-model="tag.upload.files" on-file-uploaded="tag.upload.onFileUploaded($up, $file)">上传</a>
+              <div class="carousel old clearfix" ng-show="tag.icon && tag.upload.files.length==undefined">
+								<img ng-src="{{imgHost}}/{{tag.icon}}@40w_40h">
+							</div>
+							<div class="carousel preview clearfix" ng-show="tag.upload.files.length > 0">
+								<img ng-src="{{imgHost}}/{{tag.upload.files[tag.upload.files.length-1].path}}@160w_160h">
+							</div>
+            </div>
+            <ul class="file-list">
+              <li data-id="{{file.id}}" ng-repeat="file in tag.upload.files" class="upload-progress clearfix">
+                <div class="file-info pull-left">{{file.name}}({{plupload.formatSize(file.size)}})</div>
+                <div class="progress pull-left"><div class="progress-bar" style="width: {{file.percent}}%"></div></div>
+              </li>
+            </ul>
+
+          </div>
+          <div class="form-group">
+            <label for="status">是否启用</label>
+            <input type="checkbox" name="status" ng-model="tag.status" ng-true-value="1" ng-false-value="0">
+          </div>
+
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="events.save(form)">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="rankModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">标签排序</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="err-msg">
+          <ul ng-show="rankForm.$submitted && rankForm.$invalid">
+            <li ng-show="rankForm.rank.$error.required">请填写排序值</li>
+          </ul>
+        </div>
+
+        <div class="desc">
+          <span>{{rankNode.text}}当前排序为<em>{{rankNode.rank}}</em></span>，<span>从<em>1</em>开始</span>，<span>最大<em>{{currentNode.nodes.length}}</em></span>
+        </div>
+        <form name="rankForm" novalidate ng-submit="events.doRank(rankForm)" class="css-form">
+          <div class="form-group">
+            <label for="rank">排序</label>
+            <input class="form-control" name="rank" ng-model="rankNode.newRank" required min=1>
+          </div>
+
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="events.doRank(rankForm)">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

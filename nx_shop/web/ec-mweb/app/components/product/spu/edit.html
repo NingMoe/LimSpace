@@ -1,0 +1,482 @@
+
+<style>
+#spuView  .active {
+    color: #fff;
+    border: 1px solid #4cae4c;
+    background: #5cb85c;
+  }
+
+  .attr-toolbar-container {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+
+  .attr-toolbar-container h3 {
+    margin: 0;
+    font-size: 16px;
+    /* border-bottom: 1px solid #eee; */
+    line-height: 34px;
+    margin-right: 20px;
+    width: 100px;
+    text-align: right;
+  }
+
+  .attr-list label {
+    width: 100px;
+    line-height: 42px;
+    text-align: right;
+  }
+
+  .attr-value-list {
+    margin-left: 120px;
+    background: #ffe;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  a.attr-value-item {
+    position: relative;
+    text-decoration: none;
+    color: #000;
+    line-height: 40px;
+    /* line-height: 40px; */
+    padding: 6px 10px;
+    margin: 0 5px;
+    border: 1px solid #eee;
+    cursor: pointer;
+  }
+
+  a.attr-value-item.active {
+    color: #fff;
+    border: 1px solid #4cae4c;
+    background: #5cb85c;
+  }
+
+  a.attr-value-item:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+  }
+
+  a.attr-value-item span {
+    position: absolute;
+    right: -12px;
+    top: -12px;
+    display: none;
+    width: 20px;
+    height: 20px;
+    background: #eee;
+    text-align: center;
+    vertical-align: top;
+    line-height: 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  }
+
+  a.attr-value-item:hover span {
+    display: inline-block;
+  }
+
+  a.attr-item {
+    text-decoration: none;
+    color: #000;
+    line-height: 40px;
+    /* line-height: 40px; */
+    padding: 6px 10px;
+    margin: 0 5px;
+    border: 1px solid #eee;
+    cursor: pointer;
+  }
+
+  a.attr-item.active {
+    color: #fff;
+    border: 1px solid #4cae4c;
+    background: #5cb85c;
+  }
+
+  a.attr-item:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+  }
+
+  div.attr-item {
+    margin: 10px 0;
+  }
+
+  .atrr-value-add-container,
+  .atrr-add-container {
+    display: inline-block;
+  }
+
+  [name="attrValue"] {
+    display: inline-block;
+    width: 100px;
+  }
+
+  [name="attrName"] {
+    display: inline-block;
+    width: 200px;
+  }
+
+  [name="specValue"] {
+    display: inline-block;
+    width: 100px;
+  }
+
+  [name="specName"] {
+    display: inline-block;
+    width: 200px;
+  }
+
+  .atrr-value-add-container .btn,
+  .atrr-add-container .btn {
+    vertical-align: top;
+    margin-left: 8px;
+  }
+
+  .save-container {
+    margin-top: 20px;
+  }
+
+  .save-container button {
+        width: 600px;
+    font-size: 30px;
+    line-height: 60px;
+  }
+.spu-name {
+  width: 600px;
+}
+
+#spuView label {
+      width: 100px;
+    line-height: 42px;
+    text-align: right;
+    margin-right: 20px;
+}
+#spuView .attr-list label {
+  margin-right: 0;
+}
+
+
+.spu-attr .form-group {
+  margin: 0;
+}
+.spu-attr select {
+  font-size: 14px;
+}
+.spu-attr .name-form-group {
+  border-bottom: 1px solid #eee;
+}
+.attr-list {
+  border-top: 1px solid #eee;
+}
+#spuView h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 40px;
+    padding-left: 20px;
+    color:#099;
+}
+
+table td.name input {
+  width: 100%;
+}
+table td.price,
+table td.original-price,
+table td.price input,
+table td.original-price input {
+  width: 60px;
+}
+table td.erp-code,
+table td.erp-code input {
+  width: 80px;
+}
+table td.inventory,
+table td.inventory input {
+  width: 40px;
+}
+table td.installment,
+table td.installment input {
+  width: 150px;
+}
+table td.op input {
+  width: 30px;
+}
+
+table td.installment input {
+  width: auto;
+    margin-right: 5px;
+    margin-left: 2px;
+}
+
+.sku-template {
+  border: 1px solid #eee;
+  background: #ffe;
+  padding: 10px;
+}
+
+.upload-progress  {
+  height: 30px;
+}
+
+/*
+.upload-progress.finished {
+  overflow-y: hidden;
+  -webkit-transition: all .5s linear;
+  height: 0;
+}
+*/
+</style>
+
+<div id="spuView">
+  <div class="spu-attr">
+    <div class="form-group name-form-group">
+      <label for="name">标题</label>
+      <input class="spu-name" name="name" ng-model="spu.name">
+    </div>
+
+    <h4>规格选择</h4>
+    <div class="form-group" ng-repeat="spec in specArr">
+      <label for="spec">{{spec.specName}}</label>
+      <select name="spec" ng-model="specMap[spec.specId]" ng-options="value.text as value.text for value in spec.values">
+        <option value="">请选择</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="attr-list">
+    <h4>属性选择</h4>
+    <div class="attr-item" ng-repeat="attr in attrArr">
+      <label class="pull-left">{{attr.attrName}}</label>
+      <div class="attr-value-list">
+        <a class="attr-value-item" ng-class="{active: value.selected}" ng-click="events.toggleAttrValue(value)" ng-repeat="value in attr.values">{{value.text}}</a>
+
+        <span class="atrr-add-container">
+          <input name="attrValue" ng-model="attr.attrValue" class="form-control"><button type="button" class="btn btn-default" ng-click="events.addValue(attr)">添加</button>
+        </span>
+
+      </div>
+    </div>
+
+    <!-- +SKU模板 -->
+    <div class="sku-template">
+      <h4>SKU模板</h4>
+      <table class="table sku-template-table">
+        <thead>
+          <tr>
+            <th class="price">价格</th>
+            <th class="original-price">市场价</th>
+            <th class="inventory">库存</th>
+            <th class="installment" style="padding-left: 40px;">可分期数</th>
+            <th class="status" style="padding-left: 40px;">上架</th>
+            <th class="status" style="padding-left: 40px;">自提</th>
+            <th class="op">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="price"><input ng-model="skuTemplate.price"></td>
+            <td class="original-price"><input ng-model="skuTemplate.originalPrice"></td>
+            <td class="inventory"><input ng-model="skuTemplate.inventory"></td>
+            <td class="installment" style="padding-left: 40px;    white-space: nowrap;">
+              <span>不复制</span><input type="checkbox" ng-model="skuTemplate.notCopyInstallment">
+
+              <span style="margin-left: 15px;">期数</span>
+              <span>1</span><input type="checkbox" ng-model="skuTemplate.installments[1]">
+              <span>3</span><input type="checkbox" ng-model="skuTemplate.installments[3]">
+              <span>6</span><input type="checkbox" ng-model="skuTemplate.installments[6]">
+              <span>12</span><input type="checkbox" ng-model="skuTemplate.installments[12]">
+            </td>
+            <td class="status" style="padding-left: 40px;">
+              <span>不复制</span><input type="checkbox" ng-model="skuTemplate.notCopyStatus">
+              <span style="margin-left: 15px;">上架</span><input type="checkbox" ng-model="skuTemplate.status" ng-true-value="1" ng-false-value="0">
+            </td>
+            <td class="status" style="padding-left: 40px;">
+              <span >自提</span><input type="checkbox" ng-model="skuTemplate.pickup" ng-true-value="1" ng-false-value="0">
+            </td>
+            <td class="op">
+              <a class="not-link" ng-click="events.reset(skuTemplate)">清空</a>
+              <a class="not-link" ng-click="events.copyToAll()">复制到所有</a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="7">
+              <span style="margin-right: 10px; width: 80px; display: inline-block; line-height: 50px;">组图</span>
+              <a class="btn btn-primary" pl-upload pl-multi-selection="true" pl-progress-model="skuTemplate.upload.percent" pl-auto-upload="true" pl-files-model="skuTemplate.upload.files" on-file-uploaded="skuTemplate.upload.onFileUploaded($response)">上传组图图片</a>
+
+              <ul class="file-list">
+                <li data-id="{{file.id}}" ng-repeat="file in skuTemplate.upload.files" class="clearfix">
+                  <div class="progress pull-left"><div class="progress-bar" style="width: {{file.percent}}%"></div></div>
+                  <div class="file-info pull-left">{{file.name}}({{plupload.formatSize(file.size)}})</div>
+                </li>
+              </ul>
+
+              <div class="carousel preview clearfix" ng-show="skuTemplate.upload.files.length > 0">
+                <p ng-repeat="file in skuTemplate.upload.files" ng-if="file.path"><img ng-src="{{imgHost}}/{{file.path}}@160w_160h"></p>
+              </div>
+
+              <div class="spu-extra-attr">
+                <div>
+                  <span style="margin-right: 10px; width: 80px; display: inline-block; line-height: 50px;">商品详情</span>
+                  <a class="btn btn-primary" pl-upload pl-multi-selection="true" pl-progress-model="skuTemplate.uploadDesc.percent" pl-auto-upload="true" pl-files-model="skuTemplate.uploadDesc.files" on-file-uploaded="skuTemplate.uploadDesc.onFileUploaded($up, $file)">上传详情图片</a>
+                </div>
+
+                <div>
+                  <ul class="file-list">
+                    <li data-id="{{file.id}}" ng-repeat="file in skuTemplate.uploadDesc.files" class="upload-progress clearfix" ng-class="{finished: file.percent == 100}">
+                      <div class="progress pull-left"><div class="progress-bar" style="width: {{file.percent}}%"></div></div>
+                      <div class="file-info pull-left">{{file.name}}({{plupload.formatSize(file.size)}})</div>
+                    </li>
+                  </ul>
+                  <div class="description preview" ng-show="skuTemplate.uploadDesc.files.length > 0">
+                    <p ng-repeat="file in skuTemplate.uploadDesc.files" ng-if="file.path"><img ng-src="{{imgHost}}/{{file.path}}"></p>
+                  </div>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- -模板 -->
+
+    <table class="table" id="sku-list">
+      <thead>
+        <tr>
+          <th class="seq" style="40px;">序号</th>
+          <th ng-repeat="attr in attrArr">{{attr.attrName}}</th>
+          <th class="name">标题</th>
+          <th class="price">价格</th>
+          <th class="original-price">市场价</th>
+          <th class="erp-code">ERP码</th>
+          <th class="inventory">库存</th>
+          <th class="installment">可分期数</th>
+          <th class="status">上架</th>
+          <th class="status">自提</th>
+          <th class="op">操作</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="sku in spu.skuList" ng-if="showTableBody">
+        <tr>
+          <td class="seq" style="width: 50px;">{{$index + 1}}</td>
+          <td ng-repeat="skuAttr in sku.skuAttributeList">{{skuAttr.attributeValue}}</td>
+          <td class="name"><input ng-model="sku.name"></td>
+          <td class="price"><input ng-model="sku.price"></td>
+          <td class="original-price"><input ng-model="sku.originalPrice"></td>
+          <td class="erp-code"><input ng-model="sku.erpCode"></td>
+          <td class="inventory"><input ng-model="sku.inventory"></td>
+          <td class="installment">
+            <span>1</span><input type="checkbox" ng-model="sku.installments[1]">
+            <span>3</span><input type="checkbox" ng-model="sku.installments[3]">
+            <span>6</span><input type="checkbox" ng-model="sku.installments[6]">
+            <span>12</span><input type="checkbox" ng-model="sku.installments[12]">
+          </td>
+          <td class="status"><input type="checkbox" ng-model="sku.status" ng-true-value="1" ng-false-value="0"></td>
+          <td class="status"><input type="checkbox" ng-model="sku.pickup" ng-true-value="1" ng-false-value="0"></td>
+          <td class="op">
+            <a class="not-link" ng-click="events.toggle(sku)">{{sku.visible ? '收起' : '展开'}}</a>
+            <a class="not-link" ng-click="events.remove(sku, $index)">删除</a>
+            <a class="not-link" ng-click="events.reset(sku)">清空</a>
+            <a class="not-link" ng-click="events.copy(sku)">复制</a>
+          </td>
+        </tr>
+        <tr ng-class="{hidden: !sku.visible}">
+          <td colspan="{{spu.skuList.length + 8}}">
+            <!--div class="form-group">
+              <label for="description">副标题</label>
+              <input name="description" ng-model="skuMap[sku.join('_')].description">
+            </div-->
+
+            <div class="form-group">
+
+            </div>
+
+            <span style="margin-right: 10px;">组图</span><a class="btn btn-primary" pl-upload pl-multi-selection="true" pl-progress-model="sku.upload.percent" pl-auto-upload="true" pl-files-model="sku.upload.files" on-file-uploaded="sku.upload.onFileUploaded($response)">上传组图图片</a>
+
+            <ul class="file-list">
+              <li data-id="{{file.id}}" ng-repeat="file in sku.upload.files" class="clearfix">
+                <div class="progress pull-left"><div class="progress-bar" style="width: {{file.percent}}%"></div></div>
+                <div class="file-info pull-left">{{file.name}}({{plupload.formatSize(file.size)}})</div>
+              </li>
+            </ul>
+
+            <div class="carousel old clearfix" ng-show="sku.imagesOriginal && sku.upload.files.length === 0">
+              <em style="color: red; display: block;" ng-show="sku.imagesOriginal">注意：如需修改当前组图，需重新上传组图的所有图片</em>
+              <p ng-repeat="imgSrc in sku.imagesOriginal.split(',')"><img ng-src="{{imgHost}}/{{imgSrc}}@160w_160h"></p>
+            </div>
+            <div class="carousel preview clearfix" ng-show="sku.upload.files.length > 0">
+              <p ng-repeat="file in sku.upload.files" ng-if="file.path"><img ng-src="{{imgHost}}/{{file.path}}@160w_160h"></p>
+            </div>
+
+            <div class="spu-extra-attr">
+              <div>
+                <span style="margin-right: 10px;">商品详情</span>
+                <a class="btn btn-primary" pl-upload pl-multi-selection="true" pl-progress-model="sku.uploadDesc.percent" pl-auto-upload="true" pl-files-model="sku.uploadDesc.files" on-file-uploaded="sku.uploadDesc.onFileUploaded($up, $file)">上传详情图片</a>
+              </div>
+
+              <div>
+                <ul class="file-list">
+                  <li data-id="{{file.id}}" ng-repeat="file in sku.uploadDesc.files" class="upload-progress clearfix" ng-class="{finished: file.percent == 100}">
+                    <div class="progress pull-left"><div class="progress-bar" style="width: {{file.percent}}%"></div></div>
+                    <div class="file-info pull-left">{{file.name}}({{plupload.formatSize(file.size)}})</div>
+                  </li>
+                </ul>
+
+                <div class="description old clearfix" ng-show="sku.description && sku.uploadDesc.files.length === 0" ng-bind-html="sku.description"></div>
+                <div class="description preview" ng-show="sku.uploadDesc.files.length > 0">
+                  <p ng-repeat="file in sku.uploadDesc.files" ng-if="file.path"><img ng-src="{{imgHost}}/{{file.path}}"></p>
+                </div>
+              </div>
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="save-container text-center ng-scope">
+    <toast></toast>
+    <button type="button" class="btn btn-primary" ng-click="events.save()">保存</button>
+  </div>
+</div>
+
+<div id="saveOkModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" ng-if="saveRes.code == 200">保存成功</h4>
+        <h4 class="modal-title text-center" ng-if="saveRes.code != 200">保存失败</h4>
+      </div>
+      <div class="modal-body">
+
+        <p ng-if="saveRes.code == 200">SPU保存成功</p>
+        <div ng-if="saveRes.code != 200">
+          <div>code: {{saveRes.code}}</div>
+          <div>message: {{saveRes.message}}</div>
+          <div>exception: <pre>{{saveRes.exception}}</pre></div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-if="saveRes.code != 200">继续修改</button>
+
+        <button type="button" class="btn btn-default" ng-click="events.addSpu()" ng-if="saveRes.code == 200">新建SPU</button>
+        <button type="button" class="btn btn-default" ng-click="events.listSpu()" ng-if="saveRes.code == 200">SPU列表</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

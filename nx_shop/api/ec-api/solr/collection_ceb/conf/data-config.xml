@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataConfig>
+	<dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://127.0.0.1:3306/ec_ceb" user="ec" password="ec"/>
+	<document name="ec_ceb">
+		<entity name="t_sku" 
+		transformer="HTMLStripTransformer"
+		pk="id" 
+		query="select * from t_sku where invalid = 0 and status = 1"
+		deltaQuery ="select * from t_sku where invalid = 0 and status = 1 and update_time &gt; '{dataimporter.last_index_time}'">
+			<field column="id" name="id"/>
+			<field column="spu_id" name="spu_id"/>
+			<field column="name" name="name"/>
+			<field column="description" name="description"/>
+			<field column="detail" name="detail"/>
+			<field column="erp_code" name="erp_code"/>
+			<field column="invalid" name="invalid"/>
+			<field column="original_price" name="original_price"/>
+			<field column="price" name="price"/>
+			<field column="installment" name="installment"/>
+			<field column="head_thumbnail" name="head_thumbnail"/>
+			<field column="images_thumbnail" name="images_thumbnail"/>
+			<field column="images_original" name="images_original"/>
+			<field column="is_default" name="is_default"/>
+			<field column="pickup" name="pickup"/>
+			<field column="create_time" name="create_time"/>
+			<field column="update_time" name="update_time"/>
+			<field column="inventory" name="inventory"/>
+			<field column="status" name="status"/>
+			<field column="remarks1" name="remarks1"/>
+			<field column="remarks2" name="remarks2"/>
+			<field column="remarks3" name="remarks3"/>
+		</entity>
+	</document>
+</dataConfig>

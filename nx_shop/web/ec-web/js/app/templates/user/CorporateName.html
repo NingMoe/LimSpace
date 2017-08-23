@@ -1,0 +1,22 @@
+ <div class="pj-site-container CorporateName" style="background: #fff">
+   <div class="search clearfix">
+     <input type="text" placeholder="请输入公司名称" />
+     <button style="padding: 0;">完成</button>
+   </div>
+   <% if(data1){ %>
+     <% _.each(data1, function(item) { %>
+        <dl>
+          <dt><%=item.prefix %></dt>
+          <% _.each(item.data, function(item1) { %>
+          <dd data-state="<%=item1.state %>" data-emailSuf="<%=item1.emailSuf %>"><%=item1.name %></dd>
+          <%})%>
+        </dl>
+     <%})%>
+   <% } else { %>
+   <ul>
+     <% _.each(data, function(item) { %>
+     <li data-state="<%=item.state %>" data-emailSuf="<%=item.emailSuf %>"><%=item.name %></li>
+     <%})%>
+   </ul>
+   <% } %>
+ </div>

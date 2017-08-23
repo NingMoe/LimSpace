@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.SpuAttributeDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.SpuAttribute">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="spu_id" property="spuId" jdbcType="INTEGER" />
+		<result column="attribute_id" property="attributeId" jdbcType="INTEGER" />
+		<result column="value_constraint_type" property="valueConstraintType"
+			jdbcType="VARCHAR" />
+		<result column="value_constraint_expression" property="valueConstraintExpression"
+			jdbcType="VARCHAR" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="getListBySpuIdResultMap" type="com.tyiti.easycommerce.entity.SpuAttribute">
+		<id column="p_id" property="id" jdbcType="INTEGER" />
+		<result column="p_spu_id" property="spuId" jdbcType="INTEGER" />
+		<result column="p_attribute_id" property="attributeId"
+			jdbcType="INTEGER" />
+		<result column="p_value_constraint_type" property="valueConstraintType"
+			jdbcType="VARCHAR" />
+		<result column="p_value_constraint_expression" property="valueConstraintExpression"
+			jdbcType="VARCHAR" />
+		<result column="p_rank" property="rank" jdbcType="INTEGER" />
+		<association property="attr"
+			javaType="com.tyiti.easycommerce.entity.Attribute" resultMap="AttributeMap">
+		</association>
+	</resultMap>
+	<resultMap id="AttributeMap" type="com.tyiti.easycommerce.entity.Attribute">
+		<id column="at_id" property="id" jdbcType="INTEGER" />
+		<result column="at_name" property="name" jdbcType="INTEGER" />
+		<result column="at_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="at_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="at_invalid" property="invalid" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="listBySpuId_select_column_list">
+		p.id p_id, p.spu_id p_spu_id, p.attribute_id
+		p_attribute_id, p.value_constraint_type p_value_constraint_type,
+		p.value_constraint_expression p_value_constraint_expression, p.rank
+		p_rank
+	</sql>
+	<sql id="attr_select_column_list">
+		at.id at_id, at.name at_name, at.create_time
+		at_create_time, at.update_time at_update_time, at.invalid at_invalid
+	</sql>
+	<sql id="insert_column_list">
+		spu_id, attribute_id, value_constraint_type,
+		value_constraint_expression
+	</sql>
+
+	<select id="getListBySpuId" resultMap="getListBySpuIdResultMap">
+		select
+		<include refid="listBySpuId_select_column_list" />
+		,
+		<include refid="attr_select_column_list" />
+		from t_spu_attribute p, t_attribute at
+		where p.attribute_id = at.id and
+		at.invalid = 0 and p.spu_id = #{spuId} order by p.rank
+	</select>
+	<insert id="addList" parameterType="java.util.List">
+		INSERT INTO t_spu_attribute (spu_id, attribute_id,
+		value_constraint_type, value_constraint_expression) values
+		<foreach item="spuAttr" collection="list" separator=",">
+			(#{spuAttr.spuId}, #{spuAttr.attributeId},
+			#{spuAttr.valueConstraintType}, #{spuAttr.valueConstraintExpression})
+		</foreach>
+	</insert>
+	<insert id="add" parameterType="com.tyiti.easycommerce.entity.SpuAttribute"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		<!-- include 引用可重用的SQL代码段 -->
+		INSERT INTO t_spu_attribute
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			spu_id,
+			attribute_id,
+			value_constraint_type,
+			value_constraint_expression,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{spuId},
+			#{attributeId},
+			#{valueConstraintType},
+			#{valueConstraintExpression},
+		</trim>
+	</insert>
+</mapper>

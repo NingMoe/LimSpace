@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PopularSearchDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.PopularSearch">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="query_text" property="queryText" jdbcType="VARCHAR" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="BOOLEAN" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<select id="getAll" resultType="java.util.Map">
+		select cast(@rownum:=@rownum+1 as decimal(10,0)) AS rownum ,a.id,a.querytext,a.todaytimes,a.weektimes,a.totaltimes,a.createtime,a.status,a.rank
+		from (
+			select ps.id,ps.query_text as querytext,IFNULL(hstoday.query_times,0) as todaytimes,
+			IFNULL(hsweek.query_times,0) as weektimes,IFNULL(hstotal.query_times,0) as totaltimes,ps.create_time as createtime,ps.status,ps.rank
+			from t_popular_search ps
+			left join (select query_text,count(query_times) as query_times 
+					from t_history_search 
+					where to_days(create_time) =to_days(now()) 
+					group by query_text
+			) hstoday on ps.query_text = hstoday.query_text 
+			left join (select query_text,count(query_times) as query_times 
+					from t_history_search 
+					where YEARWEEK(date_format(create_time,'%Y-%m-%d'),1) = YEARWEEK(now()) 
+					group by query_text
+			) hsweek on ps.query_text = hsweek.query_text 
+			left join (select query_text,count(query_times) as query_times 
+					from t_history_search 
+					group by query_text
+			) hstotal on ps.query_text = hstotal.query_text 
+			order by ps.rank
+		) a,(SELECT @rownum:=0) temp ;
+	</select>
+	
+	<select id="getById" resultMap="BaseResultMap">
+		select * from t_popular_search where id = #{id};
+	</select>
+	
+	<insert id="add" parameterType="com.tyiti.easycommerce.entity.PopularSearch" 
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO t_popular_search (`query_text`, `rank`,`status`) 
+		select #{queryText},#{rank},#{status} from dual 
+		where not exists (select id from t_popular_search where query_text = #{queryText}) limit 1;     
+	</insert>
+	
+	<delete id="delete" parameterType="java.lang.Integer" >
+	    delete from t_popular_search where status = 0 and id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<update id="updateStatus" >
+	    update t_popular_search as a set status = case a.status when 0 then 1 else 0 end  where id = #{id};
+	</update>
+	
+	<update id="rankBottonUp" parameterType="com.tyiti.easycommerce.entity.PopularSearch" >
+	    update t_popular_search set rank = rank + 1 where rank &gt; #{rankNew}-1  and rank &lt; #{rankOld}+1;
+	</update>
+	
+	<update id="rankTopDown" parameterType="com.tyiti.easycommerce.entity.PopularSearch" >
+	    update t_popular_search set rank = rank - 1 where rank &gt; #{rankOld}-1  and rank &lt; #{rankNew}+1;
+	</update>
+	
+	<update id="updateRank" parameterType="com.tyiti.easycommerce.entity.PopularSearch" >
+	    update t_popular_search set rank = #{rankNew}  where id = #{id};
+	</update>
+	
+	<select id="getRankById" resultType="java.lang.Integer">
+		select rank from t_popular_search where id = #{id};
+	</select>
+	
+	<select id="getMaxRank" resultType="java.lang.Integer">
+		select ifnull(max(rank),0) as mrank from t_popular_search ;
+	</select>
+</mapper>

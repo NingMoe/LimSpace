@@ -1,0 +1,141 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-default" ng-click="transferState(1)" ng-disabled="data.cancelStatus != 0">确认</button>
+  <button type="button" class="btn btn-default" ng-click="transferState(2)" ng-disabled="data.cancelStatus != 0 && data.status != 3"}}>取消</button>
+  <button type="button" class="btn btn-default" ng-click="transferState(4)" ng-disabled="data.cancelStatus != 3" ng-if="data.cancelType==2">已收货</button>
+</div>
+
+<h2>订购人信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>手机号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.mobile}}</td>
+    </tr>
+  </tbody>
+</table>
+<h2>客户备注信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>退货原因</th>
+      <th>退货描述</th>
+      <th>图片</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    	<td ng-if="data.reasonType ==1"> 质量问题</td>
+    	<td ng-if="data.reasonType ==2"> 到货物流损坏</td>
+    	<td ng-if="data.reasonType ==3"> 商品与描述不符</td>
+    	<td ng-if="data.reasonType ==4"> 错发、漏发、缺件</td>
+    	<td ng-if="data.reasonType ==5"> 其他原因</td>
+    	<td ng-if="data.reasonType ==undefined">无</td>
+      <td>{{data.reason}}</td>
+      <td>
+      	<div style="float:left ;margin-left:20px" ng-repeat="pics in picarray">
+      		<img ng-if="pics" style="width: 150px; height: 150px;" src="{{webHost}}/photo/{{pics}}">
+      	</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2>订单信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>订单编号</th>
+      <th>下单时间</th>
+      <th>订单状态</th>
+      <th>分期数</th>
+      <th>订单金额</th>
+      <th>优惠金额</th>
+      <th ng-if="configSys != 'ceb'"> 首付金额</th>
+	<th ng-if="configSys != 'thb'">分期金额</th>
+      <th>支付状态</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.orderNo}}</td>
+      <td>{{data.orderCreateTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{data.orderStatusText}}</td>
+      <td>{{data.installmentMonths}}</td>
+      <td>{{data.amount}}</td>
+      <td>{{data.totalCoupon}}</td>
+           <td ng-if="configSys != 'ceb'">{{data.downPayment}}</td>
+			<td ng-if="configSys != 'thb'">{{data.installmentAmount}}</td>
+			<td >已付款</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>商品清单</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>商品编号</th>
+      <th>商品</th>
+      <th>图片</th>
+      <th>价格</th>
+      <th>数量</th>
+      <th>合计</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.erpCode}}</td>
+      <td>{{data.skuName}}</td>
+      <td><img style="width: 150px; height: 150px;" src="{{data.skuHeadThumbnail}}"></td>
+      <td>{{data.skuPrice}}</td>
+      <td>{{data.skuCount}}</td>
+      <td>{{data.totalPrice}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="tablehr">
+  <span><B>共计</B>：{{data.totalPrice}}</span>
+</div>
+<h2>优惠信息</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th>优惠类型</th>
+    <th style="width: 100px;">合计</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="cou in discount">
+    <td>{{cou.typeText}} <span ng-if="cou.type==1||cou.type==2">（满{{cou.threshold}}减{{cou.discount}}）</span></td>
+    <td>{{cou.discount}}</td>
+  </tr>
+  </tbody>
+</table>
+<div class="tablehr">
+  <span><B>共计优惠</B>：{{data.totalCoupon}}</span>
+</div>
+
+<h2>操作日志</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th style="width: 60px; align: center;">序号</th>
+      <th style="width: 180px; align: center;">时间</th>
+      <th style="width: 100px; align: center;">操作</th>
+      <th style="width: 100px; align: center;">操作人</th>
+      <!-- <th>备注</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="log in logs">
+      <td>{{$index + 1}}</td>
+      <td>{{log.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{log.message}}</td>
+      <td>{{log.operatorName}}</td>
+      <!-- <td></td> -->
+    </tr>
+  </tbody>
+</table>

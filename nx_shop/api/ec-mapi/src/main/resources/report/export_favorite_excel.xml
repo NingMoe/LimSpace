@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<report name="收藏" fileName="收藏列表">
+	<report-header>
+		<column name="序号" mapping="rownum" />
+		<column name="商品名称" mapping="name" />
+		<column name="商品编码" mapping="erpcode" />
+		<column name="收藏数" mapping="count" />
+
+	</report-header>
+	<dataSource serviceClassId="favoriteService" serviceMethod="getAll" />
+</report>

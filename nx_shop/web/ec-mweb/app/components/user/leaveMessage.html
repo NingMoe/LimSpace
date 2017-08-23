@@ -1,0 +1,145 @@
+<style>
+.modal-content {
+    width: 750px;
+    height: auto;
+    margin-left: -70px;
+}
+.modal-body {
+    width: 100%;
+    height: auto;
+}
+	label {
+		width: 100px;
+		text-align: right;
+		padding-right: 10px;
+	}
+	
+	.form-control {
+		display: inline-block;
+		width: 100%;
+	}
+	
+	.modal-footer {
+		text-align: center;
+	}
+	
+	.modal-body {
+		padding-top: 5px;
+	}
+	
+	.form-group {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	textarea{
+		width: 80%;
+	}
+	.button{
+		width: 80%;
+	}
+	.pages{
+		display: inline-block;
+		width: 10%; 
+		height: 50px;
+		padding-top: 30px;
+		float: left;
+		color: #777;
+	}
+</style>
+
+
+<div id="system-container">
+	<form class="form-inline">
+  
+  <br>
+  <button class="btn btn-primary" ng-click="events.search('today')">今日</button>
+  <button class="btn btn-primary" ng-click="events.search('thisweek')">本周</button>
+  <button class="btn btn-primary" ng-click="events.search('thismonth')">本月</button>
+  <div class="form-group">
+    <label>时间段</label>
+    <input type="text" class="form-control" name="startTime" placeholder="开始时间" id="searchInputStartTime" ng-model="searchInput.startTime">
+
+    <input type="text" class="form-control" name="endTime" placeholder="结束时间" id="searchInputEndTime" ng-model="searchInput.endTime">
+  </div>
+
+  <button class="btn btn-primary" ng-click="events.search('timerange')">搜索</button>
+  <button class="btn btn-primary" ng-click="events.exportAll()">导出</button>
+  <div>
+  	<select class="form-control ng-pristine ng-untouched ng-valid" ng-model="status" ng-change="events.status()">
+		<option value="">-- 全部状态 --</option>
+		<option value="2">已回复</option>
+		<option value="1">未回复</option>
+	</select>
+	<select class="form-control ng-pristine ng-untouched ng-valid" ng-model="typeId" ng-change="events.typeId()">
+		<option value="">-- 全部类型 --</option>
+		<option value="1">物流问题</option>
+		<option value="2">配送问题</option>
+		<option value="3">打折</option>
+	</select>
+  </div>
+  
+</form>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>用户手机号</th>
+				<th>问题</th>
+				<th>状态</th>
+				<th>类型</th>
+				<th>反馈时间</th>
+				<th>回复时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in leaveMessage1">
+				<td>{{item.mobile}}</td>
+				<td style="width: 20%;">{{item.content}}</td>
+				<td>{{item.status}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.leaveTime| date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+				<td>{{item.replyTime| date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+				<td>
+					<a class="template" ng-click="events.reply(item)" ng-if="!item.replyTime">回复</a>
+	        		<a class="template" ng-click="events.remove(item)" ng-if="item.replyTime">删除</a>
+	        		<a class="template" ng-click="events.show(item)" ng-if="item.replyTime">查看</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="pages">共{{page.totalCount}}条</div>
+<uib-pagination style="margin-left: 26%;" total-items="page.totalCount" ng-model="page.currentPage" max-size="10" items-per-page="page.pageSize" 
+		previous-text="上一页" next-text="下一页" ng-change="pageChanged()" class="samplePage pagination-sm" boundary-link-numbers="true">
+</uib-pagination> 
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">意见反馈</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="err-msg">
+          <ul ng-show="form.$submitted && form.$invalid">
+            <li ng-show="form.replyContent.$error.required">请填写回复内容</li>
+          </ul>
+        </div>
+
+        <form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+        	用户：<input disabled class="form-control" style="width:120px; border: none;box-shadow:none; background: #fff;" name="content" ng-model="message.mobile">
+        	问题类型：<input disabled class="form-control" style="width:120px; border: none;box-shadow:none;  background: #fff;" name="content" ng-model="message.name">
+        	<div disabled class="form-control" style=" border: none; margin-top: 5px;box-shadow:none; background: #fff;overflow-y:visible " name="content">{{message.content}}</div>
+        	<p ng-if="message.replyTime" style="margin-top: 10px;">回复：</p>
+            <textarea maxlength="80" style="height: 90px;" class="form-control" name="replyContent" ng-model="message.replyContent" ng-if="!message.replyTime" required> </textarea>
+            <div disabled style="background: #fff; border: none;box-shadow:none;" class="form-control" name="replyContent" ng-if="message.replyTime" required>{{message.replyContent}}</div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary button" ng-if="!message.replyTime" ng-click="events.save(form)">回复</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

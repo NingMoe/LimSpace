@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.OrderPaymentDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.OrderPayment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="category" property="category" jdbcType="TINYINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, amount, category, type, source, status, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_payment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order_payment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.OrderPayment" >
+    insert into t_order_payment (id, order_id, amount, 
+      category, type, source, 
+      status, create_time)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
+      #{category,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{source,jdbcType=INTEGER}, 
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.OrderPayment" >
+    insert into t_order_payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=TINYINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.OrderPayment" >
+    update t_order_payment
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=TINYINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.OrderPayment" >
+    update t_order_payment
+    set order_id = #{orderId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      category = #{category,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT},
+      source = #{source,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="getDiscountDetail" parameterType="java.lang.Integer" resultType="java.util.Map">
+  select t1.amount discount ,t1.status ,t3.type ,t3.scope ,t3.threshold,t3.discount ,
+  case  when t3.type=1 then '优惠券'
+ 		when t3.type=2 then '优惠码'
+ 		when t3.type=3 then '代金券'
+ 		when t3.type=4 then '代金码' end typeText ,
+ case  when t3.scope=1 then '全场通用'
+	when t3.scope=2 then 'SKU'
+	when t3.scope=3 then 'TAG'  end scopeText,	
+ case  when t1.status=0 then '订单未完成'
+	when t1.status=1 then '支付成功'  end statusText 		
+  from t_order_payment t1
+  left join t_coupon_record t2 on t1.source = t2.id and  t1.category =3 and t1.type = 11
+  left join t_coupon t3 on t2.coupon_id = t3.id 
+  where t1.order_id =#{orderId,jdbcType=INTEGER} and source is not null 
+  </select>
+  
+  <select id="getByOrderId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  select <include refid="Base_Column_List"></include>
+  from t_order_payment 
+  where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,218 @@
+<!-- {{banners}} -->
+<style>
+	#closeOff {
+		width: 5%;
+		height: 100%;
+		margin: 0 auto;
+	}
+	
+	.trstyle active {
+		background: #666699
+	}
+	
+	.upload-progress {
+		height: 30px;
+	}
+	
+	.tag-img {
+		width: 40px;
+		height: 40px;
+		border: 1px solid #eee;
+	}
+</style>
+<div id="ads-container">
+	<div id="advert-container" class="pull-left">
+		<button type="button" class="btn btn-default pull-left" ng-click="events.addAdvert()">添加广告位</button>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>名称</th>
+					<th>编码</th>
+					<th>组编码</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in adverts" class="trstyle" id="{{item.id}}" ng-click="events.trHit(item)" onmouseover="this.style.background='#efefef';this.style.cursor='hand'" onmouseout="this.style.background='#fff'">
+					<td>{{item.name}}</td>
+					<td>{{item.code}}</td>
+					<td>{{item.group}}</td>
+					<td>
+						<a class="template" ng-click="events.modifyAdvert(item)">修改</a>
+						<a class="template" ng-click="events.removeAdvert(item)">删除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="addAdvertModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title text-center">广告位维护</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="err-msg">
+						<ul ng-show="adform.$submitted && adform.$invalid">
+							<li ng-show="adform.name.$error.required">请填写名称</li>
+							<li ng-show="adform.code.$error.required">请填写编码</li>
+						</ul>
+					</div>
+
+					<form name="adform" novalidate ng-submit="events.saveAdvert(adform)" class="css-form">
+						<div class="form-group">
+							<label for="name">名称</label>
+							<input class="form-control" name="name" ng-model="advert.name" required>
+						</div>
+						<div class="form-group">
+							<label for="name">编码</label>
+							<input class="form-control" name="code" ng-model="advert.code" required>
+						</div>
+						<div class="form-group">
+							<label for="name">组编码</label>
+							<input class="form-control" name="code" ng-model="advert.group" required>
+						</div>
+						<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" ng-click="events.saveAdvert(adform)">保存</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<div id="closeOff" class="pull-left">&nbsp;</div>
+	<div id="banner-container" class="pull-left">
+		<button type="button" class="btn btn-default pull-right" ng-click="events.add()">Banner添加</button>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>排序</th>
+					<th>广告位</th>
+					<th>标题</th>
+					<th>图片</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in banners" drag>
+					 <td>{{$index + 1}}</td>
+					<td>{{item.advertName}}</td>
+					<td>{{item.title}}</td>
+					<td><img src="{{imgHost}}/{{item.picUrl}}" style="width:30px;height: 30px;"></td>
+					<td>
+						<a class="template" ng-click="events.modify(item)">修改</a>
+						<a class="template" ng-click="events.remove(item)">删除</a>
+					 <a class="template" ng-click="events.rank(item)">排序</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center">Banner 维护</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="err-msg">
+					<ul ng-show="form.$submitted && form.$invalid">
+						<li ng-show="form.title.$error.required">请填写名称</li>
+						<li ng-show="form.url.$error.required">请填写链接</li>
+					</ul>
+				</div>
+
+				<form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+					<div class="form-group">
+						<label for="name">Banner标题</label>
+						<input class="form-control" name="title" ng-model="banner.title" required>
+					</div>
+					<div class="form-group">
+						<label for="name">链接</label>
+						<input class="form-control" name="url" ng-model="banner.url">
+					</div>
+					<div class="form-group" id="upload-container">
+						<div>
+							<span style="margin-right: 10px;">Banner</span>
+							<a class="btn btn-primary" pl-upload pl-multi-selection="false" pl-progress-model="banner.upload.percent" pl-auto-upload="true" pl-files-model="banner.upload.files" on-file-uploaded="banner.upload.onFileUploaded($up, $file)">上传</a>
+						</div>
+						<div>
+							<ul class="file-list">
+								<li data-id="{{file.id}}" ng-repeat="file in upload.files" class="upload-progress clearfix">
+									<div class="file-info pull-left">{{file.name}}({{plupload.formatSize(file.size)}})</div>
+									<div class="progress pull-left">
+										<div class="progress-bar" style="width: {{file.percent}}%"></div>
+									</div>
+								</li>
+							</ul>
+							<div class="carousel old clearfix" ng-show="banner.picUrl && banner.upload.files.length==undefined">
+								<img ng-src="{{imgHost}}/{{banner.picUrl}}@160w_160h">
+							</div>
+							<div class="carousel preview clearfix" ng-show="banner.upload.files.length > 0">
+								<img ng-src="{{imgHost}}/{{banner.upload.files[banner.upload.files.length-1].path}}@160w_160h">
+							</div>
+						</div>
+					</div>
+
+					<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" ng-click="events.save(form)">保存</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="rankModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center">分类排序</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="err-msg">
+					<ul ng-show="rankForm.$submitted && rankForm.$invalid">
+						<li ng-show="rankForm.rank.$error.required">请填写排序值</li>
+					</ul>
+				</div>
+
+				<div class="desc">
+					<span>{{rankNode.text}}当前排序为<em>{{rankNode.rank}}</em></span>，<span>从<em>1</em>开始</span>，<span>最大<em>{{currentNode.length}}</em></span>
+				</div>
+				<form name="rankForm" novalidate ng-submit="events.doRank(rankForm)" class="css-form">
+					<div class="form-group">
+						<label for="rank">排序</label>
+						<input class="form-control" name="rank" ng-model="rankNode.newRank" required min=1>
+					</div>
+
+					<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-click="events.doRank(rankForm)">保存</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

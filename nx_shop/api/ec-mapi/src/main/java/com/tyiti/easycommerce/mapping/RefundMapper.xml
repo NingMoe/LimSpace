@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.RefundDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Refund">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="cancellation_id" property="cancellationId"
+			jdbcType="INTEGER" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="refund_time" property="refundTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="refund_type" property="refundType" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, order_id,cancellation_id, amount, type, create_time, refund_time,
+		status ,refund_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_refund
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_refund
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.Refund">
+		insert into t_refund (
+		order_id, cancellation_id, amount,
+		type, refund_type,create_time, refund_time,
+		status)
+		values (
+		#{orderId,jdbcType=INTEGER},#{cancellationId,jdbcType=INTEGER},
+		#{amount,jdbcType=DECIMAL},
+		#{type,jdbcType=TINYINT},
+		#{refundType,jdbcType=TINYINT},
+		#{createTime,jdbcType=TIMESTAMP}, #{refundTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.Refund">
+		insert into t_refund
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="refundType != null">
+				refund_type,
+			</if>
+			<if test="cancellationId != null">
+				cancellation_id,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="refundTime != null">
+				refund_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="refundType != null">
+				#{refundType,jdbcType=INTEGER},
+			</if>
+			<if test="cancellationId != null">
+				#{cancellationId,jdbcType=INTEGER},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=TINYINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundTime != null">
+				#{refundTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.Refund">
+		update t_refund
+		<set>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="cancellationId != null">
+				cancellation_id = #{cancellationId,jdbcType=INTEGER},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="refundTime != null">
+				refund_time = #{refundTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="refundType != null">
+				refund_type = #{refundType,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Refund">
+		update t_refund
+		set order_id = #{orderId,jdbcType=INTEGER},
+		cancellantion_id =
+		#{cancellantionId,jdbcType=INTEGER},
+		amount =
+		#{amount,jdbcType=DECIMAL},
+		type = #{type,jdbcType=TINYINT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		refund_time =
+		#{refundTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=TINYINT}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 根据订单号查询退款记录条数，一个订单只能有一条退款记录 start -->
+	<select id="selectRefundCountByOrderId" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select count(*) from t_refund
+		where order_id =
+		#{orderId,jdbcType=INTEGER} or cancellation_id =
+		#{cancellationId,jdbcType=INTEGER}
+	</select>
+	<!-- end -->
+	<!-- 退款列表 条件查询 分页 start -->
+	<select id="selectRefundList" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select t0.id ,
+		t2.id as orderId,
+		t0.order_id orderId ,
+		t0.amount,
+		t2.third_party_amount,
+		t1.create_time
+		createTime,
+		t0.refund_time refundTime,
+		t3.sku_erp_code,
+		t0.status status,
+		case when t0.status= '0' then '未退款'
+		when t0.status= '1' then '已退款'
+		else
+		'异常信息' end statusText,
+		t1.id cancellationId ,
+		t1.no cancelNo,
+		t2.status
+		orderStatus,
+		case
+		when t2.status = '0' then '草稿'
+		when t2.status = '1'
+		then '未付款'
+		when
+		t2.status = '2' then '已付款'
+		when t2.status = '3' then
+		'已确认'
+		when
+		t2.status = '4' then '已制单'
+		when t2.status = '5' then '已发货'
+		when t2.status = '6' then '已完成'
+		when t2.status = '8' then '已退货'
+		when t2.status = '9' then '已取消'
+		else '异常信息' end orderStatusText , 
+		 t2.no orderNo,
+		 t2.create_time as orderTime,
+         t2.address_mobile as addressMobile,
+		 t1.create_time cancelCreateTime,
+		 t3.sku_name skuName,
+		 t3.sku_price skuPrice,
+		 t3.sku_count skuCount,
+		 t2.down_payment downPayment,
+		 t2.installment_amount installmentAmount,
+		 t2.installment_months installmentMonths,
+		 t4.mobile ,  t4.real_name realName,t1.status cancelStatus,
+		case
+			when t1.status = '0' then '待审核'
+			when t1.status = '1' then '已确认'
+			when t1.status = '2' then '已拒绝'
+			when t1.status = '3' then '待入库'
+			when t1.status = '4' then '待退款'
+			when t1.status = '5' then '已退款'	 
+			else '异常信息' end cancelStatusText,
+			t1.type cancelType,case
+			when  t1.type = '1' then '申请取消'
+			when  t1.type = '2' then '申请退货'
+			end cancelTypeText,
+			t5.amount discount 
+		from t_refund t0 
+	 	left join t_order_cancellation  t1 on t0.cancellation_id = t1.id
+		left join t_order t2 on t1.order_id = t2.id 
+		left join t_order_sku t3 on t2.id =t3.order_id 
+		left join t_user t4 on t4.id = t2.cust_id
+		left join t_order_payment t5 on t5.order_id = t1.order_id and t5.category=3 and t5.type =11
+		<include refid="where_columns"/>
+		<if test="sort != null and sort != ''">
+			<include refid="order_columns" />
+		</if>
+		<if test="erpCode != null and erpCode != ''">
+			and t3.sku_erp_code=#{erpCode,jdbcType=VARCHAR}
+		</if>
+		<if test="sort == null or sort == ''">
+			order by t0.create_time desc
+		</if>
+		<if test="limit != null and offset != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="selectRefundCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*)
+		from t_refund t0
+		left join t_order_cancellation t1 on
+		t0.cancellation_id = t1.id
+		left join t_order t2 on t1.order_id = t2.id
+		left join t_order_sku t3 on t2.id =t3.order_id
+		left join t_user t4 on
+		t4.id = t2.cust_id
+		<include refid="where_columns" />
+		<if test="erpCode != null and erpCode != ''">
+			and t3.sku_erp_code=#{erpCode,jdbcType=VARCHAR}
+		</if>
+		<if test="sort != null and sort != ''">
+			<include refid="order_columns" />
+		</if>
+	</select>
+	<sql id="where_columns">
+		where 1=1
+		<if test="ids != null and  ids !=''">
+			and t0.id in
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="orderNo != null and  orderNo !='' ">
+			and t2.no =#{orderNo,jdbcType=INTEGER}
+		</if>
+		<if test="startTime != null and  startTime !=''">
+			and t1.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null and  endTime !=''">
+			and t1.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="cancelType != null and  cancelType !='' ">
+			and t1.type =#{cancelType,jdbcType=INTEGER}
+		</if>
+		<if test="status != null and  status !='' ">
+			and t0.status =#{status,jdbcType=INTEGER}
+		</if>
+	</sql>
+	<sql id="order_columns">
+		<if test="sort =='orderNo'">
+			ORDER BY t2.no ${order}
+		</if>
+		<if test="sort =='cancelCreateTime'">
+			ORDER BY t1.create_time ${order}
+		</if>
+		<if test="sort =='skuName'">
+			ORDER BY t3.sku_name ${order}
+		</if>
+		<if test="sort =='installmentAmount'">
+			ORDER BY t2.installment_amount ${order}
+		</if>
+		<if test="sort =='downPayment'">
+			ORDER BY t2.down_payment ${order}
+		</if>
+		<if test="sort =='skeCount'">
+			ORDER BY t3.sku_count ${order}
+		</if>
+		<if test="sort =='skuPrice'">
+			ORDER BY t3.sku_price ${order}
+		</if>
+		<if test="sort =='realName'">
+			ORDER BY t4.real_name ${order}
+		</if>
+		<if test="sort =='mobile'">
+			ORDER BY t4.mobile ${order}
+		</if>
+		<if test="sort =='orderStatus'">
+			ORDER BY t2.status ${order}
+		</if>
+		<if test="sort =='refundStatus'">
+			ORDER BY t0.status ${order}
+		</if>
+	</sql>
+	<!-- 退款订单详情 start -->
+	<select id="getRefundDetail" parameterType="java.lang.Integer" resultType="java.util.Map">
+  select 
+  	t7.id ,
+  	t7.amount refundAmount ,
+  	t7.status status ,
+  	case 
+  		when t7.status=0 then '未退款'
+  		when t7.status=1 then '已退款'
+  		else '退款信息异常' end statusText ,
+  	t7.create_time refundCreateTime ,
+  	t7.refund_time refundTime,
+	t0.id cancellationId,  
+	t0.order_id orderId,
+	t0.no cancelNo,
+	t0.reason , 
+	t0.pics , 
+	t0.create_time createTime,
+	t1.create_time orderCreateTime , 
+	t0.status cancelStatus, 
+	case
+		when t0.status = '0' then '待审核'
+		when t0.status = '1' then '已确认'
+		when t0.status = '2' then '已拒绝'
+		when t0.status = '3' then '待入库'
+		when t0.status = '4' then '待退款'
+		when t0.status = '5' then '已退款'
+		else '异常信息' end cancelStatusText , 
+	t0.type cancelType,case
+		when  t0.type = '1' then '申请取消'
+		when  t0.type = '2' then '申请退货'
+		end typeText ,
+	t1.no orderNo, 
+	t1.status orderStatus, 
+	case
+		when t1.status = '0' then '草稿'
+		when t1.status = '1' then '未付款'
+		when t1.status = '2' then '已付款'
+		when t1.status = '3' then '已确认'
+		when t1.status = '4' then '已制单'
+		when t1.status = '5' then '已发货'
+		when t1.status = '6' then '已完成'
+		when t1.status = '8' then '已退货'
+		when t1.status = '9' then '已取消'
+		else '异常信息' end orderStatusText , 
+	t1.installment_amount installmentAmount,
+	t1.installment_months installmentMonths,
+	t1.down_payment downPayment,
+	t1.down_payment_payed downPaymentPayed,
+	CONCAT(  
+	case 
+	when t1.down_payment_payed = 0 then '首付未付'
+	when t1.down_payment_payed = 1 then '首付已付'
+	when t1.down_payment_payed = 2 then '无首付' 
+	else '首付信息异常' end ,
+	case 
+	when t1.installment_payed = 0 then '分期未付'
+	when t1.installment_payed = 1 then '分期已付'
+	when t1.installment_payed = 2 then '无分期' 
+	else '首付信息异常' end ) payedStatus, 
+	t1.installment_payed installmentPayed, 
+	t1.address_name addressName,
+	t1.address_mobile addressMobile,
+	t1.address_zip addressZip, 
+	t1.address_full_text addressFullText,
+	t2.real_name realName,
+	CASE 
+	WHEN (LENGTH(t2.id_card))=15 THEN if(MOD(SUBSTR(t2.id_card,15,1),2),'女','男')
+	WHEN (LENGTH(t2.id_card))=18 THEN if(MOD(SUBSTR(t2.id_card,17,1),2),'女','男')
+	ELSE '身份证号不正确' 
+	END  sex,
+	t2.mobile,
+	t4.erp_code erpCode,
+	t3.sku_name skuName,
+	t3.sku_head_thumbnail skuHeadThumbnail,
+	t3.sku_count skuCount,
+	t3.sku_price skuPirce,
+	t3.sku_count*t3.sku_price totalPrice,
+	t2.id_card idCard , 
+	'TYFQ' custSource, 
+	'' creditCard ,  
+	'' otherTel, 
+	'' custComment, 
+	'' bankExtract , 
+	'' giftInfo, 
+	'' receipt , 
+	t6.name brandName ,
+	t8.amount discount
+	from t_refund t7 
+	left join t_order_cancellation t0 on  t7.cancellation_id = t0.id
+	left join t_order t1 on t0.order_id = t1.id 
+	left join t_user t2 on t2.id = t1.cust_id
+	left join t_order_sku t3 on t1.id = t3.order_id
+	left join t_sku t4 on t3.sku_id = t4.id 
+	left join t_spu t5 on t4.spu_id = t5.id
+	left join t_category t6 on t5.category_id = t6.id
+	left join t_order_payment t8 on t8.order_id = t1.id and t8.category=3 and t8.type =11
+	where t7.id =#{id,jdbcType=INTEGER}
+  </select>
+	<!-- 退款列表 条件查询 分页 end -->
+	<!-- 确定退款 -->
+	<update id="refundMakeSure" parameterType="java.lang.Integer">
+		update t_refund
+		set
+		status = 1 ,refund_time = NOW()
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 确定退款 -->
+	<update id="refundMakeSureByOrderIdOrType" parameterType="java.lang.Integer">
+		update t_refund
+		set status = 1 ,refund_time = NOW()
+		where
+		1=1 and
+		<if test="orderId != null and orderId != ''">
+			order_id = #{orderId,jdbcType=INTEGER} and
+		</if>
+		<if test="type != null and type != '' ">
+			type = #{type,jdbcType=INTEGER}
+		</if>
+	</update>
+
+	<!-- 确定退款前状态判断 -->
+	<select id="selectRefundWithAllStatus" parameterType="java.lang.Integer"
+		resultType="java.util.Map">
+		select t0.id ,
+		t0.order_id orderId ,
+		t0.amount,
+		t0.create_time createTime,
+		t0.refund_time refundTime,
+		t0.status status,
+		case when t0.status= '0' then '未退款'
+		when t0.status= '1' then '已退款'
+		else
+		'异常信息' end statusText,
+		t1.id cancellationId ,
+		t1.no cancelNo,
+		t2.status
+		orderStatus,
+		case
+		when t2.status = '0' then '草稿'
+		when t2.status = '1'
+		then '未付款'
+		when
+		t2.status = '2' then '已付款'
+		when t2.status = '3' then
+		'已确认'
+		when
+		t2.status = '4' then '已制单'
+		when t2.status = '5' then '已发货'
+		when t2.status = '6' then '已完成'
+		when t2.status = '8' then '已退货'
+		when t2.status = '9' then '已取消'
+		else '异常信息' end orderStatusText , 
+		 t2.no orderNo,
+		 t2.cust_id custId, 
+		 t2.stage_id stageId, 
+		 t1.create_time cancelCreateTime,
+		 t3.sku_name skuName,
+		 t3.sku_price skuPrice,
+		 t3.sku_count skuCount,
+		 t2.down_payment downPayment,
+		 t2.installment_amount installmentAmount,
+		 t2.installment_months installmentMonths,
+		 t4.mobile ,  t4.real_name realName,t1.status cancelStatus,
+		case
+			when t1.status = '0' then '待审核'
+			when t1.status = '1' then '已确认'
+			when t1.status = '2' then '已拒绝'
+			when t1.status = '3' then '待入库'
+			when t1.status = '4' then '待退款'
+			when t1.status = '5' then '已退款'	 
+			else '异常信息' end cancelStatusText,
+			t1.type cancelType,case
+			when  t1.type = '1' then '申请取消'
+			when  t1.type = '2' then '申请退货'
+			end cancelTypeText
+		from t_refund t0 
+	 	left join t_order_cancellation  t1 on t0.cancellation_id = t1.id
+		left join t_order t2 on t1.order_id = t2.id 
+		left join t_order_sku t3 on t2.id =t3.order_id 
+		left join t_user t4 on t4.id = t2.cust_id
+		where t0.id =
+		#{id,jdbcType=INTEGER}
+	</select>
+	
+		<!-- ###############  购物  退款 开发    ################# -->
+	<select id="selectRefundsSkusList" parameterType="java.util.Map" resultType="java.util.Map">
+	select 
+	t1.id ,
+	t1.order_id orderId,
+	t1.amount ,
+	t1.type ,
+	t1.refund_type refundType ,
+	t1.create_time createTime,
+	t1.status ,
+	t1.cancellation_id cancellationId,
+	t2.no orderNo,t3.mobile,
+	t4.no returnNo , t5.no cancelNo,
+	t2.status orderStatus,
+	t4.create_time returnCreateTime,
+	t5.create_time cancelCreateTime
+	from t_refund t1 
+	left join t_order t2 on t1.order_id = t2.id 
+	left join t_user t3 on t2.cust_id = t3.id 
+	left join t_order_return t4 on t1.cancellation_id = t4.id and t1.refund_type = 2
+	left join t_order_cancellation t5 on t1.cancellation_id = t5.id and t1.refund_type = 1
+	<include refid="where_refunds_columns"></include>
+	order by t1.create_time desc
+	<if test="limit != null and offset != null ">
+			LIMIT #{offset},#{limit}
+	</if>
+	</select>
+	
+	<select id="selectRefundsSkusCount"  parameterType="java.util.Map" resultType="java.lang.Long">
+	select count(*)
+	from t_refund t1 
+	left join t_order t2 on t1.order_id = t2.id 
+	left join t_user t3 on t2.cust_id = t3.id 
+	left join t_order_return t4 on t1.cancellation_id = t4.id and t1.refund_type = 2
+	left join t_order_cancellation t5 on t1.cancellation_id = t5.id and t1.refund_type = 1
+	<include refid="where_refunds_columns"></include>
+	</select>
+	<sql id="where_refunds_columns">
+		where 1=1
+		<if test="id != null and id !=''">
+			and t1.id = #{id,jdbcType=INTEGER} 
+		</if>
+		<if test="orderNo != null and  orderNo !='' ">
+			and t2.no =#{orderNo,jdbcType=VARCHAR}
+		</if>
+		<if test="applyNo != null and  applyNo !='' ">
+			and (t4.no =#{applyNo,jdbcType=VARCHAR} or t5.no =#{applyNo,jdbcType=VARCHAR})
+		</if>
+		<if test="startTime != null and  startTime !=''">
+			and (t4.create_time &gt;= #{startTime,jdbcType=TIMESTAMP} or t5.create_time &gt;= #{startTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="endTime != null and  endTime !=''">
+			and ( t5.create_time &lt;= #{endTime,jdbcType=TIMESTAMP} or t5.create_time &lt;= #{endTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="refundType != null  and  refundType != ''">
+			and t1.refund_type  =#{refundType,jdbcType=INTEGER}
+		</if>
+		<if test="status != null and status != ''">
+			and t1.status =#{status,jdbcType=INTEGER}
+		</if>
+		<if test="mobile != null and  mobile !='' ">
+			and t3.mobile =#{mobile,jdbcType=VARCHAR}
+		</if>
+	</sql>
+	
+</mapper>

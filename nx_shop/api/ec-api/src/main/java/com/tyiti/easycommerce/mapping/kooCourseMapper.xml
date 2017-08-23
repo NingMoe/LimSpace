@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.KooCourseDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.KooCourse" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="koo_id" property="kooId" jdbcType="INTEGER" />
+    <result column="koo_product_id" property="kooProductId" jdbcType="VARCHAR" />
+    <result column="koo_parent_id" property="kooParentId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="hour_length" property="hourLength" jdbcType="VARCHAR" />
+    <result column="course_teacher" property="courseTeacher" jdbcType="VARCHAR" />
+    <result column="invalid" property="invalid" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, koo_id, koo_product_id, koo_parent_id, name, hour_length, course_teacher, invalid, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_koo_course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_koo_course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.KooCourse" >
+    insert into t_koo_course (id, koo_id, koo_product_id, 
+      koo_parent_id, name, hour_length, 
+      course_teacher, invalid, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{kooId,jdbcType=INTEGER}, #{kooProductId,jdbcType=VARCHAR}, 
+      #{kooParentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{hourLength,jdbcType=VARCHAR}, 
+      #{courseTeacher,jdbcType=VARCHAR}, #{invalid,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.KooCourse" >
+    insert into t_koo_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="kooId != null" >
+        koo_id,
+      </if>
+      <if test="kooProductId != null" >
+        koo_product_id,
+      </if>
+      <if test="kooParentId != null" >
+        koo_parent_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="hourLength != null" >
+        hour_length,
+      </if>
+      <if test="courseTeacher != null" >
+        course_teacher,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="kooId != null" >
+        #{kooId,jdbcType=INTEGER},
+      </if>
+      <if test="kooProductId != null" >
+        #{kooProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="kooParentId != null" >
+        #{kooParentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hourLength != null" >
+        #{hourLength,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTeacher != null" >
+        #{courseTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.KooCourse" >
+    update t_koo_course
+    <set >
+      <if test="kooId != null" >
+        koo_id = #{kooId,jdbcType=INTEGER},
+      </if>
+      <if test="kooProductId != null" >
+        koo_product_id = #{kooProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="kooParentId != null" >
+        koo_parent_id = #{kooParentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="hourLength != null" >
+        hour_length = #{hourLength,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTeacher != null" >
+        course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.KooCourse" >
+    update t_koo_course
+    set koo_id = #{kooId,jdbcType=INTEGER},
+      koo_product_id = #{kooProductId,jdbcType=VARCHAR},
+      koo_parent_id = #{kooParentId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      hour_length = #{hourLength,jdbcType=VARCHAR},
+      course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      invalid = #{invalid,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findCoursesProductId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_koo_course
+    where koo_product_id = #{product_id,jdbcType=VARCHAR}
+  </select>
+    <!--批量插入数据信息 - -->
+  <insert id="insertRows" parameterType="java.util.List">
+        INSERT INTO t_koo_course (`koo_id`, `koo_product_id`, `koo_parent_id`, `name`,`hour_length`,`course_teacher`,`invalid`,`remarks`,`careat_time`) VALUES
+        <foreach item="courses" index="index" collection="coursesList" open="(" separator="), (" close=")">
+            #{courses.kooId}, #{courses.kooProductId}, #{courses.kooParentId},#{courses.name},#{courses.hourLength},#{courses.courseTeacher},#{courses.invalid},#{courses.remarks},NOW()
+        </foreach>
+   </insert>
+   <select id="findCourses" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_koo_course
+    where koo_product_id = #{kooProductId,jdbcType=VARCHAR} and koo_id = #{kooId,jdbcType=INTEGER} 
+  </select>
+   <select id="selectByProductId" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_koo_course
+    where koo_product_id = #{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

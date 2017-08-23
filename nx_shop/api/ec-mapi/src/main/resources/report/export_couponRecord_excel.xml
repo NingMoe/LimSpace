@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<report name="优惠码" fileName="优惠码列表">
+	<report-header>
+		<column name="活动名称" mapping="couponName" />
+		<column name="优惠类型" mapping="typeText" />
+		<column name="优惠金额" mapping="discount" />
+		<column name="活动开始时间" mapping="receiveStartTime" dataType="date" format="yyyy-MM-dd" />
+		<column name="活动结束时间" mapping="receiveEndTime" />
+		<column name="使用范围" mapping="scopeText"/>
+		<column name="有效期" mapping="inTime" />
+		<column name="码" mapping="couponCode" />
+	</report-header>
+	<dataSource serviceClassId="couponRecordService" serviceMethod="queryInfoListByPage" />
+</report>

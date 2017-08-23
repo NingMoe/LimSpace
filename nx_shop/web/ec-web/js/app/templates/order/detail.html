@@ -1,0 +1,100 @@
+<div class="pj-site-container detail">
+<ul>
+  <li class="first_box"><span>订单编号：</span><span><%= resp.data.no %></span></li>
+	<li class="first_box"><span>创建时间：</span><span><%=resp.data.createTime%></span></li>
+	<% if(resp.data.status == 6 && isKoo && ( resp.data.secondStatus === undefined || resp.data.secondStatus == 2)){%>
+	  <li class="tit first_box"><span>订单状态:</span><i>已完成</i></li>
+		<% }else{%>
+		<li class="tit first_box"><span>订单状态：</span><i class="thbcolor"><%=resp.data.allValues%></i></li>
+    <% }%>
+	<li class="one"></li>
+	<li class="detail_ul">
+    <dl class="clearfix" onclick="
+   		<%if(isKoo){%>
+			location.href='#orientalindex/<%= resp.data.orderSku[0].skuId%>'
+			<%}else{%>
+			location.href='#product/<%= resp.data.orderSku[0].skuId%>'
+			<%}%>
+	   	">
+   	  <% if(isKoo){%>
+   	  	<dt><img src="<%= resp.data.orderSku[0].skuHeadThumbnail %>"></dt>
+   	  <% }else{%>
+   	  <dt><img src="<%= config.imgHost %>/<%= resp.data.orderSku[0].skuHeadThumbnail %>@160h_160w"></dt>
+   	  <% }%>
+   	  <dd>
+       <P><%=resp.data.orderSku[0].skuName%></P>
+       <span>规格:<%= resp.data.orderSku[0].skuAttribute%></span>
+       <span><i class="thbcolor">￥<%=resp.data.orderSku[0].skuPrice.toFixed(2)%></i> x <%=resp.data.orderSku[0].skuCount%></span>
+   	  </dd>
+   </dl>
+	</li>
+
+	<% if(isKoo) {%>
+		<li class="one"></li>
+		<li class="reservemobile">预留手机号:<%= resp.data.addressMobile%></li>
+	<% } %>
+
+	<% if(!isKoo) {%>
+		<li class="one"></li>
+		<li class="nav">收货地址</li>
+		<li class="list">
+			<div class="addressBg"></div>
+			<div class="addressDress">
+				<P><%=resp.data.addressName%> <%=resp.data.addressMobile%></P>
+				<P><%=resp.data.addressFullText%></P>
+			</div>
+		</li>
+	<% } %>
+
+	<% if (resp.data.logisticsNo) { %>
+		<li class="one"></li>
+		<li class="nav">物流信息</li>
+		<li class="list">
+			<P>物流公司 <%= resp.data.logisticsCompany%></P>
+			<P>物流单号 <%= resp.data.logisticsNo%></P>
+		</li>
+	<% } %>
+	<% if(!isKoo) {%>
+		<li class="one"></li>
+		<li class="nav">发票信息</li>
+		<li class="last billrise"><span>抬头</span><i><%=resp.data.invoiceTitle%></i></li>
+		<li class="last billcon"><span>内容</span><i>明细</i></li>
+	<% }%>
+	<li class="one"></li>
+	<li class="nav">付款信息</li>
+	<li class="last"><span>商品总额:</span><span><i  class="thbcolor">￥<%= resp.data.amount.toFixed(2) %></i></span></li>
+	<li class="last "><span>优惠金额:</span><span><i  class="thbcolor">￥-<%= resp.data.discount.toFixed(2) %></i></span></li>
+	<% if(resp.data.installmentMonths) { %>
+	<li class="last fenqi detailOrderL"><span>分期信息:</span><span>￥<%=(resp.data.installmentAmount/resp.data.installmentMonths+(resp.data.installmentAmount*(stageRateData[resp.data.installmentMonths]/100))).toFixed(2) %> x <%= resp.data.installmentMonths%>期</span></li>
+	<% } %>
+	<li class="detailOrderL detailOrderLast"><span class="yfcolor">应付金额:<i  class="thbcolor">￥<%= ((resp.data.amount-resp.data.discount)>0?(resp.data.amount-resp.data.discount):0).toFixed(2) %></i></span></li>
+</ul>
+<div class="operates">
+  <% if(resp.data.status == 1) { %>
+    <a data-id="<%=resp.data.id %>" class="butcolor cebpay home">立即支付</a>
+    <a href="/?#home" class="home">去商城</a>
+    <a data-id="<%= resp.data.id%>" class="<%= resp.data.class %> home"><%= resp.data.operate %></a>
+  <% } else if (resp.data.status == 5) {%>
+		<a data-id="<%= resp.data.id%>" class="<%= resp.data.class %> home"><%= resp.data.operate %></a>
+		<a href="/?#home" class="home">去商城</a>
+	<% } else if ((resp.data.status == 6 && resp.data.cancellationType == 2 && resp.data.secondStatus == 2) || (resp.data.status == 6 && resp.data.cancellationType != 2 && resp.data.orderSku[0].skuErpCode !='koo')) {%>
+    <a href="/?#home" class="home">去商城</a>
+    <a data-id="<%= resp.data.id%>" class="<%= resp.data.class%> home"><%= resp.data.operate %></a>
+		<a href="/?#order/return/create/<%=resp.data.id%>" class="home returnOrder">申请退货</a>
+	<% } else {%>
+		<a href="/?#home" class="home">去商城</a>
+		<a data-id="<%= resp.data.id%>" class="<%= resp.data.class %> home"><%= resp.data.operate %></a>
+	<% }%>
+</div>
+<% if(isKoo) {%>
+	<div class="prompt">
+	  <span>*</span>课程账号密码，将已短信的形式发送至预留手机号，请注意查收。若未收到短信，及需退课事宜请联系客服<span>400-676-3300</span>。
+	</div>
+<% } %>
+
+<div class="orderCanceBj" style="display: none" ></div>
+<div class="orderCance " style="display: none">
+ 	<a href="javascript:void(0)" onclick="location.reload();"></a>
+ 	<h3>订单申请退款</h3><p>退款理由</p><textarea placeholder="请输入您的退款理由，以方便我们更好的为您服务~"></textarea><span>温馨提示：订单成功取消后无法恢复，该订单已付金额将返还支付信用卡</span><button class="cances">确认</button>
+</div>
+</div>

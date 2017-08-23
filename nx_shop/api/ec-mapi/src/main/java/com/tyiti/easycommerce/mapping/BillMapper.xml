@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyiti.easycommerce.repository.BillDao">
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.BillEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="cust_id" jdbcType="INTEGER" property="custId" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="third_party_amount" jdbcType="DECIMAL" property="thirdPartyAmount" />
+    <result column="down_payment" jdbcType="DECIMAL" property="downPayment" />
+    <result column="installment_amount" jdbcType="DECIMAL" property="installmentAmount" />
+    <result column="installment_months" jdbcType="INTEGER" property="installmentMonths" />
+    <result column="installment_rate" jdbcType="DECIMAL" property="installmentRate" />
+    <result column="down_payment_payed" jdbcType="BIT" property="downPaymentPayed" />
+    <result column="installment_payed" jdbcType="BIT" property="installmentPayed" />
+    <result column="down_payment_time" jdbcType="TIMESTAMP" property="downPaymentTime" />
+    <result column="installment_time" jdbcType="TIMESTAMP" property="installmentTime" />
+    <result column="pay_method" jdbcType="TINYINT" property="payMethod" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="invalid" jdbcType="BIT" property="invalid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="close_time" jdbcType="TIMESTAMP" property="closeTime" />
+    <result column="address_name" jdbcType="VARCHAR" property="addressName" />
+    <result column="address_mobile" jdbcType="CHAR" property="addressMobile" />
+    <result column="address_full_text" jdbcType="VARCHAR" property="addressFullText" />
+    <result column="address_zip" jdbcType="INTEGER" property="addressZip" />
+    <result column="logistics_no" jdbcType="VARCHAR" property="logisticsNo" />
+    <result column="logistics_company" jdbcType="VARCHAR" property="logisticsCompany" />
+    <result column="receipt_time" jdbcType="TIMESTAMP" property="receiptTime" />
+    <result column="return_time" jdbcType="TIMESTAMP" property="returnTime" />
+    <result column="stage_id" jdbcType="VARCHAR" property="stageId" />
+    <result column="sku_namae" jdbcType="VARCHAR" property="skuName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, no, cust_id, amount, third_party_amount, down_payment, installment_amount, installment_months, 
+    installment_rate, down_payment_payed, installment_payed, down_payment_time, installment_time, 
+    pay_method, status, invalid, create_time, close_time, address_name, address_mobile, 
+    address_full_text, address_zip, logistics_no, logistics_company, receipt_time, return_time, 
+    stage_id,sku_namae
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.BillEntity">
+    insert into t_order (id, no, cust_id, 
+      amount, third_party_amount, down_payment, 
+      installment_amount, installment_months, installment_rate, 
+      down_payment_payed, installment_payed, down_payment_time, 
+      installment_time, pay_method, status, 
+      invalid, create_time, close_time, 
+      address_name, address_mobile, address_full_text, 
+      address_zip, logistics_no, logistics_company, 
+      receipt_time, return_time, stage_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{custId,jdbcType=INTEGER}, 
+      #{amount,jdbcType=DECIMAL}, #{thirdPartyAmount,jdbcType=DECIMAL}, #{downPayment,jdbcType=DECIMAL}, 
+      #{installmentAmount,jdbcType=DECIMAL}, #{installmentMonths,jdbcType=INTEGER}, #{installmentRate,jdbcType=DECIMAL}, 
+      #{downPaymentPayed,jdbcType=BIT}, #{installmentPayed,jdbcType=BIT}, #{downPaymentTime,jdbcType=TIMESTAMP}, 
+      #{installmentTime,jdbcType=TIMESTAMP}, #{payMethod,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
+      #{invalid,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
+      #{addressName,jdbcType=VARCHAR}, #{addressMobile,jdbcType=CHAR}, #{addressFullText,jdbcType=VARCHAR}, 
+      #{addressZip,jdbcType=INTEGER}, #{logisticsNo,jdbcType=VARCHAR}, #{logisticsCompany,jdbcType=VARCHAR}, 
+      #{receiptTime,jdbcType=TIMESTAMP}, #{returnTime,jdbcType=TIMESTAMP}, #{stageId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.BillEntity">
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="custId != null">
+        cust_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="thirdPartyAmount != null">
+        third_party_amount,
+      </if>
+      <if test="downPayment != null">
+        down_payment,
+      </if>
+      <if test="installmentAmount != null">
+        installment_amount,
+      </if>
+      <if test="installmentMonths != null">
+        installment_months,
+      </if>
+      <if test="installmentRate != null">
+        installment_rate,
+      </if>
+      <if test="downPaymentPayed != null">
+        down_payment_payed,
+      </if>
+      <if test="installmentPayed != null">
+        installment_payed,
+      </if>
+      <if test="downPaymentTime != null">
+        down_payment_time,
+      </if>
+      <if test="installmentTime != null">
+        installment_time,
+      </if>
+      <if test="payMethod != null">
+        pay_method,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="invalid != null">
+        invalid,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="closeTime != null">
+        close_time,
+      </if>
+      <if test="addressName != null">
+        address_name,
+      </if>
+      <if test="addressMobile != null">
+        address_mobile,
+      </if>
+      <if test="addressFullText != null">
+        address_full_text,
+      </if>
+      <if test="addressZip != null">
+        address_zip,
+      </if>
+      <if test="logisticsNo != null">
+        logistics_no,
+      </if>
+      <if test="logisticsCompany != null">
+        logistics_company,
+      </if>
+      <if test="receiptTime != null">
+        receipt_time,
+      </if>
+      <if test="returnTime != null">
+        return_time,
+      </if>
+      <if test="stageId != null">
+        stage_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdPartyAmount != null">
+        #{thirdPartyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="downPayment != null">
+        #{downPayment,jdbcType=DECIMAL},
+      </if>
+      <if test="installmentAmount != null">
+        #{installmentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="installmentMonths != null">
+        #{installmentMonths,jdbcType=INTEGER},
+      </if>
+      <if test="installmentRate != null">
+        #{installmentRate,jdbcType=DECIMAL},
+      </if>
+      <if test="downPaymentPayed != null">
+        #{downPaymentPayed,jdbcType=BIT},
+      </if>
+      <if test="installmentPayed != null">
+        #{installmentPayed,jdbcType=BIT},
+      </if>
+      <if test="downPaymentTime != null">
+        #{downPaymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="installmentTime != null">
+        #{installmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMethod != null">
+        #{payMethod,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null">
+        #{invalid,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressName != null">
+        #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressMobile != null">
+        #{addressMobile,jdbcType=CHAR},
+      </if>
+      <if test="addressFullText != null">
+        #{addressFullText,jdbcType=VARCHAR},
+      </if>
+      <if test="addressZip != null">
+        #{addressZip,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsNo != null">
+        #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCompany != null">
+        #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptTime != null">
+        #{receiptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnTime != null">
+        #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stageId != null">
+        #{stageId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.BillEntity">
+    update t_order
+    <set>
+      <if test="no != null">
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null">
+        cust_id = #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdPartyAmount != null">
+        third_party_amount = #{thirdPartyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="downPayment != null">
+        down_payment = #{downPayment,jdbcType=DECIMAL},
+      </if>
+      <if test="installmentAmount != null">
+        installment_amount = #{installmentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="installmentMonths != null">
+        installment_months = #{installmentMonths,jdbcType=INTEGER},
+      </if>
+      <if test="installmentRate != null">
+        installment_rate = #{installmentRate,jdbcType=DECIMAL},
+      </if>
+      <if test="downPaymentPayed != null">
+        down_payment_payed = #{downPaymentPayed,jdbcType=BIT},
+      </if>
+      <if test="installmentPayed != null">
+        installment_payed = #{installmentPayed,jdbcType=BIT},
+      </if>
+      <if test="downPaymentTime != null">
+        down_payment_time = #{downPaymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="installmentTime != null">
+        installment_time = #{installmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payMethod != null">
+        pay_method = #{payMethod,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null">
+        invalid = #{invalid,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressName != null">
+        address_name = #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressMobile != null">
+        address_mobile = #{addressMobile,jdbcType=CHAR},
+      </if>
+      <if test="addressFullText != null">
+        address_full_text = #{addressFullText,jdbcType=VARCHAR},
+      </if>
+      <if test="addressZip != null">
+        address_zip = #{addressZip,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsNo != null">
+        logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsCompany != null">
+        logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptTime != null">
+        receipt_time = #{receiptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnTime != null">
+        return_time = #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stageId != null">
+        stage_id = #{stageId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.BillEntity">
+    update t_order
+    set no = #{no,jdbcType=VARCHAR},
+      cust_id = #{custId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      third_party_amount = #{thirdPartyAmount,jdbcType=DECIMAL},
+      down_payment = #{downPayment,jdbcType=DECIMAL},
+      installment_amount = #{installmentAmount,jdbcType=DECIMAL},
+      installment_months = #{installmentMonths,jdbcType=INTEGER},
+      installment_rate = #{installmentRate,jdbcType=DECIMAL},
+      down_payment_payed = #{downPaymentPayed,jdbcType=BIT},
+      installment_payed = #{installmentPayed,jdbcType=BIT},
+      down_payment_time = #{downPaymentTime,jdbcType=TIMESTAMP},
+      installment_time = #{installmentTime,jdbcType=TIMESTAMP},
+      pay_method = #{payMethod,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      address_mobile = #{addressMobile,jdbcType=CHAR},
+      address_full_text = #{addressFullText,jdbcType=VARCHAR},
+      address_zip = #{addressZip,jdbcType=INTEGER},
+      logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+      receipt_time = #{receiptTime,jdbcType=TIMESTAMP},
+      return_time = #{returnTime,jdbcType=TIMESTAMP},
+      stage_id = #{stageId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findBillList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 	t_order LEFT JOIN t_order_sku ON t_order.id = t_order_sku.order_id
+    where t_order_sku.sku_erp_code =#{skuErpCode,jdbcType=VARCHAR}
+    <if test="startReturnTime != null and startReturnTime != ''">
+        and return_time >= #{startReturnTime,jdbcType=TIMESTAMP} 
+     </if>
+     <if test="endReturnTime != null and endReturnTime != ''">
+         and <![CDATA[return_time <= #{endReturnTime,jdbcType=TIMESTAMP}]]> 
+     </if>
+     <if test="startCloseTime != null and startCloseTime != ''">
+         and close_time >= #{closeTime,jdbcType=TIMESTAMP}
+     </if>
+     <if test="endCloseTime != null and endCloseTime != ''">
+         and <![CDATA[close_time <= #{closeTime,jdbcType=TIMESTAMP}]]> 
+     </if>
+  </select>
+</mapper>

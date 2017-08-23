@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 权限表的数据访问实现 -->
+<!-- author rainyhao -->
+<!-- since 2016-04-11 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PermissionDao" >
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Permission" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="describ" property="describ" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<!-- add by hcy 为树数据增加的字段 -->
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="glyphicon" property="glyphicon" jdbcType="VARCHAR" />
+		
+		<!-- 非持久化的辅助属性 -->
+		<result column="checked" property="checked" jdbcType="BIT" /> <!-- 标识是否已授权给角色 -->
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id, name, code, describ, parent_id,url,glyphicon
+	</sql>
+	
+	<sql id="generic_where">
+		<where>
+			<!-- add by hcy 2016-06-07  -->
+		    <if test="name != null">
+		        and name = #{name,jdbcType=VARCHAR}
+		    </if>
+		    <!-- add by hcy 2016-06-07  -->
+		    <if test="code != null">
+		        and code = #{code,jdbcType=INTEGER}
+		    </if>
+		    <if test="parentId != null">
+		        and parent_id = #{parentId,jdbcType=INTEGER}
+		    </if>
+			<if test="userId != null">
+				and exists (
+					select 0 from t_role_perm rp 
+					where p.id=rp.perm_id 
+					and exists (
+						select 0 from t_user_role ur 
+						where rp.role_id=ur.role_id 
+						and ur.user_id=#{userId,jdbcType=INTEGER}
+					)
+				)
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="select">
+	    select
+		<choose>
+			<when test="fields != null">${fields}</when>
+			<otherwise>
+				<include refid="Base_Column_List" />
+			</otherwise>
+		</choose>
+		from t_permission p
+		<include refid="generic_where" />
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+		<include refid="Base_Column_List" />
+		from t_permission
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 实现selectForObject -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-12 -->
+	<select id="selectForObject" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.Permission">
+		<include refid="select" />
+	</select>
+	
+	<!-- 实现selectForList -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-11 -->
+	<select id="selectForList" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.Permission">
+		<include refid="select" />
+	</select>
+	
+	<!-- 实现selectCount -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-12 -->
+	<select id="selectCount" resultType="java.lang.Integer" parameterType="com.tyiti.easycommerce.entity.Permission">
+	    select count(0) from t_permission
+	    <include refid="generic_where" />
+	</select>
+	
+	<!-- 查询所有权限并标识哪此是已授权给指定角色的 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-13 -->
+	<select id="selectRoleGranted" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		 select a.id, a.name, a.code, a.describ, a.parent_id,a.url,a.glyphicon,
+			case when b.perm_id is null then 0 else 1 end as checked
+		from t_permission a
+		left join (select perm_id from t_role_perm where role_id=#{roleId,jdbcType=INTEGER}) b on (a.id=b.perm_id) 
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer" >
+		delete from t_permission
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.Permission" useGeneratedKeys="true" keyProperty="id">
+		insert into t_permission (id, name, code, describ, parent_id,url)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{describ,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},#{url,jdbcType=VARCHAR})
+	</insert>
+	<!-- add by hcy -->
+	<!-- 根据角色id删除 角色权限表中的数据 -->
+	<delete id="deleByRoleId" parameterType="java.lang.Integer" >
+		delete from t_role_perm where role_id= #{role_id,jdbcType=INTEGER}
+	</delete>
+	
+	
+	
+	
+	<!-- add by hcy -->
+	<update id="update" parameterType="com.tyiti.easycommerce.entity.Permission" >
+		update t_permission
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null" >
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="describ != null" >
+				describ = #{describ,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null" >
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+			
+			<if test="url != null" >
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+	<!-- add by hcy 检查用户是否重复  分开查询 便于提示错误信息 -->
+	<select id="selectPerCountName" resultType="java.lang.Integer" parameterType="com.tyiti.easycommerce.entity.Permission">
+		select COUNT(1) from t_permission where id &lt;&gt;#{id,jdbcType=INTEGER} and name = #{name,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectPerCountCode" resultType="java.lang.Integer" parameterType="com.tyiti.easycommerce.entity.Permission">
+		select COUNT(1) from t_permission where id &lt;&gt;#{id,jdbcType=INTEGER} and code = #{code,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectForListForCanuse" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.Permission">
+					SELECT
+							id,
+							NAME,
+							CODE,
+							describ,
+							parent_id,
+							url,
+							glyphicon
+					FROM
+							t_permission p
+					where
+							EXISTS (
+									SELECT
+											0
+									FROM
+											t_role_perm rp
+									WHERE
+											p.id = rp.perm_id
+									AND EXISTS
+											(
+												SELECT
+												0
+												FROM
+												t_user_role ur
+												WHERE
+													rp.role_id = ur.role_id
+														AND ur.user_id=#{userId,jdbcType=INTEGER} AND EXISTS (select 0 from t_role r where
+	                                                            ur.role_id=r.id and r.status=0 )
+											)
+										)
+	</select>
+	
+	
+	
+</mapper>

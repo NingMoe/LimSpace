@@ -1,0 +1,70 @@
+<button type="button" class="btn btn-info"   ng-click="returnGoods(order.id,order.NO)" ng-disabled="order.cancelStatus != undefined" >退单</button>
+<h2>订单信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>订单编号</th>
+      <th>下单时间</th>
+      <th>订单状态</th>
+      <th>结算金额</th>
+      <th>支付状态</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{order.NO}}</td>
+      <td>{{order.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{order.statusText}}</td> 
+      <td>{{order.thirdPartyAmount}}</td>
+      <td>{{order.payMethodText}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>收货人信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>手机号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{order.addressMobile}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!--<h2>寄件人</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>手机号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{}}</td>
+    </tr>
+  </tbody>
+</table>-->
+
+<h2>商品清单</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>商品编号</th>
+      <th>商品名称</th>
+      <th>商品图片</th>
+      <th>数量</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{order.thirdPartyId}}</td>
+      <td>{{order.skuName}}</td>
+      <td><img style="height: 100px;" src="{{order.skuHeadThumbnail}}"></td>
+      <td>{{order.skuCount}}</td>
+    </tr>
+  </tbody>
+</table>

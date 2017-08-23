@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PushLogDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.PushLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="push_time" property="pushTime" jdbcType="DATE" />
+    <result column="flag" property="flag" jdbcType="TINYINT" />
+    <result column="creat_time" property="creatTime" jdbcType="DATE" />
+    <result column="updateTime" property="updatetime" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tyiti.easycommerce.entity.PushLog" extends="BaseResultMap" >
+    <result column="push_str" property="pushStr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, user_id, push_time, flag, creat_time, updateTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    push_str
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_push_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_push_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.PushLog" >
+    insert into t_push_log (id, order_id, user_id, 
+      push_time, flag, creat_time, 
+      updateTime, push_str)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{pushTime,jdbcType=DATE}, #{flag,jdbcType=TINYINT}, #{creatTime,jdbcType=DATE}, 
+      #{updatetime,jdbcType=DATE}, #{pushStr,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.PushLog" >
+    insert into t_push_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="pushTime != null" >
+        push_time,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="pushStr != null" >
+        push_str,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=DATE},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=DATE},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=DATE},
+      </if>
+      <if test="pushStr != null" >
+        #{pushStr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.PushLog" >
+    update t_push_log
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="pushTime != null" >
+        push_time = #{pushTime,jdbcType=DATE},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=DATE},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=DATE},
+      </if>
+      <if test="pushStr != null" >
+        push_str = #{pushStr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tyiti.easycommerce.entity.PushLog" >
+    update t_push_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      push_time = #{pushTime,jdbcType=DATE},
+      flag = #{flag,jdbcType=TINYINT},
+      creat_time = #{creatTime,jdbcType=DATE},
+      updateTime = #{updatetime,jdbcType=DATE},
+      push_str = #{pushStr,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.PushLog" >
+    update t_push_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      push_time = #{pushTime,jdbcType=DATE},
+      flag = #{flag,jdbcType=TINYINT},
+      creat_time = #{creatTime,jdbcType=DATE},
+      updateTime = #{updatetime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

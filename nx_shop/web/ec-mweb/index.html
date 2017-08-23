@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]>
+<html class="ie8" ng-app="app" ng-controller="RootController"><![endif]-->
+<!--[if (gt IE 8)|!(IE)]><!-->
+<html ng-app="app" class=""><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>光大微商城管理系统</title>
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+  <link href="assets/css/bootstrap-treeview.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/ngToast.css" rel="stylesheet">
+    <link href="upload/style.css" rel="stylesheet">
+    <link href="assets/css/jquery.datetimepicker.css" rel="stylesheet">
+</head>
+<body ng-class="{'has-sidebar': sideBarVisible}">
+  <ng-include src="'app/shared/header/headerView.html'"></ng-include>
+  <div class="container">
+    <ng-include src="'app/shared/sideBar/sideBar.html'"></ng-include>
+    <div class="content" ui-view=''></div>
+  </div>
+  <ng-include src="'app/shared/footer/footerView.html'"></ng-include>
+
+<script src="assets/js/lib/jquery-1.12.1.js"></script>
+<script src="assets/js/lib/bootstrap.js"></script>
+<script src="assets/js/lib/bootstrap-treeview.js"></script>
+<script src="assets/js/lib/angular.js"></script>
+<script src="assets/js/lib/angular-sanitize.js"></script>
+<script src="assets/js/lib/angular-ui-router.js"></script>
+<script src="assets/js/lib/ngToast.js"></script>
+<script src="assets/js/lib/jquery.datetimepicker.full.js"></script>
+<script src="upload/lib/plupload-2.1.2/js/plupload.full.min.js"></script>
+<script src="assets/js/lib/angular-drag.js"></script>
+<script src="assets/js/lib/ng-file-upload-shim.min.js"></script>
+<script src="assets/js/lib/ng-file-upload.min.js"></script>
+<script src="assets/js/lib/ui-bootstrap-tpls.min.js"></script>
+<script src="assets/js/lib/bootstrap.min.js"></script>
+
+<script src="app/app.module.js"></script>
+<script src="app/app.service.js"></script>
+<script src="app/app.route.js"></script>
+<script src="app/app.directive.js"></script>
+<script src="assets/js/lib/plupload-angular-directive.js"></script>
+
+
+
+<script src="app/components/orders/searchController.js"></script>
+<script src="app/components/orders/detailController.js"></script>
+
+<script src="app/components/refunds/searchController.js"></script>
+<script src="app/components/refunds/detailController.js"></script>
+
+<script src="app/components/returns/searchController.js"></script>
+<script src="app/components/returns/detailController.js"></script>
+
+<script src="app/components/ads/indexController.js"></script>
+
+<script src="app/components/category/listController.js"></script>
+<script src="app/components/category/templateController.js"></script>
+
+<script src="app/components/welcome/welController.js"></script>
+<script src="app/components/files/fileController.js"></script>
+
+<script src="app/shared/header/headerController.js"></script>
+<script src="app/shared/sideBar/sideBarController.js"></script>
+
+<!-- Start 系统设置 -->
+<script src="app/components/system/systController.js"></script>
+<script src="app/components/system/showrolesController.js"></script>
+<script src="app/components/system/permController.js"></script>
+
+<!-- End 系统设置 -->
+
+<!--Start 优惠券-->
+<script src="app/components/coupon/coupon.js"></script>
+<script src="app/components/coupon/couponRecord.js"></script>
+<!--End 优惠券-->
+<!--Start 用户留言-->
+<script src="app/components/leMsg/leMsg.js"></script>
+<!--End 用户留言-->
+<!--Start 意见反馈-->
+<script src="app/components/user/leaveMessageController.js"></script>
+<!--End 意见反馈-->
+<!-- 商品-->
+<script src="app/components/product/spu/listController.js"></script>
+<script src="app/components/product/spu/editController.js"></script>
+<!--添加SKU商品信息  add kong chuilong-->
+<script src="app/components/product/koosku/kooListSkuController.js"></script>
+<script src="app/components/bills/billController.js"></script>
+<script src="app/components/product/tag/listController.js"></script>
+<script src="app/components/product/tag/editController.js"></script>
+<script src="app/components/bills/orderMgController.js"></script>
+<script src="app/components/bills/orderDetailController.js"></script>
+<!-- 抽奖活动   -->
+<script src="app/components/active/promotionController.js"></script>
+<script src="app/components/active/prizeController.js"></script>
+<script src="app/components/active/raffleController.js"></script>
+<!-- 收藏   -->
+<script src="app/components/favorite/favoriteController.js"></script>
+
+<!--创建活动-->
+<script src="app/components/active/createActivityController.js"></script>
+<script src="app/components/active/seckillController.js"></script>
+<script src="app/components/active/purchaseController.js"></script>
+<script src="app/components/active/shareController.js"></script><!-- 分享活动   -->
+
+<script src="app/components/topic/topicController.js"></script>
+<script src="app/components/business/business.js"></script>
+<!-- 热门搜索   -->
+<script src="app/components/search/popularsearchController.js"></script>
+<!-- 预警   -->
+<script src="app/components/warning/warningController.js"></script>
+<!-- 头条  -->
+<script src="app/components/headline/headlineController.js"></script>
+<!-- 上下架  -->
+<script src="app/components/shelves/ShelvesController.js"></script>
+<script src="app/components/shelves/ShelvesAddController.js"></script>
+
+</body>
+</html>

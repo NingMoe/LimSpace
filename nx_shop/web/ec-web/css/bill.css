@@ -1,0 +1,1540 @@
+.billStyle html, .billStyle body, .billStyle div, .billStyle span, .billStyle applet, .billStyle object, .billStyle iframe, .billStyle h1, .billStyle h2, .billStyle h3, .billStyle h4, .billStyle h5, .billStyle h6, .billStyle p, .billStyle blockquote, .billStyle pre, .billStyle a, .billStyle abbr, .billStyle acronym, .billStyle address, .billStyle big, .billStyle cite, .billStyle code, .billStyle del, .billStyle dfn, .billStyle em, .billStyle img, .billStyle ins, .billStyle kbd, .billStyle q, .billStyle s, .billStyle samp, .billStyle small, .billStyle strike, .billStyle strong, .billStyle sub, .billStyle sup, .billStyle tt, .billStyle var, .billStyle b, .billStyle u, .billStyle i, .billStyle center, .billStyle dl, .billStyle dt, .billStyle dd, .billStyle ol, .billStyle ul, .billStyle li, .billStyle fieldset, .billStyle form, .billStyle label, .billStyle legend, .billStyle table, .billStyle caption, .billStyle tbody, .billStyle tfoot, .billStyle thead, .billStyle tr, .billStyle th, .billStyle td, .billStyle article, .billStyle aside, .billStyle canvas, .billStyle details, .billStyle embed, .billStyle figure, .billStyle figcaption, .billStyle footer, .billStyle header, .billStyle hgroup, .billStyle menu, .billStyle nav, .billStyle output, .billStyle ruby, .billStyle section, .billStyle summary, .billStyle time, .billStyle mark, .billStyle audio, .billStyle video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	outline: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-appearance: none;
+}
+.billStyle input{
+	outline: none;
+}
+.billStyle h1, h2, h3, h4, h5, h6, strong, b{
+ font-weight:normal;
+}
+.billStyle i{
+	font-style:normal;
+}
+.billStyle body {
+	font-family: Arial, Tahoma, sans-serif;
+	-webkit-user-select:none;
+	webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.billStyle * {
+	-webkit-tap-highlight-color: transparent;
+	-webkit-appearance: none;
+}
+.billStyle .parent_body{
+	width:100%;
+    position:relative;
+	top:0;
+	left:0;
+	right:0;
+}
+/*footer内容区域样式*/
+.billStyle .border1px{
+	    width: 100%;
+		margin: 0;
+		padding: 0;
+		height: 0.25px;
+		border-bottom: 1px solid #CCCCCC;
+		-webkit-transform: scaleY(.5);
+		-webkit-transform-origin: 0 0;
+	    position:fixed;
+	    bottom:45px;
+	    left:0;
+	    right:0;
+
+}
+.billStyle .footer{
+	width:100%;
+	height:45px;
+	background:#f7f7f8;
+	position:fixed;
+	bottom:0;
+	left:0;
+	right:0;
+}
+.billStyle .footer > a {
+	margin:0;
+	padding:0;
+    display:inline-block;
+    width:22.22%;
+	height:45px;
+	text-align:center;
+}
+.billStyle .footer > a img{
+	width:23px;
+	height:37px;
+	vertical-align:top;
+	margin-top:4px;
+
+}
+
+
+/*MyBill.htl*/
+.MyBill .footer{
+	background:#f6f6f7;
+	width:100%;
+	height:60px;
+	background:#f7f7f8;
+	position:fixed;
+	bottom:49px;
+	left:0;
+	right:0;
+}
+.BillingBetails .footer{
+	background:#f6f6f7;
+	width:100%;
+	height:60px;
+	background:#f7f7f8;
+	position:fixed;
+	bottom:0;
+	left:0;
+	right:0;
+}
+.BillingBetails .border1px,
+.MyBill .border1px{
+	    width: 100%;
+		margin: 0;
+		padding: 0;
+		height: 0.25px;
+		border-bottom: 1px solid #CCCCCC;
+		-webkit-transform: scaleY(.5);
+		-webkit-transform-origin: 0 0;
+	    position:fixed;
+	    bottom:60px;
+	    left:0;
+	    right:0;
+
+}
+.billStyle .SetAddress ul,
+.MyBill ul {
+	position:relative;
+	background: #fff;
+	margin-top: 10px;
+}
+.MyBill ul .divborder1px {
+    margin: 0;
+    padding: 0;
+    height: 0.25px;
+    border-bottom: 1px solid #CCCCCC;
+}
+.billStyle .SetAddress ul .liTop,
+.MyBill ul  .liTop{
+
+	width: 100%;
+    height: 50px;
+}
+.billStyle .SetAddress ul .liTop .tit,
+.MyBill ul  .liTop .tit{
+
+	width:99%;
+	height:50px;
+    line-height: 70px;
+	position:absolute;
+	top:0;
+	left:1%;
+	margin:0;
+}
+.billStyle .SetAddress ul .liTop  .tit span,
+.MyBill ul  .liTop .tit span,
+.MyBill ul  .liTop .tit a{
+	text-decoration:none;
+	color:#242424;
+	display:inline-block;
+
+}
+.billStyle .SetAddress ul .liTop .tit span,
+.MyBill ul  .liTop .tit span{
+	float:left;
+	margin-left:40px;
+	font-size: 14px;
+}
+.billStyle .SetAddress ul .liTop .tit a,
+.MyBill ul  .liTop .tit a{
+	float:right;
+	margin-right:20px;
+	font-size: 14px;
+}
+.billStyle .SetAddress ul .liContent .tit,
+.MyBill ul  .liContent .tit{
+
+	width:87%;
+	height:72.5px;
+	position:absolute;
+	bottom:0;
+	left:13%;
+	margin:0;
+}
+.MyBill  .liContent .checkboxFive{
+	margin-left:15px;
+	display:inline-block;
+
+}
+.MyBill  .footer .checkboxFive{
+    margin-top:20px;
+	margin-left: 4%;
+	float:left;
+}
+.BillingBetails  .ul_bottom .checkboxFive{
+    margin-top:4px;
+	margin-left:10px;
+	display:inline-block;
+}
+.BillingBetails  .footer .checkboxFive{
+    margin-top:5px;
+	margin-left:10px;
+	float:left;
+}
+.billStyle .checkboxFive {
+	width: 22px;
+	height:22px;
+	position: relative;
+}
+.billStyle .checkboxFive .checkboxFiveInput{
+	position:absolute;
+	z-index:10;
+	width:22px;
+	height:22px;
+	background:none;
+	border:none;
+    top: -1px;
+    left: -0.5px;
+}
+.billStyle .checkboxFive label {
+	position:absolute;
+	z-index:9;
+	top:0;
+	left:0;
+	width:22px;
+	height:22px;
+	background:url("../img/-1-9@2x.png") no-repeat;
+	background-size:22px 22px;
+	background-position:top left;
+
+}
+.billStyle .checkboxFive .checkboxFiveInput:checked +label{
+	background:url("../img/dwdw-1@2x.png") no-repeat;
+	background-size:22px 22px;
+
+}
+ /**/
+
+.billStyle .Staging .checkboxFive{
+    margin-top:17.5px;
+	margin-left:60px;
+	margin-right:-45px;
+	float:left;
+
+
+
+}
+.billStyle .FastRegistration .checkboxFive{
+    margin-top:1px;
+	margin-left:10px;
+	margin-right:10px;
+	float:left;
+
+}
+.billStyle .FastRegistration .checkboxFive label,
+.billStyle .Staging .checkboxFive label {
+	position:absolute;
+	z-index:9;
+	top:0;
+	left:0;
+	width:22px;
+	height:22px;
+	background:url("../img/jx-1@2x (1).png") no-repeat;
+	background-size:22px 22px;
+	background-position:top left;
+
+}
+.billStyle .FastRegistration .checkboxFive .checkboxFiveInput:checked +label,
+.billStyle .Staging .checkboxFive .checkboxFiveInput:checked +label{
+	background:url("./img/jx-1@2x (2).png") no-repeat;
+	background-size:22px 22px;
+
+}
+
+
+
+.MyBill ul  .liContent{
+
+	width: 100%;
+    height: 72.5px;
+}
+.billStyle .SetAddress ul .liContent{
+	width: 100%;
+    height: 55px;
+}
+.billStyle .SetAddress ul .liContent span,
+.MyBill ul  .liContent span{
+	display:inline-block;
+	width: 85%;
+    height: 72.5px;
+	color:#9a9a9a;
+	line-height:20px;
+	margin:10px 0 0 15px;
+	font-size: 14px;
+}
+.MyBill .nobill {
+	width: 100%;
+	height: 100%;
+	padding-bottom:58px;
+	background: #fff;
+}
+.MyBill .nobill img{
+	margin-top: 30%;
+    margin-left: -webkit-calc((100% - 194px)/2);
+}
+.MyBill .nobill p{
+	text-align: center;
+	font-size: 12px;
+	margin-top: 10%;
+}
+.MyBill .nobill a{
+    width: 25%;
+    text-align: center;
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 8px 5px;
+    margin: 5% auto;
+    display: block;
+    color: #333;
+}
+.billStyle .SetAddress .liContent .img_right,
+.MyBill .liContent .img_right{
+	margin-top:18px;
+	width: 23px;
+	height: 23px;
+}
+.billStyle .SetAddress .footer button,
+.BillingBetails .footer   button,
+.MyBill  .footer  button{
+
+	width:101px;
+	height:44px;
+	float:right;
+	margin-right: 3%;
+	outline:none;
+	border:none;
+	background:#ff6633;
+	border-radius:10px;
+	margin-top:8px;
+	text-align:center;
+	line-height:44px;
+	color:#fff;
+	font-size:16px;
+
+
+}
+.billStyle .SetAddress .footer .disb,
+.BillingBetails .footer .disb,
+.MyBill  .footer  .disb{
+	background:#dddcdc;
+	color:#b9b5b5;
+
+}
+.billStyle .SetAddress .footer  .Price,
+.BillingBetails .footer .Price,
+.MyBill  .footer  .Price{
+	width: 45%;
+    height: 60px;
+    line-height: 60px;
+    float: left;
+    color: #ff6633;
+    font-weight: 600;
+    text-align: left;
+    overflow: hidden;
+    font-size: 15px;
+    margin-left: 15px;
+}
+.billStyle .SetAddress .footer .Price span,
+.BillingBetails .footer   .Price span,
+.MyBill  .footer   .Price span{
+
+	   font-size:18px;
+}
+/*BillingBetails.html*/
+.BillingBetails .head,
+.BillSnapshot .head{
+	width:100%;
+	height:100px;
+	background:#fff;
+    position:fixed;
+    top:0;
+    left:0;
+}
+.BillingBetails .name_head,
+.BillSnapshot .name_head{
+
+	width:100%;
+	height:100px;
+	float:left;
+	border-bottom:1px solid #ccc;
+}
+.BillingBetails .bordertop,
+.BillSnapshot .bordertop{
+
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	height: 0.25px;
+	border-bottom: 1px solid #CCCCCC;
+	-webkit-transform: scaleY(.5);
+	-webkit-transform-origin: 0 0;
+	position:fixed;
+	top:100px;
+	left:0;
+	right:0;
+}
+.BillingBetails .head .img_right,
+.BillSnapshot .head .img_right{
+	margin-top:42.5px;
+}
+.BillingBetails .head h1,
+.BillSnapshot .head h1{
+	font-size:18px;
+	color:#000000;
+	line-height:30px;
+	margin:25px 0 0 20px;
+}
+.BillingBetails .head h2,
+.BillSnapshot .head h2{
+	font-size:15px;
+	color:#8f8f8f;
+	line-height:20px;
+	margin-left:20px;
+}
+.BillingBetails .wei{
+	width:100%;
+	margin:15px 0;
+	background:#fff;
+
+}
+.BillingBetails .wei .top_wei{
+	width:95%;
+	height:45px;
+	line-height:45px;
+}
+.BillingBetails .wei .top_wei .top_tit{
+	width:95%;
+	height:42px;
+	float: right;
+}
+.BillingBetails .wei .top_wei .top_tit span{
+	color:#000000;
+	font-size:15px;
+	display:block;
+	float:left;
+	margin-right:25px;
+}
+.BillingBetails .wei .top_wei .top_tit a{
+
+	font-size:15px;
+	text-decoration:none;
+	color:#000000;
+	display:block;
+	float:right;
+	margin-right:5px;
+}
+
+.BillingBetails .wei .top_wei .codede  span,
+.BillingBetails .wei .top_wei .codede  a{
+
+	color:#999999 ;
+}
+
+.BillingBetails .wei .ul_bottom{
+	width:100%;
+}
+
+.BillingBetails .wei .ul_bottom .li_size{
+	width:100%;
+	height:56px;
+	border-bottom: 1px solid #F3EDED;
+}
+.BillingBetails .wei .ul_bottom .divborder1px{
+	width:85%;
+	float:right;
+	margin-top:-0.25px;
+}
+
+.BillingBetails .wei .ul_bottom .li_size .icon{
+	width:22px;
+	height:22px;
+	margin-left:10px;
+	float:left;
+	margin-top:20px;
+}
+.BillingBetails .wei .ul_bottom .li_size span{
+	font-size:14px;
+	line-height:56px;
+	float:left;
+	margin-left:4%;
+	color:#999999;
+	letter-spacing:1px;
+}
+.BillingBetails .wei .ul_bottom .li_size img{
+	width: 10%;
+	height: auto;
+	float: left;
+	margin-top: 6px;
+	margin-left: 3%;
+}
+.BillingBetails .wei .ul_bottom .li_size a{
+	font-size:14px;
+	line-height:56px;
+	float:right;
+	margin-right:4%;
+	text-decoration:none;
+	color:#999999;
+}
+
+.BillingBetails .wei .ul_bottom .one_size span{
+
+
+	color:#000000;
+	letter-spacing:1px;
+}
+.BillingBetails .wei .ul_bottom .one_size a{
+
+	color:#000000;
+}
+
+
+.BillingBetails .checkboxFive {
+	top:15px;
+}
+.BillingBetails  .checkboxFive{
+	float:left;
+}
+.BillSnapshot .name_head{
+	width:70%;
+}
+.BillSnapshot .head .hea_img{
+	width:37px;
+	height:74px;
+	float:left;
+	margin-left:20px;
+	margin-top:15px;
+}
+.BillSnapshot  .bill_box{
+	width:100%;
+	height:95px;
+	margin-top:100px;
+
+}
+
+.BillSnapshot  .bill_box li{
+	height:35px;
+	line-height:35px;
+
+}
+.BillSnapshot  .bill_box li:last-child span{
+	color:#989898;
+
+}
+.BillSnapshot  .bill_box li span{
+	width:30%;
+	text-align:center;
+	display:inline-block;
+	font-size:16px;
+}
+.BillSnapshot   .addres{
+	width:100%;
+	position:relative;
+}
+.BillSnapshot  .addres img{
+	width:100%;
+	height:10px;
+	position:absolute;
+	display:block;
+
+}
+.BillSnapshot  .addres img:first-child{
+	top:0;
+
+}
+.BillSnapshot  .addres img:last-child{
+	bottom:0;
+
+}
+.BillSnapshot  .addres ul{
+    font-size: 16px;
+    display: inline-block;
+    margin-bottom: 20px;
+    float: none;
+    position: inherit;
+    height: auto;
+}
+.BillSnapshot  .addres ul li{
+	line-height: 25px;
+    margin-left: 20px;
+    border: none;
+    display: inline-block;
+    padding: 0;
+    text-align: left;
+    font-size: 16px;
+}
+.BillSnapshot  .addres ul li:first-child{
+	margin-top:22px;
+}
+.BillSnapshot  .addres ul li span{
+	margin:0 10px;
+	color:#000000;
+}
+.BillSnapshot  .right_top{
+	width:98%;
+	height:58px;
+	font-size:15px;
+	color:#b4b4b4;
+	margin-top:95px;
+	text-align:right;
+}
+
+.BillSnapshot  .right_top li{
+	line-height:25px;
+}
+.BillSnapshot  .topbutton{
+	width:72px;
+	border:1px solid #dadada;
+	height:25px;
+	line-height:22px;
+	text-align:center;
+	font-size:12px;
+	border-radius:2px;
+	outline:none;
+	background:none;
+
+}
+.BillSnapshot  .but_left{
+	color:#b7b7b7;
+	border:1px solid #b7b7b7;
+	float:left;
+	margin-left:20px;
+	margin-top:20px;
+}
+.BillSnapshot  .but_right{
+	color:#ff6633;
+	border:1px solid #ff6633;
+	float:right;
+	margin-right:20px;
+	margin-top:20px;
+
+}
+
+.billStyle .Snapshot .sn_img{
+	width:100%;
+	height:320px;
+}
+.billStyle .Snapshot .att_two h6{
+
+	color:#000;
+	text-decoration:none;
+}
+.billStyle .Attribute .att_ul .att_border1px{
+
+	clear:both;
+}
+.billStyle .HomeBank .list_size .first_img{
+	width:19px;
+	height:19px;
+}
+
+.billStyle .admin  .denglv{
+	text-align:center;
+}
+
+.billStyle .admin .denglv .admin_tit{
+	width:64px;
+	height:64px;
+}
+.billStyle .FoegetPasswordtwo .denglv,
+.billStyle .ForgetPassword .denglv,
+.billStyle .admin .denglv{
+	width:100%;
+	height:205px;
+	margin-top:42px;
+}
+.billStyle .FastRegistration .denglv section,
+.billStyle .FoegetPasswordtwo .denglv section,
+.billStyle .ForgetPassword .denglv section,
+.billStyle .admin .denglv section{
+	 width:311px;
+	 height:48px;
+	 margin: 0 auto;
+	 position:relative;
+}
+.billStyle .admin  .denglv .last-center{
+	margin-top:40px;
+}
+.billStyle .FastRegistration .denglv  .last-chid,
+.billStyle .FoegetPasswordtwo .denglv  .last-chid,
+.billStyle .ForgetPassword .denglv  .last-chid,
+.billStyle .admin .denglv  .last-chid{
+	margin-top:23px;
+}
+.billStyle .FastRegistration .denglv section .bor-right,
+.billStyle .FoegetPasswordtwo .denglv section .bor-right,
+.billStyle .ForgetPassword .denglv section .bor-right,
+.billStyle .admin .denglv section .bor-right{
+	    position:absolute;
+		right:0;
+		height:22%;
+		bottom:0;
+}
+.billStyle .FastRegistration .denglv section .bor-left,
+.billStyle .FoegetPasswordtwo .denglv section .bor-left,
+.billStyle .ForgetPassword .denglv section .bor-left,
+.billStyle .admin .denglv section .bor-left{
+	    position:absolute;
+		left:0;
+		bottom:0;
+		height:22%;
+}
+.billStyle .FastRegistration .denglv section  .change,
+.billStyle .FoegetPasswordtwo .denglv section  .change,
+.billStyle .ForgetPassword .denglv section  .change,
+.billStyle .admin .denglv section  .change{
+	border-color:#ff6633;
+
+}
+.billStyle .FastRegistration .denglv section div,
+.billStyle .FoegetPasswordtwo .denglv section div,
+.billStyle .ForgetPassword .denglv section div,
+.billStyle .admin .denglv section div{
+	width:100%;
+	height:47px;
+	line-height:47px;
+
+}
+.billStyle .FastRegistration .denglv section div aside,
+.billStyle .FoegetPasswordtwo .denglv section div aside,
+.billStyle .ForgetPassword .denglv section div aside,
+.billStyle .admin .denglv section div aside{
+	font-size:15px;
+	color:#000;
+	float:left;
+	display:block;
+	margin:0 13px;
+	vertical-align:middle;
+	color:#333;
+}
+.billStyle .FastRegistration .denglv section div  input,
+.billStyle .FoegetPasswordtwo .denglv section div input,
+.billStyle .ForgetPassword .denglv section div input,
+.billStyle .admin .denglv section div input{
+	display:block;
+	width:230px;
+	height:20px;
+	line-height:20px;
+	border:none;
+	background:none;
+	float:left;
+	font-size:14px;
+	color:#b5b5b5;
+	vertical-align:middle;
+	margin-top:12px;
+
+}
+.billStyle .FastRegistration  .button,
+.billStyle .FoegetPasswordtwo .button,
+.billStyle .ForgetPassword .button,
+.billStyle .admin .button,
+.billStyle .Withdrawals .button{
+	margin-top:40px;
+}
+.billStyle .FastRegistration .denglv .text_bottom,
+.billStyle .admin .denglv .text_bottom{
+	width:310px;
+	height:25px;
+	line-height:25px;
+	margin: 0 auto;
+
+}
+.billStyle .FastRegistration .denglv .text_bottom ,
+.billStyle .admin .denglv .text_bottom  a {
+	display:block;
+	text-decoration:none;
+	color:#b5b5b5;
+	font-size:12px;
+	margin-top:5px;
+	letter-spacing:0.5px;
+}
+.billStyle .FastRegistration .denglv .text_bottom  .a_1,
+.billStyle .admin .denglv .text_bottom  .a_1{
+	float:left;
+	font-size:13px;
+}
+.billStyle .FastRegistration .denglv .text_bottom   a{
+	color:#ff6633;
+
+}
+.billStyle .FastRegistration .denglv .text_bottom  .a_1  input{
+	width:14px;
+	height:14px;
+	border:1px solid #ff6633;
+
+}
+.billStyle .admin .denglv .text_bottom  .a_2{
+	float:right;
+	font-size:13px;
+}
+.billStyle .ForgetPassword .denglv input{
+	width:220px !important;
+}
+.billStyle .ForgetPassword .denglv  .last_inp{
+	width:140px !important;
+}
+.billStyle .FoegetPasswordtwo .denglv  .last_inp{
+
+	width:130px;
+}
+.billStyle .FastRegistration .denglv .last_but,
+.billStyle .ForgetPassword .denglv .last_but,
+.billStyle .FoegetPasswordtwo .denglv .last_but{
+	background:none;
+	border:none;
+	border:1px solid #ff6633;
+	color:#ff6633;
+	text-align:center;
+	border-radius:5px;
+	width:85px;
+	height:30px;
+    line-height:30px;
+	vertical-align:top;
+	margin-top:7.5px;
+	font-size:11px;
+	outline:none;
+}
+.billStyle .ForgetPassword .denglv section div aside{
+	margin:0 5px;
+}
+.billStyle .FoegetPasswordtwo .denglv section div  input{
+	width:175px;
+}
+
+.billStyle .FastRegistration .denglv  .last_inp{
+	width:200px !important;
+}
+.billStyle .FastRegistration .denglv section {
+	margin-top:10px;
+}
+.billStyle .FastRegistration .denglv section div input{
+	width:300px;
+	margin-left:5px;
+}
+
+.billStyle .ServiceTerms{
+   font-size:15px;
+   padding:10px 5px;
+}
+.billStyle .ServiceTerms  p {
+ text-indent:30px;
+ line-height:25px;
+ margin:10px 0;
+ letter-spacing:1px;
+}
+.billStyle .ServiceTerms h4 {
+ text-align:center;
+ font-size:17.5px;
+}
+.billStyle .ServiceTerms h5 {
+
+	margin:0;
+	padding:0;
+	font-size:15px;
+}
+.billStyle .Feedback textarea{
+	width:94%;
+	height:150px;
+	margin:20px 0 10px 2%;
+	border:1px solid #d7d7d7;
+	font-size:15px;
+	line-height:30px;
+	background:none;
+	outline:none;
+
+}
+.billStyle .FoegetPasswordtwo .denglv{
+	margin-top:20px;
+	text-align:center;
+}
+.billStyle .FoegetPasswordtwo .denglv .de_log{
+	width:90%;
+	height:30px;
+	font-size:14px;
+	line-height:30px;
+	margin-left:5%;
+	margin-bottom:10px;
+	text-align:left;
+}
+.billStyle .FoegetPasswordtwo .denglv .de_log  img{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	margin-right:10px;
+	vertical-align:middle;
+}
+
+
+.billStyle .ui-form-item .ui-input {
+font-size: 6px;
+color: #595959;
+vertical-align: middle;
+}
+.billStyle .ui-input {
+width: 85px;
+padding: 1px 2.5px;
+height: 10px;
+line-height: 10px;
+border: 1px solid #ccc;
+border-top-color: #a6a6a6;
+}
+.billStyle .ui-input:focus,.ui-textarea:focus{
+    border:1px solid #68ACFF;
+    color:#727272;
+}
+.billStyle input.sixDigitPassword {
+position: absolute;
+color: #fff;
+
+-webkit-box-sizing: content-box;
+box-sizing: content-box;
+-webkit-user-select: initial;
+outline: none;
+margin-left: -500px;
+}
+.billStyle .alieditContainer {
+display: inline-block;
+zoom: 1;
+width: 320px;
+height: 45px;
+position: relative;
+}
+.billStyle div.sixDigitPassword {
+border: 1px solid #cccccc;
+background: #ebebeb;
+width: 100%;
+height: 45px;
+-webkit-box-sizing: border-box;
+cursor: text;
+background: #fff;
+outline: none;
+}
+.billStyle div.sixDigitPassword.active{
+	border-color: rgba(82, 168, 236, 0.8);
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(82, 168, 236, 0.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(82, 168, 236, 0.6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(82, 168, 236, 0.6);
+}
+.billStyle div.sixDigitPassword i {
+background: none;
+padding: 18.5px 0;
+float: left;
+width: 16.66%;
+}
+.billStyle div.sixDigitPassword i:nth-child(n+2) {
+border-left: 1px solid #cccccc;
+}
+.billStyle div.sixDigitPassword b {
+display: block;
+margin: 0 auto;
+width: 7px;
+height: 7px;
+overflow: hidden;
+visibility: hidden;
+background-size:100% 100%;
+background-image: url("../img/T1sl0fXcBnXXXXXXXX.png");
+}
+.billStyle .SetAddress  ul:first-child{
+	margin-top:0;
+}
+.billStyle .SetAddress  ul{
+	background:#fff;
+	margin-top:10px;
+}
+.billStyle .SetAddress  ul .liTop{
+	height:92px;
+
+}
+.billStyle .SetAddress ul .liTop .tit{
+	height:92px;
+	line-height:22.5px;
+
+}
+.billStyle .SetAddress  ul .liTop .tit .tit_one{
+	display:block;
+	font-size:15px;
+	color:#333333;
+	margin-top:10px;
+	margin-left:10px;
+
+}
+.billStyle .SetAddress  ul .liTop .tit .tit_one i{
+	margin-left:5px;
+}
+.billStyle .SetAddress  ul .liTop .tit .tit_two{
+   display:block;
+   font-size:15px;
+   text-decoration:none;
+   color:#7a7a7a;
+   margin-left:10px;
+   margin-top:10px;
+
+}
+.billStyle .SetAddress  ul .liContent .tit button{
+	width:73px;
+	height:37px;
+	text-indent:15px;
+	line-height:37px;
+	font-size:14px;
+	float:right;
+	margin-top:30px;
+	border:none;
+	background:none;
+	outline:none;
+	color:#333;
+}
+.billStyle .SetAddress  ul .liContent .tit .but_one{
+
+	background:url("./img/13743@2x.png") no-repeat;
+	background-size:14px 16px;
+	background-position:8px center;
+	margin-right:10px;
+}
+.billStyle .SetAddress  ul .liContent .tit .but_two{
+
+	background:url("./img/7909@2x.png") no-repeat;
+	background-size:14px 16px;
+	background-position:8px center;
+	margin-right:10px;
+
+}
+.billStyle .SetAddress  ul .liContent .tit >div{
+	display:inline-block;
+	margin:39px 0 0 25px;
+}
+.billStyle .SetAddress .checkboxFive label{
+	top:105px;
+	left:30px;
+	width:20px;
+	height:20px;
+}
+.billStyle .SetAddress .checkboxFiveInput {
+	margin: 108px 0 0 32px;
+	border:none;
+	width:0.5px;
+	height:0.5px;
+	overflow:hidden;
+
+}
+.billStyle .SetAddress .checkboxFive label:after{
+	border:none;
+	background:none;
+
+}
+.billStyle .SetAddress  label:after {
+	opacity:0;
+}
+.billStyle .SetAddress .checkboxFive label{
+	width:16px;
+	height:16px;
+    background:#fff url("./img/-1@3x.png") no-repeat;
+	background-size:16px 16px;
+	background-position:top left;
+	border:none;
+	margin-top:10px;
+}
+.billStyle .SetAddress  .checkboxFive input[type=radio]:checked + label{
+	width:16px;
+	height:16px;
+	border-radius:3.5px;
+    background:#fff url("./img/-2@3x.png") no-repeat;
+	background-size:16px 16px;
+	background-position:top left;
+	border:none;
+}
+
+
+.billStyle .SetAddress1 section{
+
+	height:403px;
+	width:100%;
+}
+.billStyle .SetAddress1 section div{
+	width:80px;
+	width:95%;
+	float:right;
+
+}
+.billStyle .SetAddress1 section div span{
+	width:19%;
+	font-size:15px;
+	display:inline-block;
+	text-align:left;
+	vertical-align:middle;
+	color:#333;
+
+}
+.billStyle .SetAddress1 section div input{
+	width:72%;
+	float:right;
+	height:35px;
+	line-height:35px;
+	border:1px solid #cfcfd0;
+	display:inline-block;
+	border-radius:5px;
+	background:#fff;
+	margin-right:10px;
+	margin-top:12px;
+	font-size:15px;
+	color:#a9a9a9;
+
+}
+.billStyle .SetAddress1 section div select{
+	width:77%;
+	float:right;
+	height:45px;
+	line-height:45px;
+	border:1px solid #cfcfd0;
+	display:inline-block;
+	border-radius:5px;
+	color:#a9a9a9;
+	margin-right:10px;
+	margin-top:12px;
+	font-size:15px;
+	background:url("./img/sanj9@2x.png") no-repeat;
+	background-size:8px 14px;
+	background-position:96% center;
+
+
+}
+.billStyle .Staging .NewAddress{
+	width:100%;
+	height:105px;
+	background:#fff url("./img/addresborder.png") no-repeat;
+	background-size:100% 10px;
+	background-position:left bottom;
+	color:#333;
+}
+.billStyle .Staging .NewAddress >div{
+	width:90%;
+	height:60px;
+    line-height:30px;
+	float:left;
+	font-size:16px;
+	color:#333;
+	margin-top:19px;
+	text-indent:15px;
+}
+.billStyle .Staging .NewAddress >div p{
+
+   text-overflow:ellipsis;
+   white-space:nowrap;
+   overflow:hidden;
+}
+.billStyle .Staging .NewAddress >div span{
+	margin:0 10px;
+}
+.billStyle .man_imgRight{
+	width:20px;
+	height:40px;
+	float:left;
+	margin-right:2%;
+	margin-top:33px;
+
+}
+.billStyle .Staging  .Shop_show{
+	margin-top:10px;
+	width:100%;
+	height:105px;
+	background:#fff;
+	position:relative;
+	color:#333;
+
+}
+.billStyle .Staging  .Shop_show dl{
+	width:100%;
+	height:75px;
+	margin-top:15px;
+	display:inline-block;
+}
+.billStyle .Staging  .Shop_show dl dt{
+	width:55px;
+	height:75px;
+	margin-left:15px;
+	float:left;
+}
+.billStyle .Staging  .Shop_show dl dt img{
+	width:100%;
+	height:100%;
+	display:inline-block;
+}
+.billStyle .Staging  .Shop_show dl dd{
+	width:calc(100% - 85px);
+	height:75px;
+	float:left;
+	margin-left:10px;
+	font-size:14px;
+}
+.billStyle .Staging  .Shop_show dl dd p{
+
+	 line-height:18px;
+	 overflow:hidden;
+	 height:120px;
+	 position:relative;
+}
+.billStyle .Staging  .Shop_show dl dd p::after {
+    content:"...";
+    font-weight:bold;
+    position:absolute;
+    bottom:0;
+    right:0;
+    padding:0 20px 0.5px 23px;
+	background:url("./img/ellipsis_bg.png") repeat-y;
+	background-size:45px 45px;
+
+
+}
+.billStyle .Staging  .Shop_show dl dd span{
+	margin-top:18px;
+	display:inline-block;
+	font-size:13px;
+}
+.billStyle .Staging .home_list{
+	background:#fff;
+	margin-top:10px;
+	width:100%;
+}
+.billStyle .Staging .list_size span{
+	margin-left:22px;
+	float:left;
+	line-height:58px;
+}
+.billStyle .Staging .list_size .input_one{
+	width:100px;
+	height:25px;
+	line-height:25px;
+	border:none;
+	float:left;
+	margin-left:140px;
+	margin-top:16px;
+	font-size:14px;
+	color:#333;
+	 text-align:right;
+
+
+}
+.billStyle .Staging .list_size .input_one:focus{
+	 border:1px solid #2897f2;
+	 background:url("./img/￥@2x.png") no-repeat;
+	 background-size:10px 11px;
+	 background-position:5px center;
+	 text-indent:10px;
+}
+.billStyle .Staging .list_size span i{
+	margin-left:10px;
+	color:#e5e5e5;
+}
+.billStyle .Staging .home_list .list_size .a_1  i{
+	color:#ff957a;
+}
+
+
+.billStyle .StagingMonth .Bank_list{
+	width:100%;
+
+}
+.billStyle .StagingMonth .Bank_list .list_size{
+	width:100%;
+	height:60px;
+}
+.billStyle .StagingMonth .Bank_list .list_size span{
+	font-size:15px;
+	display:block;
+	line-height:60px;
+	height:60px;
+	color:#333;
+	margin-left:6%;
+	float:left;
+}
+.billStyle .StagingMonth .Bank_list .list_size > div{
+	width:22px;
+	height:22px;
+	float:right;
+	margin-top:19px;
+	margin-right:15px;
+	position:relative;
+}
+.billStyle .StagingMonth .Bank_list .list_border{
+	margin: 0;
+    padding: 0;
+    height: 0.25px;
+    border-bottom: 1px solid #CCCCCC;
+    -webkit-transform: scaleY(.5);
+    -webkit-transform-origin: 0 0;
+	width:95%;
+	margin-left:5%;
+
+}
+
+
+.billStyle .home .home_bg  .log_img {
+	width:100%;
+	height:60px;
+	display:inline-block;
+	margin-top:55px;
+}
+.billStyle .home .home_bg  .log_img aside{
+	width:60px;
+	height:60px;
+	border-radius:30px;
+	background:#fff;
+	margin:0 auto;
+	text-align:center;
+}
+.billStyle .home .home_bg  .log_img aside img{
+	width:58px;
+	height:58px;
+	display:inline-block;
+	margin: 0 auto;
+	margin-top:1px;
+}
+.billStyle .home .home_bg  .log_one{
+	width:100%;
+	height:32px;
+	text-align:center;
+	margin-top:-25px;
+}
+.billStyle .home .home_bg  .log_two button,
+.billStyle .home .home_bg  .log_one button{
+	display:inline-block;
+	 margin:0 auto;
+	 width:105px;
+	 height:32px;
+	 border:1px solid #fff;
+	 border-radius:5px;
+	 background:none;
+	 color:#fff;
+	 text-align:center;
+	 font-size:13px;
+	 padding:0;
+
+
+}
+.billStyle .home .home_bg  .log_two{
+	width:100%;
+	height:80px;
+	text-align:center;
+	margin-top:-5px;
+}
+.billStyle .home .home_bg  .log_two h2{
+	font-size:15px;
+	color:#fff;
+	line-height:20px;
+}
+.billStyle .home .home_bg  .log_two button{
+
+	display:block;
+	margin-top:8px;
+}
+.billStyle .home .home_bg  .log_three{
+	width:100%;
+	height:80px;
+	text-align:center;
+	margin-top:-5px;
+}
+.billStyle .home .home_bg  .log_three h2{
+	font-size:15px;
+	color:#fff;
+	line-height:20px;
+    letter-spacing:0.75px;
+}
+.billStyle .home .home_bg  .log_three div{
+	width:196px;
+	height:25px;
+	margin: 0 auto;
+	margin-top:10px;
+}
+.billStyle .home .home_bg  .log_three div button{
+	height:25px;
+	 width:46px;
+	 border:1px solid #fff;
+	 border-radius:5px;
+	 background:none;
+	 color:#fff;
+	 text-align:center;
+	 font-size:10px;
+	 display:inline;
+	 float:left;
+}
+
+.billStyle progress {
+  width: 140px;
+	height:7px;
+	border-radius:25px;
+  background-color:red;
+  color: #0064B4; /*IE10*/
+	float:left;
+	margin-right:10px;
+	margin-top:10px;
+
+
+}
+
+.billStyle progress::-moz-progress-bar { background: #0064B4; border-radius:25px;}
+.billStyle progress::-webkit-progress-bar { background:#fff;border-radius:25px; }
+.billStyle progress::-webkit-progress-value  { background:url("../img/wwwwww.jpg") repeat-x;border-radius:25px; }
+
+
+
+.billStyle .Withdrawals  .typera{
+	width:80%;
+	height:16px;
+	margin:0 auto;
+	margin-top:10px;
+
+}
+
+.billStyle .Withdrawals  .typera .section1{
+	width:16px;
+	height:16px;
+	float:left;
+	position:relative;
+	margin-top:2.5px;
+
+
+}
+.billStyle .Withdrawals  .typera .section1  input[type=radio] + label{
+	display:block;
+	width:16px;
+	height:16px;
+	background:url("./img/jx-1@2x (1).png") no-repeat;
+	background-size:16px 16px;
+	background-position:left top;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:9;
+}
+
+.billStyle .Withdrawals  .typera .section1  input{
+	position:absolute;
+	top:0;
+	left:10px;
+	z-index:10;
+	width:16px;
+	height:16px;
+	border-radius:8px;
+	border:none;
+
+}
+.billStyle .Withdrawals  .typera .section1  input[type=radio]:checked {
+   background:none;
+	border:none;
+	z-index:10;
+}
+.billStyle .Withdrawals  .typera .section1  input[type=radio]:checked + label{
+	display:block;
+	width:16px;
+	height:16px;
+	background:url("./img/jx-1@2x (2).png") no-repeat;
+	background-size:16px 16px;
+	background-position:left top;
+	z-index:9;
+
+}
+
+.billStyle .Withdrawals .home_list .list_size input[type=text]{
+	  text-align:right;
+	  width:265px;
+	  height:15px;
+	  line-height:15px;
+	  float:right;
+	  margin-top:22px;
+	  background:none;
+	  border:none;
+	  margin-right:10px;
+	  font-size:14px;
+
+
+}
+.billStyle .Withdrawals .home_list .list_size span{
+	color:#333;
+	margin-left:5px;
+
+}
+.billStyle .Withdrawals .home_list .list_size select{
+	width:98px;
+	height:25px;
+	line-height:25px;
+	text-align:right;
+	margin-left:152px;
+	vertical-align:middle;
+	border:none;
+	color:#b5b5b5;
+	font-size:14px;
+	margin-top:-5px;
+}
+.billStyle .Withdrawals .alieditContainer{
+	margin-top:25px;
+	margin-left:7.6%;
+}
+.billStyle .Withdrawals .home_list  .ttt  select{
+	float:left;
+	width:250px;
+	height:25px;
+	line-height:25px;
+	text-align:left;
+	margin-left:0;
+	vertical-align:middle;
+	border:none;
+	color:#b5b5b5;
+	font-size:14px;
+	margin-top:18px;
+   color:#333;
+
+}
+
+.billStyle .Withdrawals  .typera .section2{
+	float:left;
+	font-size:14px;
+
+	margin-left:5px;
+
+}
+.billStyle .Withdrawals  .typera .section2 a{
+
+	color:#ff6633;
+	text-decoration:none;
+}
+.billStyle .button {
+    display: block;
+    margin: 19px auto;
+    margin-bottom: 6px;
+    width: 305px;
+    height: 45px;
+    line-height: 45px;
+    background: #ff6633;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    text-align: center;
+    color: #fff;
+    border-radius: 3px;
+}

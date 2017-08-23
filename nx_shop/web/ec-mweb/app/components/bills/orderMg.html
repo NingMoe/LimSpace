@@ -1,0 +1,78 @@
+<form class="form-inline" ng-submit="updateLocation()">
+  <div class="form-group">
+    <label for="skuName">商品名称</label>
+    <input type="text" class="form-control" name="skuName" placeholder="商品名称" ng-model="searchInput.skuName">
+  </div>
+
+  <div class="form-group">
+    <label for="no">订单号</label>
+    <input type="text" class="form-control" name="no" placeholder="订单号" ng-model="searchInput.no">
+  </div>
+
+  <div class="form-group">
+    <label for="mobile">预留手机号</label>
+    <input type="text" class="form-control" name="mobile" placeholder="预留手机号" ng-model="searchInput.mobile">
+  </div>
+  <br>
+
+  <div class="form-group">
+    <label>下单时间</label>
+    <input type="text" class="form-control" name="startTime" id="startTime" placeholder="开始时间" ng-model="searchInput.startTime">
+    <input type="text" class="form-control" name="endTime"  id="endTime" placeholder="结束时间" ng-model="searchInput.endTime">
+  </div>
+
+  <br>
+  <button class="btn btn-primary" ng-click="events.search()">搜索</button>
+</form>
+<div class="btn-group quick-search">
+  <a class="btn btn-default" ng-click="events.showAll()">全部</a>
+  <a class="btn btn-default" ng-click="events.refund()">已退款</a>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+    	<th>序号</th>
+      <th>订单编号</th>
+      <th>下单时间</th>
+      <th>商品</th>
+      <th>数量</th>
+      <th>结算金额</th>
+      <th>买家手机号</th>
+      <th>预留手机号</th>
+      <th>订单状态</th>
+      <th>退款状态</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="order in orders" ng-show="isShow">
+    	 <td>{{$index+1}}</td>
+      <td>{{order.NO}}</td>
+      <td>{{order.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td style="width: 120px;word-break: break-all">{{order.skuName}}</td>
+      <td>{{order.skuCount}}</td>
+      <td>{{order.thirdPartyAmount*order.skuCount}}</td>
+      <td>{{order.mobile}}</td>
+      <td>{{order.addressMobile}}</td>
+	    <td>{{order.statusText}}</td>
+	    <td>{{order.cancelStatusText}}</td>
+      <td><a ng-href="#findKooOrders/{{order.id}}" target="_blank">查看</a></td>
+    </tr>
+    <tr ng-repeat="order in refunds" ng-show="!isShow">
+    	 <td>{{$index+1}}</td>
+      <td>{{order.orderNo}}</td>
+      <td>{{order.orderTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td style="width: 120px;word-break: break-all">{{order.skuName}}</td>
+      <td>{{order.skuCount}}</td>
+      <td>{{order.third_party_amount*order.skuCount}}</td>
+      <td>{{order.mobile}}</td>
+      <td>{{order.addressMobile}}</td>
+      <td>{{order.orderStatusText}}</td>
+	    <td>{{order.statusText}}</td>
+      <td><a ng-href="#findKooOrders/{{order.orderId}}" target="_blank">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+<uib-pagination total-items="page.totalCount" ng-model="page.currentPage" max-size="10" items-per-page="page.pageSize" 
+		previous-text="上一页" next-text="下一页" ng-change="pageChanged()" class="samplePage pagination-sm" boundary-link-numbers="true">
+</uib-pagination> 

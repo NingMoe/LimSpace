@@ -1,0 +1,51 @@
+<div class="pj-site-container category">
+  <!-- <div class="search">
+    <span></span>
+    <input type="text" placeholder="iphone6s"></input>
+  </div> -->
+  <div class="s-search-wrap">
+		<a href="#p_search"><input type="text" placeholder="请输入您感兴趣的商品名" /></a>
+	</div>
+  <div class="clearfix">
+  	
+    <ul class="listLeft">
+
+      <% _.each(resp.list, function(item) { %>
+        <li data-id="<%= item.id %>"><% if (item.name.length >5) { %><%=item.name.substr(0,5) %> ...<%} else { %><%=item.name%> <% } %></li>
+      <% }) %>
+
+    </ul>
+    <div class="listRight">
+    <% _.each(resp.list, function(items) { %>
+      <div style="display: none;">
+      	<%if(bannerCat && bannerCat.length>0){%>
+          <% if(bannerCat[0].url){%>
+            <div class="cat-banner-container" onclick="location.href='<%=bannerCat[0].url%>'">
+          <% } else {%>
+            <div class="cat-banner-container">
+          <% } %>
+			  		<img src="<%=config %><%= bannerCat[0].picUrl%>">
+			  	</div>
+      	<%}%>
+        <% _.each(items.childrens, function(itemss) { %>
+          <h3><%= itemss.name %></h3>
+          <ul>
+          <% _.each(itemss.childrens, function(itemsss) { %>
+            <li onclick=" location.href='#category/categorylist/<%= itemsss.id %>'">
+              <img src="<%= config %><%= itemsss.icon %>"/>
+              <span><%= itemsss.name %></span>
+            </li>
+          <% }) %> 
+          </ul>
+        <% }) %>
+      </div>
+    <% }) %>
+    </div>
+  </div>
+</div>
+<div class="pj-action-add">
+    <a href="#home" class="home">首页</a>
+    <a href="#category" class="category active">分类</a>
+    <a href="#MyBill" class="credit">还款</a>
+    <a href="#user" class="user">我的</a>
+</div>

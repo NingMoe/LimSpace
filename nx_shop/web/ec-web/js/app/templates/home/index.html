@@ -1,0 +1,115 @@
+  <!-- the viewport -->
+  <div class="s-home-search-wrap">
+		<a href="#p_search"><input type="text" placeholder="请输入您感兴趣的商品名" /></a>
+	</div>
+  <% if(banner) { %>
+    <div class="m-scooch m-fluid m-scooch-photos">
+      <!-- the slider -->
+      <div class="m-scooch-inner ">
+        <!-- the items -->
+        <% _.each(banner.data.index, function(item) { %>
+        <% if(item.url){%>
+            <div class="m-item" onclick="location.href='<%=item.url%>'">
+        <% }else{%>
+            <div class="m-item">
+        <% } %>
+          <img src="<%=config %><%= item.picUrl%>">
+        </div>
+        <% }) %>
+      </div>
+      <!-- the controls -->
+      <div class="m-scooch-controls m-scooch-bulleted">
+      <% _.each(banner.data.index, function(item,name) { %>
+        <a href="#" data-m-slide="<%=name+1 %>"></a>
+      <% }) %>
+      </div>
+    </div>
+  <% } %>
+  <!-- <a href="#home"><img src="" alt="" /></a> -->
+  <div class="pj-site-container index">
+    <!-- 头条 -->
+    <div class="headline">
+      <div class="con">
+        <%_.each(headline.data,function(item,name) {%>
+          <a href="<%= item.link%>" class="m-item"><%= item.title%></a>
+        <% }) %>
+      </div>
+    </div>
+    <div class="actived">
+      <% _.each(banner.data.activity, function(item) { %>
+        <a href="<%= item.url%>" data-id="<%= item.id%>"><img src="<%=config %><%= item.picUrl%>"  alt="<%= item.title%>" /></a>
+      <% })%>
+    </div>    
+    <% _.each(allList.list, function(item,name) { %>
+      <% if (item.skus.length >0) {%>
+        <header class="header">
+          <h2><%=name+1%>F</h2><span><%=item.name %></span>
+          <a href="#category/categorylist/<%= item.id %>">更多商品</a>
+        </header>
+        <% if(banner){%>
+        <%if(banner.data['cat'+item.id]&&banner.data['cat'+item.id].length>0){%>
+          <% if(banner.data['cat'+item.id][0].url){%>
+              <div class="f-banner-container" onclick="location.href='<%=banner.data['cat'+item.id][0].url%>'">
+          <% }else{%>
+              <div class="f-banner-container">
+          <% } %>
+      		    <img src="<%=config %><%= banner.data['cat'+item.id][0].picUrl%>">
+      	</div>
+      	<%} %>
+      	<%} %>
+        <div>
+          <% _.each(item.skus, function(item,name) { %>
+            <% if(item.erpCode == 'koo') { %>
+            <a class="home_box" href="/?#orientalindex/<%=item.id%>">
+            <% }else{ %>
+            <a class="home_box" href="/?#product/<%=item.id%>">
+            <% } %>
+              <div class="img_box">
+                <% if(item.erpCode == 'koo') { %>
+               <span><img src="<%=item.imagesOriginal %>"/></span>
+                <% }else{ %>
+                <img src="<%=config %><%=item.imagesOriginal.split(",")[0]%>@360w_240h"/>
+                <% } %>
+              </div>
+              <div class="nav_box">
+                <p>
+                  <% if (item.activityStatus == 1) {%>
+                    <span class="activitys"><%= item.activityType == 1 ? '秒杀' : '限购' %></span>
+                  <% }%>
+                  <% if (item.name.length >30) { %><%=item.name.substr(0,30) %> ...<%} else { %><%=item.name%> <% } %> 
+                </p>
+             <!--    支付额度=商品价格*件数-首付
+                     服务费=支付额度*费率/100
+                     订单总价=商品价格*件数+服务费*期数
+                     月供=支付额度/期数+服务费 -->
+                  <% if(item.installment){%>
+                      <div class="states"><i>月供 </i><span>￥<%= ((item.price/item.installment.split(",")[item.installment.split(",").length-1])+item.price*stageRateData[item.installment.split(",")[item.installment.split(",").length-1]]/100).toFixed(2)%></span> <h2>x<h3><%=item.installment.split(",")[item.installment.split(",").length-1] %></h3></h2>
+                      </div>
+                      <div class="ceb-states hidden"><span>￥<%= ((item.price/item.installment.split(",")[item.installment.split(",").length-1])+item.price*stageRateData[item.installment.split(",")[item.installment.split(",").length-1]]/100).toFixed(2)%></span> <h2>x<h3 class="ceb-h3"><%=item.installment.split(",")[item.installment.split(",").length-1] %>期</h3></h2>
+                      </div>
+                  <%}%>
+              </div>
+              <div class="nav_box last-div states">
+                <div><span>￥<%= item.price.toFixed(2)%></span></div>
+              </div>
+              <div class="statesthb last-div hidden">
+                <span>￥<%= item.price.toFixed(2)%></span>
+                <span>￥<%= item.originalPrice.toFixed(2)%></span>
+              </div>
+              <div class="statesceb last-div hidden">
+                <span>总价</span>
+                <span>￥<%= item.price.toFixed(2)%></span>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+      <% } %>
+    <% }) %>
+  </div>
+  <div class="pj-action-add">
+    <a href="#home" class="home active">首页</a>
+    <a href="#category" class="category">分类</a>
+		<a href="#MyBill" class="credit">还款</a>
+    <a href="#user" class="user">我的</a>
+
+  </div>

@@ -1,0 +1,20 @@
+<ul class="mymessage">
+  <% _.each(leaveMessage.data, function(item) { %>
+  <li class="list-li">
+    <dl>
+	  <dt>
+		<img src="../../../../img/kefutouxiang.png" alt="">
+	  </dt>
+	  <dd class="con_box">
+		<p>商城客服 </p>
+		<p><%=item.replyContent%></p>
+	  </dd>
+	  <div class="btn" data-id="<%=item.id %>" >删除</div>
+    </dl>
+    <div class="showmore">查看详情</div>
+  </li>
+  <%})%>
+</ul>
+<%if(leaveMessage.data.length<1){%>
+<div class="tipone"><p>您暂时还没有消息哦~</p></div>
+<%}%>

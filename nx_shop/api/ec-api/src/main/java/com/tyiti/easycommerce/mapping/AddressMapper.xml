@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.AddressDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Address">
+
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="cust_id" property="custId" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="state_id" property="stateId" jdbcType="INTEGER" />
+		<result column="city_id" property="cityId" jdbcType="INTEGER" />
+		<result column="county_id" property="countyId" jdbcType="INTEGER" />
+		<result column="street" property="street" jdbcType="VARCHAR" />
+		<result column="zip" property="zip" jdbcType="INTEGER" />
+		<result column="full_text" property="fullText" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="is_default" property="isDefault" jdbcType="BOOLEAN" />
+		<result column="invalid" property="invalid" jdbcType="BOOLEAN" />
+		<result column="areaname" property="areaName" jdbcType="BOOLEAN" />
+	</resultMap>
+
+	<insert id="add" parameterType="com.tyiti.easycommerce.entity.Address"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into t_address(cust_id, username, mobile, state_id, city_id,
+		county_id, street, zip,
+		full_text,create_time,update_time,is_default,invalid)
+		select
+		#{custId},#{username},#{mobile},#{stateId},#{cityId},#{countyId},#{street},#{zip},
+		concat(concat(concat((select name from t_data_area where id =
+		#{stateId}),(select name from t_data_area where id =
+		#{cityId})),(select name from t_data_area where id =
+		#{countyId})),#{street}),
+		now(),now(),#{isDefault},0
+	</insert>
+	<delete id="delete">
+		update t_address set invalid = 1 where id = #{id}
+	</delete>
+	<update id="update" parameterType="com.tyiti.easycommerce.entity.Address">
+		update t_address set
+		username=#{username}, mobile=#{mobile},
+		state_id=#{stateId},
+		city_id=#{cityId},
+		county_id=#{countyId},street=#{street}, zip=#{zip},
+		full_text=concat(concat(concat((select name from t_data_area where id
+		= #{stateId}),(select name from t_data_area where id =
+		#{cityId})),(select name from t_data_area where id =
+		#{countyId})),#{street}),
+		is_default=#{isDefault},update_time=now()
+		where id=#{id}
+	</update>
+	<select id="getAll" resultMap="BaseResultMap">
+		select * from t_address where
+		invalid != 1 and cust_id = #{custId}
+	</select>
+	<select id="getById" resultType="com.tyiti.easycommerce.entity.Address"
+		resultMap="BaseResultMap">
+		select a.*,concat(concat(b.name,c.name),d.name) as areaname
+		from t_address a
+		join t_data_area b on a.state_id = b.id
+		join
+		t_data_area c on a.city_id
+		= c.id
+		join t_data_area d on a.county_id =
+		d.id
+		where a.id =#{id}
+	</select>
+
+	<select id="getByUserIdOrId" resultType="com.tyiti.easycommerce.entity.Address"
+		resultMap="BaseResultMap">
+		select a.*,concat(concat(b.name,c.name),d.name) as areaname
+		from
+		t_address a
+		join t_data_area b on a.state_id = b.id
+		join t_data_area c
+		on a.city_id = c.id
+		join t_data_area d on a.county_id = d.id
+		<where>
+			<if test="id != null">
+				a.id =#{id} and
+			</if>
+			<if test="custId != null">
+				a.cust_id = #{custId} and
+			</if>
+		</where>
+		1=1
+		order by a.is_default desc
+		limit 1
+	</select>
+
+	<update id="clearDefaultAddress">
+		update t_address set is_default = 0 where cust_id =
+		#{custId}
+	</update>
+</mapper>

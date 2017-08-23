@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.ShareUserDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.ShareUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="share_id" property="shareId" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_column_list">id,user_id,share_id,create_time
+	</sql>
+
+	<insert id="addShareUser" parameterType="com.tyiti.easycommerce.entity.ShareUser">
+		<selectKey order="AFTER" keyProperty="id" resultType="Integer">
+			select
+			last_insert_id()
+		</selectKey>
+		insert into t_share_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="shareId != null">
+				share_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="shareId != null">
+				#{shareId,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="selectByShareUser" resultType="com.tyiti.easycommerce.entity.ShareUser"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_column_list" />
+		from t_share_user
+		where 1=1
+		<if test="stratTime != null">
+			and create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="userId != null">
+			and user_id= #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="id != null">
+			and id= #{id,jdbcType=INTEGER}
+		</if>
+		<if test="shareId != null">
+			and share_id= #{shareId,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="getListByShareUser" resultMap="BaseResultMap">
+		select
+		<include refid="Base_column_list" />
+		from t_share_user
+		where 1=1
+		<if test="stratTime != null">
+			and create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="userId != null">
+			and user_id= #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="id != null">
+			and id= #{id,jdbcType=INTEGER}
+		</if>
+		<if test="shareId != null">
+			and share_id= #{shareId,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="getCountByShareUser" resultType="java.lang.Integer">
+		select count(id) from t_share_user
+		where 1=1
+		<if test="stratTime != null">
+			and create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="userId != null">
+			and user_id= #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="id != null">
+			and id= #{id,jdbcType=INTEGER}
+		</if>
+		<if test="shareId != null">
+			and share_id= #{shareId,jdbcType=INTEGER}
+		</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.ShareDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Share">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="share_code" property="shareCode" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ShareAndUserMap" type="com.tyiti.easycommerce.entity.ReportShare">
+		<result column="s_user_id" property="sUserId" jdbcType="INTEGER" />
+		<result column="s_mobile" property="sMobile" jdbcType="VARCHAR" />
+		<result column="s_create_time" property="sCreateTime" jdbcType="TIMESTAMP" />
+		<result column="share_num" property="shareNum" jdbcType="INTEGER" />
+		<result column="coupon_num" property="couponNum" jdbcType="INTEGER" />
+		<collection property="shareUserList"
+			ofType="com.tyiti.easycommerce.entity.ShareUser" resultMap="ShareUserMap">
+		</collection>
+	</resultMap>
+	<resultMap id="ShareUserMap" type="com.tyiti.easycommerce.entity.ReportShareUser">
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="is_used" property="isUsed" jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ShareExeclMap" type="com.tyiti.easycommerce.entity.ShareExecl">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="share_code" property="shareCode" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="share_num" property="shareNum" jdbcType="INTEGER" />
+		<collection property="couponList"
+			ofType="com.tyiti.easycommerce.entity.ShareCoupon" resultMap="BaseCouponMap">
+		</collection>
+	</resultMap>
+	<resultMap id="BaseCouponMap" type="com.tyiti.easycommerce.entity.ShareCoupon">
+		<result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+		<result column="is_used" property="isUsed" jdbcType="VARCHAR" />
+		<result column="use_time" property="useTime" jdbcType="TIMESTAMP" />
+		<result column="expire_time" property="expireTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="ShareUserExeclMap" type="com.tyiti.easycommerce.entity.ShareUserExecl">
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="s_user_id" property="sUserId" jdbcType="INTEGER" />
+		<result column="s_mobile" property="sMobile" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+		<result column="is_used" property="isUsed" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_column_list">id,user_id,share_code,create_time</sql>
+
+	<insert id="addShare" parameterType="com.tyiti.easycommerce.entity.Share">
+		<selectKey order="AFTER" keyProperty="id" resultType="Integer">
+			select
+			last_insert_id()
+		</selectKey>
+		insert into t_share
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="shareCode != null">
+				share_code,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="shareCode != null">
+				#{shareCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="selectByShare" resultType="com.tyiti.easycommerce.entity.Share"
+		resultMap="BaseResultMap">
+		select sh.id,sh.user_id,sh.share_code,sh.create_time,tu.mobile from
+		t_share sh
+		LEFT JOIN t_user tu on sh.user_id=tu.id
+		where 1=1
+		<if test="stratTime != null">
+			and sh.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			and sh.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="userId != null">
+			and sh.user_id= #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="id != null">
+			and sh.id= #{id,jdbcType=INTEGER}
+		</if>
+		<if test="shareCode != null">
+			and sh.share_code= #{shareCode,jdbcType=VARCHAR}
+		</if>
+		<if test="mobile != null">
+			and tu.mobile= #{mobile,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="getListByShare" resultMap="BaseResultMap">
+		select
+		<include refid="Base_column_list" />
+		from t_share
+		where 1=1
+		<if test="stratTime != null">
+			and create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="userId != null">
+			and user_id= #{userId,jdbcType=INTEGER}
+		</if>
+		<if test="id != null">
+			and id= #{id,jdbcType=INTEGER}
+		</if>
+		<if test="shareCode != null">
+			and share_code= #{shareCode,jdbcType=VARCHAR}
+		</if>
+		<if test="limit != null and limit != '' and offset != null and offset !=''">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<!--获取时间段内的分享人下注册报表" -->
+	<select id="getShareAndUserList" resultMap="ShareAndUserMap">
+		select tb1.user_id AS s_user_id,tb1.mobile AS s_mobile,tb1.create_time
+		AS s_create_time,tb1.share_num,tb1.coupon_num,
+		tb2.user_id,tb2.mobile,tb2.create_time,tb2.coupon_name,tb2.is_used,tb2.order_id
+		from
+		(select sh.id,sh.user_id,tu1.mobile,sh.create_time,(select
+		COUNT(0) from
+		t_share_user su where su.share_id=sh.id) share_num,
+		(select COUNT(0) from t_share_reward sr LEFT JOIN t_coupon_record cr
+		on
+		cr.id=sr.coupon_record_id
+		where sr.share_id=sh.id and
+		sr.user_id!=sh.user_id and cr.is_used=1)
+		coupon_num
+		from t_share sh LEFT
+		JOIN t_user tu1 on sh.user_id=tu1.id) tb1
+		LEFT JOIN
+		(select
+		su.share_id,su.user_id,tu2.mobile,su.create_time,tc.`name`
+		coupon_name,(case tcr.is_used when 1 then '已使用' when 0 then '未使用' else
+		'' end) is_used,opm.order_id
+		from t_share_user su
+		LEFT JOIN t_user tu2
+		on
+		su.user_id=tu2.id
+		LEFT JOIN t_share_reward tsr on
+		tsr.user_id=su.user_id
+		LEFT JOIN t_coupon_record tcr on
+		tcr.id=tsr.coupon_record_id
+		LEFT JOIN t_coupon tc on
+		tcr.coupon_id=tc.id
+		LEFT JOIN (select op.id,op.order_id,op.source from
+		t_order_payment op
+		LEFT JOIN t_order o on o.id=op.order_id where
+		o.status &lt; 7 and op.type=11
+		and op.category=3)
+		opm ON
+		opm.source=tcr.id
+		LEFT JOIN t_share_rule sr on sr.id=tsr.share_rule_id
+		where sr.type=1) tb2
+		on tb1.id=tb2.share_id
+		where 1=1
+		<if test="mobile != null and mobile !=''">
+			and (tb1.mobile=#{mobile,jdbcType=VARCHAR} or
+			tb2.mobile=#{mobile,jdbcType=VARCHAR})
+		</if>
+		<if test="stratTime != null">
+			and (tb1.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+			or tb2.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="endTime != null">
+			and (tb1.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			or
+			tb2.create_time &lt;= #{endTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="dateType != null and dateType =='today'">
+			and (date(tb1.create_time) = curdate() or
+			date(tb2.create_time) = curdate())
+		</if>
+		<if test="dateType != null and dateType =='week'">
+			and (YEARWEEK(date_format(tb1.create_time,'%Y-%m-%d')) =
+			YEARWEEK(now()) or YEARWEEK(date_format(tb2.create_time,'%Y-%m-%d'))
+			=
+			YEARWEEK(now()))
+		</if>
+		<if test="dateType != null and dateType =='month'">
+			and
+			(date_format(tb1.create_time,'%Y-%m')=date_format(now(),'%Y-%m') or
+			date_format(tb2.create_time,'%Y-%m')=date_format(now(),'%Y-%m'))
+		</if>
+		order by tb1.create_time desc,tb2.create_time desc
+	</select>
+
+	<!--获取时间段内的发放优惠券数量 分享者获取的优惠券数量 -->
+	<select id="getShareCouponCount" resultType="java.lang.Integer">
+		select COUNT(0) num
+		from t_share_reward sr
+		LEFT JOIN t_share sh on
+		sh.id=sr.share_id and
+		sh.user_id=sr.user_id
+		left join t_user tu on
+		tu.id=sr.user_id
+		LEFT JOIN
+		t_share_user su on su.share_id=sh.id
+		LEFT JOIN
+		t_user tu2 on
+		tu2.id=su.user_id
+		where
+		sh.user_id is not null
+		<if test="mobile != null and mobile !=''">
+			and (tu.mobile=#{mobile,jdbcType=VARCHAR} or
+			tu2.mobile=#{mobile,jdbcType=VARCHAR})
+		</if>
+		<if test="stratTime != null">
+			and (su.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+			or sh.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="endTime != null">
+			and (su.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			or
+			sh.create_time &lt;= #{endTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="dateType != null and dateType =='today'">
+			and (date(su.create_time) = curdate() or
+			date(sh.create_time) = curdate())
+		</if>
+		<if test="dateType != null and dateType =='week'">
+			and (YEARWEEK(date_format(su.create_time,'%Y-%m-%d')) =
+			YEARWEEK(now()) or YEARWEEK(date_format(sh.create_time,'%Y-%m-%d'))
+			=
+			YEARWEEK(now()))
+		</if>
+		<if test="dateType != null and dateType =='month'">
+			and
+			(date_format(su.create_time,'%Y-%m')=date_format(now(),'%Y-%m') or
+			date_format(sh.create_time,'%Y-%m')=date_format(now(),'%Y-%m'))
+		</if>
+	</select>
+
+	<!--获取时间段内的发放优惠券数量 注册者获取的优惠券数量 -->
+	<select id="getRegCouponCount" resultType="java.lang.Integer">
+		select COUNT(0) num from t_share_user su
+		LEFT JOIN t_share_reward sr on
+		su.user_id=sr.user_id
+		LEFT JOIN t_user tu on sr.user_id=tu.id
+		LEFT JOIN
+		t_share sh on sh.id=su.share_id
+		LEFT JOIN t_user tu2 on
+		tu2.id=sh.user_id
+		LEFT JOIN t_share_rule tsr on tsr.id=sr.share_rule_id
+		where sr.user_id!=sh.user_id and tsr.type=1
+		<if test="mobile != null and mobile !=''">
+			and (tu.mobile=#{mobile,jdbcType=VARCHAR} or
+			tu2.mobile=#{mobile,jdbcType=VARCHAR})
+		</if>
+		<if test="stratTime != null">
+			and (su.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+			or sh.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="endTime != null">
+			and (su.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			or
+			sh.create_time &lt;= #{endTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="dateType != null and dateType =='today'">
+			and (date(su.create_time) = curdate() or
+			date(sh.create_time) = curdate())
+		</if>
+		<if test="dateType != null and dateType =='week'">
+			and (YEARWEEK(date_format(su.create_time,'%Y-%m-%d')) =
+			YEARWEEK(now()) or YEARWEEK(date_format(sh.create_time,'%Y-%m-%d'))=
+			YEARWEEK(now()))
+		</if>
+		<if test="dateType != null and dateType =='month'">
+			and
+			(date_format(su.create_time,'%Y-%m')=date_format(now(),'%Y-%m') or
+			date_format(sh.create_time,'%Y-%m')=date_format(now(),'%Y-%m'))
+		</if>
+	</select>
+
+	<!--分享用户数据报表 -->
+	<select id="shareToExecl" resultMap="ShareExeclMap">
+		select
+		sh.id,sh.user_id,tu.mobile,sh.share_code,sh.create_time,(select
+		count(0) from
+		t_share_user su where
+		su.share_id=sh.id)
+		share_num,co.`name`
+		coupon_name,(case cr.is_used
+		when 1 then '已使用' when
+		0 then '未使用' else
+		'' end) as is_used,cr.use_time,cr.expire_time
+		from
+		t_share sh
+		LEFT
+		JOIN t_share_reward sr
+		on sh.id=sr.share_id and
+		sh.user_id=sr.user_id
+		LEFT JOIN t_user tu on
+		sh.user_id=tu.id
+		LEFT JOIN
+		t_coupon_record cr on
+		cr.id=sr.coupon_record_id
+		LEFT JOIN t_coupon co on
+		co.id=cr.coupon_id
+		where 1=1
+		<if test="mobile != null and mobile !=''">
+			and (tu.mobile=#{mobile,jdbcType=VARCHAR} or sh.id in
+			(select share_id
+			from t_share_user su INNER JOIN t_user
+			tu2 on
+			tu2.id=su.user_id and tu2.mobile=#{mobile,jdbcType=VARCHAR}))
+		</if>
+		<if test="stratTime != null and endTime != null">
+			and sh.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+			and
+			sh.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			or sh.id in
+			(select
+			share_id from t_share_user su INNER JOIN t_user tu2
+			on
+			tu2.id=su.user_id and tu2.create_time &lt;=
+			#{endTime,jdbcType=TIMESTAMP} and tu2.create_time
+			&gt;=#{stratTime,jdbcType=TIMESTAMP})
+		</if>
+		
+		<if test="dateType != null and dateType =='today'">
+			and (date(sh.create_time) = curdate() or sh.id in (select
+			share_id from
+			t_share_user su INNER
+			JOIN t_user tu2 on
+			tu2.id=su.user_id and
+			date(tu2.create_time) =
+			curdate()))
+		</if>
+		<if test="dateType != null and dateType =='week'">
+			and (YEARWEEK(date_format(sh.create_time,'%Y-%m-%d')) =
+			YEARWEEK(now())
+			or sh.id in (select share_id from t_share_user su
+			INNER JOIN t_user
+			tu2 on tu2.id=su.user_id and
+			YEARWEEK(date_format(tu2.create_time,'%Y-%m-%d')) =
+			YEARWEEK(now())))
+		</if>
+		<if test="dateType != null and dateType =='month'">
+			and (
+			date_format(sh.create_time,'%Y-%m')=date_format(now(),'%Y-%m') or
+			sh.id in (select share_id
+			from t_share_user su INNER JOIN t_user tu2
+			on tu2.id=su.user_id and
+			date_format(tu2.create_time,'%Y-%m')=date_format(now(),'%Y-%m')))
+		</if>
+	</select>
+
+	<!--注册用户数据报表 -->
+	<select id="shareUserToExecl" resultMap="ShareUserExeclMap">
+		SELECT su.user_id,tu.mobile,sh.user_id s_user_id,tu2.mobile
+		s_mobile,su.create_time,co.`name` coupon_name,
+		(case cr.is_used when 1
+		then '已使用' when 0 then '未使用' else '' end) is_used
+		from t_share_user su
+		LEFT JOIN t_user tu on tu.id=su.user_id
+		LEFT JOIN t_share sh on
+		sh.id=su.share_id and su.user_id!=sh.user_id
+		LEFT JOIN t_user tu2 on
+		sh.user_id=tu2.id
+		LEFT JOIN t_share_reward sr on sr.user_id=su.user_id
+		LEFT JOIN t_coupon_record cr on cr.id=sr.coupon_record_id
+		LEFT JOIN
+		t_coupon co on co.id=cr.coupon_id
+		LEFT JOIN t_share_rule tsr on
+		tsr.id=sr.share_rule_id
+		where tsr.type=1
+		<if test="mobile != null and mobile !=''">
+			and (tu1.mobile=#{mobile,jdbcType=VARCHAR} or
+			tu2.mobile=#{mobile,jdbcType=VARCHAR})
+		</if>
+		<if test="stratTime != null">
+			and (su.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+			or sh.create_time &gt;= #{stratTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="endTime != null">
+			and (su.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			or
+			sh.create_time &lt;= #{endTime,jdbcType=TIMESTAMP})
+		</if>
+		<if test="dateType != null and dateType =='today'">
+			and (date(su.create_time) = curdate() or
+			date(sh.create_time) = curdate())
+		</if>
+		<if test="dateType != null and dateType =='week'">
+			and (YEARWEEK(date_format(tu.create_time,'%Y-%m-%d')) =
+			YEARWEEK(now()) or YEARWEEK(date_format(sh.create_time,'%Y-%m-%d'))
+			=YEARWEEK(now()))
+		</if>
+		<if test="dateType != null and dateType =='month'">
+			and
+			(date_format(su.create_time,'%Y-%m')=date_format(now(),'%Y-%m') or
+			date_format(sh.create_time,'%Y-%m')=date_format(now(),'%Y-%m'))
+		</if>
+	</select>
+</mapper>

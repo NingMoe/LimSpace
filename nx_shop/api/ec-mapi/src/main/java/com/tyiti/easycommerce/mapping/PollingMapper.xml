@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PollingDao">
+	<update id="updateReceiptTime">
+		UPDATE t_order o
+			SET o.receipt_time = now() , o.`status` = 6
+			WHERE
+				o.`status` = 5
+			AND DATE_FORMAT(o.create_time, '%Y-%m-%d') &lt;= date_sub(curdate(), INTERVAL 15 DAY)
+	</update>
+	
+	<update id="updateOrderStatus">
+		UPDATE t_order r
+		SET r.`status` = 7
+		WHERE
+			r.`no` IN (
+				SELECT
+					t.`no`
+				FROM
+					(
+						SELECT
+							o.`no`
+						FROM
+							t_activity a
+						LEFT JOIN t_order_sku_activity osa ON a.id = osa.activity_id
+						LEFT JOIN t_activity_sku ak ON a.id = ak.activity_id
+						LEFT JOIN t_order o ON o.id = osa.order_id
+						WHERE
+							o.`status` = 1
+						AND (
+							(
+								a.activity_type = 2
+								AND ak.reserved_inventory = 0
+							)
+							OR (
+								a.activity_type = 1
+								AND a.activity_status = 2
+							)
+						)
+					) t
+			);
+	</update>
+</mapper>

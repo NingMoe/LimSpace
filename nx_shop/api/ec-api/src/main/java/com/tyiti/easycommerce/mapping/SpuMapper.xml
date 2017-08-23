@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.SpuDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Spu">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="category_id" property="categoryId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+		<result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+		<result column="invalid" property="invalid" jdbcType="BOOLEAN" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="detailedSpuResultMap" type="com.tyiti.easycommerce.entity.Spu">
+		<id column="p_id" property="id" jdbcType="INTEGER" />
+		<result column="p_category_id" property="categoryId" jdbcType="INTEGER" />
+		<result column="p_name" property="name" jdbcType="VARCHAR" />
+		<result column="p_sub_name" property="subName" jdbcType="VARCHAR" />
+		<result column="p_thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+		<result column="p_invalid" property="invalid" jdbcType="BOOLEAN" />
+		<result column="p_rank" property="rank" jdbcType="INTEGER" />
+		<result column="p_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="p_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="p_description" property="description" jdbcType="VARCHAR" />
+		<result column="p_mobile_description" property="mobileDescription" jdbcType="VARCHAR" />
+
+		<collection property="attrs"
+			ofType="com.tyiti.easycommerce.entity.SpuAttribute" resultMap="SpuAttributeMap">
+		</collection>
+
+		<collection property="skus" ofType="com.tyiti.easycommerce.entity.Sku"
+			resultMap="SkuMap">
+		</collection>
+	</resultMap>
+
+	<resultMap id="SpuAttributeMap" type="com.tyiti.easycommerce.entity.SpuAttribute">
+		<id column="pa_id" property="id" jdbcType="INTEGER" />
+		<result column="pa_spu_id" property="spuId" jdbcType="INTEGER" />
+		<result column="pa_attribute_id" property="attributeId"
+			jdbcType="INTEGER" />
+		<result column="value_constraint_type" property="valueConstraintType"
+			jdbcType="VARCHAR" />
+		<result column="value_constraint_expression" property="valueConstraintExpression"
+			jdbcType="VARCHAR" />
+			<result column="attr_values" property="attrValues"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="SkuMap" type="com.tyiti.easycommerce.entity.Sku">
+		<id column="k_id" property="id" jdbcType="INTEGER" />
+		<result column="k_spu_id" property="spuId" jdbcType="INTEGER" />
+		<result column="k_name" property="name" jdbcType="VARCHAR" />
+		<result column="k_description" property="description" jdbcType="VARCHAR" />
+		<result column="k_erp_code" property="erpCode" jdbcType="VARCHAR" />
+		<result column="k_head_thumbnail" property="headThumbnail"
+			jdbcType="VARCHAR" />
+		<result column="k_images_thumbnail" property="imagesThumbnail"
+			jdbcType="VARCHAR" />
+		<result column="k_images_original" property="imagesOriginal"
+			jdbcType="VARCHAR" />
+		<result column="k_invalid" property="invalid" jdbcType="BOOLEAN" />
+		<result column="k_original_price" property="originalPrice"
+			jdbcType="DECIMAL" />
+		<result column="k_price" property="price" jdbcType="DECIMAL" />
+		<result column="k_is_default" property="isDefault" jdbcType="BOOLEAN" />
+
+		<result column="k_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="k_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+
+		<!--collection property="attrs" column="id" ofType="com.tyiti.easycommerce.entity.SkuAttribute" 
+			resultMap="SkuAttributeMap"> </collection -->
+	</resultMap>
+
+	<resultMap id="SkuAttributeMap" type="com.tyiti.easycommerce.entity.SkuAttribute">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sku_id" property="skuId" jdbcType="INTEGER" />
+		<result column="spu_attribute_id" property="spuAttributeId"
+			jdbcType="INTEGER" />
+		<result column="attribute_value" property="attributeValue"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="select_column_list">
+		p.id as p_id,
+		p.category_id as p_category_id,
+		p.name as p_name,
+		p.sub_name as p_sub_name,
+		p.description as p_description,
+		p.mobile_description as p_mobile_description,
+		p.thumbnail as p_thumbnail,
+		p.invalid as p_invalid,
+		p.rank as p_rank,
+		p.create_time as p_create_time,
+		p.update_time as p_update_time
+	</sql>
+
+	<sql id="attrs_select_column_list">
+		pa.id as pa_id,
+		pa.spu_id as pa_spu_id,
+		pa.attribute_id as pa_attribute_id,
+		pa.value_constraint_type,
+		pa.value_constraint_expression,
+		pa.attr_values
+	</sql>
+
+	<sql id="sku_select_column_list">
+		k.id as k_id,
+		k.spu_id as k_spu_id,
+		k.name as k_name,
+		k.description as k_description,
+		k.erp_code as k_erp_code,
+		k.head_thumbnail as k_head_thumbnail,
+		k.images_thumbnail as k_images_thumbnail,
+		k.images_original as k_images_original,
+		k.invalid as k_invalid,
+		k.original_price as k_original_price,
+		k.price as k_price,
+		k.is_default as k_is_default,
+		k.create_time as k_create_time,
+		k.update_time as k_update_time
+	</sql>
+
+	<sql id="sku_attribute_select_column_list">
+		ka.id, ka.sku_id, ka.spu_attribute_id, ka.attribute_value
+	</sql>
+
+	<sql id="insert_column_list">
+		category_id, name, thumbnail, invalid
+	</sql>
+
+	<select id="getById" resultMap="detailedSpuResultMap">
+		select
+		<include refid="select_column_list" />
+		,
+		<include refid="attrs_select_column_list" />
+		,
+		<include refid="sku_select_column_list" />
+		from t_spu p
+		LEFT outer JOIN t_sku k ON p.id = k.spu_id
+		LEFT outer join t_spu_attribute pa on pa.spu_id = p.id
+		where p.id = #{id}
+	</select>
+
+	<select id="getById2" resultMap="BaseResultMap">
+		SELECT
+		<include refid="select_column_list" />
+		,
+		<include refid="sku_select_column_list" />
+		,
+		<include refid="sku_attribute_select_column_list" />
+		FROM t_spu p
+		LEFT JOIN t_sku k ON p.id = k.spu_id
+		LEFT JOIN t_sku_attribute ka ON k.id = ka.sku_id
+		WHERE p.id = #{id}
+	</select>
+
+	<select id="getByCriteria" resultType="com.tyiti.easycommerce.entity.Spu"
+		resultMap="BaseResultMap">
+		select
+		<include refid="select_column_list" />
+		from t_spu
+		<where>
+			<if test="categoryId != null">
+				category_id = #{categoryId}
+			</if>
+			<if test="name != null">
+				name like #{name}
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid}
+			</if>
+		</where>
+	</select>
+
+	<insert id="add" parameterType="com.tyiti.easycommerce.entity.Spu"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		<!-- include 引用可重用的SQL代码段 -->
+		INSERT INTO t_spu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			category_id,
+			name,
+			<if test="thumbnail != null">
+				thumbnail,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{categoryId},
+			#{name},
+			<if test="thumbnail != null">
+				#{thumbnail},
+			</if>
+			<if test="invalid != null">
+				#{invalid},
+			</if>
+		</trim>
+	</insert>
+</mapper>

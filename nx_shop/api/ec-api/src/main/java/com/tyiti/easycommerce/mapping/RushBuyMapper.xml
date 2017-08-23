@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 表t_rush_buy的数据访问实现 -->
+<!-- author rainyhao -->
+<!-- since 2016-03-30 -->
+<mapper namespace="com.tyiti.easycommerce.repository.RushBuyDao" >
+	<!-- 列与实体属性的映射 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-03-30 -->
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.RushBuy" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="need_appoint" property="needAppoint" jdbcType="BIT" />
+		<result column="appoint_start_time" property="appointStartTime" jdbcType="TIMESTAMP" />
+		<result column="appoint_end_time" property="appointEndTime" jdbcType="TIMESTAMP" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="invalid" property="invalid" jdbcType="BIT" /> 
+	</resultMap>
+	<!-- 所有列 -->
+	<sql id="Base_Column_List" >
+		id, name, need_appoint, appoint_start_time, appoint_end_time, start_time, end_time, 
+		create_time, invalid
+	</sql>
+	
+	<!-- 按主键查 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-03-30 -->
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select <include refid="Base_Column_List" />
+		from t_rush_buy
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 按特定条件查询一个结果 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-03-30 -->
+	<select id="selectForList" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.RushBuy">
+		select <include refid="Base_Column_List" />
+		from t_rush_buy
+		<where>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=BIT}
+			</if>
+			<if test="endTimeGT != null">
+				and end_time <![CDATA[ > ]]> #{endTimeGT,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 写入一行 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-03-30 -->
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.RushBuy" >
+		insert into t_rush_buy (id, name, need_appoint, 
+			appoint_start_time, appoint_end_time, start_time, 
+			end_time, create_time)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{needAppoint,jdbcType=BIT}, 
+			#{appointStartTime,jdbcType=TIMESTAMP}, #{appointEndTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
+			#{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<!-- 按主键选择性地更新 -->
+	<update id="update" parameterType="com.tyiti.easycommerce.entity.RushBuy" >
+		update t_rush_buy
+		<set >
+			<if test="name != null" >
+			  name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="needAppoint != null" >
+			  need_appoint = #{needAppoint,jdbcType=BIT},
+			</if>
+			<if test="appointStartTime != null" >
+			  appoint_start_time = #{appointStartTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="appointEndTime != null" >
+			  appoint_end_time = #{appointEndTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="startTime != null" >
+			  start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null" >
+			  end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invalid != null" >
+			  invalid = #{invalid,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

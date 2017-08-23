@@ -1,0 +1,101 @@
+<div id="system-container">
+	<form class="form-inline" ng-submit="updateLocation()">
+	  <div class="form-group">
+	    <label for="orderNo">订单编号</label>
+	    <input type="text" class="form-control" name="orderNo" placeholder="订单编号" ng-model="searchInput.orderNo">
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="cancelNo">售后编号</label>
+	    <input type="text" class="form-control" name="cancelNo" placeholder="售后编号" ng-model="searchInput.cancelNo">
+	  </div>
+	
+	  <div class="form-group">
+	    <label>申请时间</label>
+	    <input type="text" class="form-control" name="startTime" placeholder="开始时间" ng-model="searchInput.startTime">
+	
+	    <input type="text" class="form-control" name="endTime" placeholder="结束时间" ng-model="searchInput.endTime">
+	  </div>
+	  <div class="form-group" ng-if="params.cancelType==2">
+	    <label for="status">售后状态</label>
+	    <select name="status"  ng-model="searchInput.status" ng-options="status.status as status.name for status in statusMap1">
+			<option value="">全部</option>
+		</select>
+	  </div>
+	<div class="form-group" ng-if="params.cancelType==1">
+	    <label for="status">售后状态</label>
+		<select  name="status" ng-model="searchInput.status" ng-options="status.status as status.name for status in statusMap2">
+			<option value="">全部</option>
+		</select>
+	  </div>
+	  <br>
+	  <button type="submit" class="btn btn-primary">搜索</button>
+	</form>
+	<!-- +快速筛选 -->
+	<div class="btn-group quick-search">
+	  <a class="btn btn-default" ng-if="params.cancelType==2" ui-sref="returnsSearch({status: null})" ng-class="{'active': isQuickSearch && !params.status}">全部</a>
+	  <a class="btn btn-default" ng-if="params.cancelType==1" ui-sref="cancelSearch({status: null})" ng-class="{'active': isQuickSearch && !params.status}">全部</a>
+	  <a class="btn btn-default" ng-if="params.cancelType==2" ui-sref="returnsSearch({status: 0})" ng-class="{'active': isQuickSearch && params.status == 0}">待确认</a>
+	
+	  <a class="btn btn-default" ng-if="params.cancelType==1"  ui-sref="cancelSearch({status: 0})" ng-class="{'active': isQuickSearch && params.status == 0}">待确认</a>
+	  <a class="btn btn-default" ui-sref="returnsSearch({status: 3})" ng-class="{'active': isQuickSearch && params.status == 3}" ng-if="params.cancelType==2">待收货</a>
+	</div>
+	<!-- -快速筛选 -->
+	
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th><input id="checkall" type="checkbox" ng-click="checkAll()"></th>
+	      <th>退货单号</th>
+	      <th>订单号</th>
+	      <th style="width: 120px;">商品名称</th>
+	      <th>单价</th>
+	      <th>数量</th>
+	      <th>分期数</th>
+	      <th>总金额</th>
+	      <th>优惠金额</th>
+	      <th>实收金额</th>
+	      <th>买家手机号</th>
+	      <th>售后状态</th>
+	      <!--<th ng-if="params.cancelType==2">自提单状态</th>-->
+		  <th>申请类型</th>
+	      <th>申请时间</th>
+	      <th>操作</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr ng-repeat="returnItem in returns">
+	      <td><input type="checkbox" ng-model="returnItem.checked" ng-change="changed()"></td>
+	      <td>{{returnItem.cancelNo || '-'}}</td>
+	      <td>{{returnItem.orderNo}}</td>
+	      <td style="width: 120px;word-break: break-all;">{{returnItem.skuName}}</td>
+	      <td>{{returnItem.skuPrice}}</td>
+	      <td>{{returnItem.skuCount}}</td>
+	
+	      <td>{{returnItem.installmentMonths}}</td>
+	      <td>{{returnItem.skuPrice*returnItem.skuCount}}</td>
+	      <td>{{returnItem.discount}}</td>
+	      <td ng-if="configSys == 'thb'">{{returnItem.downPayment}}</td>
+	      <td ng-if="configSys == 'ceb'">{{returnItem.installmentAmount}}</td>
+	      <td ng-if="configSys == 'tyfq' || configSys == 'fxb'">{{returnItem.installmentAmount+order.downPayment}}</td>
+	
+	      <td>{{returnItem.mobile}}</td>
+	      <td>{{returnItem.pickupStatus == 6 && returnItem.status == 3 ?'待入库':(returnItem.pickupStatus !== 6 && returnItem.status == 3 ? '待退货 ' : returnItem.statusText)}}</td>
+	     <!-- <td ng-if="params.cancelType==2">{{pickupOrderStatus['ob_'+returnItem.pickupStatus]}}</td>-->
+		  <td>{{returnItem.cancelTypeText}}</td>
+	      <td>{{returnItem.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+	      <td><a ng-href="#returns/{{returnItem.id}}" target="_blank">查看</a></td>
+	    </tr>
+	  </tbody>
+	</table>
+	
+	<div class="btn-group">
+	  <button type="button" class="btn btn-default" ng-click="transferState(1)" ng-disabled="status !=0">确认</button>
+	  <button type="button" class="btn btn-default" ng-click="transferState(2)" ng-disabled="status !=0">取消</button>
+	  <button type="button" class="btn btn-default" ng-click="transferState(4)" ng-show="params.cancelType==2" ng-disabled="status !=3">已收货</button>
+	</div>
+</div>
+
+<uib-pagination total-items="page.totalCount" ng-model="page.currentPage" max-size="10" items-per-page="page.pageSize" 
+		previous-text="上一页" next-text="下一页" ng-change="pageChanged()" class="samplePage pagination-sm" boundary-link-numbers="true">
+  </uib-pagination> 

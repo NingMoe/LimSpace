@@ -1,0 +1,219 @@
+<style>
+  #frist-one table tr td{
+    height: 40px;
+    line-height: 40px;
+    float: left;
+
+  }
+  #frist-one table tr{
+    padding: 24px 0;
+    display: block;
+
+  }
+  table{
+    text-align: center;
+  }
+  table tr td span{
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 13px;
+
+  }
+  input[type=radio]{
+    width: 13px;
+    height: 13px;
+    vertical-align: middle;
+
+    margin:-2px 5px 0 5px;
+  }
+  .max-width{
+    width: 250px;
+  }
+  .max-text{
+    width: 350px;
+    height: 100px;
+    line-height: 20px;
+  }
+  #frist-two table tr th,
+  #frist-two table tr td{
+    padding: 4px 4px;
+    text-align: center;
+  }
+  .tablecss-margin{
+    margin-left: -1px;
+    margin-top: -1px;
+    margin-bottom:-1px  !important;
+  }
+  .over-css{
+    width: 100%;max-height: 300px;overflow-y: scroll;border:1px solid #ddd;
+  }
+  .cheboxlist{
+    margin:10px 0;
+  }
+  .cheboxlist input{
+    margin-left: 19px;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 5px;
+  }  
+  .cheboxlist button{
+    margin-left: 20px;
+  }
+  .last-table tr td,
+  .last-tabletr th,{
+    padding: 4px 4px;
+  }
+  .sear-css{
+    margin:10px 0;
+  }
+  .sear-css select{
+    margin-right: 10px;
+  }
+   .sear-css input{
+    width: 200px;
+   }
+  .over-css .form-control{
+    width: 120px !important;
+  }
+  input[type=checkbox]{
+    margin-right: 5px;
+    vertical-align: middle;
+    margin-top: -1px;
+    margin-left: 10px;
+  }
+</style>
+<div id="system-container" ng-controller="createActivityController">
+   {{activityId}}
+   <div id="frist-one" ng-hide="fristOnehide">
+     <form name="form" novalidate ng-submit="events.Nextstep1(form)">
+       <table>
+         <tr>
+         <td><span>活动名称:</span></td>
+           <td><input type="text" class="form-control input-sm max-width" ng-model="activityName" value="" placeholder="请输入活动名称" required></td>
+         </tr>
+         <tr>
+           <td><span>活动类型:</span></td>
+           <td><select ng-disabled="activitydis" class="form-control input-sm" ng-click="events.activityTypechang()" ng-model="activityType">
+                 <option value="2" selected="selected">限购</option>
+                 <option value="1">秒杀</option>
+               </select>
+            </td>
+         </tr>
+         <!-- <tr> 2016-08-10 产品人员确认取消此功能
+         <td><span>购买方式:</span></td>
+           <td ng-hide="personPurchase"><input type="radio" ng-hide="personPurchase" value="1" ng-model="person.purchase" name="purchase">活动期间所有订单总和限购指定数量</td>
+           <td><input type="radio"  value="2" ng-model="person.purchase" name="purchase">活动期间每笔订单限购指定数量</td>
+         </tr>
+          -->        
+           <tr>
+           <td><span>活动时间:</span></td>
+           <td><input class="form-control input-sm" id="receiveStartTime" ng-model="startTime" type="text" placeholder="输入活动开始时间"></td>
+           <td ng-hide="endTimehiden"> &nbsp;- <input class="form-control input-sm" id="receiveendTime"  ng-model="endTime" type="text" placeholder="输入活动结束时间"></td>
+         </tr>
+         <tr>
+           <td><span>活动备注:</span></td>
+           <td><textarea ng-model="activityRemarks" class="form-control input-sm max-text"></textarea></td>
+         </tr>
+         <tr>
+           <td><span>支持优惠:</span></td>
+           <td><input type="checkbox" value="1" ng-model="person01" name="support">优惠券</td>
+           <td><input type="checkbox" value="2" ng-model="person02" name="support">代金券</td>
+         </tr>
+       </table>
+        <input type="submit" class="btn btn-primary" ng-disabled="submitnext" value="下一步"/>
+     </form>
+   </div>
+
+   <div id="frist-two" ng-hide="fristTwohide">
+     <div class="sear-css">
+        <select class="form-control input-sm" ng-change="events.select1()" ng-model="select1val">
+          <option selected="selected" value="请选择">请选择</option>
+          <option ng-repeat="x in nodes1" value="{{x.id}}">{{x.name}}</option>
+        </select>
+        <select class="form-control input-sm" ng-change="events.select2()" ng-model="select2val">
+           <option selected="selected" value="请选择">请选择</option>
+          <option ng-repeat="x in nodes2" value="{{x.id}}">{{x.name}}</option>
+        </select>
+        <select class="form-control input-sm" ng-change="events.select3()" ng-model="select3val">
+           <option selected="selected" value="请选择">请选择</option>
+          <option ng-repeat="x in nodes3" value="{{x.id}}">{{x.name}}</option>
+        </select>
+        <select class="form-control input-sm" ng-model="statusSku" ng-change="events.statusSku()">
+          <option value="2">全部状态</option>
+          <option value="1">上架</option>
+          <option value="0">下架</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control input-sm" placeholder="sku名称编码" ng-model="skuId" />
+        <button class="btn btn-primary btn-sm" ng-click="events.skusear()">搜索</button>
+     </div>
+     <div class="over-css">
+        <table class="table table-bordered table-hover tablecss-margin">
+          <tr>
+            <th></th>
+            <th>商品名称</th>
+            <th>SKU编码</th>
+            <th>状态</th>
+            <th>价格</th>
+            <th>库存</th>
+          </tr>
+          <tr ng-repeat="x in skulist"  ng-class="{'info':x.checkedlist}" ng-click="events.trclick(x,this)">
+            <td><input type="checkbox" value="{{x}}" ng-disabled="x.skudisabled"  ng-checked="x.checkedlist"></td>
+            <td>{{x.name}}</td>
+            <td>{{x.id}}</td>
+            <td>{{x.status == 0 ? '下架':'上架'}}</td>
+            <td>{{x.price}}</td>
+            <td>{{x.inventory}}</td>
+          </tr>
+        </table>
+     </div>
+     <div class="cheboxlist"><input type="checkbox" value="" ng-model="parentCheck" ng-click="events.checkboxall()" name="id">全选 <button class="btn btn-primary btn-sm" ng-click="events.cheboxclick()" ng-disabled="cheboxbtn">确认选择</button></div>
+     <div class="cheboxlist">
+       <table>
+         <tr>
+           <th>批量设置</th>
+           <td>预设库存</td>
+           <td>优惠</td>
+           <td>限购数</td>
+
+         </tr>
+         <tr>
+           <td></td>
+           <td><input type="text" value=""  placeholder="请输入预设库存" class="form-control input-sm" ng-model="setcount" /></td>
+           <td><input type="text" value="" min="0" max="99"  class="form-control input-sm" placeholder="请输入折扣金额" ng-blur="events.setDiscount()" ng-model="setpricemax"/>(折)&nbsp; - <input placeholder="请输入直降金额" type="text" value="" class="form-control input-sm"  ng-model="setpricemin" ng-blur="events.setPlummets()"/>(元)</td>
+           <td><input type="text" value="" class="form-control input-sm" placeholder="请输入限购数" ng-model="setnumber" /><button class="btn btn-primary btn-sm" ng-click="events.priceset()">确定</button></td>
+           <td></td>
+         </tr>
+       </table></div>
+     <div class="over-css">
+        <table class="table table-bordered table-hover tablecss-margin last-table">
+          <tr>
+            <th>已选商品</th>
+            <th>SKU编码</th>
+            <th>价格</th>
+            <th>库存</th>
+            <th>优惠</th>
+            <th>预设库存</th>
+            <th>优惠后</th>
+            <th>限购</th>
+            <th>排序</th>
+            <th>操作</th>
+          </tr>
+          <tr ng-repeat="x in newskulist">
+            <td>{{x.name}}</td>
+            <td>{{x.skuId}}</td>
+            <td>{{x.price}}</td>
+            <td>{{x.inventory}}</td>
+            <td><input type="text" value="" class="form-control input-sm" ng-blur="events.discount(x)" ng-model="x.x_pricemax" placeholder="请输入折扣金额" />(折) &nbsp; - <input type="text" placeholder="请输入直降金额" value="" ng-blur="events.plummets(x)" class="form-control input-sm" ng-model="x.x_pricemin" />(元)</td>
+            <td><input type="text" value="" class="form-control input-sm" ng-model="x.reservedInventory" ng-blur="events.preset(x)" placeholder="请输入预设库存" /></td>
+            <td>{{x.discount1}}</td>
+            <td><input type="text" value="" class="form-control input-sm" placeholder="请输入限购数"  ng-blur="events.restriction(x)" ng-model="x.purchaseNum"/></td>
+            <td><input type="text" value="{{$index+1}}" class="form-control input-sm"  ng-model="x.topRank"/></td>
+            <td><a class="btn btn-default btn-sm" ng-click="events.deldete(x)">删除</a></td>
+          </tr>
+        </table>
+
+     </div>
+        <input type="submit" class="btn btn-primary" style="float:right;" ng-click="events.submitNext2()" value="完成"/>
+   </div>
+
+</div>

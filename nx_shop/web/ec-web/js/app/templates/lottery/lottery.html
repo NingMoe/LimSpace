@@ -1,0 +1,43 @@
+
+<div class="pj-site-container lottery">
+  <div class="ly-plate">
+    <img class="ly_bg" src="./img/bg.jpg"/>
+    <div class="rotate"></div>
+    <div class="lottery-star lotteryBtn"><img src="./img/btn.png" id="lotteryBtn" onclick="console.log('2');"></div>
+  </div>
+  <span class="prizeList">
+    <a href="https://cebshop.tyiti.com/topic//2016/08/12/wozhidaodami/" class="getMyPrizeList">贡品粮专区</a>
+    <a href="#lottery/prizelist" class="getPrizeList">我的中奖记录</a>
+  </span>
+  <div class="prizeTop">
+    <div class="prize">
+      <h3><span>获奖名单</span></h3>
+      <P><span>用户</span><span>奖品</span></P>
+      <div style="overflow: hidden;">
+        <ul>
+        <% _.each(prizeList.data, function(item) { %>
+          <li>
+            <span><%= item.mobile.substr(0,3) %>****<%= item.mobile.substr(8,11) %></span>
+            <span><%= item.name %></span>
+          </li>
+        <% }) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="activity">
+    <h3><span>活动规则</span></h3>
+    <p>1、活动仅限参与进来的前1000位客户，名额有限，先到先得！</p>
+    <p>2、用户只能参与1次抽奖，不可重复下单，多购订单无效 ，所支付金额商城不予退还。</p>
+    <p>3、支付时请详细填写正确的手机号、送货地址，关于中奖结果，商城客服会在3个工作日内电话与您确认并安排发货。</p>
+    <p>4、所中奖项（优惠券）需在9月30日到期前使用，过期作废！</p>
+    <p>5、产品若为年卡、半年卡、季度卡，每月定期给您配送到家。</p>
+    <p>6、全场商品享包邮，免息分期付款福利。</p>
+    <p>7、如使用优惠券购买产品后发生退换货交易，商城只退还现金支付部分，优惠券一旦使用，概不退还。</p>
+    <p>8、本次活动最终解释权归e惠聚购商城所有，如有任何意见和问题，请联系商城官方客服：400-6056-100。</p>
+    <p>9、任何以作弊等不正当方式参与本活动的行为，商城有权取消其活动资格。</p>
+  </div>
+  
+</div>
+
+

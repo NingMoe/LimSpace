@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.TagDao">
+ 
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Tag">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="depth" property="depth" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="BaseResultMapParent" type="com.tyiti.easycommerce.entity.Tag">
+		<id column="p_id" property="id" jdbcType="INTEGER" />
+		<result column="p_name" property="name" jdbcType="VARCHAR" />
+		<result column="p_parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="p_invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="p_rank" property="rank" jdbcType="INTEGER" />
+		<result column="p_icon" property="icon" jdbcType="VARCHAR" />
+		<result column="p_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="p_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="BaseResultMapSku" type="com.tyiti.easycommerce.entity.Sku">
+		<id column="s_id" property="id" jdbcType="INTEGER" />
+		<result column="s_spu_id" property="spuId" jdbcType="INTEGER" />
+		<result column="s_name" property="name" jdbcType="VARCHAR" />
+		<result column="s_description" property="description" jdbcType="VARCHAR" />
+		<result column="s_detail" property="detail" jdbcType="VARCHAR" />
+		<result column="s_erp_code" property="erpCode" jdbcType="VARCHAR" />
+		<result column="s_head_thumbnail" property="headThumbnail"
+			jdbcType="VARCHAR" />
+		<result column="s_images_thumbnail" property="imagesThumbnail"
+			jdbcType="VARCHAR" />
+		<result column="s_images_original" property="imagesOriginal"
+			jdbcType="VARCHAR" />
+		<result column="s_invalid" property="invalid" jdbcType="BOOLEAN" />
+		<result column="s_original_price" property="originalPrice"
+			jdbcType="DECIMAL" />
+		<result column="s_price" property="price" jdbcType="DECIMAL" />
+		<result column="s_installment" property="installment" jdbcType="VARCHAR" />
+		<result column="s_is_default" property="isDefault" jdbcType="BOOLEAN" />
+		<result column="s_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="s_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="BaseResultMapTagList" type="com.tyiti.easycommerce.entity.Tag">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="depth" property="depth" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<association property="parentTag" javaType="com.tyiti.easycommerce.entity.Tag"
+			resultMap="BaseResultMapParent" />
+	</resultMap>
+	<resultMap id="BaseResultMapSkuList" type="com.tyiti.easycommerce.entity.Tag">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="depth" property="depth" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<association property="parentTag" javaType="com.tyiti.easycommerce.entity.Tag"
+			resultMap="BaseResultMapParent" />
+		<collection property="skus" ofType="com.tyiti.easycommerce.entity.Sku"
+			resultMap="BaseResultMapSku">
+		</collection>
+	</resultMap>
+	
+	<!-- -->
+    <resultMap id="BaseResultTagSku" type="com.tyiti.easycommerce.entity.Tag" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="rank" property="rank" jdbcType="INTEGER" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="depth" property="depth" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        
+        <association property="id" javaType="com.tyiti.easycommerce.entity.Tag"
+			resultMap="BaseResultMapParent" />
+		<collection property="id" ofType="com.tyiti.easycommerce.entity.Sku"
+			resultMap="BaseResultMapSku">
+		</collection>
+    </resultMap>
+	<sql id="select_column_list">
+		id, name, parent_id, invalid, rank, icon,
+		create_time,
+		update_time
+	</sql>
+	<sql id="select_column_list_procedure">
+		id, name, parent_id, invalid, rank, icon,
+		depth,
+		create_time,
+		update_time
+	</sql>
+
+	<select id="getListByParentId" resultMap="BaseResultMapTagList">
+		call
+		showTagChildList(#{parentId}, #{level})
+	</select>
+	<select id="getSkuListByParentId" resultMap="BaseResultMapSkuList">
+		call
+		showTagSkuChildList(#{parentId}, #{level}, #{limit})
+	</select>
+	
+	<!--  -->
+	<select id="getByTagId"  resultMap="BaseResultTagSku">
+	    SELECT
+	    tag.id,
+		ts.tag_id,
+		ts.sku_id,
+		sku.id,
+		tag.rank,
+		tag.`name`,
+		sku.`name`,
+		tag.parent_id,
+		tag.invalid,
+		tag.icon,
+		tag.create_time,
+		tag.update_time,
+		sku.description,
+		sku.detail,
+		sku.erp_code,
+		sku.invalid,
+		sku.original_price,
+		sku.price,
+		sku.installment,
+		sku.head_thumbnail,
+		sku.images_thumbnail,
+		sku.images_original,
+		sku.is_default,
+		sku.create_time,
+		sku.update_time,
+		sku.inventory,
+		sku.spu_id
+		FROM
+		t_tag AS tag
+        JOIN t_tag_sku AS ts ON ts.tag_id = tag.id
+        JOIN t_sku AS sku ON sku.id = ts.sku_id
+		where tag.id=#{tagId,jdbcType=INTEGER} and tag.invalid = 0 and tag.status = 1 and ts.invalid = 0 
+		<if test="sort == null or sort == ''">
+		 ORDER BY ts.rank 
+		</if>
+		<if test="sort != null or sort != ''">
+         ORDER BY tag.rank DESC
+		</if>
+		<if test="offset != null and offset !=''">
+         LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	
+		<!--获取 tag 的总数 -->
+	<select id="selectRushBuyCount" resultType="java.lang.Long">
+		SELECT COUNT(id) FROM
+		t_rush_buy
+	</select>
+    
+    <select id="selectTagCount"  resultType="java.lang.Long">
+       SELECT count(tag.id) 
+        FROM t_tag AS tag
+        JOIN t_tag_sku AS ts ON ts.tag_id = tag.id
+        JOIN t_sku AS sku ON sku.id = ts.sku_id
+        WHERE tag.id=#{tagId,jdbcType=INTEGER} and tag.invalid = 0 and tag.status = 1
+        
+    </select>
+	<!--查询列表总数 -->
+	<select id="selectTagLists" parameterType="java.util.Map"
+		resultType="java.util.Map">
+        SELECT
+	    tag.id as tag_id,
+		sku.id ,
+		tag.rank,
+		sku.`name`,
+		sku.description,
+		sku.detail,
+		sku.erp_code,
+		sku.invalid,
+		sku.original_price,
+		sku.price,
+		sku.installment,
+		sku.head_thumbnail,
+		sku.images_thumbnail,
+		sku.images_original,
+		sku.is_default,
+		sku.create_time,
+		sku.update_time,
+		sku.inventory,
+		sku.spu_id
+		FROM
+		t_tag AS tag
+        JOIN t_tag_sku AS ts ON ts.tag_id = tag.id and ts.invalid = 0
+        JOIN t_sku AS sku ON sku.id = ts.sku_id and sku.invalid = 0 and sku.status = 1
+        where 1=1 and tag.invalid = 0 and tag.status = 1 
+        <if test="tagId!=null and tagId!=''">
+          and tag.id=#{tagId,jdbcType=INTEGER}
+        </if>
+		ORDER BY ts.rank
+		<if test="limit != null and limit != '' and offset != null and offset !=''">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<!-- 根据code 获取tagId -->
+	<select id="getTagIdByCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select id  from t_tag where code =#{code,jdbcType=INTEGER} and invalid=0 and status = 1 
+	</select>
+	
+		<!-- 根据getByParentId -->
+	<select id="getByParentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select 
+		<include refid="select_column_list"></include>
+	 	 from t_tag where parent_id =#{parentId,jdbcType=INTEGER} and invalid=0 and status = 1 
+	</select>
+	<!-- 根据标签 获取所有sku -->
+	<select id="getTagSkus" parameterType="java.util.Map" resultType="java.lang.Integer">
+	select ifnull(count(*),0)
+	from t_tag_sku where tag_id in  <foreach collection="tagArray" item="tagArray" index="index"
+            open="(" close=")" separator=",">
+            #{tagArray} 
+        </foreach>  and invalid = 0 and sku_id = #{skuId,jdbcType=INTEGER}
+	</select>
+</mapper>

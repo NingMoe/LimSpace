@@ -1,0 +1,252 @@
+body {
+    /*margin: 0 100px;*/
+}
+
+.alert-toast {
+    display: inline-block;
+    margin: 0;
+    padding: 0 8px;
+    line-height: 32px;
+    text-align: center;
+}
+
+/* 非超链的 a 标签 */
+a.not-link {
+    cursor: pointer;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.navbar {
+        background: #f8f8f8;
+    border-bottom: 1px solid #ebebeb;
+}
+.form-group {
+    margin-top: 10px;
+    margin-right: 12px;
+}
+
+[type="submit"] {
+    width: 120px;
+    margin-top: 10px;
+}
+
+.quick-search {
+    margin-top: 20px;
+}
+
+.menu {
+    float: left;
+    width: 136px;
+    border-right: 1px solid #ebebeb;
+}
+
+ .content {
+    margin-left: 160px;
+}
+.menu ul {
+    padding-left: 23px;
+}
+.menu h3 {
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #563d7c;
+    background-color: transparent;
+    border-left: 2px solid #563d7c;
+}
+.menu li {
+    position: relative;
+    display: block;
+}
+.menu li a {
+    line-height: 24px;
+    padding: 5px;
+}
+.menu li.active {
+}
+.menu li.active a {
+    color: #563d7c;
+        background-color: #eee;
+    text-decoration: none;
+}
+
+.navbar-header {
+    display: none;
+}
+
+#bs-navbar .glyphicon {
+    padding-right: 5px;
+}
+
+.bs-docs-nav .navbar-nav>.active>a, .bs-docs-nav .navbar-nav>.active>a:hover, .bs-docs-nav .navbar-nav>li>a:hover {
+    color: #463265;
+    background-color: #eee;
+}
+
+footer {
+background: #FAFAFA;
+    color: #ccc;
+        margin-top: 40px;
+    padding: 20px 0 10px 0;
+}
+
+.main-grid {
+    text-align: center;
+}
+
+.pic-item {
+    float: left;
+    list-style: none;
+margin: 10px 10px;
+    border: 1px solid #eee;
+    padding: 5px;
+}
+.pic-item img {
+    width: 150px;
+    height: 150px;
+
+}
+.pagination-wrapper {
+    text-align: right;
+}
+.pagination-wrapper a {
+    cursor: pointer;
+}
+.pagination-wrapper .disabled a {
+    cursor: disabled;
+}
+.pagination-wrapper .active a {
+    cursor: normal;
+}
+
+
+.err-msg {
+  height: 24px;
+}
+.err-msg ul {
+    height: 24px;
+    overflow: hidden;
+    padding: 0;
+}
+.err-msg ul li {
+  background: #ff7112;
+  height: 24px;
+  line-height: 24px;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+}
+
+.spu-container #tree-container {
+    display: none;
+}
+.spu-container.show-tree #tree-container {
+    display: block;
+}
+
+
+.spu-container.show-tree .spu-list-container {
+    margin-left: 250px;
+}
+
+#tree-container {
+    min-width: 240px;
+}
+
+.toggle-tree {
+        padding: 18px;
+    line-height: 30px;
+}
+
+
+.file-list {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+
+}
+.file-list li {
+    /*padding-left: 72px;*/
+}
+.file-list .progress {
+  margin: 5px;
+}
+
+
+
+.carousel {
+    margin: 5px auto;
+}
+
+.carousel p {
+    float: left;
+    width: 162px;
+    height: 162px;
+    border: 1px solid #eee;
+    margin: 0;
+    margin-right: 2px;
+}
+.carousel img {
+    width: 160px;
+    height: 160px;
+}
+
+
+.description {
+    border: 1px solid #eee;
+    width: 375px;
+    min-height: 100px;
+    max-height: 480px;
+    overflow-y: scroll;
+    margin: 5px 0;
+}
+
+.description p {
+    margin: 0;
+}
+.description img {
+    width: 100%;
+}
+
+.mrt10{
+    margin-top: 10px;
+}
+.mrl10{
+    margin-left: 10px;
+}
+
+.group_create .form-group  label{
+    width: 160px;
+    font-weight: normal;
+}
+.createTitle{
+    float: left;
+    width: 200px;
+}
+.createOrder{
+    margin-left: 200px;
+}
+.group_create .alert{
+    padding: 8px;
+    color: red;
+}
+.paggerCommon input{
+    width:30px;
+    text-align: center;
+}
+.paggerCommon .pager a{
+    border-radius: 5px;
+}
+.vlan{
+    vertical-align: top;
+}
+.vlan + textarea {
+    width: 196px;
+}
+.form-group .timepick{
+    width: 87px;
+}

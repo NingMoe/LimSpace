@@ -1,0 +1,2379 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "1.0.0"
+  description: 微商城管理端API
+  title: <easycommerce-management-api>
+host: 
+  - dev.m.cebshop.tyiti.com
+  - dev.m.tianyaofenqi.com
+  - dev.m.taohuibang.com
+# Describe your paths here
+schemes:
+  - http
+paths:
+  # This is a path endpoint. Change it.
+  /leaveMessage:
+    get:
+      summary: 分页查询
+      description: 分页查询
+      tags:
+        - 用户留言
+      parameters:
+        - name: offset
+          in: query
+          description: 用于分页,从第几条开始
+          required: false
+          type: number
+        - name: limit
+          in: query
+          description: 用于分页,每页显示多少条
+          required: false
+          type: number
+        - name: realName
+          in: query
+          description: 条件查询,用户姓名
+          required: false
+          type: string
+        - name: mobile
+          in: query
+          description: 条件查询,手机号码
+          required: false
+          type: string
+        - name: status
+          in: query
+          description: 留言状态 1：已提交 2：已回复
+          required: false
+          type: number
+        - name: leaveTime
+          in: query
+          description: 条件查询,留言时间
+          required: false
+          type: string
+        - name: replyTime
+          in: query
+          description: 条件查询,回复时间
+          required: false
+          type: number
+      responses:
+        200:
+          description: OK
+          schema:
+              title: data
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: 留言记录id 页面不显示
+                real_name:
+                  type: string 
+                  description: 用户姓名
+                mobile:
+                  type: string
+                  description: 手机号码
+                content:
+                  type: string
+                  description: 留言内容
+                statusText:
+                  type: string
+                  description: 留言状态
+                leave_time:
+                  type: string
+                  description: 留言时间
+                reply_time:
+                  type: string
+                  description: 回复时间
+                leave_ip:
+                  type: string
+                  description: 留言ip
+                manager_id:
+                  type: number
+                  description: 管理员id
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /couponInfo/add:
+    post:
+      summary: 新增优惠券
+      description: 新增优惠券
+      consumes:
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: 优惠券名称
+          required: true
+          type: string
+        - name: type
+          in: formData
+          description: 优惠券类别 1：SKU专用 2：SPU专用 3：活动专用 4：全场通用 5：品牌专用 6：类别专用
+          required: true
+          type: number
+        - name: validDay
+          in: formData
+          description: 有效天数，当rank为0时必填
+          required: true
+          type: number
+        - name: couType
+          in: formData
+          description: 优惠方式  0：满减；1：折扣 2：代金券
+          required: true
+          type: number
+        - name: startMoney
+          in: formData
+          description: 优惠起始金额
+          required: true
+          type: number
+          format: double
+        - name: count
+          in: formData
+          description: 优惠券数量
+          required: true
+          type: number
+        - name: recSms
+          in: formData
+          description: 用户收到优惠券短信提醒内容
+          required: false
+          type: string
+        - name: dueSms
+          in: formData
+          description: 优惠券即将过期短信提醒用户内容
+          required: false
+          type: string
+        - name: summary
+          in: formData
+          description: 使用说明
+          required: false
+          type: string
+        - name: invalid
+          in: formData
+          description: 是否有效 0：有效 1：无效
+          required: false
+          type: number
+        - name: issueTime
+          in: formData
+          description: 生效时间
+          required: false
+          type: string
+        - name: rank
+          in: formData
+          description: 是否为相对时间 0：相对时间（使用用户收到优惠券时间+有效天数） 1：绝对时间（开始时间-结束时间）
+          required: true
+          type: string
+        - name: startTime
+          in: formData
+          description: 开始时间，当rank为1时必填
+          required: false
+          type: string
+        - name: endTime
+          in: formData
+          description: 结束时间，当rank为1时必填
+          required: false
+          type: string
+      tags:
+        - 通用优惠券
+      responses:
+        200:
+          description: OK
+        400:
+          description: 添加失败
+          schema:
+            $ref: '#/definitions/Error'
+  /couponInfo/edit:
+    put:
+      summary: 编辑优惠券
+      description: 编辑优惠券
+      consumes:
+        - application/json
+      parameters:
+        - name: id
+          in: formData
+          description: 优惠券ID
+          required: true
+          type: number
+        - name: name
+          in: formData
+          description: 优惠券名称
+          required: true
+          type: string
+        - name: type
+          in: formData
+          description: 优惠券类别 1：SKU专用 2：SPU专用 3：活动专用 4：全场通用 5：品牌专用 6：类别专用
+          required: true
+          type: number
+        - name: validDay
+          in: formData
+          description: 有效天数
+          required: true
+          type: number
+        - name: couType
+          in: formData
+          description: 优惠方式  0：满减；1：折扣 2：代金券
+          required: true
+          type: number
+        - name: startMoney
+          in: formData
+          description: 优惠起始金额
+          required: true
+          type: number
+          format: double
+        - name: count
+          in: formData
+          description: 优惠券数量
+          required: true
+          type: number
+        - name: recSms
+          in: formData
+          description: 用户收到优惠券短信提醒内容
+          required: false
+          type: string
+        - name: dueSms
+          in: formData
+          description: 优惠券即将过期短信提醒用户内容
+          required: false
+          type: string
+        - name: summary
+          in: formData
+          description: 使用说明
+          required: false
+          type: string
+        - name: invalid
+          in: formData
+          description: 是否有效 0：有效 1：无效
+          required: false
+          type: number
+        - name: issueTime
+          in: formData
+          description: 生效时间
+          required: false
+          type: string
+        - name: rank
+          in: formData
+          description: 是否为相对时间 0：相对时间（使用用户收到优惠券时间+有效天数） 1：绝对时间（开始时间-结束时间）
+          required: true
+          type: string
+        - name: startTime
+          in: formData
+          description: 开始时间，当rank为1时必填
+          required: false
+          type: string
+        - name: endTime
+          in: formData
+          description: 结束时间，当rank为1时必填
+          required: false
+          type: string
+      tags:
+        - 通用优惠券
+      responses:
+        200:
+          description: OK
+        400:
+          description: 添加失败
+          schema:
+            $ref: '#/definitions/Error'
+  /couponInfo/del/{id}:
+    delete:
+      summary: 删除单个优惠券
+      description: 删除单个优惠券 逻辑删除，非物理删除
+      parameters:
+        - name: id
+          in: path
+          type: number
+          description: 优惠券ID
+          required: true
+      tags:
+        - 通用优惠券
+      responses:
+        200:
+          description: OK
+        400:
+          description: 删除失败，非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /couponInfo/dels/{ids}:
+    delete:
+      summary: 批量删除优惠券
+      description: 批量删除优惠券 逻辑删除，非物理删除
+      parameters:
+        - name: ids
+          in: path
+          type: string
+          description: 多个优惠券ID，用英文逗号隔开
+          required: true
+      tags:
+        - 通用优惠券
+      responses:
+        200:
+          description: OK
+        400:
+          description: 删除失败，非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /couponInfo/{id}:
+    get:
+      summary: 获取优惠券详情
+      description: 获取优惠券详情
+      tags:
+        - 通用优惠券
+      parameters:
+        - name: id
+          in: path
+          description: 优惠券ID
+          required: true
+          type: number
+          format: int
+      responses:
+        200:
+          description: 优惠券详情对象 OK
+          schema:
+            $ref: '#/definitions/CouponInfo'
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /couponInfos:
+    get:
+      summary: 根据条件获取优惠券分页列表
+      description: 根据条件获取优惠券分页列表
+      tags:
+        - 通用优惠券
+      parameters:
+        - name: offset
+          in: query
+          description: 用于分页,从第几条开始
+          required: false
+          type: number
+        - name: limit
+          in: query
+          description: 用于分页,每页显示多少条
+          required: false
+          type: number
+        - name: sort
+          in: query
+          description: 排序字段
+          required: false
+          type: string
+        - name: order
+          in: query
+          description: 排序方式 asc、desc
+          required: false
+          type: string
+        - name: name
+          in: query
+          description: 条件查询,优惠券名称
+          required: false
+          type: string
+        - name: type
+          in: query
+          description: 条件查询,优惠券类别 1：SKU专用 2：SPU专用 3：活动专用 4：全场通用 5：品牌专用 6：类别专用
+          required: false
+          type: number
+        - name: couType
+          in: query
+          description: 条件查询,优惠方式 0：满减 1：折扣
+          required: false
+          type: number
+      responses:
+        200:
+          description: OK
+          schema:
+              title: data
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: 优惠券id 页面不显示
+                name:
+                  type: string 
+                  description: 优惠券名称
+                category_name:
+                  type: string
+                  description: 类别名称
+                valid_day:
+                  type: number
+                  description: 有效期
+                issue_time:
+                  type: string
+                  description: 生效时间
+                invalid:
+                  type: number
+                  description: 是否有效 0：有效 1：无效
+                c_type:
+                  type: number
+                  description: 优惠方式 0：满减 1：折扣
+                start_money:
+                  type: string
+                  description: 起始金额
+                c_money:
+                  type: string
+                  description: 优惠额度
+                count:
+                  type: number  
+                  description: 数量
+                is_due:
+                  type: string
+                  description: 是否过期
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /sendCoup/{cid}&{mobile}:
+    get:
+      summary: 通过手机号给用户发放一张优惠券
+      description: 通过手机号给用户发放一张优惠券
+      tags:
+        - 通用优惠券
+      parameters:
+        - name: cid
+          in: path
+          description: 优惠券ID
+          required: true
+          type: number
+          format: int
+        - name: mobile
+          in: path
+          description: 用户手机号
+          required: true
+          type: string
+      responses:
+        200:
+          description:  OK
+        400:
+          description: 发送失败
+          schema:
+            $ref: '#/definitions/Error'
+  /couponRecordDetail/{id}:
+    get:
+      summary: 根据id查询单条优惠券详细记录
+      description: 根据id查询单条优惠券详细记录
+      tags:
+        - 通用优惠券
+      parameters:
+        - name: id
+          in: path
+          description: 优惠券记录ID
+          required: true
+          type: number
+          format: int
+      responses:
+        200:
+          description:  OK
+          schema:
+              title: data
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: 优惠券记录id 页面不显示
+                real_name:
+                  type: string 
+                  description: 用户姓名
+                mobile:
+                  type: string
+                  description: 手机号码
+                name:
+                  type: string
+                  description: 优惠券名称
+                receive_time:
+                  type: string
+                  description: 领取时间
+                c_code:
+                  type: string
+                  description: 优惠码
+                is_used:
+                  type: number
+                  description: 是否使用 0：未使用 1：已使用
+                use_time:
+                  type: string
+                  description: 使用时间
+                valid_day:
+                  type: number
+                  description: 有效期
+                create_time:
+                  type: string
+                  description: 创建时间
+                issue_time:
+                  type: string
+                  description: 生效时间
+                invalid:
+                  type: string
+                  description: 是否有效 0：有效 1：无效
+                is_due:
+                  type: string
+                  description: 是否过期
+                c_type:
+                  type: number
+                  description: 优惠方式 0：满减 1：折扣
+                start_money:
+                  type: string
+                  description: 起始金额
+                c_money:
+                  type: string
+                  description: 优惠额度
+        400:
+          description: 发送失败
+          schema:
+            $ref: '#/definitions/Error'
+  /couponRecord:
+    get:
+      summary: 根据条件获取优惠记录券分页列表
+      description: 根据条件获取优惠券记录分页列表
+      tags:
+        - 通用优惠券
+      parameters:
+        - name: offset
+          in: query
+          description: 用于分页,从第几条开始
+          required: false
+          type: number
+        - name: limit
+          in: query
+          description: 用于分页,每页显示多少条
+          required: false
+          type: number
+        - name: sort
+          in: query
+          description: 排序字段
+          required: false
+          type: string
+        - name: order
+          in: query
+          description: 排序方式 asc、desc
+          required: false
+          type: string
+        - name: realName
+          in: query
+          description: 条件查询,用户姓名
+          required: false
+          type: string
+        - name: mobile
+          in: query
+          description: 条件查询,手机号码
+          required: false
+          type: string
+        - name: couponName
+          in: query
+          description: 条件查询,优惠券名称
+          required: false
+          type: string
+        - name: couCode
+          in: query
+          description: 条件查询,优惠码
+          required: false
+          type: string
+        - name: isUsed
+          in: query
+          description: 条件查询,是否使用 0：未使用 1：已使用
+          required: false
+          type: number
+        - name: type
+          in: query
+          description: 条件查询,优惠券类别 1：SKU专用 2：SPU专用 3：活动专用 4：全场通用 5：品牌专用 6：类别专用
+          required: false
+          type: number
+        - name: couType
+          in: query
+          description: 条件查询,优惠方式 0：满减 1：折扣
+          required: false
+          type: number
+      responses:
+        200:
+          description: OK
+          schema:
+              title: data
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: 优惠券记录id 页面不显示
+                real_name:
+                  type: string 
+                  description: 用户姓名
+                mobile:
+                  type: string
+                  description: 手机号码
+                name:
+                  type: string
+                  description: 优惠券名称
+                receive_time:
+                  type: string
+                  description: 领取时间
+                c_code:
+                  type: string
+                  description: 优惠码
+                is_used:
+                  type: number
+                  description: 是否使用 0：未使用 1：已使用
+                usedText:
+                  type: string
+                  description: 是否使用
+                use_time:
+                  type: string
+                  description: 使用时间
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /orders:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       根据条件信息、分页信息 获取订单列表 ；status=2 待确认 ； status=3 待制单；status=4 待发货 ；status = 1 待付款
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: offset
+          in: query
+          description: 用于分页,从第几条开始
+          required: false
+          type: number
+        -
+          name: limit
+          in: query
+          description: 用于分页,每页显示多少条
+          required: false
+          type: number
+        -
+          name: sort
+          in: query
+          description: 排序字段
+          required: false
+          type: string
+        -
+          name: order
+          in: query
+          description: 排序方式 asc、desc
+          required: false
+          type: string
+        -
+          name: skuName
+          in: query
+          description: 条件查询,商品名称
+          required: false
+          type: string
+        -
+          name: no
+          in: query
+          description: 条件查询,订单号
+          required: false
+          type: string
+        -
+          name: startTime
+          in: query
+          description: 条件查询,开始时间
+          required: false
+          type: string
+          format: yyyy-MM-dd HH;mm;ss
+        -
+          name: endTime
+          in: query
+          description: 条件查询,结束时间
+          required: false
+          type: string
+          format: yyyy-MM-dd HH;mm;ss
+        -
+          name: status
+          in: query
+          description: 订单状态查询 1未付款 2已付款 3已确认 4已制单 5已发货 6已签收 9已取消
+          required: false
+          type: number
+        -
+          name: payMethod
+          in: query
+          description: 付款方式查询 1 全款 2 全分期 3 首付+分期
+          required: false
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+              title: data
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: 订单id 页面不显示
+                no:
+                  type: string 
+                  description: 订单编号
+                createTime:
+                  type: string
+                  description: 申请时间
+                skuName:
+                  type: string
+                  description: 商品名称
+                installmentAmount:
+                  type: string
+                  description: 分期金额
+                installmentMonths:
+                  type: string
+                  description: 分期数
+                downPayment:
+                  type: number
+                  description: 首付金额
+                skuCount:
+                  type: number
+                  description: 商品数量
+                skuPrice:
+                  type: number
+                  description: 商品价格
+                payMethod:
+                  type: number  
+                  description: 支付方式 数据库存储
+                payMethodText:
+                  type: string
+                  description: 支付方式 格式化中文
+                realName:
+                  type: string  
+                  description: 真实姓名
+                mobile:
+                  type: string
+                  description: 电话
+                status:
+                  type: number
+                  description: 订单状态 数据库存储
+                statusText:
+                  type: string
+                  description: 订单状态 格式化中文
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string
+  /orders/{id}:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       订单详细信息查询
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: id
+          in: path
+          description: 订单id
+          required: true
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: data
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: 订单id 不显示
+                no:
+                  type: string
+                  description: 订单编号
+                createTime:
+                  type: string
+                  description: 订单申请时间
+                status:
+                  type: number
+                  description: 订单状态 数据库存储
+                statusText:  
+                  type: string
+                  description: 订单状态 格式化中文
+                installmentMonths:
+                  type: number
+                  description: 分期数
+                downPayment:  
+                  type: number
+                  description: 首付金额
+                downPaymentPayed:
+                   type: number
+                   description: 支付状态 首付状态 
+                installmentPayed:
+                   type: number
+                   description: 支付状态 分期状态
+                payedStatus:
+                   type: string
+                   description: 支付状态 已格式化  首付已付分期已付 
+                addressName:
+                   type: string   
+                   description: 收件人
+                addressMobile:
+                   type: string
+                   description: 收件人电话
+                addressZip:
+                   type: string
+                   description: 收件人邮编
+                addressFullText:
+                   type: string
+                   description: 收件人地址
+                realName:
+                   type: string
+                   description: 订购人姓名
+                sex:
+                   type: string
+                   description: 性别
+                idCard:
+                   type: string
+                   description: 身份证号 
+                mobile:
+                   type: string
+                   description: 订购人手机号 
+                erpCode:
+                   type: string
+                   description: 商品编号 
+                skuName:
+                   type: string
+                   description: 商品名称
+                skuCount:
+                   type: number
+                   description: 商品数量   
+                skuHeadThumbnail:
+                   type: string
+                   description: 商品图片
+                skuCount:
+                  type: number
+                  description: 商品价格
+                totalPrice:
+                   type: number
+                   description: 总价
+                   
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string 
+  /orders/enter/:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       订单确认
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: ids
+          in: query
+          description: 订单id ,ids =1 或者ids =1,2,3 
+          required: true
+          type: number
+          format: double
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string 
+  /orders/send/:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       订单发货
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: id
+          in: query
+          description: 订单id
+          required: true
+          type: number
+          format: double
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: data
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                   
+  /orders/refuse/:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       订单取消
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: id
+          in: query
+          description: 订单id
+          required: true
+          type: number
+          format: double
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            type: object
+            items:
+              title: data
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                         
+  /excels/:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       制单导出1条或多条 ids = 1 或  ids=1,2,3 ； excelId = orders
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: ids
+          in: query
+          description: 订单id
+          required: true
+          type: number
+        - name: excelId
+          in: query
+          description: 导出模板文件id  excelId = orders
+          required: true
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string       
+  /excels/:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       查询列表导出 excelId= order 
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        - name: excelId
+          in: query
+          description: 导出模板文件id  excelId = order
+          required: true
+          type: number
+          format: double
+        -
+          name: offset
+          in: query
+          description: 用于分页,从第几条开始
+          required: false
+          type: number
+          format: double
+        -
+          name: limit
+          in: query
+          description: 用于分页,每页显示多少条
+          required: false
+          type: number
+          format: double
+        -
+          name: sort
+          in: query
+          description: 排序字段
+          required: false
+          type: number
+          format: double
+        -
+          name: order
+          in: query
+          description: 排序方式 asc、desc
+          required: false
+          type: number
+          format: double
+        -
+          name: skuName
+          in: query
+          description: 条件查询,商品名称
+          required: false
+          type: string
+        -
+          name: no
+          in: query
+          description: 条件查询,订单号
+          required: false
+          type: string
+        -
+          name: startTime
+          in: query
+          description: 条件查询,开始时间
+          required: false
+          type: string
+          format: yyyy-MM-dd HH;mm;ss
+        -
+          name: endTime
+          in: query
+          description: 条件查询,结束时间
+          required: false
+          type: string
+          format: yyyy-MM-dd HH;mm;ss
+        -
+          name: status
+          in: query
+          description: 订单状态查询 1未付款 2已付款 3已确认 4已制单 5已发货 6已签收 9已取消
+          required: false
+          type: number
+        -
+          name: payMethod
+          in: query
+          description: 付款方式查询 1 全款 2 全分期 3 首付+分期
+          required: false
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                   
+  /orders/returns:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       根据条件信息、分页信息 获取退货列表 ；0: 初始(已提交)（待确认） 1: 已确认 2: 已拒绝 3: 待收货 4: 已收货 5: 完成 
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: offset
+          in: query
+          description: 用于分页,从第几条开始
+          required: false
+          type: number
+        -
+          name: limit
+          in: query
+          description: 用于分页,每页显示多少条
+          required: false
+          type: number
+        -
+          name: sort
+          in: query
+          description: 排序字段
+          required: false
+          type: string
+        -
+          name: orderNo
+          in: query
+          description: 排序方式 asc、desc
+          required: false
+          type: string
+        -
+          name: CancelNo
+          in: query
+          description: 条件查询,售后编号（退货编号）
+          required: false
+          type: string
+        -
+          name: startTime
+          in: query
+          description: 条件查询,开始时间
+          required: false
+          type: string
+          format: yyyy-MM-dd HH;mm;ss
+        -
+          name: endTime
+          in: query
+          description: 条件查询,结束时间
+          required: false
+          type: string
+          format: yyyy-MM-dd HH;mm;ss
+        -
+          name: status
+          in: query
+          description: 订单状态查询 0 初始(已提交)（待确认） 1 已确认 2已拒绝 3 待收货 4 已收货 5 完成 
+          required: false
+          type: number
+        
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: data
+            type: object
+            properties:
+              id:
+                type: number
+                description: 退货id 页面不显示
+              cancelNo:
+                type: string 
+                description: 退货编号
+              orderNo:
+                type: string 
+                description: 订单编号
+              createTime:
+                type: string
+                description: 申请时间
+              skuName:
+                type: string
+                description: 商品名称
+              skuCount:
+                type: number
+                description: 商品数量
+              skuPrice:
+                type: number
+                description: 商品价格
+              realName:
+                type: string  
+                description: 真实姓名
+              mobile:
+                type: string
+                description: 电话
+              type:
+                type: number
+                description: 退货类型 数据库存储 0申请取消 1 申请退货
+              typeText:
+                type: number
+                description: 退货类型 格式化中文  
+              status:
+                type: number
+                description: 退货状态 数据库存储
+              statusText:
+                  type: string
+                  description: 退货状态 格式化中文
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+  /orders/returns/details/{id}:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       退货详细信息查询
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: id
+          in: path
+          description: 退货id
+          required: true
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfData
+            type: array
+            items:
+              title: data
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: 退货id
+                cancelNo:
+                  type: string
+                  description: 退货编号
+                orderNo:
+                  type: string
+                  description: 订单编号
+                createTime:
+                  type: string
+                  description: 退货申请时间
+                orderCreateTime:
+                  type: string
+                  description: 订单创建时间
+                cancelStatus:
+                  type: number
+                  description: 退货状态 数据库存储
+                cancelStatusText:
+                  type: string
+                  description: 退货状态 中文格式化 可用于显示 
+                orderStatus:
+                  type: number
+                  description: 订单状态 数据库存储
+                orderStatusText:  
+                  type: string
+                  description: 订单状态 中文格式化 可用于显示 
+                reason:
+                  type: string
+                  description: 退货详情
+                pics:
+                  type: string
+                  description: 退货图片
+                installmentMonths:
+                  type: number
+                  description: 分期数
+                downPayment:  
+                  type: number
+                  description: 首付金额
+                downPaymentPayed:
+                   type: number
+                   description: 支付状态 首付状态 
+                installmentPayed:
+                   type: number
+                   description: 支付状态 分期状态
+                payedStatus:
+                   type: string
+                   description: 支付状态 已格式化  首付已付分期已付 
+                addressName:
+                   type: string   
+                   description: 收件人
+                addressMobile:
+                   type: string
+                   description: 收件人电话
+                addressZip:
+                   type: string
+                   description: 收件人邮编
+                addressFullText:
+                   type: string
+                   description: 收件人地址
+                realName:
+                   type: string
+                   description: 订购人姓名
+                sex:
+                   type: string
+                   description: 性别
+                idCard:
+                   type: string
+                   description: 身份证号 
+                mobile:
+                   type: string
+                   description: 订购人手机号 
+                erpCode:
+                   type: string
+                   description: 商品编号 
+                skuName:
+                   type: string
+                   description: 商品名称
+                skuCount:
+                   type: number
+                   description: 商品数量   
+                skuHeadThumbnail:
+                   type: string
+                   description: 商品图片
+                skuCount:
+                  type: number
+                  description: 商品价格
+                totalPrice:
+                   type: number
+                   description: 总价
+                   
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string 
+                exception:
+                  type: string
+  /orders/returns/enter/:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        退货单确定
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: ids
+          in: query
+          description: 退货确定ids ids= 1 或者 ids = 1,2,3
+          required: true
+          type: number
+          format: double
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                   
+  /orders/returns/refuse:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        退货单拒绝
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: ids
+          in: query
+          description: 退货ids ids= 1 或者 ids = 1,2,3
+          required: true
+          type: number
+          format: double
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                        
+  /order/returns/delivery:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        退货单收货
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: ids
+          in: query
+          description: 退货ids ids= 1 或者 ids = 1,2,3
+          required: true
+          type: number
+          format: double
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                                   
+  /refunds:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        退款列表
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: offset
+          in: query
+          description: 用于分页,从第几条开始
+          required: false
+          type: number
+        -
+          name: limit
+          in: query
+          description: 用于分页,每页显示多少条
+          required: false
+          type: number
+        -
+          name: sort
+          in: query
+          description: 排序字段
+          required: false
+          type: string
+        -
+          name: order
+          in: query
+          description: 排序方式 asc、desc
+          required: false
+          type: string
+        -
+          name: orderNo
+          in: query
+          description: 条件查询,订单号
+          required: false
+          type: string
+        -
+          name: startTime
+          in: query
+          description: 条件查询,开始时间
+          required: false
+          type: string
+          format: yyyy-MM-dd HH;mm;ss
+        -
+          name: endTime
+          in: query
+          description: 条件查询,结束时间
+          required: false
+          type: string
+          format: yyyy-MM-dd HH;mm;ss
+        -
+          name: cancelType
+          in: query
+          description: 条件查询,退货类型
+          required: false
+          type: number
+        -
+          name: refundStatus
+          in: query
+          description: 0未退款 1已退款
+          required: false
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: 主键id 不显示
+                amount:
+                  type: string
+                  description: 退款金额
+                createTime:
+                  type: string
+                  description: 退款创建时间
+                refundTime:
+                  type: string
+                  description: 退款完成时间
+                refundStatus:
+                  type: string
+                  description: 退款状态
+                refundStatusText:
+                  type: string
+                  description: 退款状态 格式化中文 
+                cancelNo:
+                  type: string
+                  description: 退货编号
+                orderNo:
+                  type: string
+                  description: 订单号
+                cancelCreateTime:
+                  type: string
+                  description: 退货申请时间
+                skuName:
+                  type: string
+                  description: 商品名称
+                skuPrice:
+                  type: string
+                  description: 商品价格
+                skuCount:
+                  type: string
+                  description: 商品数量
+                downPayment:
+                  type: string
+                  description: 首付金额
+                installmentAmount:
+                  type: string
+                  description: 分期金额
+                installmentMonths:
+                  type: string
+                  description:  分期数 
+                mobile:
+                  type: string
+                  description:  手机号 
+                realName:
+                  type: string
+                  description:  买家姓名 
+                cancelStatus:
+                  type: string
+                  description:  退货状态 
+                cancelStatusText:
+                  type: string
+                  description:  退货状态 格式化中文 
+                cancelType:
+                  type: string
+                  description:  退货类型 0 申请取消 1 申请退货 
+                cancelTypeText:
+                  type: string
+                  description:  退货类型  格式化中文   
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                                  
+  /refunds/{id}:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+       退款详细信息查询
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: id
+          in: path
+          description: 退款id
+          required: true
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfData
+            type: array
+            items:
+              title: data
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: 退款id
+                cancelNo:
+                  type: string
+                  description: 退货编号
+                orderNo:
+                  type: string
+                  description: 订单编号
+                amount:
+                  type: string
+                  description: 退款金额  
+                cancelCreateTime:
+                  type: string
+                  description: 退货申请时间
+                orderCreateTime:
+                  type: string
+                  description: 订单创建时间
+                cancelStatus:
+                  type: number
+                  description: 退货状态 数据库存储
+                cancelStatusText:
+                  type: string
+                  description: 退货状态 中文格式化 可用于显示 
+                orderStatus:
+                  type: number
+                  description: 订单状态 数据库存储
+                orderStatusText:  
+                  type: string
+                  description: 订单状态 中文格式化 可用于显示 
+                reason:
+                  type: string
+                  description: 退货详情
+                pics:
+                  type: string
+                  description: 退货图片
+                installmentMonths:
+                  type: number
+                  description: 分期数
+                downPayment:  
+                  type: number
+                  description: 首付金额
+                downPaymentPayed:
+                   type: number
+                   description: 支付状态 首付状态 
+                installmentPayed:
+                   type: number
+                   description: 支付状态 分期状态
+                payedStatus:
+                   type: string
+                   description: 支付状态 已格式化  首付已付分期已付 
+                addressName:
+                   type: string   
+                   description: 收件人
+                addressMobile:
+                   type: string
+                   description: 收件人电话
+                addressZip:
+                   type: string
+                   description: 收件人邮编
+                addressFullText:
+                   type: string
+                   description: 收件人地址
+                realName:
+                   type: string
+                   description: 订购人姓名
+                sex:
+                   type: string
+                   description: 性别
+                idCard:
+                   type: string
+                   description: 身份证号 
+                mobile:
+                   type: string
+                   description: 订购人手机号 
+                erpCode:
+                   type: string
+                   description: 商品编号 
+                skuName:
+                   type: string
+                   description: 商品名称
+                skuCount:
+                   type: number
+                   description: 商品数量   
+                skuHeadThumbnail:
+                   type: string
+                   description: 商品图片
+                skuCount:
+                  type: number
+                  description: 商品价格
+                totalPrice:
+                   type: number
+                   description: 总价
+                   
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string 
+                exception:
+                  type: string                
+  /refunds/enter:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        退款确定
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: ids
+          in: query
+          description: 退款确定 可以传多个值 1,2,3 类型是数组
+          required: true
+          type: string
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string        
+  /imgupload:
+    # This is a HTTP operation
+    post:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        上传图片，目前到tomcat webapp /manage-api(工程名)/image/
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: file
+          in: query
+          description: MultipartFile file
+          required: true
+          type: string
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfData
+            type: array
+            items:
+              title: Data
+              type: object
+              properties:
+                original:
+                  type: string
+                  description: 上传文件原名称
+                size:
+                  type: string
+                  description: 大小
+                type:
+                  type: string
+                  description: 类型
+                url:
+                  type: string
+                  description: url 服务器地址
+                title:
+                  type: string
+                  description: 上传文件重命名 
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string 
+  /banners/add:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        插入banner
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: picUrl
+          in: query
+          description: 图片地址
+          required: true
+          type: string
+        -
+          name: url
+          in: query
+          description: 外链接地址
+          required: true
+          type: string
+        -
+          name: title
+          in: query
+          description: 图片名称
+          required: true
+          type: string
+        -
+          name: adId
+          in: query
+          description:  广告位id
+          required: true
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfData
+            type: array
+            items:
+              title: Data
+              type: object
+              properties:
+                message:
+                  type:  string
+                   
+                 
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                 
+  /banners/edit:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        插入banner
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: picUrl
+          in: query
+          description: 图片地址
+          required: true
+          type: string
+        -
+          name: url
+          in: query
+          description: 外链接地址
+          required: true
+          type: string
+        -
+          name: title
+          in: query
+          description: 图片名称
+          required: true
+          type: string
+        -
+          name: adId
+          in: query
+          description:  广告位id
+          required: true
+          type: number
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfData
+            type: array
+            items:
+              title: Data
+              type: object
+              properties:
+                message:
+                  type:  string
+                   
+                 
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string         
+  /banners/del:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        banner 修改
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: id
+          in: query
+          description: 图片地址
+          required: true
+          type: number
+         
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfData
+            type: array
+            items:
+              title: Data
+              type: object
+              properties:
+                message:
+                  type:  string
+                   
+                 
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string              
+  /banners/sort:
+    # This is a HTTP operation
+    put:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        banner 排序
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: id
+          in: query
+          description: 主键id
+          required: true
+          type: number
+        -
+          name: toRank
+          in: query
+          description: 排序位置 
+          required: true
+          type: number
+         
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfData
+            type: array
+            items:
+              title: Data
+              type: object
+              properties:
+                message:
+                  type:  string
+                   
+                 
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string                              
+  /banners/{adId}:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: | 
+        banner 列表
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: adId
+          in: path
+          description: 广告位id
+          required: true
+          type: number
+         
+      # Expected responses for this operation:
+      responses:
+        # Response code
+       
+        200:
+          description: OK
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfData
+            type: array
+            items:
+              title: Data
+              type: object
+              properties:
+                message:
+                  type:  string
+                   
+                 
+        400:
+          description: 异常信息
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                message:
+                  type: string
+                exception:
+                  type: string
+definitions:
+  CouponInfo:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 优惠券信息id
+      name:
+        type: string
+        description: 优惠券名称
+      type:
+        type: integer
+        description: 1：SKU专用 2：SPU专用 3：活动专用 4：全场通用 5：品牌专用 6：类别专用
+      refId:
+        type: string
+        description: 根据所选类别设置该优惠券所关联的物品
+      picUrls:
+        type: string
+        description: 优惠券图片地址
+      summary:
+        type: string
+        description: 优惠券使用说明
+      validDay:
+        type: integer
+        description: 有效期
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      issueTime:
+        type: string
+        format: date-time
+        description: 发布时间
+      startTime:
+        type: string
+        format: date-time
+        description: 如果是活动专用，则记录活动开始时间
+      endTime:
+        type: string
+        format: date-time
+        description: 如果是活动专用，则记录活动结束时间
+      invalid:
+        type: integer
+        description: 是否有效  0：有效；1：无效
+      rank:
+        type: integer
+        description: 排序
+      isDelete:
+        type: integer
+        description: 是否删除 0：未删除；1：已删除
+      couType:
+        type: integer
+        description: 优惠方式  0：满减；1：折扣
+      couMoney:
+        type: string
+        description: 优惠金额（满减：满减金额） 折扣（折扣百分比）
+      count:
+        type: integer
+        description: 优惠券数量
+      recordId:
+        type: integer
+        description: 优惠券记录id
+      categoryName:
+        type: string
+        description: 优惠券类别名称
+      startMoney:
+        type: number
+        description: 优惠起始金额
+      recSms:
+        type: string
+        description: 用户收到优惠券短信提醒内容
+      dueSms:
+        type: string
+        description: 优惠券即将过期短信提醒用户内容
+      isDue:
+        type: string
+        description: 是否过期
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

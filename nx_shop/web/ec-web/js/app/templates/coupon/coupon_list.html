@@ -1,0 +1,97 @@
+<header class="ui-bar main-header default couponL <%=((config.sys=='ceb' || config.sys=='tyfq')?'couponCeb':'')%>">
+    <ul>
+        <li class="change" flag="1">未使用</li>
+        <li class="" flag="2">已过期</li>
+        <li class="" flag="3">已使用</li>
+    </ul>
+</header>
+<div class="pj-site-container couponContain">
+
+    <!--全部-->
+    <div class="list_one" flag="1">
+        <div class="fullBind">
+            <div class="bind <%=((config.sys=='ceb' || config.sys=='tyfq')?'unceb':'')%>">
+                 <span class="bindB">绑定</span>
+                 <div class="bindBContent"><input type="text" placeholder="请输入优惠码/代金码"> </div>
+            </div>
+        </div>
+        <%if(flag==1){_.each(couList, function(item,name) {%>
+            <div class="coup_list <%=item.class%>">
+                <div class="ct_left">
+                    <div class="s1"><%=item.scopeText%></div>
+                    <%if(item.type=='1'||item.type=='2'){%>
+                    <div class="s2">满<%=item.threshold%>元可用</div>
+                    <% }%>
+                </div>
+                <div class="ct_right"><i>￥</i><span><%=item.discount%></span></div>
+                <div class="ct_foot">
+                    <i></i>
+                    <%if(item.timeType=="1"){%>
+                    <span class="usdate"><%=item.startTime%>-<%=item.expireTime%></span>
+                   <% }else{%>
+                     <span class="usdate"><%=item.receiveTime%>-<%=item.expireTime%></span>
+                   <% }%>
+                </div>
+            </div>
+        <% });}%>
+
+    </div>
+
+    <div class="list_two expire" flag="2">
+        <div class="fullBind">
+            <div class="bind <%=((config.sys=='ceb' || config.sys=='tyfq')?'unceb':'')%>">
+                 <span class="bindB">绑定</span>
+                <div class="bindBContent"><input type="text" placeholder="请输入优惠码/代金码"> </div>
+            </div>
+        </div>
+        <%if(flag==2){_.each(couList, function(item,name) {%>
+        <div class="coup_list <%=item.class%>">
+            <div class="ct_left">
+                <div class="s1"><%=item.scopeText%></div>
+                <%if(item.type=='1'||item.type=='2'){%>
+                <div class="s2">满<%=item.threshold%>元可用</div>
+                <% }%>
+            </div>
+            <div class="ct_right"><i>￥</i><span><%=item.discount%></span></div>
+            <div class="ct_foot">
+                <i></i>
+                <%if(item.timeType=="1"){%>
+                <span class="usdate"><%=item.startTime%>-<%=item.expireTime%></span>
+                <% }else{%>
+                <span class="usdate"><%=item.receiveTime%>-<%=item.expireTime%></span>
+                <% }%>
+            </div>
+        </div>
+        <% });}%>
+
+    </div>
+
+    <div class="list_three use" flag="3">
+        <div class="fullBind">
+            <div class="bind <%=((config.sys=='ceb' || config.sys=='tyfq')?'unceb':'')%>">
+                <span class="bindB">绑定</span>
+                <div class="bindBContent"><input type="text" placeholder="请输入优惠码/代金码"> </div>
+            </div>
+        </div>
+        <%if(flag==3){_.each(couList, function(item,name) {%>
+        <div class="coup_list <%=item.class%>">
+            <div class="ct_left">
+                <div class="s1"><%=item.scopeText%></div>
+                <%if(item.type=='1'||item.type=='2'){%>
+                <div class="s2">满<%=item.threshold%>元可用</div>
+                <% }%>
+            </div>
+            <div class="ct_right"><i>￥</i><span><%=item.discount%></span></div>
+            <div class="ct_foot">
+                <i></i>
+                <%if(item.timeType=="1"){%>
+                <span class="usdate"><%=item.startTime%>-<%=item.expireTime%></span>
+                <% }else{%>
+                <span class="usdate"><%=item.receiveTime%>-<%=item.expireTime%></span>
+                <% }%>
+            </div>
+        </div>
+        <% });}%>
+    </div>
+
+</div>

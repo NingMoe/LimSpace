@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PickupOrderDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.PickupOrder">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="pickup_point_id" property="pickupPointId"
+			jdbcType="INTEGER" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="arrive_time" property="arrivetime" jdbcType="TIMESTAMP" />
+		<result column="take_time" property="taketime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id, order_id, pickup_point_id, code, status, create_time, update_time,
+		invalid,arrive_time,take_time
+	</sql>
+
+	<sql id="generic_where">
+		<where>
+			1=1 and invalid = 0
+			<if test="orderId != null">
+				and order_id = #{orderId,jdbcType=INTEGER}
+			</if>
+			<if test="pickupPointId != null">
+				and pickup_point_id = #{pickupPointId,jdbcType=INTEGER}
+			</if>
+			<if test="code != null">
+				and code = #{code,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				and status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="createTime != null">
+				and create_time = #{createTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="arrivetime != null">
+				and arrive_time = #{arrivetime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="taketime != null">
+				and take_time = #{taketime,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_pickup_order
+		where id = #{id,jdbcType=INTEGER} 
+	</select>
+
+	<select id="selectByCode" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_pickup_order
+		where code = #{code,jdbcType=VARCHAR} and invalid = 0
+	</select>
+
+	<!-- 根据status和pickup_point_id 查询所有自提订单 -->
+	<select id="findByPickupOrderStatus" resultMap="BaseResultMap"
+		parameterType="com.tyiti.easycommerce.entity.PickupOrder">
+		select
+		<include refid="Base_Column_List" />
+		from t_pickup_order
+		<include refid="generic_where" />
+		and ORDER BY create_time
+	</select>
+
+
+
+
+	<select id="getListPickupOrder" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		select t1.id, t1.order_id, t1.pickup_point_id, t1.code, t1.status,
+		t1.create_time, t1.update_time, t1.invalid,t1.arrive_time arrivetime,
+		t2.no no,t2.cust_id custId,t2.amount amount,t2.down_payment
+		downPayment,t2.installment_amount installmentRate,t4.sku_name skuName,
+		t4.sku_count skuCount,t4.sku_price
+		skuPrice,t5.pics,t5.reason,t5.reason_type reasonType,t4.sku_head_thumbnail headThumbnail,t5.status cancelstatus,t5.type cancletype,t5.no cancelno
+		from t_pickup_order t1
+		left join t_order t2 on t1.order_id = t2.id
+		<!-- left JOIN t_pickup_point t3 on t1.pickup_point_id = t3.id -->
+		left join t_order_sku t4 on t2.id = t4.order_id
+		left join (
+		select id ,order_id , type, pics,status,reason ,reason_type,no  from t_order_cancellation 
+		where id in (select max(id) from t_order_cancellation 
+		group by order_id)
+		) t5 on t2.id = t5.order_id
+		where  t1.pickup_point_id=#{pickupPointId,jdbcType=VARCHAR}
+		and DATEDIFF(now(),t1.create_time) &lt;90
+		<!-- <foreach item="item" index="index" collection="pickupPointId"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach> -->
+		<if test="status !=null and status!='' and status!=10 and status!=11 and status!=0">
+			and t1.status =#{status,jdbcType=INTEGER}
+		</if>
+		
+		<if test="(status ==null or status=='') and type!=2">
+			and t1.status!=0
+		</if>
+		
+		<!-- stats==10 代表已完成 商家端：3,6   7 (已 取消) 8 已退款 -->
+		<if test="status==10">
+			and t1.status in(3,5,6,7,8)
+		</if>
+		<!-- stats==11 代表退货全部 退货端：4,5,6 -->
+		<if test="status==11">
+			and t1.status in(4,5,6,7,8)
+		</if>
+		
+
+		<if test="code!=null and code!=''">
+		<if test="type==2">
+		 and t1.status in(4,5,6,7,8)
+		</if>
+			and (t1.code = #{code,jdbcType=VARCHAR}
+			or t2.no like CONCAT(CONCAT('%',#{code,jdbcType=VARCHAR}),'%'))
+
+		</if>
+
+		order by t1.create_time desc
+		<if test="offset != null and limit != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+	<select id="selectAllPickupOrder" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(*)
+		from t_pickup_order t1
+		left join t_order t2 on t1.order_id = t2.id
+		left JOIN t_pickup_point t3 on t1.pickup_point_id = t3.id
+		left join t_order_sku t4 on t2.id = t4.order_id
+		left join (
+		select id ,order_id , type, pics,status,reason ,reason_type,no  from t_order_cancellation 
+		where id in (select max(id) from t_order_cancellation 
+		group by order_id)
+		) t5 on t2.id = t5.order_id
+		where t1.pickup_point_id=#{pickupPointId,jdbcType=VARCHAR}
+		
+		<!-- t3.id in
+		<foreach item="item" index="index" collection="pickupPointId"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach> -->
+		<!-- <if test="type==2">
+			and t1.status =6
+		</if> -->
+		<if test="status !=null and status!='' and status!=10 and status!=11 and status!=0">
+			and t1.status =#{status,jdbcType=INTEGER}
+		</if>
+		
+		<if test="(status ==null or status=='') and type!=2">
+			and t1.status!=0
+		</if>
+		
+		<!-- stats==10 代表已完成 商家端：3,6 7 (已 取消) 8 已退款 -->
+		<if test="status==10">
+			and t1.status in(3,6,7,8)
+		</if>
+		<!-- stats==11 代表退货全部 退货端：4,5,6 -->
+		<if test="status==11">
+			and t1.status in(4,5,6,7,8)
+		</if>
+		
+		<if test="code!=null and code!=''">
+		<if test="type==2">
+		 and t1.status in(4,5,6,7,8)
+		</if>
+			and (t1.code = #{code,jdbcType=VARCHAR}
+			or t2.no like CONCAT(CONCAT('%',#{code,jdbcType=VARCHAR}),'%'))
+		</if>
+		
+		order by t1.create_time desc
+	</select>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_pickup_order
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.PickupOrder">
+		insert into t_pickup_order (id, order_id, pickup_point_id,
+		code, status, create_time,
+		update_time, invalid)
+		values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER},
+		#{pickupPointId,jdbcType=INTEGER},
+		#{code,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{invalid,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.PickupOrder">
+		insert into t_pickup_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="pickupPointId != null">
+				pickup_point_id,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="pickupPointId != null">
+				#{pickupPointId,jdbcType=INTEGER},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.PickupOrder">
+		update t_pickup_order
+		<set>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=INTEGER},
+			</if>
+			<if test="pickupPointId != null">
+				pickup_point_id = #{pickupPointId,jdbcType=INTEGER},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=INTEGER},
+			</if>
+			<if test="arrivetime != null">
+				arrive_time = #{arrivetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="taketime != null">
+				take_time = #{taketime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.PickupOrder">
+		update t_pickup_order
+		set order_id = #{orderId,jdbcType=INTEGER},
+		pickup_point_id = #{pickupPointId,jdbcType=INTEGER},
+		code = #{code,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		invalid = #{invalid,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!--未删除 -->
+	<select id="selectCodeNum" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(code) from t_pickup_order where code =
+		#{code,jdbcType=VARCHAR}
+		and invalid = 0 and status in (1,2)
+	</select>
+	<!-- 根据订单id 查询自提单 -->
+	<select id="selectByOrderId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_pickup_order
+		where order_id = #{orderId,jdbcType=INTEGER} 
+	</select>
+
+	<select id="getListPickupOrderByCustId" resultMap="BaseResultMap">
+		select t1.id, t1.order_id, t1.pickup_point_id, t1.code, t1.status,
+		t1.create_time
+		from t_pickup_order t1 left join t_order t2 on t1.order_id = t2.id
+		where t2.cust_id = #{custId}
+		order by t1.create_time desc
+		limit 0,1
+	</select>
+</mapper>

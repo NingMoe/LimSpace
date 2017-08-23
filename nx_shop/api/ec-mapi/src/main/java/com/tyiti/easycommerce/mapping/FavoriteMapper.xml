@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.FavoriteDao">
+
+	<select id="getAll" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from (
+			select cast(@rownum:=@rownum+1 as decimal(10,0)) AS rownum,a.name,a.erpcode,a.count 
+			from (
+				select s.name , s.id as erpcode,f.count 
+				from t_sku s 
+				join (select sku_id,count(sku_id) as count 
+						from t_favorite 
+						where status = 1 and   
+				<choose>  
+				    <when test="type=='thismonth'">
+		                DATE_FORMAT(ifnull(update_time,create_time), '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+		            </when>          
+		            <when test="type=='thisweek'">     
+		            	YEARWEEK(date_format(ifnull(update_time,create_time),'%Y-%m-%d'),1) = YEARWEEK(now())     
+		            </when>  
+		            <when test="type=='today'">     
+		            	to_days(ifnull(update_time,create_time)) =to_days(now())    
+		            </when>  
+		            <when test="type=='timerange'">     
+		            	ifnull(update_time,create_time) between #{startTime} and #{endTime} 
+		            </when>    
+		            <otherwise>     
+		            	1=1
+		            </otherwise>
+		        </choose>  
+						group by sku_id 
+					) f on s.id = f.sku_id 
+				order by f.count desc ,s.id
+			) a 
+			join (SELECT @rownum:=0) temp
+		) a
+		<if test="limit != null and offset != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="getCount"  parameterType="java.util.Map" resultType="java.lang.Long">
+		select count(distinct s.id) as count
+		from t_sku s
+		join (select sku_id,count(sku_id) as count
+				from t_favorite 
+				where status = 1 and
+		<choose>  
+		    <when test="type=='thismonth'">
+                DATE_FORMAT(ifnull(update_time,create_time), '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+            </when>          
+            <when test="type=='thisweek'">     
+            	YEARWEEK(date_format(ifnull(update_time,create_time),'%Y-%m-%d'),1) = YEARWEEK(now())     
+            </when>  
+            <when test="type=='today'">     
+            	to_days(ifnull(update_time,create_time)) =to_days(now())    
+            </when>  
+            <when test="type=='timerange'">     
+            	ifnull(update_time,create_time) between #{startTime} and #{endTime} 
+            </when>    
+            <otherwise>     
+            	1=1
+            </otherwise>
+        </choose>
+				group by sku_id
+		 ) f on s.id = f.sku_id ;
+	</select>
+</mapper>

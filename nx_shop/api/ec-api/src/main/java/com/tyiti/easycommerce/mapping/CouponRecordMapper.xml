@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.CouponRecordDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.CouponRecord">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+		<result column="cust_id" property="custId" jdbcType="INTEGER" />
+		<result column="coupon_code" property="couponCode" jdbcType="VARCHAR" />
+		<result column="receive_time" property="receiveTime" jdbcType="TIMESTAMP" />
+		<result column="is_used" property="isUsed" jdbcType="INTEGER" />
+		<result column="use_time" property="useTime" jdbcType="TIMESTAMP" />
+		<result column="expire_time" property="expireTime" jdbcType="TIMESTAMP" />
+		<result column="is_due" property="isDue" jdbcType="INTEGER" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, coupon_id, cust_id,coupon_code, receive_time, is_used, use_time,
+		expire_time,
+		is_due, invalid, create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_coupon_record
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_coupon_record
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.CouponRecord">
+		insert into t_coupon_record (id, coupon_id, cust_id,
+		coupon_code, receive_time,
+		is_used, use_time, expire_time,
+		is_due, invalid, create_time,
+		update_time)
+		values (#{id,jdbcType=INTEGER}, #{couponId,jdbcType=INTEGER},
+		#{custId,jdbcType=INTEGER},
+		#{couponCode,jdbcType=VARCHAR}, #{receiveTime,jdbcType=TIMESTAMP},
+		#{isUsed,jdbcType=INTEGER}, #{useTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP},
+		#{isDue,jdbcType=INTEGER}, #{invalid,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.CouponRecord">
+		insert into t_coupon_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="couponId != null">
+				coupon_id,
+			</if>
+			<if test="custId != null">
+				cust_id,
+			</if>
+
+			<if test="couponCode != null">
+				coupon_code,
+			</if>
+			<if test="receiveTime != null">
+				receive_time,
+			</if>
+			<if test="isUsed != null">
+				is_used,
+			</if>
+			<if test="useTime != null">
+				use_time,
+			</if>
+			<if test="expireTime != null">
+				expire_time,
+			</if>
+			<if test="isDue != null">
+				is_due,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="couponId != null">
+				#{couponId,jdbcType=INTEGER},
+			</if>
+			<if test="custId != null">
+				#{custId,jdbcType=INTEGER},
+			</if>
+			<if test="couponCode != null">
+				#{couponCode,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveTime != null">
+				#{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isUsed != null">
+				#{isUsed,jdbcType=INTEGER},
+			</if>
+			<if test="useTime != null">
+				#{useTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expireTime != null">
+				#{expireTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDue != null">
+				#{isDue,jdbcType=INTEGER},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.CouponRecord">
+		update t_coupon_record
+		<set>
+			<if test="couponId != null">
+				coupon_id = #{couponId,jdbcType=INTEGER},
+			</if>
+			<if test="custId != null">
+				cust_id = #{custId,jdbcType=INTEGER},
+			</if>
+			<if test="couponCode != null">
+				coupon_code = #{couponCode,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveTime != null">
+				receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isUsed != null">
+				is_used = #{isUsed,jdbcType=INTEGER},
+			</if>
+			<if test="useTime != null">
+				use_time = #{useTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expireTime != null">
+				expire_time = #{expireTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDue != null">
+				is_due = #{isDue,jdbcType=INTEGER},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.CouponRecord">
+		update t_coupon_record
+		set coupon_id = #{couponId,jdbcType=INTEGER},
+		cust_id = #{custId,jdbcType=INTEGER},
+		coupon_code = #{couponCode,jdbcType=VARCHAR},
+		receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+		is_used = #{isUsed,jdbcType=INTEGER},
+		use_time = #{useTime,jdbcType=TIMESTAMP},
+		expire_time = #{expireTime,jdbcType=TIMESTAMP},
+		is_due = #{isDue,jdbcType=INTEGER},
+		invalid = #{invalid,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 获取用户可用优惠券 -->
+	<select id="getByCustId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from t_coupon_record where is_used = 0 and expire_time &gt; now() and
+		is_due =0 and cust_id = #{custId,jdbcType=INTEGER}
+		order by expire_time
+	</select>
+
+	<!-- 获取我的优惠券 -->
+	<sql id="Detail_Column_List">
+		t1.id, t2.type type,t2.scope scope, t3.mobile mobile,
+		t1.coupon_code couponCode,
+		t1.receive_time receiveTime, t2.time_type
+		timeType,t2.start_time startTime,t1.expire_time expireTime
+		,t2.discount ,t2.threshold,
+		case
+		when t2.type = '1' then '优惠券'
+		when t2.type = '2' then '优惠码'
+		when t2.type = '3' then '代金券'
+		when t2.type = '4' then '代金码'
+		else
+		'异常信息' end typeText ,
+		 t2.name  scopeText ,
+		case
+		when t1.is_used = '0' then '未使用'
+		when
+		t1.is_used = '1'
+		then '已使用'
+		else
+		'异常信息' end usedText ,
+		t1.is_used
+		isUsed,t1.is_due isDue, t1.use_time useTime
+	</sql>
+	<sql id="where_columns">
+		where t1.invalid = 0 and t1.cust_id =#{custId ,jdbcType=INTEGER}
+		and TO_DAYS(NOW()) - TO_DAYS(t1.expire_time) &lt; 90
+		<if test="isUsed != null and  isUsed !=''">
+			and t1.is_used = #{isUsed ,jdbcType=INTEGER }
+		<if test="isUsed  == 1">
+			and TO_DAYS(NOW()) - TO_DAYS(t1.use_time) &lt; 90
+			</if>
+		</if>
+		<if test="isDue == 1 ">
+			and now()>t1.expire_time and is_used = 0
+		</if>
+		<if test="isDue == 0 ">
+			and t1.expire_time >now()
+		</if>
+		<if test="scope != null and  scope !=''">
+			and t2.scope = #{scope,jdbcType=INTEGER}
+		</if>
+		<if test="type != null and  type !=''">
+			and t2.type = #{type}
+		</if>
+	</sql>
+	<select id="getMyCouponRecordList" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		<include refid="Detail_Column_List" />
+		from t_coupon_record t1
+		left join t_coupon t2 on t2.id = t1.coupon_id
+		left join t_user t3 on t1.cust_id = t3.id
+		<include refid="where_columns"></include>
+		order by t1.expire_time
+		<if test="limit != null and limit != '' and offset != null and offset !=''">
+			LIMIT #{offset},#{limit}
+		</if>
+	</select>
+
+
+	<select id="getMyCouponRecordCount" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(*)
+		from t_coupon_record t1
+		left join t_coupon t2 on t1.coupon_id = t2.id
+		left join t_user t3 on
+		t1.cust_id = t3.id
+		<include refid="where_columns"></include>
+	</select>
+
+	<select id="checkIsReceived" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+		select count(*) from t_coupon_record where cust_id = #{custId,jdbcType=INTEGER } and coupon_id = #{couponId,jdbcType=INTEGER}
+	</select>
+
+	<select id="getCouponRecordByCode" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from t_coupon_record where coupon_code = #{code}
+	</select>
+	
+	<select id="getCouponDiscount" parameterType="java.lang.Integer" resultType="java.lang.Double">
+	select ifnull(sum(discount),0) discount  from t_coupon where id = (select coupon_id from t_coupon_record where id = #{id})
+	</select>
+	
+	<insert id="insertGetId" parameterType="com.tyiti.easycommerce.entity.CouponRecord"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_coupon_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="couponId != null">
+				coupon_id,
+			</if>
+			<if test="custId != null">
+				cust_id,
+			</if>
+			<if test="couponCode != null">
+				coupon_code,
+			</if>
+			<if test="receiveTime != null">
+				receive_time,
+			</if>
+			<if test="isUsed != null">
+				is_used,
+			</if>
+			<if test="useTime != null">
+				use_time,
+			</if>
+			<if test="expireTime != null">
+				expire_time,
+			</if>
+			<if test="isDue != null">
+				is_due,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="couponId != null">
+				#{couponId,jdbcType=INTEGER},
+			</if>
+			<if test="custId != null">
+				#{custId,jdbcType=INTEGER},
+			</if>
+			<if test="couponCode != null">
+				#{couponCode,jdbcType=VARCHAR},
+			</if>
+			<if test="receiveTime != null">
+				#{receiveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isUsed != null">
+				#{isUsed,jdbcType=INTEGER},
+			</if>
+			<if test="useTime != null">
+				#{useTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expireTime != null">
+				#{expireTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isDue != null">
+				#{isDue,jdbcType=INTEGER},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	
+</mapper>

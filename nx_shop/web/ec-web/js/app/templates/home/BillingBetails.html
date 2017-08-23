@@ -1,0 +1,71 @@
+<div class="pj-site-container BillingBetails billStyle">
+ <div class="head">
+    <div class="name_head">
+	  <h1><% if (data.bills.productName.length >15) { %><%=data.bills.productName.substr(0,15) %> ...<%} else { %><%=data.bills.productName%> <% } %></h1>
+	  <h2><%= data.bills.createTime%>&nbsp;&nbsp;订单号:<%= data.bills.billNo%></h2>
+	</div>
+	
+ </div>
+  <aside class="bordertop"></aside>
+<div class="parent_body" style="height:-webkit-calc(100% - 154px);overflow:auto;position:fixed;top:100px;-webkit-overflow-scrolling:touch;background:#ebeced">
+
+<div  class="wei">
+<aside class="bor-top heng"></aside>
+  <div class="top_wei">
+        <div class="top_tit">
+		  <span>未还账单</span>
+		  <a href="javascript:void(0)">账单日</a>
+		</div>
+		<aside class="bor-bottom heng"></aside>
+  </div>
+  <ul class="ul_bottom">
+  <% _.each(data.bills.sRefundBillList, function(item) { %>
+     <li class="li_size one_size">
+	  	<div class="checkboxFive">
+	  		<input type="checkbox" value="1" id="checkboxFiveInput1" data-id="<%= item.billId%>" data-price="<%= item.userLimit%>" class="checkboxFiveInput" name=""/>
+		  	<label ></label>
+	  	</div>
+	    <span>[第<%= item.currentStage%>期]<%= item.userLimit%>元</span>
+	    <% if(item.overdueFine){ %>
+	      <img src="./img/yuqi.png" />
+	    <% } %>
+	    <a href="javascript:void(0)"><%= item.latestRepay%></a>
+	 </li>
+  <% }) %>
+  </ul>
+<aside class="bor-bottom heng"></aside>
+</div>
+<div  class="wei">
+<aside class="bor-top heng"></aside>
+  <div class="top_wei">
+         <div class="top_tit codede">
+		 <span>已还账单</span><a href="javascript:void(0)">还款日</a>
+		 </div>
+		<aside class="bor-bottom heng"></aside>
+  </div>
+  <ul class="ul_bottom">
+  <% _.each(data.bills.aRefundBillList, function(item) { %>
+     <li class="li_size"> 
+	   <img class="icon" src="./img/iconfont-guanbi(1)@2x.png"/>
+	   <span>[第<%= item.currentStage%>期]<%= item.userLimit%>元</span>
+	   <a href="javascript:void(0)"><%= item.latestRepay%></a>
+	 </li>
+  <% }) %>
+  </ul>
+<aside class="bor-bottom heng"></aside>
+</div>
+
+
+
+   <div style="width:100%;height:0.7rem"></div><!--此模块占位-->		 
+</div>
+  <aside class="border1px"></aside>
+   <div class="footer">
+       	<div class="checkboxFive">
+	  		<input type="checkbox"  value="1" class="checkboxFiveInput" name="" />
+		  	<label></label>
+	  	</div>
+		<div class="Price">总计:￥<span>0</span></div>
+       <button class="disb" disabled="disabled" >立即还款</button>
+   </div>
+</div>

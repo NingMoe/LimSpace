@@ -1,0 +1,33 @@
+<div class="pj-site-container idcardcredit sign" style="width: 100%;height:100%;background: #fff!important">
+	<img src="../img/tyfq-idcard@2x.png" alt="" />
+	<p>身份证</p>
+	<div class="information">
+		<% if(data){ %>
+		  <% if(data.name){ %>
+		  	<% if(data.verifyState == 'A1' || data.verifyState == 'A2'){ %>
+		  		<p class="realname"><input placeholder="请输入姓名" name="realName" value="<%=data.name%>" optional></p>
+		  	<% }else if(data.verifyState == 'A3' || data.verifyState == 'A4'){%>
+		  		<p class="realname"><input placeholder="请输入姓名" name="realName" value="<%=data.name%>" optional disabled="disabled"></p>
+		  	<% } %>
+		  <% } else {%>
+	      	<p class="realname"><input placeholder="请输入姓名" name="realName" value="" optional></p>
+	      <% } %>
+	      <% if(data.cardNumber){ %>
+	      	<% if(data.verifyState == 'A1' || data.verifyState == 'A2'){ %>
+	      		<p class="idcard"><input placeholder="请输入身份证号" name="idCard" value="<%= data.cardNumber%>" optional></p>
+	      	<% }else if(data.verifyState == 'A3' || data.verifyState == 'A4'){%>
+	      		<p class="idcard"><input placeholder="请输入身份证号" name="idCard" value="<%= data.cardNumber%>" optional disabled="disabled"></p>
+	      	<% } %>
+	      <% } else {%>
+    	  	<p class="idcard"><input placeholder="请输入身份证号" name="idCard" value="" optional></p>
+    	  <% } %>
+    	<% } else {%>
+    		<p class="realname"><input placeholder="请输入姓名" name="realName" value="" optional></p>
+    		<p class="idcard"><input placeholder="请输入身份证号" name="idCard" value="" optional></p>
+    	<% } %> 
+    	  <p class="prompt"></p>
+    	  <p><button class="submint" data-state="<%=data.verifyState %>" data-usertype="<%=data.userType %>">下一步</button></p>
+    </div>
+    <div class="z_box100 hidden"><img class="loading" src="../img/loading_circle_40b82ef.gif" alt=""></div>
+    
+</div>

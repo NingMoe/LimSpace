@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<report name="抽奖记录" fileName="抽奖记录列表">
+	<report-header>
+		<column name="活动名称" mapping="promotionName" />
+		<column name="中奖用户" mapping="mobile" />
+		<column name="奖项" mapping="prizeName" />
+		<column name="姓名" mapping="realName" />
+		<column name="地址" mapping="address" />
+		<column name="是否领取" mapping="isReceive" />
+		<column name="抽奖时间" mapping="createTime" datatype="date" format="yyyy-MM-dd HH:mm:ss"  />
+		<column name="状态" mapping="codeText" />
+		
+	</report-header>
+	<dataSource serviceClassId="promotionService" serviceMethod="selectPromotionRaffleList" />
+</report>

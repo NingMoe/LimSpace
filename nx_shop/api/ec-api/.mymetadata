@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="easycommerce-api-mybatis"
+  id="myeclipse.1461636823523"
+  context-root="/api"
+  j2ee-spec="1.7"
+  archive="easycommerce-api-mybatis.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

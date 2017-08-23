@@ -1,0 +1,68 @@
+<form class="form-inline">
+  <div class="form-group">
+    <label>用户姓名</label>
+    <input type="text" class="form-control" placeholder="用户姓名" ng-model="searchInput.realName">
+  </div>
+  <div class="form-group">
+    <label>手机号码</label>
+    <input type="text" class="form-control" placeholder="手机号码" ng-model="searchInput.mobile">
+  </div>
+  <div class="form-group">
+    <label>留言状态</label>
+	<select class="form-control" ng-model="searchInput.status">
+   		<option value="">-- 请选择 --</option>
+			<option value="2">已回复</option>
+			<option value="1">已提交</option>
+	</select>
+  </div>
+  <div class="form-group">
+    <label>留言时间</label>
+    <input type="text" class="form-control" placeholder="留言时间" ng-model="searchInput.leaveTime">
+  </div>
+  <div class="form-group">
+    <label>回复时间</label>
+    <input type="text" class="form-control" placeholder="回复时间" ng-model="searchInput.replyTime">
+  </div>
+  <div class="form-group"><button type="button" class="btn btn-primary" ng-click="updateLocation()">搜索</button></div>
+</form><br />
+<table class="table">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>用户姓名</th>
+      <th>手机号码</th>
+      <th style="width: 80px;">留言内容</th>
+      <th>留言状态</th>
+      <th>留言时间</th>
+      <th>留言ip</th>
+      <th>管理员</th>
+      <th>回复时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="leave in leaveMessages">      
+      <td><input type="checkbox" ng-model="leave.checked"></td>
+      <td>{{leave.real_name}}</td>
+      <td>{{leave.mobile}}</td>
+      <td>{{leave.content}}</td>
+      <td>{{leave.statusText}}</td>
+      <td>{{leave.leave_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{leave.leave_ip}}</td>
+      <td>{{leave.manager_id}}</td>
+      <td>{{leave.reply_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>
+      	<a ng-if="leave.status==1" ng-click="replyMsg(leave.id)" class="btn btn-primary btn-success">回复</a>
+      	<a ng-if="leave.status==2" ng-click="batchDelCouponInfos()" class="btn btn-primary btn-success" disabled="true">已回复</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="pagination-wrapper">
+  <ul class="pagination" ng-if="pagination">
+    <li ng-class="{disabled: !pagination.hasPrev}"><a ng-if="!pagination.hasPrev">&laquo;</a><a ng-if="pagination.hasPrev" ng-click="navigateToPage(pagination.page - 1)">&laquo;</a></li>
+    <li ng-class="{active: page.active}" ng-repeat="page in pagination.pages"><a ng-if="page.active">{{page.num}}</a><a ng-if="!page.active" ng-click="navigateToPage(page.num)">{{page.num}}</a></li>
+    <li ng-class="{disabled: !pagination.hasNext}"><a ng-if="!pagination.hasNext">&raquo;</a><a ng-if="pagination.hasNext" ng-click="navigateToPage(pagination.page + 1)">&raquo;</a></li>
+  </ul>
+</div>
+

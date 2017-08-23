@@ -1,0 +1,50 @@
+<div class="pj-site-container MyBill billStyle">
+<div class="parent_body"style="height:-webkit-calc(100% - 110px );overflow:auto;position:fixed;-webkit-overflow-scrolling:touch;background:#ebeced">
+<% if(data.bills.billList.length == 0) {%>
+  <div class="nobill">
+  	<img src="./img/wu@2x.png">
+  	<p>您还有很多额度可以购买商品</p>
+  	<a href="#home">立即逛逛</a>
+  </div>
+<% } else { %> 
+  <% _.each(data.bills.billList,function(item){%>
+  <ul>
+	<li class="divborder1px"></li>
+	<li class="liTop">
+		<div class="tit">
+		   <span>￥<i><%= item.userLimit %></i></span>
+		   <a href="javascript:void(0)">第<%= item.currentStage %>期</a>
+		</div>
+	</li>
+	<li class="divborder1px" style="width:85%;float:right;"></li>
+	<li class="liContent">
+	  	<div class="checkboxFive">
+	  		<input type="checkbox" data-id="<%= item.billId %>"  data-userLimit="<%= item.userLimit %>" data-billStatus="<%= item.billStatus %>" value="1"  class="checkboxFiveInput" name="" />
+		  	<label></label>
+	  	</div>
+		<div class="tit" onclick="window.location='?#MyBill/<%= item.billId%>'">
+		   <span>[全<%= item.stagePlan %>期] <%= item.productName %></span>
+		  <img class="sanj img_right" src="./img/jiantou@2x.png">
+		</div>
+	</li>
+	<li class="divborder1px" style="width:100%;float:right;"></li>
+  </ul>
+  <% }) %>
+<% } %>
+</div>
+  <aside class="border1px"></aside>
+   <div class="footer">
+	  	<div class="checkboxFive">
+	  		<input type="checkbox" value="1"  class="checkboxFiveInput" name="" />
+		  	<label></label>
+	  	</div>
+		<div class="Price">总计:￥<span>0</span></div>
+       <button class="disb" disabled="disabled" >立即还款</button>
+   </div>
+</div>
+<div class="pj-action-add">
+	<a href="#home" class="home">首页</a>
+	<a href="#category" class="category">分类</a>
+	<a href="#MyBill" class="credit active">还款</a>
+	<a href="#user" class="user">我的</a>
+</div>

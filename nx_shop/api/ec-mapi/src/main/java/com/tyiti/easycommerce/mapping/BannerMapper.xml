@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.BannerDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Banner" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="invalid" property="invalid" jdbcType="INTEGER" />
+    <result column="ad_id" property="adId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pic_url, url, rank, title, create_time, update_time, invalid, ad_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_banner
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_banner
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.Banner" >
+    insert into t_banner ( pic_url, url, 
+      rank, title, create_time, 
+      update_time, invalid, ad_id
+      )
+    values ( #{picUrl,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{rank,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{invalid,jdbcType=INTEGER}, #{adId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.Banner" >
+    insert into t_banner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="adId != null" >
+        ad_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="adId != null" >
+        #{adId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.Banner" >
+    update t_banner
+    <set >
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="adId != null" >
+        ad_id = #{adId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Banner" >
+    update t_banner
+    set pic_url = #{picUrl,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      invalid = #{invalid,jdbcType=INTEGER},
+      ad_id = #{adId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+	<select id="selectBannerList" parameterType="java.lang.Integer" resultType="java.util.Map">
+		select t1.id , t1.title ,t1.pic_url picUrl,t1.url ,t1.rank ,t1.create_time createTime,t2.name advertName
+		from t_banner t1 left join t_advert t2 on t1.ad_id = t2.id
+		where t1.ad_id = #{adId,jdbcType=INTEGER} and t1.invalid = 0
+		order by t1.rank asc
+	</select>  
+
+	<update id="updateSortOtherUp" parameterType="com.tyiti.easycommerce.entity.Banner">
+		update t_banner 
+		set rank = rank+1
+		where rank &gt;= #{toRank,jdbcType=INTEGER} and rank &lt; #{rank,jdbcType=INTEGER} and ad_id = #{adId,jdbcType=INTEGER} and invalid = 0
+	</update>
+	<update id="updateSortOtherDown" parameterType="com.tyiti.easycommerce.entity.Banner">
+		update t_banner 
+		set rank = rank-1
+		where rank &lt;= #{toRank,jdbcType=INTEGER} and rank &gt; #{rank,jdbcType=INTEGER} and ad_id = #{adId,jdbcType=INTEGER} and invalid = 0
+	</update>
+	<update id="updateSortOwn" parameterType="com.tyiti.easycommerce.entity.Banner">
+		update t_banner 
+		set rank = #{toRank,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="delBanner" parameterType="java.lang.Integer">
+		update t_banner 
+		set invalid = 1
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="maxRank" parameterType="com.tyiti.easycommerce.entity.Banner" resultType="java.lang.Integer">
+		select ifnull(max(rank),0) rank
+		from t_banner 
+		where ad_id = #{adId,jdbcType=INTEGER} and invalid = 0
+	</select>
+</mapper>

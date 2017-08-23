@@ -1,0 +1,77 @@
+<div class="header">
+   <img class="banner" src="./img/banner1.png"/> 
+</div>
+ 
+ <div class="pj-site-container spike">
+   <div class="nav">
+     <% _.each(rushbuy.data, function(item) { %>
+
+       <a data-id="<%= item.id%>" data-start="<%= item.startTime %>" data-end="<%= item.endTime %>" data-currentTime="<%= rushbuy.currentTime %>" href="javascript:void(0)">
+
+          <h3> <%= item.startFormat %></h3>
+
+          <% if(rushbuy.currentTime < item.startTime) { %> 
+          <h4>即将开始</h4>
+          <%} else if(item.endTime > rushbuy.currentTime && rushbuy.currentTime >= item.startTime ) {%>
+          <h4>秒杀进行中</h4>
+          <%} else if(rushbuy.currentTime >= item.endTime) {%>
+          <h4>已开秒</h4>
+          <% } %>
+
+          <i></i>
+       </a>
+     <% }) %>
+   </div>
+   <ul class="shopp">
+     <% _.each(rushbuysku.data, function(item) { %>
+       <li>
+         <dl>
+           <dt><img src="<%= item.sku.headThumbnail %>"></dt>
+           <dd>
+              <p><%= item.skuName %></p>
+              <div class="price">
+                <div><b><i>￥</i><%=item.price %></b><span>￥<%=item.originalPrice %></span></div>
+                
+                <% if(rushbuysku.currentTime < rushbuysku.startTime) {%>
+                <a href="javascript:void(0)">耐心等待</a>
+                <% } %>
+
+                <% if(rushbuysku.endTime > rushbuysku.currentTime && rushbuysku.currentTime >= rushbuysku.startTime ) {%>
+                  <% if(item.leftSku - item.soldSku  > 0 ) {%>
+                  <a href="#product/<%= item.sku.id %>">秒杀</a>
+                  <% } else {%>
+                  <a href="javascript:void(0)" class="state">已结束</a>
+                  <% } %>
+                <% } %>
+
+                <% if(rushbuysku.currentTime >= rushbuysku.endTime) {%>
+                <a href="javascript:void(0)" class="state">已结束</a>
+                <% } %>
+
+              </div>
+              <div class="stock">
+
+              <% if(rushbuysku.currentTime < rushbuysku.startTime) {%>
+                <i>库存<%=item.leftSku%>个</i>
+                <progress max="<%= item.leftSku %>" value="<%= item.soldSku %>"></progress>
+              <% } %>
+
+              <% if(rushbuysku.endTime > rushbuysku.currentTime && rushbuysku.currentTime >= rushbuysku.startTime ) {%>
+                <i>已售出:<%= item.soldSku %></i>
+                <progress max="<%= item.leftSku %>" value="<%= item.soldSku %>"></progress> 
+                <span>剩余库存:<%= item.leftSku - item.soldSku %>个</span>  
+              <% } %>
+
+              <% if(rushbuysku.currentTime >= rushbuysku.endTime) {%>
+                <i>全部售罄</i>
+                <progress max="<%= item.leftSku %>" value="<%= item.soldSku %>"></progress> 
+                <span>剩余库存:<%= item.leftSku - item.soldSku %>个</span>            
+              <% } %>
+
+              </div>
+            </dd>
+         </dl>
+        </li>
+     <% }) %>
+   </ul>	
+ </div>

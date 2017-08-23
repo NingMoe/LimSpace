@@ -1,0 +1,163 @@
+<style>
+	/*#system-container {
+	  margin-left: 250px;
+	}*/
+	
+	label {
+		width: 100px;
+		text-align: right;
+		padding-right: 10px;
+	}
+	
+	.form-control {
+		display: inline-block;
+		width: auto;
+	}
+	
+	.modal-footer {
+		text-align: center;
+	}
+	
+	.modal-body {
+		padding-top: 5px;
+	}
+	
+	.form-group {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+</style>
+<!-- {{sysuser}} -->
+<div id="system-container">
+	<button type="button" class="btn btn-default pull-right" ng-click="events.add()">添加活动</button>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th width="5%">奖项</th>
+				<th>名称</th>
+				<th>编码</th>
+				<th>中奖率</th>
+				<th>开始时间</th>
+				<th>截止时间</th>
+				<th>抽奖次数</th>
+				<th>至少中奖</th>
+				<th>至多中奖</th>
+				<th>抽奖方式</th>
+				<th>新老用户</th>
+				<th>描述</th>
+				<th>状态</th>
+				<th width="5%"> 操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in promotionList">
+				<td ><a style="color: red;" class="template" href="#/prize?promotionId={{item.id}}">编辑奖项</a></td>
+				<td>{{item.name}}</td>
+				<td>{{item.code}}</td>
+				<td>{{item.rate}}</td>
+				<td>{{item.beginTime|| '--' | date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+				<td>{{item.expireTime|| '--' | date:'yyyy-MM-dd&nbsp;HH:mm:ss'}}</td>
+				<td>{{item.times || '--'}}次</td>
+				<th>{{item.minHit || '--'}}次</th>
+				<th>{{item.maxHit || '--'}}次</th>
+				<th>{{item.type =="0" ? '按活动':'按天'}}</th>
+				<th ng-if="item.newcomer==2"> 新用户</th>
+				<th ng-if="item.newcomer==1"> 老用户</th>
+				<th ng-if="item.newcomer==3 ||item.newcomer==null||item.newcomer==''"> 所有用户</th>
+				<td>{{item.description}}</td>
+				<td>{{item.status=="1" ? '启用':'禁用'}}</td>
+				<td>
+					<a class="template" ng-click="events.enable(item)" ng-if="item.status=='0'">启用</a>
+					<a class="template" ng-click="events.enable(item)" ng-if="item.status=='1'">停用</a>
+					<a class="template" ng-click="events.modify(item)">修改</a>
+					<a class="template" ng-click="events.del(item)">删除</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center">活动维护</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="err-msg">
+					<ul ng-show="form.$submitted && form.$invalid">
+						<li ng-show="form.name.$error.required">请填写活动名称</li>
+						<li ng-show="form.code.$error.required">请填写活动编码</li>
+						<li ng-show="form.rate.$error.required">请填写中奖率</li>
+						<li ng-show="form.description.$error.required">请填写描述</li>
+						<li ng-show="form.type.$error.required">请选择抽奖方式</li>
+					</ul>
+				</div>
+
+				<form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+					<div class="form-group">
+						<label for="name">活动名称</label>
+						<input class="form-control" name="name" ng-model="promotion.name" required>
+					</div>
+					<div class="form-group">
+						<label for="code">活动编码</label>
+						<input class="form-control" name="code" ng-model="promotion.code" placeholder="本次活动请填写61" required>
+					</div>
+					<div class="form-group">
+						<label for="name">综合中奖率</label>
+						<input class="form-control" name="rate" ng-model="promotion.rate" required>%
+					</div>
+					<div class="form-group">
+						<label for="status">抽奖方式</label>
+						<input type="checkbox" name="type" ng-model="promotion.type" ng-true-value="0" checked="true">按活动抽奖
+						<input type="checkbox" name="type" ng-model="promotion.type" ng-true-value="1" checked="true">按天抽奖
+					</div>
+					<div class="form-group">
+						<label for="name">描述</label>
+						<input class="form-control" name="description" ng-model="promotion.description" required>
+					</div>
+					<div class="form-group">
+						<label for="name">活动开始时间</label> 
+						<input  class="form-control" name="beginTime" id="promotionBeginTime"   ng-model="promotion.beginTime">
+					</div>
+					<div class="form-group">
+						<label for="name">活动截止时间</label> 
+						<input  class="form-control" name="expireTime" id="promotionExpireTime"   ng-model="promotion.expireTime">
+					</div>
+					<div class="form-group">
+						<label for="name">抽奖次数</label>
+						<input class="form-control" name="times" ng-model="promotion.times">
+					</div>
+					<div class="form-group">
+						<label for="name">最少中奖次数</label>
+						<input class="form-control" name="minHit" ng-model="promotion.minHit">
+					</div>
+					<div class="form-group">
+						<label for="name">最多中奖次数</label>
+						<input class="form-control" name="maxHit" ng-model="promotion.maxHit">
+					</div>
+					<div class="form-group">
+						<label for="status">参与用户</label>
+						<input type="checkbox" name="newcomer" ng-model="promotion.newcomer" ng-true-value="1" >老用户
+						<input type="checkbox" name="newcomer" ng-model="promotion.newcomer" ng-true-value="2">新用户
+						<input type="checkbox" name="newcomer" ng-model="promotion.newcomer" ng-true-value="3">所有用户
+					</div>
+					<div class="form-group">
+						<label for="status">是否启用</label>
+						<input type="checkbox" name="status" ng-model="promotion.status" ng-false-value="0" ng-true-value="1">
+					</div>
+					<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" ng-click="events.save(form)">保存</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

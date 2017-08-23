@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.WarningItemGroupDao">
+	<resultMap id="BaseResultMap"
+		type="com.tyiti.easycommerce.entity.WarningItemGroup">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="warning_item_id" property="warningItemId"
+			jdbcType="INTEGER" />
+		<result column="warning_group_id" property="warningGroupId"
+			jdbcType="INTEGER" />
+		<result column="invalid" property="invalid" jdbcType="BIT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">id,warning_item_id,warning_group_id,invalid,create_time,update_time
+	</sql>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.tyiti.easycommerce.entity.WarningItemGroup">
+		insert into t_warning_item_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="warningItemId != null">
+				warning_item_id,
+			</if>
+			<if test="warningGroupId != null">
+				warning_group_id,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="warningItemId != null">
+				#{warningItemId,jdbcType=INTEGER},
+			</if>
+			<if test="warningGroupId != null">
+				#{warningGroupId,jdbcType=INTEGER},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

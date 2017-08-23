@@ -1,0 +1,3419 @@
+﻿$axure.loadCurrentPage({
+  "url":"限时秒杀-第三步.html",
+  "generationDate":new Date(1461319710401.09),
+  "isCanvasEnabled":false,
+  "variables":["OnLoadVariable"],
+  "page":{
+    "packageId":"c53456a0b7f745ecbf0850bba835728c",
+    "type":"Axure:Page",
+    "name":"限时秒杀-第三步",
+    "notes":{
+},
+    "style":{
+      "baseStyle":"627587b6038d43cca051c114ac41ad32",
+      "pageAlignment":"near",
+      "fill":{
+        "fillType":"solid",
+        "color":0xFFFFFFFF},
+      "image":null,
+      "imageHorizontalAlignment":"near",
+      "imageVerticalAlignment":"near",
+      "imageRepeat":"auto",
+      "favicon":null,
+      "sketchFactor":"0",
+      "colorStyle":"appliedColor",
+      "fontName":"应用字体",
+      "borderWidth":"0"},
+    "adaptiveStyles":{
+},
+    "interactionMap":{
+},
+    "diagram":{
+      "objects":[{
+          "id":"70ed1d663794447ca6d085b0b2831b4f",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "size":{
+              "width":1280,
+              "height":860}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"9d68a78e94ac47bfaed0ae814e20dace",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "size":{
+                  "width":1280,
+                  "height":860}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第三步/u0.png"}},
+{
+          "id":"3db4bbdc0dc041f3a5f81bec39b4a129",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "size":{
+              "width":210,
+              "height":860}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"498062b4196a423abadd2b865a60fda3",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "size":{
+                  "width":210,
+                  "height":860}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第三步/u2.png"}},
+{
+          "id":"95d256d1e6b74e63a7a2513f39564d51",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":0,
+              "y":90},
+            "size":{
+              "width":210,
+              "height":150}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"3ae5641ea3924e93905a5cde92edd133",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":0,
+                  "y":90},
+                "size":{
+                  "width":210,
+                  "height":150}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第一步/u4.png"}},
+{
+          "id":"28549c23078f4f038d43075c4c646d70",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"18px",
+            "fontWeight":"400",
+            "location":{
+              "x":73,
+              "y":58},
+            "size":{
+              "width":37,
+              "height":22}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"62b12535151040dbafcb1e2b3e397145",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"18px",
+                "fontWeight":"400",
+                "location":{
+                  "x":73,
+                  "y":58},
+                "size":{
+                  "width":37,
+                  "height":22}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"56b3429b5d76465b98b1659e47e56521",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"18px",
+            "fontWeight":"400",
+            "location":{
+              "x":46,
+              "y":110},
+            "size":{
+              "width":109,
+              "height":22}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"909237c68cf5432584b70613c0d88cc1",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"18px",
+                "fontWeight":"400",
+                "location":{
+                  "x":46,
+                  "y":110},
+                "size":{
+                  "width":109,
+                  "height":22}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"2bb168e6e13d4070957bb1b84ad3b233",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"18px",
+            "fontWeight":"400",
+            "location":{
+              "x":64,
+              "y":142},
+            "size":{
+              "width":91,
+              "height":22}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"9fead396328a4cfdad174c516eee6596",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"18px",
+                "fontWeight":"400",
+                "location":{
+                  "x":64,
+                  "y":142},
+                "size":{
+                  "width":91,
+                  "height":22}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"2c8d6dfba4ed44d895079841ec4701d2",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":32},
+            "size":{
+              "width":970,
+              "height":38}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"30f385366f5847dfaec78cd4ee5d35e1",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":240,
+                  "y":32},
+                "size":{
+                  "width":970,
+                  "height":38}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第一步/u12.png"}},
+{
+          "id":"6ce0f994b6c041ec8a7364b1b0dc5401",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":254,
+              "y":40},
+            "size":{
+              "width":225,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"795045eee5dd40a7941bff3b7454f30e",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":254,
+                  "y":40},
+                "size":{
+                  "width":225,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"8632de113ed543a6b433656bf59b78f9",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":894,
+              "y":42},
+            "size":{
+              "width":266,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"365eaede3a74477c93687b787b3b6303",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":894,
+                  "y":42},
+                "size":{
+                  "width":266,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"549694f18ed94b27a7162af7b0521d18",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":90},
+            "size":{
+              "width":970,
+              "height":38}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"23562e4257094f3fbec0051766437430",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":240,
+                  "y":90},
+                "size":{
+                  "width":970,
+                  "height":38}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第一步/u12.png"}},
+{
+          "id":"c7ade5e886154f099502cd8b419e654c",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":254,
+              "y":98},
+            "size":{
+              "width":122,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"28c44062a35842e08f614e21b6edce6c",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":254,
+                  "y":98},
+                "size":{
+                  "width":122,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"3cc16b26f4ce4c4c94966e3ea8a5cb93",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":149},
+            "size":{
+              "width":970,
+              "height":38}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"618fa854b7c94880a14ac8939a237ab9",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":240,
+                  "y":149},
+                "size":{
+                  "width":970,
+                  "height":38}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第一步/u12.png"}},
+{
+          "id":"1239ea14c57f45a38b5125af9931a346",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":254,
+              "y":157},
+            "size":{
+              "width":154,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"40f056657f0c4862b9f4afaa97694d04",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":254,
+                  "y":157},
+                "size":{
+                  "width":154,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"aea1ca98a4034ada8004693992c3f0f7",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":254,
+              "y":201},
+            "size":{
+              "width":65,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"6434f9ce2c654780873d1755251e17d5",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":254,
+                  "y":201},
+                "size":{
+                  "width":65,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"a5c8be4b8fa2447a974049247ad2730b",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":370,
+              "y":201},
+            "size":{
+              "width":25,
+              "height":16}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"dc14bacf480b484a93a51d79abd5cfa3",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":370,
+                  "y":201},
+                "size":{
+                  "width":25,
+                  "height":16}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"ff9a72b708a14edc8a964563d02657e6",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":385,
+              "y":201},
+            "size":{
+              "width":81,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"9c21d49c39a241e5a07a1e0d4d4bfd1b",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":385,
+                  "y":201},
+                "size":{
+                  "width":81,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"7494c168216c48acb1a317bfa8d0e743",
+          "label":"",
+          "type":"comboBox",
+          "styleType":"comboBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":475.799987792969,
+              "y":201},
+            "size":{
+              "width":89,
+              "height":22}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"7e66f51979634628a6f690ed10f53540",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":595,
+              "y":201},
+            "size":{
+              "width":65,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"07a2747ba1364249b7859b75ec5deb27",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":595,
+                  "y":201},
+                "size":{
+                  "width":65,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"2ce970afc04e4d07b866c82508f4aef8",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":680,
+              "y":201},
+            "size":{
+              "width":90,
+              "height":22}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"22f283634f02466ea7ed403b0cd98eba",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":680,
+                  "y":201},
+                "size":{
+                  "width":90,
+                  "height":22}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第三步/u35.png"}},
+{
+          "id":"2306f96f412b49eb83bc123111f04758",
+          "label":"",
+          "type":"flowShape",
+          "styleType":"flowShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":810,
+              "y":198},
+            "size":{
+              "width":100,
+              "height":29}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"26b2de9a67a0412a8d66fcf9a39ae799",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":810,
+                  "y":198},
+                "size":{
+                  "width":100,
+                  "height":29}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第三步/u37.png"}},
+{
+          "id":"bffb4139e47a4fc7adc954fb8ffe5ca1",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":280},
+            "size":{
+              "width":1034,
+              "height":470}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"5566cb2014a54da68a6fbc066c3a209e",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":240,
+                  "y":280},
+                "size":{
+                  "width":1034,
+                  "height":470}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第三步/u39.png"}},
+{
+          "id":"b04fa002c5694bcd93395d43309cf976",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"buttonShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":280},
+            "size":{
+              "width":1034,
+              "height":38}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"8fecf01617294630a88d368fd787e080",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":240,
+                  "y":280},
+                "size":{
+                  "width":1034,
+                  "height":38}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第三步/u41.png"}},
+{
+          "id":"af6abeca11e644d8a41345954d6c90ef",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":286,
+              "y":290},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"552b5fbfa1c24b38b0928143ce89dbe5",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":286,
+                  "y":290},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"2cbe5100a7cc4c15b34b7342627e8e9b",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":460,
+              "y":290},
+            "size":{
+              "width":65,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"fdeb88e28ef04664a9d1a056812e1987",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":460,
+                  "y":290},
+                "size":{
+                  "width":65,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"b7018ca2a376428dbcaf891ea3b55d43",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":680,
+              "y":290},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"5d8ebc65ae31449e9be90df9421c41d8",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":680,
+                  "y":290},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"36ae626b853c49a196541ee2e96eace4",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":890,
+              "y":290},
+            "size":{
+              "width":49,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"6733ebb987ae414a825c608f619311c0",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":890,
+                  "y":290},
+                "size":{
+                  "width":49,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"06922803261048b3a969f906ef24af31",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":995,
+              "y":290},
+            "size":{
+              "width":81,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"f774a10da12b47e7b59e837afc6a2df0",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":995,
+                  "y":290},
+                "size":{
+                  "width":81,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"81e716619a7349e1bacace063a4bc724",
+          "label":"",
+          "type":"flowShape",
+          "styleType":"flowShape",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":581,
+              "y":760},
+            "size":{
+              "width":329,
+              "height":60}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"5bb0cce6042d434fafdda6b2a8a5096c",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "location":{
+                  "x":581,
+                  "y":760},
+                "size":{
+                  "width":329,
+                  "height":60}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"images/限时秒杀-第三步/u53.png"}},
+{
+          "id":"7144dfdd5a624e9a9e345c6569e818dc",
+          "label":"",
+          "type":"horizontalLine",
+          "styleType":"horizontalLine",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":364},
+            "size":{
+              "width":970,
+              "height":10},
+            "borderFill":{
+              "fillType":"solid",
+              "color":0xFFE4E4E4}},
+          "adaptiveStyles":{
+},
+          "images":{
+            "start~":"resources/images/transparent.gif",
+            "end~":"resources/images/transparent.gif",
+            "line~":"images/限时秒杀-第三步/u55_line.png"}},
+{
+          "id":"8fa661e0c6be4cc594d4c608e2505d6d",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":286,
+              "y":335},
+            "size":{
+              "width":98,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"71657335880a40c2854689c0c8353786",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":286,
+                  "y":335},
+                "size":{
+                  "width":98,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"4eabbd3430984964bf0dda17671ab4bc",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":476,
+              "y":335},
+            "size":{
+              "width":37,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"b35b7e67c434477bb5372c7061402594",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":476,
+                  "y":335},
+                "size":{
+                  "width":37,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"768b04a10b5f42fab3a1d65ac8d4a11a",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":570,
+              "y":329},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"499987d7669341018f09ef6489152e58",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":703,
+              "y":329},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"fff9d4e84e7e4f74a806bd1253bcd3f0",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":677,
+              "y":329},
+            "size":{
+              "width":17,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"4350af55994f4211abb7f83c6313ff75",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":677,
+                  "y":329},
+                "size":{
+                  "width":17,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"9af29556c27546f494ccdd77517eadad",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":856,
+              "y":329},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"a01b33d8567f42d29eadaae4ae9643bb",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":985,
+              "y":329},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"01794093c45c4b89a9710b0766508b97",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":1100,
+              "y":329},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"33e567e48179466194119e899cb65eaa",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1133.5,
+              "y":290},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"278fac68e743431eb71ebd31941be9d8",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1133.5,
+                  "y":290},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"8cb6398152cb4804848ffdfa6b233e4b",
+          "label":"",
+          "type":"horizontalLine",
+          "styleType":"horizontalLine",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":239,
+              "y":419},
+            "size":{
+              "width":970,
+              "height":10},
+            "borderFill":{
+              "fillType":"solid",
+              "color":0xFFE4E4E4}},
+          "adaptiveStyles":{
+},
+          "images":{
+            "start~":"resources/images/transparent.gif",
+            "end~":"resources/images/transparent.gif",
+            "line~":"images/限时秒杀-第三步/u55_line.png"}},
+{
+          "id":"ddc502905c61421a807f6a9c6fea2826",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":285,
+              "y":390},
+            "size":{
+              "width":98,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"de001c21b793496fb879a66f20d10d08",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":285,
+                  "y":390},
+                "size":{
+                  "width":98,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"dee21a5d050f405d8a6acc02edd88a97",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":475,
+              "y":390},
+            "size":{
+              "width":37,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"07f7d24d6ec142d7a4a208245b2ca277",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":475,
+                  "y":390},
+                "size":{
+                  "width":37,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"d91a71fc2b844a6fa53f1e62e15a3058",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":569,
+              "y":384},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"921055b3b6594b529b7be0db647e172c",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":702,
+              "y":384},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"a85b75c18dad4819b80e00647c73aa84",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":676,
+              "y":384},
+            "size":{
+              "width":17,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"bdcd211a7fbf4185ad7aa42a71b2af74",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":676,
+                  "y":384},
+                "size":{
+                  "width":17,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"4cfd29c7c0404bdea80c07674598f1b2",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":855,
+              "y":384},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"382ae7b9573a4588bd28947b458d8cb6",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":984,
+              "y":384},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"6214c47ef8d14abc982581555c76b8d9",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":1099,
+              "y":384},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"4beaa2e04c1c4634903588932591853b",
+          "label":"",
+          "type":"horizontalLine",
+          "styleType":"horizontalLine",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":464},
+            "size":{
+              "width":970,
+              "height":10},
+            "borderFill":{
+              "fillType":"solid",
+              "color":0xFFE4E4E4}},
+          "adaptiveStyles":{
+},
+          "images":{
+            "start~":"resources/images/transparent.gif",
+            "end~":"resources/images/transparent.gif",
+            "line~":"images/限时秒杀-第三步/u55_line.png"}},
+{
+          "id":"604282db24dd4e479f9ded6b7e97e3ed",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":286,
+              "y":435},
+            "size":{
+              "width":98,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"e610f41542344c93b05352d1b6fe73cd",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":286,
+                  "y":435},
+                "size":{
+                  "width":98,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"0c22717519c14f4aa50957a250d7e15e",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":476,
+              "y":435},
+            "size":{
+              "width":37,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"be867689ca4a424ebafd0fe460bb2ca5",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":476,
+                  "y":435},
+                "size":{
+                  "width":37,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"cc0120b809f643c688af687dbdf0a566",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":570,
+              "y":429},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"bd4e96ef589c4c4185df4e163f1fdc09",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":703,
+              "y":429},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"7117e4ddf12446d0b2bf37d557c10088",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":677,
+              "y":429},
+            "size":{
+              "width":17,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"37bb23442e454d30abc6d7ada1981cc7",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":677,
+                  "y":429},
+                "size":{
+                  "width":17,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"ba492fa974f3468da9082a122573498d",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":856,
+              "y":429},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"0f26c82e3a3a4f14b7771564dd8c5de0",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":985,
+              "y":429},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"f9b8044919d64221adb2c0f978c7e8cc",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":1100,
+              "y":429},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"84881b63913f4d918a1b1ca4eaa4ff5f",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1227,
+              "y":329},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"c2ef938f72b046a38c0c6480e21dba40",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1227,
+                  "y":329},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"919290b04e7f4ce2a3dd484feda0b2e5",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1227,
+              "y":387},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"a2a57c4d4a864af980d1e8b9e3793835",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1227,
+                  "y":387},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"17fd973ddf484e9786f38f12628d8861",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1227,
+              "y":432},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"ae883616cdac411f88f6196d891f5b2a",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1227,
+                  "y":432},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"56554069aaf44b5eb6f9016545cf6571",
+          "label":"",
+          "type":"horizontalLine",
+          "styleType":"horizontalLine",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":509},
+            "size":{
+              "width":970,
+              "height":10},
+            "borderFill":{
+              "fillType":"solid",
+              "color":0xFFE4E4E4}},
+          "adaptiveStyles":{
+},
+          "images":{
+            "start~":"resources/images/transparent.gif",
+            "end~":"resources/images/transparent.gif",
+            "line~":"images/限时秒杀-第三步/u55_line.png"}},
+{
+          "id":"49576b7ff138426688195a037ac918c1",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":286,
+              "y":480},
+            "size":{
+              "width":98,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"c10cdf0c6f614d979aac61c65d1c93cd",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":286,
+                  "y":480},
+                "size":{
+                  "width":98,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"15fba38938dd497eaeeac43d70f49f66",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":476,
+              "y":480},
+            "size":{
+              "width":37,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"717c176883244a93a8a3cbe360922e47",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":476,
+                  "y":480},
+                "size":{
+                  "width":37,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"eff4aad700cf4d10a3d7162b59202c47",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":570,
+              "y":474},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"2853e3878eb9455e9b98cd2e9d208903",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":703,
+              "y":474},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"f7037b574a97423d805ed16eae584749",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":677,
+              "y":474},
+            "size":{
+              "width":17,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"040057933fbb475984465fa59a89b4c4",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":677,
+                  "y":474},
+                "size":{
+                  "width":17,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"702d45a7fd47401caa0e954476907352",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":856,
+              "y":474},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"553e458bebb1409a9d5e1210308649aa",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":985,
+              "y":474},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"924c53dd4bd04ef79f30f415be2ed4bb",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":1100,
+              "y":474},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"16d4208bb88a447eb2f12626f5f0b440",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1227,
+              "y":477},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"4eb22e92616d427b99e1f4aa92ad605d",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1227,
+                  "y":477},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"d6e46a5bd8ba45a69dcc6fb91a4b0686",
+          "label":"",
+          "type":"horizontalLine",
+          "styleType":"horizontalLine",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":556},
+            "size":{
+              "width":970,
+              "height":10},
+            "borderFill":{
+              "fillType":"solid",
+              "color":0xFFE4E4E4}},
+          "adaptiveStyles":{
+},
+          "images":{
+            "start~":"resources/images/transparent.gif",
+            "end~":"resources/images/transparent.gif",
+            "line~":"images/限时秒杀-第三步/u55_line.png"}},
+{
+          "id":"3f5bd18744af47dcb9f7c8bdc002c173",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":286,
+              "y":527},
+            "size":{
+              "width":98,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"4ea113327dbc485f8bb3f5243bf9e302",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":286,
+                  "y":527},
+                "size":{
+                  "width":98,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"95db1b2176884247a8b42391922d1789",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":476,
+              "y":527},
+            "size":{
+              "width":37,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"191729f8e30740a78dc54a8192a05f1f",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":476,
+                  "y":527},
+                "size":{
+                  "width":37,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"4d61754de1224d3bb60551be181b7c79",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":570,
+              "y":521},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"e773106a07bc4c52930686a87363d407",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":703,
+              "y":521},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"08b14bffb7c44e3b96439e99bb2d6768",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":677,
+              "y":521},
+            "size":{
+              "width":17,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"c874faf83fcb4e74bf6dee5c3688981c",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":677,
+                  "y":521},
+                "size":{
+                  "width":17,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"c7d54dfb8e3e484c8a865e89844cc3ac",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":856,
+              "y":521},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"a6f4e8440ebd42ed95d20566322f4417",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":985,
+              "y":521},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"0cad407a54444d688b6370efd7a0858b",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":1100,
+              "y":521},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"da6f71cd543b4e289f2e7a5dd1cfce9d",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1227,
+              "y":524},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"e9987888bada4c5fb5f96a5b216a7e36",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1227,
+                  "y":524},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"5c1bf5e88cc34039a0477644bb0569b9",
+          "label":"",
+          "type":"horizontalLine",
+          "styleType":"horizontalLine",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":606},
+            "size":{
+              "width":970,
+              "height":10},
+            "borderFill":{
+              "fillType":"solid",
+              "color":0xFFE4E4E4}},
+          "adaptiveStyles":{
+},
+          "images":{
+            "start~":"resources/images/transparent.gif",
+            "end~":"resources/images/transparent.gif",
+            "line~":"images/限时秒杀-第三步/u55_line.png"}},
+{
+          "id":"b106f02997d946988851861a977d58a5",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":286,
+              "y":577},
+            "size":{
+              "width":98,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"d1a3a52981834e7594e3dc649789a6e4",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":286,
+                  "y":577},
+                "size":{
+                  "width":98,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"82f54db115984fe9ae5b677a1c647ad3",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":476,
+              "y":577},
+            "size":{
+              "width":37,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"bc9621614a0d4feeb4b7edcb56c5ac25",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":476,
+                  "y":577},
+                "size":{
+                  "width":37,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"fa277f4e879d49f388b711c26e060611",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":570,
+              "y":571},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"3516f17e09914826bef4ef63144bbbf2",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":703,
+              "y":571},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"2c9e70a799f84be799fe494aa9d23d50",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":677,
+              "y":571},
+            "size":{
+              "width":17,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"74455cbbed4645aa8e74f9286733c19d",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":677,
+                  "y":571},
+                "size":{
+                  "width":17,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"9f14682d940b4cba94f24678571a1640",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":856,
+              "y":571},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"7f06a85d5a494252ad7233bfa3d89899",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":985,
+              "y":571},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"8b15fb13a06f4f03a4447eebe6f27e4e",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":1100,
+              "y":571},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"06c85d7b2a0b461e812e383fe3c603ab",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1227,
+              "y":574},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"d887560fed5e434588b7a8592cfcc5e2",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1227,
+                  "y":574},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"d43d8a98b9a044f88e20c0b39eccc2e9",
+          "label":"",
+          "type":"horizontalLine",
+          "styleType":"horizontalLine",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":644},
+            "size":{
+              "width":970,
+              "height":10},
+            "borderFill":{
+              "fillType":"solid",
+              "color":0xFFE4E4E4}},
+          "adaptiveStyles":{
+},
+          "images":{
+            "start~":"resources/images/transparent.gif",
+            "end~":"resources/images/transparent.gif",
+            "line~":"images/限时秒杀-第三步/u55_line.png"}},
+{
+          "id":"2305001f7d0b4fe4bb5bcda6120c516e",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":286,
+              "y":615},
+            "size":{
+              "width":98,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"4bf2bfad98594505920af58b79b1dbb9",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":286,
+                  "y":615},
+                "size":{
+                  "width":98,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"d730c61ecf82438682f1892618f17b54",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":476,
+              "y":615},
+            "size":{
+              "width":37,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"5ae2c1afd5b7404692487b5180b47fa0",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":476,
+                  "y":615},
+                "size":{
+                  "width":37,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"7984908b3f8441cf89309ff3d7346ad7",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":570,
+              "y":609},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"0c23af1f502a4694a6423fe195c54184",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":703,
+              "y":609},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"d026a14213484ba1b38d5f4f94d8962d",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":677,
+              "y":609},
+            "size":{
+              "width":17,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"c98085848a444c88a012a92a2c79bc4a",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":677,
+                  "y":609},
+                "size":{
+                  "width":17,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"95dbe2daf49d47cba7f3a5ee4ddcba0d",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":856,
+              "y":609},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"803ba0521387469e89a109209c7c15f2",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":985,
+              "y":609},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"4eb9a7e8d62f4b9c80349b9310d8d9ff",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":1100,
+              "y":609},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"55fecd7902fd46229c05be687b5ed8c4",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1227,
+              "y":612},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"1567e582e0f1411ea6aa665758acc5e4",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1227,
+                  "y":612},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"97ca3e42cc8b460db8255d4142c388ad",
+          "label":"",
+          "type":"horizontalLine",
+          "styleType":"horizontalLine",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":240,
+              "y":694},
+            "size":{
+              "width":970,
+              "height":10},
+            "borderFill":{
+              "fillType":"solid",
+              "color":0xFFE4E4E4}},
+          "adaptiveStyles":{
+},
+          "images":{
+            "start~":"resources/images/transparent.gif",
+            "end~":"resources/images/transparent.gif",
+            "line~":"images/限时秒杀-第三步/u55_line.png"}},
+{
+          "id":"9070c27b1809462cbbff62797ba9ef01",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":286,
+              "y":665},
+            "size":{
+              "width":98,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"01bdece2f4414e1bb1e6b73a3df6edf4",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":286,
+                  "y":665},
+                "size":{
+                  "width":98,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"796982ce71ed46bd9fb28c3b07fe088f",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":476,
+              "y":665},
+            "size":{
+              "width":37,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"ca8f7120e66e4fb0a70bf801e9d17ede",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":476,
+                  "y":665},
+                "size":{
+                  "width":37,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"10985b6018d6405ea79e4003887b7633",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":570,
+              "y":659},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"e9487c79029947ef883b75cf6702ad3e",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":703,
+              "y":659},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"e3196589dcae4e24b647e3eed7806cfd",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":677,
+              "y":659},
+            "size":{
+              "width":17,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"96ec4d37af034965850247a153a3b659",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":677,
+                  "y":659},
+                "size":{
+                  "width":17,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}},
+{
+          "id":"28654b22094b4e8f9ca6b4d731264d88",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":856,
+              "y":659},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"4ef16c2980c547d094caedbcceb2a8e2",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":985,
+              "y":659},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"21c9bca0f4c8422caddbacb0320b4415",
+          "label":"",
+          "type":"textBox",
+          "styleType":"textBox",
+          "visible":true,
+          "style":{
+            "location":{
+              "x":1100,
+              "y":659},
+            "size":{
+              "width":100,
+              "height":25}},
+          "adaptiveStyles":{
+}},
+{
+          "id":"07cd0857501e420a8aafde38f2b13c96",
+          "label":"",
+          "type":"buttonShape",
+          "styleType":"h2",
+          "visible":true,
+          "style":{
+            "fontName":"'Arial Normal', 'Arial'",
+            "fontSize":"16px",
+            "fontWeight":"400",
+            "location":{
+              "x":1227,
+              "y":662},
+            "size":{
+              "width":33,
+              "height":19}},
+          "adaptiveStyles":{
+},
+          "objects":[{
+              "id":"99fc5189a4034e77bed54b38d4a78a4b",
+              "label":"",
+              "isContained":true,
+              "type":"richTextPanel",
+              "styleType":"paragraph",
+              "visible":true,
+              "style":{
+                "fontName":"'Arial Normal', 'Arial'",
+                "fontSize":"16px",
+                "fontWeight":"400",
+                "location":{
+                  "x":1227,
+                  "y":662},
+                "size":{
+                  "width":33,
+                  "height":19}},
+              "adaptiveStyles":{
+}}],
+          "images":{
+            "normal~":"resources/images/transparent.gif"}}]}},
+  "masters":{
+},
+  "objectPaths":{
+    "70ed1d663794447ca6d085b0b2831b4f":{
+      "scriptId":"u0"},
+    "9d68a78e94ac47bfaed0ae814e20dace":{
+      "scriptId":"u1"},
+    "3db4bbdc0dc041f3a5f81bec39b4a129":{
+      "scriptId":"u2"},
+    "498062b4196a423abadd2b865a60fda3":{
+      "scriptId":"u3"},
+    "95d256d1e6b74e63a7a2513f39564d51":{
+      "scriptId":"u4"},
+    "3ae5641ea3924e93905a5cde92edd133":{
+      "scriptId":"u5"},
+    "28549c23078f4f038d43075c4c646d70":{
+      "scriptId":"u6"},
+    "62b12535151040dbafcb1e2b3e397145":{
+      "scriptId":"u7"},
+    "56b3429b5d76465b98b1659e47e56521":{
+      "scriptId":"u8"},
+    "909237c68cf5432584b70613c0d88cc1":{
+      "scriptId":"u9"},
+    "2bb168e6e13d4070957bb1b84ad3b233":{
+      "scriptId":"u10"},
+    "9fead396328a4cfdad174c516eee6596":{
+      "scriptId":"u11"},
+    "2c8d6dfba4ed44d895079841ec4701d2":{
+      "scriptId":"u12"},
+    "30f385366f5847dfaec78cd4ee5d35e1":{
+      "scriptId":"u13"},
+    "6ce0f994b6c041ec8a7364b1b0dc5401":{
+      "scriptId":"u14"},
+    "795045eee5dd40a7941bff3b7454f30e":{
+      "scriptId":"u15"},
+    "8632de113ed543a6b433656bf59b78f9":{
+      "scriptId":"u16"},
+    "365eaede3a74477c93687b787b3b6303":{
+      "scriptId":"u17"},
+    "549694f18ed94b27a7162af7b0521d18":{
+      "scriptId":"u18"},
+    "23562e4257094f3fbec0051766437430":{
+      "scriptId":"u19"},
+    "c7ade5e886154f099502cd8b419e654c":{
+      "scriptId":"u20"},
+    "28c44062a35842e08f614e21b6edce6c":{
+      "scriptId":"u21"},
+    "3cc16b26f4ce4c4c94966e3ea8a5cb93":{
+      "scriptId":"u22"},
+    "618fa854b7c94880a14ac8939a237ab9":{
+      "scriptId":"u23"},
+    "1239ea14c57f45a38b5125af9931a346":{
+      "scriptId":"u24"},
+    "40f056657f0c4862b9f4afaa97694d04":{
+      "scriptId":"u25"},
+    "aea1ca98a4034ada8004693992c3f0f7":{
+      "scriptId":"u26"},
+    "6434f9ce2c654780873d1755251e17d5":{
+      "scriptId":"u27"},
+    "a5c8be4b8fa2447a974049247ad2730b":{
+      "scriptId":"u28"},
+    "dc14bacf480b484a93a51d79abd5cfa3":{
+      "scriptId":"u29"},
+    "ff9a72b708a14edc8a964563d02657e6":{
+      "scriptId":"u30"},
+    "9c21d49c39a241e5a07a1e0d4d4bfd1b":{
+      "scriptId":"u31"},
+    "7494c168216c48acb1a317bfa8d0e743":{
+      "scriptId":"u32"},
+    "7e66f51979634628a6f690ed10f53540":{
+      "scriptId":"u33"},
+    "07a2747ba1364249b7859b75ec5deb27":{
+      "scriptId":"u34"},
+    "2ce970afc04e4d07b866c82508f4aef8":{
+      "scriptId":"u35"},
+    "22f283634f02466ea7ed403b0cd98eba":{
+      "scriptId":"u36"},
+    "2306f96f412b49eb83bc123111f04758":{
+      "scriptId":"u37"},
+    "26b2de9a67a0412a8d66fcf9a39ae799":{
+      "scriptId":"u38"},
+    "bffb4139e47a4fc7adc954fb8ffe5ca1":{
+      "scriptId":"u39"},
+    "5566cb2014a54da68a6fbc066c3a209e":{
+      "scriptId":"u40"},
+    "b04fa002c5694bcd93395d43309cf976":{
+      "scriptId":"u41"},
+    "8fecf01617294630a88d368fd787e080":{
+      "scriptId":"u42"},
+    "af6abeca11e644d8a41345954d6c90ef":{
+      "scriptId":"u43"},
+    "552b5fbfa1c24b38b0928143ce89dbe5":{
+      "scriptId":"u44"},
+    "2cbe5100a7cc4c15b34b7342627e8e9b":{
+      "scriptId":"u45"},
+    "fdeb88e28ef04664a9d1a056812e1987":{
+      "scriptId":"u46"},
+    "b7018ca2a376428dbcaf891ea3b55d43":{
+      "scriptId":"u47"},
+    "5d8ebc65ae31449e9be90df9421c41d8":{
+      "scriptId":"u48"},
+    "36ae626b853c49a196541ee2e96eace4":{
+      "scriptId":"u49"},
+    "6733ebb987ae414a825c608f619311c0":{
+      "scriptId":"u50"},
+    "06922803261048b3a969f906ef24af31":{
+      "scriptId":"u51"},
+    "f774a10da12b47e7b59e837afc6a2df0":{
+      "scriptId":"u52"},
+    "81e716619a7349e1bacace063a4bc724":{
+      "scriptId":"u53"},
+    "5bb0cce6042d434fafdda6b2a8a5096c":{
+      "scriptId":"u54"},
+    "7144dfdd5a624e9a9e345c6569e818dc":{
+      "scriptId":"u55"},
+    "8fa661e0c6be4cc594d4c608e2505d6d":{
+      "scriptId":"u56"},
+    "71657335880a40c2854689c0c8353786":{
+      "scriptId":"u57"},
+    "4eabbd3430984964bf0dda17671ab4bc":{
+      "scriptId":"u58"},
+    "b35b7e67c434477bb5372c7061402594":{
+      "scriptId":"u59"},
+    "768b04a10b5f42fab3a1d65ac8d4a11a":{
+      "scriptId":"u60"},
+    "499987d7669341018f09ef6489152e58":{
+      "scriptId":"u61"},
+    "fff9d4e84e7e4f74a806bd1253bcd3f0":{
+      "scriptId":"u62"},
+    "4350af55994f4211abb7f83c6313ff75":{
+      "scriptId":"u63"},
+    "9af29556c27546f494ccdd77517eadad":{
+      "scriptId":"u64"},
+    "a01b33d8567f42d29eadaae4ae9643bb":{
+      "scriptId":"u65"},
+    "01794093c45c4b89a9710b0766508b97":{
+      "scriptId":"u66"},
+    "33e567e48179466194119e899cb65eaa":{
+      "scriptId":"u67"},
+    "278fac68e743431eb71ebd31941be9d8":{
+      "scriptId":"u68"},
+    "8cb6398152cb4804848ffdfa6b233e4b":{
+      "scriptId":"u69"},
+    "ddc502905c61421a807f6a9c6fea2826":{
+      "scriptId":"u70"},
+    "de001c21b793496fb879a66f20d10d08":{
+      "scriptId":"u71"},
+    "dee21a5d050f405d8a6acc02edd88a97":{
+      "scriptId":"u72"},
+    "07f7d24d6ec142d7a4a208245b2ca277":{
+      "scriptId":"u73"},
+    "d91a71fc2b844a6fa53f1e62e15a3058":{
+      "scriptId":"u74"},
+    "921055b3b6594b529b7be0db647e172c":{
+      "scriptId":"u75"},
+    "a85b75c18dad4819b80e00647c73aa84":{
+      "scriptId":"u76"},
+    "bdcd211a7fbf4185ad7aa42a71b2af74":{
+      "scriptId":"u77"},
+    "4cfd29c7c0404bdea80c07674598f1b2":{
+      "scriptId":"u78"},
+    "382ae7b9573a4588bd28947b458d8cb6":{
+      "scriptId":"u79"},
+    "6214c47ef8d14abc982581555c76b8d9":{
+      "scriptId":"u80"},
+    "4beaa2e04c1c4634903588932591853b":{
+      "scriptId":"u81"},
+    "604282db24dd4e479f9ded6b7e97e3ed":{
+      "scriptId":"u82"},
+    "e610f41542344c93b05352d1b6fe73cd":{
+      "scriptId":"u83"},
+    "0c22717519c14f4aa50957a250d7e15e":{
+      "scriptId":"u84"},
+    "be867689ca4a424ebafd0fe460bb2ca5":{
+      "scriptId":"u85"},
+    "cc0120b809f643c688af687dbdf0a566":{
+      "scriptId":"u86"},
+    "bd4e96ef589c4c4185df4e163f1fdc09":{
+      "scriptId":"u87"},
+    "7117e4ddf12446d0b2bf37d557c10088":{
+      "scriptId":"u88"},
+    "37bb23442e454d30abc6d7ada1981cc7":{
+      "scriptId":"u89"},
+    "ba492fa974f3468da9082a122573498d":{
+      "scriptId":"u90"},
+    "0f26c82e3a3a4f14b7771564dd8c5de0":{
+      "scriptId":"u91"},
+    "f9b8044919d64221adb2c0f978c7e8cc":{
+      "scriptId":"u92"},
+    "84881b63913f4d918a1b1ca4eaa4ff5f":{
+      "scriptId":"u93"},
+    "c2ef938f72b046a38c0c6480e21dba40":{
+      "scriptId":"u94"},
+    "919290b04e7f4ce2a3dd484feda0b2e5":{
+      "scriptId":"u95"},
+    "a2a57c4d4a864af980d1e8b9e3793835":{
+      "scriptId":"u96"},
+    "17fd973ddf484e9786f38f12628d8861":{
+      "scriptId":"u97"},
+    "ae883616cdac411f88f6196d891f5b2a":{
+      "scriptId":"u98"},
+    "56554069aaf44b5eb6f9016545cf6571":{
+      "scriptId":"u99"},
+    "49576b7ff138426688195a037ac918c1":{
+      "scriptId":"u100"},
+    "c10cdf0c6f614d979aac61c65d1c93cd":{
+      "scriptId":"u101"},
+    "15fba38938dd497eaeeac43d70f49f66":{
+      "scriptId":"u102"},
+    "717c176883244a93a8a3cbe360922e47":{
+      "scriptId":"u103"},
+    "eff4aad700cf4d10a3d7162b59202c47":{
+      "scriptId":"u104"},
+    "2853e3878eb9455e9b98cd2e9d208903":{
+      "scriptId":"u105"},
+    "f7037b574a97423d805ed16eae584749":{
+      "scriptId":"u106"},
+    "040057933fbb475984465fa59a89b4c4":{
+      "scriptId":"u107"},
+    "702d45a7fd47401caa0e954476907352":{
+      "scriptId":"u108"},
+    "553e458bebb1409a9d5e1210308649aa":{
+      "scriptId":"u109"},
+    "924c53dd4bd04ef79f30f415be2ed4bb":{
+      "scriptId":"u110"},
+    "16d4208bb88a447eb2f12626f5f0b440":{
+      "scriptId":"u111"},
+    "4eb22e92616d427b99e1f4aa92ad605d":{
+      "scriptId":"u112"},
+    "d6e46a5bd8ba45a69dcc6fb91a4b0686":{
+      "scriptId":"u113"},
+    "3f5bd18744af47dcb9f7c8bdc002c173":{
+      "scriptId":"u114"},
+    "4ea113327dbc485f8bb3f5243bf9e302":{
+      "scriptId":"u115"},
+    "95db1b2176884247a8b42391922d1789":{
+      "scriptId":"u116"},
+    "191729f8e30740a78dc54a8192a05f1f":{
+      "scriptId":"u117"},
+    "4d61754de1224d3bb60551be181b7c79":{
+      "scriptId":"u118"},
+    "e773106a07bc4c52930686a87363d407":{
+      "scriptId":"u119"},
+    "08b14bffb7c44e3b96439e99bb2d6768":{
+      "scriptId":"u120"},
+    "c874faf83fcb4e74bf6dee5c3688981c":{
+      "scriptId":"u121"},
+    "c7d54dfb8e3e484c8a865e89844cc3ac":{
+      "scriptId":"u122"},
+    "a6f4e8440ebd42ed95d20566322f4417":{
+      "scriptId":"u123"},
+    "0cad407a54444d688b6370efd7a0858b":{
+      "scriptId":"u124"},
+    "da6f71cd543b4e289f2e7a5dd1cfce9d":{
+      "scriptId":"u125"},
+    "e9987888bada4c5fb5f96a5b216a7e36":{
+      "scriptId":"u126"},
+    "5c1bf5e88cc34039a0477644bb0569b9":{
+      "scriptId":"u127"},
+    "b106f02997d946988851861a977d58a5":{
+      "scriptId":"u128"},
+    "d1a3a52981834e7594e3dc649789a6e4":{
+      "scriptId":"u129"},
+    "82f54db115984fe9ae5b677a1c647ad3":{
+      "scriptId":"u130"},
+    "bc9621614a0d4feeb4b7edcb56c5ac25":{
+      "scriptId":"u131"},
+    "fa277f4e879d49f388b711c26e060611":{
+      "scriptId":"u132"},
+    "3516f17e09914826bef4ef63144bbbf2":{
+      "scriptId":"u133"},
+    "2c9e70a799f84be799fe494aa9d23d50":{
+      "scriptId":"u134"},
+    "74455cbbed4645aa8e74f9286733c19d":{
+      "scriptId":"u135"},
+    "9f14682d940b4cba94f24678571a1640":{
+      "scriptId":"u136"},
+    "7f06a85d5a494252ad7233bfa3d89899":{
+      "scriptId":"u137"},
+    "8b15fb13a06f4f03a4447eebe6f27e4e":{
+      "scriptId":"u138"},
+    "06c85d7b2a0b461e812e383fe3c603ab":{
+      "scriptId":"u139"},
+    "d887560fed5e434588b7a8592cfcc5e2":{
+      "scriptId":"u140"},
+    "d43d8a98b9a044f88e20c0b39eccc2e9":{
+      "scriptId":"u141"},
+    "2305001f7d0b4fe4bb5bcda6120c516e":{
+      "scriptId":"u142"},
+    "4bf2bfad98594505920af58b79b1dbb9":{
+      "scriptId":"u143"},
+    "d730c61ecf82438682f1892618f17b54":{
+      "scriptId":"u144"},
+    "5ae2c1afd5b7404692487b5180b47fa0":{
+      "scriptId":"u145"},
+    "7984908b3f8441cf89309ff3d7346ad7":{
+      "scriptId":"u146"},
+    "0c23af1f502a4694a6423fe195c54184":{
+      "scriptId":"u147"},
+    "d026a14213484ba1b38d5f4f94d8962d":{
+      "scriptId":"u148"},
+    "c98085848a444c88a012a92a2c79bc4a":{
+      "scriptId":"u149"},
+    "95dbe2daf49d47cba7f3a5ee4ddcba0d":{
+      "scriptId":"u150"},
+    "803ba0521387469e89a109209c7c15f2":{
+      "scriptId":"u151"},
+    "4eb9a7e8d62f4b9c80349b9310d8d9ff":{
+      "scriptId":"u152"},
+    "55fecd7902fd46229c05be687b5ed8c4":{
+      "scriptId":"u153"},
+    "1567e582e0f1411ea6aa665758acc5e4":{
+      "scriptId":"u154"},
+    "97ca3e42cc8b460db8255d4142c388ad":{
+      "scriptId":"u155"},
+    "9070c27b1809462cbbff62797ba9ef01":{
+      "scriptId":"u156"},
+    "01bdece2f4414e1bb1e6b73a3df6edf4":{
+      "scriptId":"u157"},
+    "796982ce71ed46bd9fb28c3b07fe088f":{
+      "scriptId":"u158"},
+    "ca8f7120e66e4fb0a70bf801e9d17ede":{
+      "scriptId":"u159"},
+    "10985b6018d6405ea79e4003887b7633":{
+      "scriptId":"u160"},
+    "e9487c79029947ef883b75cf6702ad3e":{
+      "scriptId":"u161"},
+    "e3196589dcae4e24b647e3eed7806cfd":{
+      "scriptId":"u162"},
+    "96ec4d37af034965850247a153a3b659":{
+      "scriptId":"u163"},
+    "28654b22094b4e8f9ca6b4d731264d88":{
+      "scriptId":"u164"},
+    "4ef16c2980c547d094caedbcceb2a8e2":{
+      "scriptId":"u165"},
+    "21c9bca0f4c8422caddbacb0320b4415":{
+      "scriptId":"u166"},
+    "07cd0857501e420a8aafde38f2b13c96":{
+      "scriptId":"u167"},
+    "99fc5189a4034e77bed54b38d4a78a4b":{
+      "scriptId":"u168"}}});

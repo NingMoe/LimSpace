@@ -1,0 +1,43 @@
+<div class="pj-site-container progress" style="width: 100%;background: #fff;height:100%;">
+	<div class="clearfix submit">
+		<span class="time"><%=data.lastSubmitTime %></span><img src="../img/submit@2x.png" alt=""><div><p class="submittext">提交成功</p></div>
+	</div>
+	<p class="line1"></p>
+	<div class="clearfix">
+		<span class="time"></span><img src="../img/approval@2x.png" alt=""><div><p>待审批</p><span class="review"><%=data.approvalMessage %></span></div>
+	</div>
+	<p class="line2"></p>
+	<div class="clearfix conclusion">
+		<span class="time"><%=data.lastVerifyTime %></span>
+		<% if(data.currentStep == 1) { %>
+		<img src="../img/conclusion@2x (2).png" alt="" />
+		<% } else if(data.currentStep == 2) { %>
+		<img src="../img/conclusion@2x.png" alt="" />
+		<% } %>
+		<div>
+		<% if(data.currentStep == 1) { %>
+			<p style="line-height: 40px">审批结论</p>
+		<% } else if(data.currentStep == 2) { %>
+			<% if(data.verifyState == 1) { %>
+			<p>申请成功</p>
+			<% } else if(data.verifyState == 2 || data.verifyState == 3 ) { %>
+			<p>申请失败</p>
+			<% } %>
+			<span><%=data.verifyMessage %></span>
+		<% } %>
+		
+		</div>
+	</div>
+	<div class="buttonprogress">
+		<% if(data.currentStep == 1) { %>
+			<button>立即刷新</button>
+		<% } else if(data.currentStep == 2) { %>
+			<% if(data.verifyState == 1) { %>
+			<a href="#home">立即逛逛</a>
+			<% } else if(data.verifyState == 2) { %>
+			<a href="javascript:;" class="submit">完善资料</a>
+			<% } %>
+		<% } %>
+	</div>
+	<div class="z_box100 hidden"><img class="loading" src="../img/loading_circle_40b82ef.gif" alt=""></div>
+</div>

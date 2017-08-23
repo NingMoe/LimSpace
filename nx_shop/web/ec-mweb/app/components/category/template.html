@@ -1,0 +1,265 @@
+<style>
+	.attr-toolbar-container {
+		border-bottom: 1px solid #eee;
+		margin-bottom: 15px;
+		padding-bottom: 15px;
+	}
+
+	.attr-toolbar-container h3 {
+		margin: 0;
+		font-size: 16px;
+		/* border-bottom: 1px solid #eee; */
+		line-height: 34px;
+		margin-right: 20px;
+		width: 100px;
+		text-align: right;
+	}
+
+	.attr-list label {
+		width: 100px;
+		line-height: 42px;
+		text-align: right;
+	}
+
+	.attr-value-list {
+		margin-left: 120px;
+		background: #ffe;
+		padding: 10px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	a.attr-value-item {
+		position: relative;
+		text-decoration: none;
+		color: #000;
+		line-height: 40px;
+		/* line-height: 40px; */
+		padding: 6px 10px;
+		margin: 0 5px;
+		border: 1px solid #eee;
+		cursor: pointer;
+	}
+
+	a.attr-value-item.active {
+		color: #fff;
+		border: 1px solid #4cae4c;
+		background: #5cb85c;
+	}
+
+	a.attr-value-item:hover {
+		text-decoration: none;
+		color: #fff;
+		background-color: #449d44;
+		border-color: #398439;
+	}
+
+	a.attr-value-item span {
+		position: absolute;
+		right: -12px;
+		top: -12px;
+		display: none;
+		width: 20px;
+		height: 20px;
+		background: #eee;
+		text-align: center;
+		vertical-align: top;
+		line-height: 20px;
+		border-radius: 10px;
+		font-size: 12px;
+		color: #fff;
+		background-color: #d9534f;
+		border-color: #d43f3a;
+	}
+
+	a.attr-value-item:hover span {
+		display: inline-block;
+	}
+
+	a.attr-item {
+		text-decoration: none;
+		color: #000;
+		line-height: 40px;
+		/* line-height: 40px; */
+		padding: 6px 10px;
+		margin: 0 5px;
+		border: 1px solid #eee;
+		cursor: pointer;
+	}
+
+	a.attr-item.active {
+		color: #fff;
+		border: 1px solid #4cae4c;
+		background: #5cb85c;
+	}
+
+	a.attr-item:hover {
+		text-decoration: none;
+		color: #fff;
+		background-color: #449d44;
+		border-color: #398439;
+	}
+
+	div.attr-item {
+		margin: 10px 0;
+	}
+
+	.atrr-value-add-container,
+	.atrr-add-container {
+		display: inline-block;
+	}
+
+	[name="attrValue"] {
+		display: inline-block;
+		width: 100px;
+	}
+
+	[name="attrName"] {
+		display: inline-block;
+		width: 200px;
+	}
+
+	[name="specValue"] {
+		display: inline-block;
+		width: 100px;
+	}
+
+	[name="specName"] {
+		display: inline-block;
+		width: 200px;
+	}
+	.atrr-value-add-container .btn,
+	.atrr-add-container .btn {
+		vertical-align: top;
+		margin-left: 8px;
+	}
+
+	.save-container {
+		margin-top: 20px;
+		padding-left: 120px;
+	}
+
+	.save-container button {}
+	.ng-toast {
+		position: relative;
+	}
+	.ng-toast.ng-toast--bottom {
+				bottom: -15px;
+
+	}
+</style>
+<!-- 规格-->
+<div class="attr-toolbar-container clearfix">
+	<h3 class="pull-left">规格管理</h3>
+	<div class="attr-toolbar">
+		<button type="button" class="btn btn-default" ng-click="events.selectSpec()">选择规格</button>
+	</div>
+
+	<div class="attr-list">
+		<div class="attr-item" ng-repeat="spec in specArr">
+			<label class="pull-left">{{spec.specName}}</label>
+			<div class="attr-value-list">
+				<a class="attr-value-item" ng-repeat="value in spec.value track by $index " >{{value}}<span class="glyphicon glyphicon-remove" ng-class="{'active': spec.active}" ng-click="events.removeValue(spec,value)"></span></a>
+
+				<span class="atrr-add-container">
+				  <form ng-submit="events.addSpecValue(spec)">
+		        <input name="specValue" ng-model="spec.specValue" class="form-control" autocomplete="off">
+		        <input style="width: auto; margin: 0; margin-left: 8px;" type="submit" class="btn btn-default" value="添加">
+	        </form>
+	      </span>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- 属性-->
+<div class="attr-toolbar-container clearfix">
+	<h3 class="pull-left">属性管理</h3>
+	<div class="attr-toolbar">
+		<button type="button" class="btn btn-default" ng-click="events.select()">选择属性</button>
+	</div>
+</div>
+<div class="attr-list">
+	<div class="attr-item" ng-repeat="attr in attrArr track by $index">
+		<label class="pull-left">{{attr.attrName}}</label>
+		<div class="attr-value-list">
+			<a class="attr-value-item" ng-repeat="value in attr.value track by $index  " >{{value}}<span class="glyphicon glyphicon-remove" ng-class="{'active': attr.active}" ng-click="events.removeValue(attr,value)"></span></a>
+
+			<span class="atrr-add-container">
+			  <form ng-submit="events.addValue(attr)">
+	        <input name="attrValue" ng-model="attr.attrValue" class="form-control">
+	        <input style="width: auto; margin: 0; margin-left: 8px;" type="submit" class="btn btn-default" value="添加">
+        </form>
+      </span>
+		</div>
+	</div>
+</div>
+
+<div class="save-container text-center">
+  <toast></toast>
+	<button type="button" class="btn btn-primary" ng-click="events.add()">保存模板</button>
+</div>
+
+<div id="attrModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center">选择属性</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="attr-list">
+					<a class="attr-item" ng-repeat="attr in attrList track by $index  " data-id="{{attr.id}}" ng-class="{active: attr.selected}" ng-click="events.toggleAttr(attr)">{{attr.name}}</a>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<span class="atrr-value-add-container pull-left">
+				  <form ng-submit="events.addAttr()">
+            <input name="attrName" ng-model="attrName" class="form-control">
+            <input style="width: auto; margin: 0; margin-left: 8px;" type="submit" class="btn btn-default" value="添加属性">
+          </form>
+        </span>
+				<button type="button" class="btn btn-primary" ng-click="events.selectDone()">确认</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<div id="specModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center">选择规格</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="attr-list">
+					<a class="attr-item" ng-repeat="spec in specList" data-id="{{spec.id}}" ng-class="{active: spec.selected}" ng-click="events.toggleAttr(spec)">{{spec.name}}</a>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+					<span class="atrr-value-add-container pull-left">
+						<form ng-submit="events.addSpec()">
+	          	<input name="specName" ng-model="specName" class="form-control">
+	          	<input style="width: auto; margin: 0; margin-left: 8px;" type="submit" class="btn btn-default" value="添加规格">
+          	</form>
+          </span>
+				<button type="button" class="btn btn-primary" ng-click="events.selectSpecDone()">确认</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+

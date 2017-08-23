@@ -1,0 +1,103 @@
+<style>
+	#perm-container {
+	  margin-left: 250px;
+	}
+	label {
+	  width: 70px;
+	  text-align: right;
+	  padding-right: 10px;
+	}
+	.form-control {
+	  display: inline-block;
+	  width: auto;
+	}
+	.modal-footer {
+	  text-align: center;
+	}
+	.modal-body {
+	  padding-top: 5px;
+	}
+	.form-group {
+	  margin-top: 5px;
+	  margin-bottom: 5px;
+	}
+</style>
+
+<div id="tree-container" class="pull-left" style="overflow: auto;">
+  <div id="tree"></div>
+</div>
+<div id="perm-container">
+  <button type="button" class="btn btn-default pull-right" ng-click="events.add()" ng-if="!currentNode.text">添加一级权限</button>
+  <button type="button" class="btn btn-default pull-right" ng-click="events.add()" ng-if="currentNode.level < 2 && currentNode.text">添加权限到{{currentNode.text}}</button>
+  <table class="table table-striped" ng-show="!currentNode.level || currentNode.level < 2">
+    <thead>
+      <tr>
+      	<th>ID</th>
+        <th>名称</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="node in currentNode.nodes" ng-class="{danger: node.data.status}">
+      	<td>{{node.id}}</td>
+        <td>{{node.text}}</td>
+        <td>
+          <a class="template" ng-click="events.modify(node)">修改</a>
+          <a class="template" ng-click="events.remove(node)">删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">添加权限</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="err-msg">
+          <ul ng-show="form.$submitted && form.$invalid">
+            <li ng-show="form.name.$error.required">请填写权限名称</li>
+            <li ng-show="form.code.$error.required">请填写CODE</li>
+            <li ng-show="form.url.$error.required">请填写链接</li>
+            <li ng-show="form.parentId.$error.required">请填写上级ID</li>
+          </ul>
+        </div>
+
+        <form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+          <label for="name">上级ID</label><span>{{currentNode.id || '0'}}</span>
+          <div class="form-group">
+            <label for="name">权限名称</label>
+            <input class="form-control" name="name" ng-model="addperm.name" required>
+          </div>
+          <div class="form-group">
+            <label for="name">CODE</label>
+            <input class="form-control" name="code" ng-model="addperm.code" required>
+          </div>
+          <div class="form-group">
+            <label for="name">描述</label>
+            <input class="form-control" name="describ" ng-model="addperm.describ" >
+          </div>
+          <div class="form-group">
+            <label for="name">链接</label>
+            <input class="form-control" name="url" ng-model="addperm.url" required>
+          </div>
+          <div class="form-group">
+            <label for="name">上级ID</label>
+            <input class="form-control" name="parentId" ng-model="addperm.parentId" required>
+          </div>
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="events.save(form)">保存</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

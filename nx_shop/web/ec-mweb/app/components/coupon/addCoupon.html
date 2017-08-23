@@ -1,0 +1,243 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<div class="panel-title">新增优惠券</div>
+	</div>
+	<div class="panel-body group_create">
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-horizontal" role="form" name="form" novalidate>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+                            	优惠券名称：
+                        </label>
+						<div class="col-md-5">
+							<input type="text" class="form-control" name="name" placeholder="" ng-model="newCoupon.name" required ng-maxlength="20">
+
+						</div>
+						<span  ng-show="(form.name.$dirty|| form.$submitted)  && form.name.$invalid" class="alert alert-danger">
+								<span ng-show="form.name.$error.required">优惠券名称不能为空。</span>
+								<span ng-show="form.name.$error.maxlength">优惠券名称不能超过20个字符。</span>
+						</span>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+							活动备注：
+						</label>
+						<div class="col-md-9">
+							<textarea class="form-control" placeholder="" ng-model="newCoupon.summary" />
+
+						</div>
+					</div>
+					<div class="form-group" >
+						<label class="col-md-3 control-label">
+							可领取时间：
+						</label>
+						<div class="col-md-5">
+							<input id="receiveStartTime" name="receiveStartTime" type="text" class="form-control" placeholder="" ng-model="newCoupon.receiveStartTime"  required>
+							一
+							<input id="receiveEndTime" name="receiveEndTime" type="text" class="form-control" placeholder="" ng-model="newCoupon.receiveEndTime"  required>
+
+						</div>
+
+                            <span  ng-if="errorDateMess1&&(!newCoupon.receiveStartTime || !newCoupon.receiveEndTime || newCoupon.receiveStartTime > newCoupon.receiveEndTime||newCoupon.receiveStartTime<scopeNowTime)" class="alert alert-danger">
+								<span >{{errorDateMess1}}</span>
+							</span>
+
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+							优惠券有效期：
+						</label>
+						<div class="col-md-5">
+							<span><input type="radio" name="rank" ng-model="newCoupon.timeType" value="2" ng-radio-extend>相对时间</span>
+							<span class="mrl10"><input type="radio" name="rank" ng-model="newCoupon.timeType" value="1" ng-radio-extend>绝对时间</span>
+						</div>
+					</div>
+					<div class="form-group" ng-if="newCoupon.timeType==2">
+						<label class="col-md-3 control-label">
+							有效天数：
+						</label>
+						<div class="col-md-5">
+							<input type="text" name="expireInDays" class="form-control" placeholder="" ng-model="newCoupon.expireInDays" ng-pattern="/^[1-9]{1}[0-9]*$/" required> 天
+
+						</div>
+						<span  ng-show="(form.expireInDays.$dirty || form.$submitted) && form.expireInDays.$invalid" class="alert alert-danger">
+								<span ng-show="form.expireInDays.$error.pattern">请输入大于零的整数。</span>
+								<span ng-show="form.expireInDays.$error.required">有效天数不能为空。</span>
+						</span>
+					</div>
+					<div class="form-group" ng-show="newCoupon.timeType==1">
+						<label class="col-md-3 control-label">
+							时间段：
+						</label>
+						<div class="col-md-5">
+							<input id="couStartTime" name="startTime" type="text" class="form-control" placeholder="" ng-model="newCoupon.startTime" >
+							一
+							<input id="couEndTime" name="expireTime" type="text" class="form-control" placeholder="" ng-model="newCoupon.expireTime" >
+						</div>
+
+                          <span  ng-if="errorDateMess2 && (!newCoupon.startTime || !newCoupon.expireTime || newCoupon.startTime>newCoupon.expireTime||newCoupon.startTime<newCoupon.receiveStartTime||newCoupon.expireTime<newCoupon.receiveEndTime)" class="alert alert-danger">
+								<span >{{errorDateMess2}}</span>
+						 </span>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+							发放量：
+						</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control" name="count" placeholder="" ng-model="newCoupon.count" required ng-pattern="/^[1-9]{1}[0-9]*$/"> 张
+
+						</div>
+						<span  ng-show="(form.count.$dirty || form.$submitted) && form.count.$invalid" class="alert alert-danger">
+								<span ng-show="form.count.$error.pattern">请输入大于零的整数。</span>
+								<span ng-show="form.count.$error.required">发放量不能为空。</span>
+						</span>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+                            	优惠券类型：
+                        </label>
+						<div class="col-md-9">
+							<input type="radio" name="type" ng-model="newCoupon.type"  value="1">优惠券
+							<span class="mrl10"><input  type="radio" name="type" ng-model="newCoupon.type" value="3" >代金券</span>
+							<span class="mrl10"><input  type="radio" name="type" ng-model="newCoupon.type" value="2" >优惠码</span>
+							<span class="mrl10"><input  type="radio" name="type" ng-model="newCoupon.type" value="4" >代金码</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+							面额：
+						</label>
+						<div class="col-md-5">
+							<input type="text" class="form-control" name="discount" placeholder="" ng-model="newCoupon.discount" ng-pattern="/^(0||[1-9]{1}[0-9]*)\.{0,1}[0-9]{0,2}$/" required ng-maxlength="20">
+
+						</div>
+						<span style="color:red" ng-show="(form.discount.$dirty || form.$submitted) && form.discount.$invalid" class="alert alert-danger">
+								<span ng-show="form.discount.$error.pattern">请输入正确的金额。</span>
+								 <span ng-show="form.discount.$error.required">面额不能为空。</span>
+						</span>
+					</div>
+					<div class="form-group" ng-if="newCoupon.type==1||newCoupon.type==2">
+						<label class="col-md-3 control-label">
+
+						</label>
+						<div class="col-md-5" style="margin-left: -18px;">
+							满 <input type="text" class="form-control" name="threshold" placeholder="" ng-model="newCoupon.threshold" ng-pattern="/^(0||[1-9]{1}[0-9]*)\.{0,1}[0-9]{0,2}$/"  ng-maxlength="20">
+							 可用
+						</div>
+						<span style="color:red" ng-show="(form.threshold.$dirty || form.$submitted) && (form.threshold.$invalid ||thresholdMess)" class="alert alert-danger">
+								<span ng-show="form.threshold.$error.pattern || thresholdMess">请输入正确的金额。</span>
+							</span>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+							用户收到优惠券短信提醒内容：
+						</label>
+						<div class="col-md-9">
+							<textarea class="form-control" placeholder="" ng-model="newCoupon.receiveSms" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+							优惠券即将过期短信提醒用户内容：
+						</label>
+						<div class="col-md-9">
+							<textarea class="form-control" placeholder="" ng-model="newCoupon.dueSms" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">
+							优惠种类：
+						</label>
+						<div class="col-md-9">
+							<span><input type="radio" name="scope" ng-model="newCoupon.scope" value="1" ng-radio-extend>全场通用 </span>
+							<span class="mrl10"><input type="radio" name="scope" ng-model="newCoupon.scope" value="3" ng-radio-extend>标签专用 </span>
+							<span class="mrl10"><input type="radio" name="scope" ng-model="newCoupon.scope" value="2" ng-radio-extend ng-change="raioChange()">SKU专用 </span>
+							<div ng-show="newCoupon.scope==3" class="mrt10">
+									<select name="type" class="form-control" ng-model="tagType1" ng-change="changeTags('1',tagType1)">
+										<option value="">-- 全部 --</option>
+										<option ng-repeat="x in tagsArray1" value="{{x.id}}">{{x.text}}</option>
+									</select>
+									<select ng-show="deepth>1" name="type" class="form-control" ng-model="tagType2" ng-change="changeTags('2',tagType2)" >
+										<option value="">-- 全部 --</option>
+										<option ng-repeat="x in tagsArray2" value="{{x.id}}">{{x.text}}</option>
+									</select>
+									<select ng-show="deepth>2" name="type" class="form-control" ng-model="tagType3" ng-change="changeTags('3',tagType3)">
+										<option value="">-- 全部 --</option>
+										<option ng-repeat="x in tagsArray3" value="{{x.id}}">{{x.text}}</option>
+									</select>
+									<select ng-show="deepth>3" name="type" class="form-control" ng-model="tagType4" >
+										<option value="">-- 全部 --</option>
+										<option ng-repeat="x in tagsArray4" value="{{x.id}}">{{x.text}}</option>
+									</select>
+
+								<span  ng-if="errorMessage3 && !tagType1" class="alert alert-danger">
+								 <span >请选择标签。</span>
+						        </span>
+
+							</div>
+							<div ng-show="newCoupon.scope==2" class="mrt10">
+								<select name="type" class="form-control" ng-model="tagType1" ng-change="changeTags('1',tagType1)"  >
+									<option value="">-- 全部 --</option>
+									<option ng-repeat="x in tagsArray1" value="{{x.id}}">{{x.text}}</option>
+								</select>
+								<select ng-show="deepth>1"  name="type" class="form-control" ng-model="tagType2" ng-change="changeTags('2',tagType2)" >
+									<option value="">-- 全部 --</option>
+									<option ng-repeat="x in tagsArray2" value="{{x.id}}">{{x.text}}</option>
+								</select>
+								<select ng-show="deepth>2" name="type" class="form-control" ng-model="tagType3" ng-change="changeTags('3',tagType3)">
+									<option value="">-- 全部 --</option>
+									<option ng-repeat="x in tagsArray3" value="{{x.id}}">{{x.text}}</option>
+								</select>
+								<select ng-show="deepth>3" name="type" class="form-control" ng-model="tagType4" ng-change="changeTags('4',tagType4)">
+									<option value="">-- 全部 --</option>
+									<option ng-repeat="x in tagsArray4" value="{{x.id}}">{{x.text}}</option>
+								</select>
+                                <span  ng-if="errorMessage3 && !newCoupon.refId" class="alert alert-danger">
+								 <span >请选择sku。</span>
+						        </span>
+								<!--
+								<span class="pull-right">
+								<input type="text" class="form-control" name="name" placeholder="" ng-model="newCoupon.name" required ng-maxlength="20">
+								<button class="btn btn-default" ng-click="addCouponInfo()" >查找</button>
+								</span>-->
+								<div>
+									<table class="table">
+										<thead>
+										<tr>
+											<th>&nbsp;</th>
+											<th>商品名称</th>
+											<th>价格</th>
+											<th>库存</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="sku in skuList">
+											<td><input type="radio" name="skuId" ng-model="newCoupon.refId" value="{{sku.id}}"  required></td>
+											<td>{{sku.name}}</td>
+											<td>{{sku.price}}</td>
+											<td>{{sku.inventory}}</td>
+
+										</tr>
+										</tbody>
+									</table>
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-md-offset-3 col-md-9">
+							<a ui-sref="coupon" class="btn btn-primary">返回列表</a>
+							<button class="btn  btn-success" ng-click="addCouponInfo()" >生成卡券</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

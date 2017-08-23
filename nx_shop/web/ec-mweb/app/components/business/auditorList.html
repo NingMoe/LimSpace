@@ -1,0 +1,88 @@
+<style>
+	.businessList{
+		display: inline-block;
+		margin: 5px 40px;
+	}
+</style>
+<div class="" >
+    <a class="btn btn-primary btn-success pull-right" ng-click="auditorAdd()">创建审核员</a>
+</div>
+<div></div>
+
+<div class="mrt10">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>名称</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="info in auditorList">
+            <td>{{info.loginName}}</td>
+            <td>{{info.status==1?'启用中':'停用'}}</td>
+            <td>
+                <a  ng-click="auditorEdit(info.id)">修改</a>
+                <a  ng-click="auditorStop(info.id)">{{info.status==1?'停用':'启用'}}</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center">添加审核员</h4>
+            </div>
+            <div class="modal-body">
+                <div class="err-msg">
+                    <ul ng-show="form.$submitted && (form.$invalid || errorRepeat)" class="ng-hide">
+                        <li ng-show="form.loginName.$error.required">请填写账号</li>
+                        <li ng-show="form.pickupPointId.$error.required">请选择营业厅</li>
+                        <li ng-show="form.password.$error.required">请填写密码</li>
+                        <li ng-show="form.repeat.$error.required">请填写密码确认</li>
+                        <li ng-show="errorRepeat && auditor.password!=auditor.repeat">密码不一致</li>
+                    </ul>
+                </div>
+                <form name="form" novalidate  class="css-form">
+                    <div class="form-group">
+                        <label >账号：</label>
+                        <input class="form-control" name="loginName" ng-model="auditor.loginName" required>
+                    </div>
+                    <div class="form-group">
+                        <label >营业厅：</label>
+                        <!--<select name="pickupPointId" class="form-control" ng-model="auditor.pickupPointId" style="width: 196px" required>
+                            <option value="">-- 全部 --</option>
+                            <option ng-repeat="x in businessList" value="{{x.id}}">{{x.name}}</option>
+                        </select>-->
+                        <div class="businessList" ng-repeat="x in businessList " required>
+			            	<input id={{x.name}} type="checkbox"  ng-model="flag" ng-checked="x.checked" ng-click="chk(x.id,flag)">{{x.name}}
+                    	</div>
+                    </div>
+                    <div class="form-group">
+                        <label >密码：</label>
+                        <input type="password" class="form-control" name="password" ng-model="auditor.password" required>
+                    </div>
+                    <div class="form-group">
+                        <label >确认密码：</label>
+                        <input type="password" class="form-control" name="repeat" ng-model="auditor.repeat" required>
+                    </div>
+                    <div class="form-group">
+                        <label >状态：</label>
+                        <span class="mrl10"><input  type="radio" name="status" ng-model="auditor.status" value="0" >停用</span>
+                        <span class="mrl10"><input  type="radio" name="status" ng-model="auditor.status" value="1" >启用</span>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="auditorSave()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>

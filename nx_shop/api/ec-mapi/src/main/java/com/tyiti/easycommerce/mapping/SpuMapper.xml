@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.SpuDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Spu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sub_name" property="subName" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="invalid" property="invalid" jdbcType="INTEGER" />
+    <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="mobile_description" property="mobileDescription" jdbcType="LONGVARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, sub_name, category_id, invalid, thumbnail, rank, create_time, update_time,description, mobile_description,supplier_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_spu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_spu
+    where id = #{id,jdbcType=INTEGER} and invalid=0
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.Spu" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_spu (id, name, sub_name, 
+      category_id, invalid, thumbnail, 
+      rank, create_time, update_time, 
+      description, mobile_description,supplier_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{subName,jdbcType=VARCHAR}, 
+      #{categoryId,jdbcType=INTEGER}, #{invalid,jdbcType=INTEGER}, #{thumbnail,jdbcType=VARCHAR}, 
+      #{rank,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=LONGVARCHAR}, #{mobileDescription,jdbcType=LONGVARCHAR}, #{supplierId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.Spu" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_spu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="subName != null" >
+        sub_name,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="mobileDescription != null" >
+        mobile_description,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subName != null" >
+        #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="thumbnail != null" >
+        #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mobileDescription != null" >
+        #{mobileDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.Spu" >
+    update t_spu
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subName != null" >
+        sub_name = #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mobileDescription != null" >
+        mobile_description = #{mobileDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Spu" >
+    update t_spu
+    set name = #{name,jdbcType=VARCHAR},
+      sub_name = #{subName,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      invalid = #{invalid,jdbcType=INTEGER},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      supplier_id = #{supplierId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectListByParams" parameterType="java.util.Map" resultType="java.util.Map">
+  	select t1.id , t1.name ,t2.minPrice,t2.totalInventory
+	from t_spu t1 left join (
+	select spu_id ,MIN(price) minPrice,sum(IFNULL(inventory,0)) totalInventory
+	from t_sku t where t.invalid = 0
+	group by spu_id ) t2 on t1.id = t2.spu_id 
+	where  <include refid="base_where"></include>
+  	order by rank
+  	<if test="limit != null and limit != '' and offset != null and offset !=''">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+  </select>
+  
+  <select id="selectCountByParams" parameterType="java.util.Map" resultType="java.lang.Long">
+  	select count(*)
+  	from t_spu 
+  	where <include refid="base_where"></include>
+  </select>
+  
+  <sql id="base_where" >
+  	1=1  and invalid=0 <if test="name !=null and name !=''">
+  	and name like CONCAT(CONCAT('%',#{name,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="subName !=null and subName !=''">
+  	and sub_name like CONCAT(CONCAT('%',#{subName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	
+  	<if test="categoryId !=null and categoryId !=''">
+  	and category_id  =   #{categoryId,jdbcType=INTEGER}
+  	</if>
+ 	<if test="startTime != null and  startTime !=''">
+		and  create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime != null and  endTime !=''">
+		and  create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+	</if>
+  </sql>
+  <select id="getMaxRankByCategoryId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  select ifnull(max(rank),0) rank from t_spu where category_id = #{categoryId,jdbcType=INTEGER} and invalid=0
+  </select>
+  
+    <select id="getMaxId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+ 	 select ifnull(max(id),0) id from t_spu   
+  </select>
+  	<select id="selectCountByCategory" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from t_spu where category_id = #{categoryId,jdbcType=INTEGER} and invalid=0
+  	</select>
+  	
+  	<select id="selectSpuList" resultType="java.util.Map" parameterType="java.util.Map">
+  	select  
+	 id, name, sub_name subName, category_id categoryId, invalid, thumbnail, rank, create_time createTime, update_time updateTime,description, mobile_description mobileDescription
+  	from t_spu 
+  	where  <include refid="base_where_categoryIds"></include>
+  	order by category_id , rank
+  	</select>
+  	
+  	<select id="selectSpuCount" resultType="java.lang.Long" parameterType="java.util.Map">
+  	select  count(*)
+  	from t_spu
+  	where  <include refid="base_where_categoryIds"></include>
+  	</select>
+  	<sql id="base_where_categoryIds" >
+  	1=1  and invalid=0 <if test="name !=null and name !=''">
+  	and name like CONCAT(CONCAT('%',#{name,jdbcType=VARCHAR}),'%')
+  	</if>
+  	<if test="subName !=null and subName !=''">
+  	and sub_name like CONCAT(CONCAT('%',#{subName,jdbcType=VARCHAR}),'%')
+  	</if>
+  	
+  	<if test="categoryIds !=null and categoryIds !=''">
+  	and category_id in <foreach collection="categoryIds" item="item"  index="index" open="(" separator="," close=")" >
+  			#{item}
+  	</foreach>
+  	</if>
+ 	<if test="startTime != null and  startTime !=''">
+		and  create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime != null and  endTime !=''">
+		and  create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+	</if>
+  </sql>
+  
+  <!-- 排序-->
+	<update id="updateSortOtherUp" parameterType="java.lang.Integer">
+		update t_spu 
+		set rank = rank+1
+		where rank &gt;= #{toRank,jdbcType=INTEGER} and rank &lt; #{rank,jdbcType=INTEGER} and category_id = #{categoryId,jdbcType=INTEGER}  
+	</update>
+	<update id="updateSortOtherDown" parameterType="java.lang.Integer">
+		update t_spu 
+		set rank = rank-1
+		where rank &lt;= #{toRank,jdbcType=INTEGER} and rank &gt; #{rank,jdbcType=INTEGER} and category_id = #{categoryId,jdbcType=INTEGER}  
+	</update>
+	<update id="updateSortOwn" parameterType="com.tyiti.easycommerce.entity.Spu">
+		update t_spu 
+		set rank = #{rank,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 根据条件查询Sku商品新东方管理后台专用 -->
+   <select id="findSpus" resultMap="BaseResultMap">
+ 	select t_spu.id, t_spu.name, t_spu.sub_name, t_spu.category_id, t_spu.invalid, t_spu.thumbnail, t_spu.rank, 
+ 	    t_spu.create_time, t_spu.update_time,t_spu.description, t_spu.mobile_description,t_spu.supplier_id
+	    from t_spu left join t_sku on t_spu.id = t_sku.spu_id 
+	    where t_sku.invalid = 0 
+	     <if test="status != null" >
+	         and t_sku.status = #{status,jdbcType=INTEGER}
+	     </if>
+	     <if test="supplierId != null" >
+	         and t_spu.supplier_id = #{supplierId,jdbcType=INTEGER}
+	     </if>
+	     <if test="spuId != null" >
+	         and t_sku.spu_id = #{spuId,jdbcType=INTEGER}
+	     </if>
+	     <if test="categoryId != null" >
+	         and t_spu.category_id = #{categoryId,jdbcType=INTEGER}
+	     </if>
+	      order by t_sku.create_time
+  </select>
+</mapper>

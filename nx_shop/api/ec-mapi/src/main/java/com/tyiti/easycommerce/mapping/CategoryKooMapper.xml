@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.CategoryKooDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.CategoryKoo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="koo_category_id" property="kooCategoryId" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="tag_id" property="tagId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, koo_category_id, category_id, tag_id, creat_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_koo_category_map
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_koo_category_map
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.CategoryKoo" >
+    insert into t_koo_category_map (id, koo_category_id, category_id, 
+      tag_id, creat_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{kooCategoryId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, 
+      #{tagId,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.CategoryKoo" >
+    insert into t_koo_category_map
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="kooCategoryId != null" >
+        koo_category_id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="tagId != null" >
+        tag_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="kooCategoryId != null" >
+        #{kooCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null" >
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.CategoryKoo" >
+    update t_koo_category_map
+    <set >
+      <if test="kooCategoryId != null" >
+        koo_category_id = #{kooCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null" >
+        tag_id = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.CategoryKoo" >
+    update t_koo_category_map
+    set koo_category_id = #{kooCategoryId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      tag_id = #{tagId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 根据新东方栏目ID -->
+   <select id="findKooCategoryById" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_koo_category_map
+    where koo_category_id = #{kooId,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询所有数据 -->
+    <select id="findListKooCategoryList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_koo_category_map
+  </select>
+</mapper>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PromotionPrizeDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.PromotionPrize" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="promotion_id" property="promotionId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="inventory" property="inventory" jdbcType="INTEGER" />
+    <result column="awarded_amount" property="awardedAmount" jdbcType="INTEGER" />
+    <result column="virtual_type" property="virtualType" jdbcType="SMALLINT" />
+    <result column="virtual_value" property="virtualValue" jdbcType="DECIMAL" />
+    <result column="virtual_ext1" property="virtualExt1" jdbcType="INTEGER" />
+    <result column="virtual_ext2" property="virtualExt2" jdbcType="INTEGER" />
+    <result column="rate" property="rate" jdbcType="INTEGER" />
+    <result column="expire_time" property="expireTime" jdbcType="TIMESTAMP" />
+    <result column="expire_seconds" property="expireSeconds" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+ 	<result column="invalid" property="invalid" jdbcType="INTEGER" />
+ 
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, promotion_id, name, description, inventory, awarded_amount, virtual_type, virtual_value, 
+    virtual_ext1, virtual_ext2, rate, expire_time, expire_seconds, create_time, modify_time, 
+    image_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_promotion_prize
+    where id = #{id,jdbcType=INTEGER} and invalid = 0 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_promotion_prize
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.PromotionPrize" >
+    insert into t_promotion_prize (id, promotion_id, name, 
+      description, inventory, awarded_amount, 
+      virtual_type, virtual_value, virtual_ext1, 
+      virtual_ext2, rate, expire_time, 
+      expire_seconds, create_time, modify_time, 
+      image_url)
+    values (#{id,jdbcType=INTEGER}, #{promotionId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{inventory,jdbcType=INTEGER}, #{awardedAmount,jdbcType=INTEGER}, 
+      #{virtualType,jdbcType=SMALLINT}, #{virtualValue,jdbcType=DECIMAL}, #{virtualExt1,jdbcType=INTEGER}, 
+      #{virtualExt2,jdbcType=INTEGER}, #{rate,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, 
+      #{expireSeconds,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{imageUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.PromotionPrize" >
+    insert into t_promotion_prize
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="promotionId != null" >
+        promotion_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="inventory != null" >
+        inventory,
+      </if>
+      <if test="awardedAmount != null" >
+        awarded_amount,
+      </if>
+      <if test="virtualType != null" >
+        virtual_type,
+      </if>
+      <if test="virtualValue != null" >
+        virtual_value,
+      </if>
+      <if test="virtualExt1 != null" >
+        virtual_ext1,
+      </if>
+      <if test="virtualExt2 != null" >
+        virtual_ext2,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="expireTime != null" >
+        expire_time,
+      </if>
+      <if test="expireSeconds != null" >
+        expire_seconds,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+       <if test=" invalid != null" >
+         invalid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="promotionId != null" >
+        #{promotionId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null" >
+        #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="awardedAmount != null" >
+        #{awardedAmount,jdbcType=INTEGER},
+      </if>
+      <if test="virtualType != null" >
+        #{virtualType,jdbcType=SMALLINT},
+      </if>
+      <if test="virtualValue != null" >
+        #{virtualValue,jdbcType=DECIMAL},
+      </if>
+      <if test="virtualExt1 != null" >
+        #{virtualExt1,jdbcType=INTEGER},
+      </if>
+      <if test="virtualExt2 != null" >
+        #{virtualExt2,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=INTEGER},
+      </if>
+      <if test="expireTime != null" >
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireSeconds != null" >
+        #{expireSeconds,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.PromotionPrize" >
+    update t_promotion_prize
+    <set >
+      <if test="promotionId != null" >
+        promotion_id = #{promotionId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null" >
+        inventory = #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="awardedAmount != null" >
+        awarded_amount = #{awardedAmount,jdbcType=INTEGER},
+      </if>
+      <if test="virtualType != null" >
+        virtual_type = #{virtualType,jdbcType=SMALLINT},
+      </if>
+      <if test="virtualValue != null" >
+        virtual_value = #{virtualValue,jdbcType=DECIMAL},
+      </if>
+      <if test="virtualExt1 != null" >
+        virtual_ext1 = #{virtualExt1,jdbcType=INTEGER},
+      </if>
+      <if test="virtualExt2 != null" >
+        virtual_ext2 = #{virtualExt2,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=INTEGER},
+      </if>
+      <if test="expireTime != null" >
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireSeconds != null" >
+        expire_seconds = #{expireSeconds,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.PromotionPrize" >
+    update t_promotion_prize
+    set promotion_id = #{promotionId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      inventory = #{inventory,jdbcType=INTEGER},
+      awarded_amount = #{awardedAmount,jdbcType=INTEGER},
+      virtual_type = #{virtualType,jdbcType=SMALLINT},
+      virtual_value = #{virtualValue,jdbcType=DECIMAL},
+      virtual_ext1 = #{virtualExt1,jdbcType=INTEGER},
+      virtual_ext2 = #{virtualExt2,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=INTEGER},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      expire_seconds = #{expireSeconds,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      image_url = #{imageUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectPromotionPrizeList" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List"></include>
+  from t_promotion_prize where promotion_id = #{promotionId,jdbcType=INTEGER} and invalid = 0 
+  </select>
+</mapper>

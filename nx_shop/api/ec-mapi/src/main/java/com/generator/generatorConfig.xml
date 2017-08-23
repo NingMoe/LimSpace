@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+<!-- classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 -->
+	<classPathEntry location="E:\apache-maven-3.1.1\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar"/>
+
+	
+	<context id="mysqlTables" targetRuntime="MyBatis3">
+		<property name="javaFileEncoding" value="UTF-8" />
+
+		<!-- 去除自动生成的注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="" value=""/>
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost/ec_tyfq?useUnicode=true&amp;characterEncoding=UTF-8&amp;"
+			userId="root" password="">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- targetProject:自动生成代码的位置 -->
+	<javaModelGenerator targetPackage="com.tyiti.easycommerce.entity"
+			targetProject="mapi">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator> 
+		<sqlMapGenerator targetPackage="com.tyiti.easycommerce.mapping"
+			targetProject="mapi">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		   <javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.tyiti.easycommerce.repository" targetProject="mapi">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
+		<table schema="general" tableName="t_activity_sku" domainObjectName="ActivitySku"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>
+		 
+		<!-- <table schema="general" tableName="tf_business_config" domainObjectName="BusinessConfigModel"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table> -->
+		 
+	</context>
+</generatorConfiguration>

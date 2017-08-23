@@ -1,0 +1,2307 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Easy-Commerce API 
+  description: 微商城API
+  version: "1.0.0"
+# the domain of the service
+host: 
+  - dev.cebshop.tyiti.com
+  - dev.tianyaofenqi.com
+  - dev.taohuibang.com
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+# basePath:
+produces:
+- application/json
+paths:
+  /fqa:
+    get:
+      summary: 常见问题分页查询
+      description: 根据时间倒序查询常见问题
+      tags:
+        - FQA
+      parameters:
+        - name: offset
+          in: query
+          description: 用于分页,从第几条开始
+          required: false
+          type: number
+        - name: limit
+          in: query
+          description: 用于分页,每页显示多少条
+          required: false
+          type: number
+      responses:
+        '200':
+          description: OK
+          schema:
+            title: data
+            type: object
+            properties:
+              question:
+                type: string 
+                description: 问题
+              answer:
+                type: string
+                description: 答案
+              create_time:
+                type: number
+                description: 创建时间
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /leaveMessage:
+    post:
+      summary: 用户留言
+      description: 用户留言
+      parameters:
+        - name: content
+          in: formData
+          description: 留言内容
+          required: true
+          type: string
+      tags:
+        - 用户留言
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 操作失败
+          schema:
+            $ref: '#/definitions/Error'
+  /rushBuy:
+    get:
+      summary: 加载秒杀活动列表
+      description: 加载当前时间大于最近一次活动结束时间1小时的活动
+      tags:
+        - 秒杀
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/RushBuy'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /rushBuy/sku:
+    get:
+      summary: 获取指定秒杀活动中的所有商品信息
+      description: 获取指定秒杀活动中的所有商品信息
+      tags:
+        - 秒杀
+      parameters:
+        - name: rushBuyId
+          in: query
+          description: 商品id
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/RushBuySku'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /coupon_list/{pid}&{cateId}:
+    get:
+      summary:  获取该用户在该商品上可使用的优惠券列表
+      description:  获取该用户在该商品上可使用的优惠券列表
+      tags:
+        - 优惠券
+      parameters:
+        - name: pid
+          in: path
+          description: 关联id（可能未sku id，活动id等）
+          required: true
+          type: number
+          format: int
+        - name: cateId
+          in: path
+          description: 优惠券类别id，若商品未关联任何优惠券，则传入0
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CouponInfo'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /coupon_use/{pid}&{cateId}:
+    get:
+      summary: 获取该商品是否有可使用的优惠券
+      description: 获取该商品是否有可使用的优惠券
+      tags:
+        - 优惠券
+      parameters:
+        - name: pid
+          in: path
+          description: 关联id（可能未sku id，活动id等）
+          required: true
+          type: number
+          format: int
+        - name: cateId
+          in: path
+          description: 优惠券类别id，若商品未关联任何优惠券，则传入0
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: OK,true:表示有可用，false:表示没有
+          schema:
+            type: boolean
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /coupon_status/{status}:
+    get:
+      summary: 优惠券分类列表
+      description: 优惠券分类列表
+      tags:
+        - 优惠券
+      parameters:
+        - name: status
+          in: path
+          description: 0:未使用，1:已过期，2:已使用
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CouponInfo'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /lottery/{id}:
+    get:
+      summary: 抽奖
+      description: 抽奖
+      tags:
+        - 抽奖活动
+      parameters:
+        - name: id
+          in: path
+          description: 活动id
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PromotionPrize'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /promotionPrizeList/{id}:
+    get:
+      summary: 活动奖品列表
+      description: 活动奖品列表
+      tags:
+        - 抽奖活动
+      parameters:
+        - name: id
+          in: path
+          description: 活动id
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PromotionPrize'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /getMyPrizeList/{id}:
+    get:
+      summary: 我的中奖记录
+      description: 我的中奖记录
+      tags:
+        - 抽奖活动
+      parameters:
+        - name: id
+          in: path
+          description: 活动id
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PromotionRaffle'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /getPrizeList/{id}:
+    get:
+      summary: 获奖名单及奖品列表
+      description: 获奖名单及奖品列表
+      tags:
+        - 抽奖活动
+      parameters:
+        - name: id
+          in: path
+          description: 活动id
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PromotionRaffle'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /acceptPrize:
+    post:
+      summary: 领取奖品
+      description: 领取奖品
+      parameters:
+        - name: id
+          in: formData
+          description: 奖品id
+          required: true
+          type: string
+        - name: real_name
+          in: formData
+          description: 领取人姓名
+          required: true
+          type: string
+        - name: mobile
+          in: formData
+          description: 领取人电话
+          required: true
+          type: string
+        - name: address
+          in: formData
+          description: 领取人地址
+          required: true
+          type: string
+      tags:
+        - 抽奖活动
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数，包括短信验证码错误
+          schema:
+            $ref: '#/definitions/Error'
+  /address: 
+    get:
+      summary: 查询地址
+      description: 查询当前登录用户的所有收货地址
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Address'
+    post:
+      summary: 增加地址
+      description: 增加一条收货地址
+      parameters:
+        - name: username
+          in: formData
+          description: 收货人姓名
+          required: true
+          type: string
+        - name: mobile
+          in: formData
+          description: 收货人手机号
+          required: true
+          type: string
+        - name: stateId
+          in: formData
+          description: 省ID
+          required: true
+          type: integer
+        - name: cityId
+          in: formData
+          description: 市ID
+          required: true
+          type: integer
+        - name: countyId
+          in: formData
+          description: 县ID
+          required: true
+          type: integer
+        - name: street
+          in: formData
+          description: 街道门牌号
+          required: true
+          type: string
+        - name: zip
+          in: formData
+          description: 邮编
+          required: true
+          type: integer
+        - name: isDefault
+          in: formData
+          description: 邮编
+          required: true
+          type: integer
+      tags:
+        - 地址
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '400':
+          description: 非法请求参数，如非法手机号
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: 编辑地址
+      description: 更新编辑后的地址
+      parameters:
+        - name: addressId
+          in: formData
+          description: 地址ID
+          required: true
+          type: integer
+        - name: username
+          in: formData
+          description: 收货人姓名
+          required: true
+          type: string
+        - name: mobile
+          in: formData
+          description: 收货人手机号
+          required: true
+          type: string
+        - name: stateId
+          in: formData
+          description: 省ID
+          required: true
+          type: integer
+        - name: cityId
+          in: formData
+          description: 市ID
+          required: true
+          type: integer
+        - name: countyId
+          in: formData
+          description: 县ID
+          required: true
+          type: integer
+        - name: street
+          in: formData
+          description: 街道门牌号
+          required: true
+          type: string
+        - name: zip
+          in: formData
+          description: 邮编
+          required: true
+          type: integer
+        - name: isDefault
+          in: formData
+          description: 邮编
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Address'
+  /address/{addressId}/:
+    get:
+      summary: 获取单个地址
+      description: 根据id获取单个地址
+      parameters:
+        - name: addressId
+          in: path
+          description: 地址ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Address'
+    delete:
+      summary: 删除地址
+      description: 删除地址
+      parameters:
+        - name: addressId
+          in: path
+          description: 地址ID
+          required: true
+          type: integer
+      tags:
+        - 地址
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '400':
+          description: 非法请求参数，如非法手机号
+          schema:
+            $ref: '#/definitions/Error'
+        '403':
+          description: 该手机号达到频率规则，不再发送短信
+          schema:
+            $ref: '#/definitions/Error'
+  /area/:
+    get:
+      summary: 省市联动
+      description: 省市联动
+      parameters:
+        - name: parentId
+          in: query
+          description: 省市县ID
+          required: true
+          type: integer
+        - name: level
+          in: query
+          description: 级别，分为三级，对应为1,2,3
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AreaItem'
+  /index:
+    post:
+      summary: 光大银行中转页。
+      description: 光大银行通过访问该接口传过来 openId、openUrl最后 302重定向到指定到指定的地址。
+      consumes:
+        - application/json
+      parameters:
+        - name: openId
+          in: formData
+          description: 用户的OenId
+          required: true
+          type: string
+        - name: openUrl
+          in: formData
+          description: 重定向的地址
+          required: true
+          type: string
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数，包括短信验证码错误
+          schema:
+            $ref: '#/definitions/Error'
+  /connects:
+    post:
+      summary: 绑定手机号到 openId ，相当于弱登录，绑定后才能签到、下单。
+      description: 如果手机号、短信验证码验证通过，即绑定手机号，成功返回 Cookie： sig=加密签名(openId, mobile)。一个手机号可以绑定多个微信账号。...
+      consumes:
+        - application/json
+      parameters:
+        - name: mobile
+          in: formData
+          description: 手机号
+          required: true
+          type: string
+        - name: verifyCode
+          in: formData
+          description: 短信验证码
+          required: true
+          type: string
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数，包括短信验证码错误
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: 重新绑定手机号到 openId
+      description: 更新手机号
+      consumes:
+        - application/json
+      parameters:
+        - name: mobile
+          in: formData
+          description: 手机号
+          required: true
+          type: string
+        - name: oldVerifyCode
+          in: formData
+          description: 原手机号短信验证码
+          required: true
+          type: string
+        - name: newVerifyCode
+          in: formData
+          description: 新手机号短信验证码
+          required: true
+          type: string
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数，包括手机号已注册，验证码错误
+          schema:
+            $ref: '#/definitions/Error'
+  /connects/verify:
+    get:
+      summary: 获取已绑定手机号的短信验证码
+      description: 不需要提供手机号
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: 用户尚未绑定手机号，或者 openId 参数非法
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: 验证已绑定手机号的短信验证码
+      description: 不需要提供手机号
+      consumes:
+        - application/json
+      parameters:
+        - name: verifyCode
+          in: formData
+          description: 短信验证码
+          required: true
+          type: string
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数，包括验证码错误
+          schema:
+            $ref: '#/definitions/Error'
+  /verify_code:
+    get:
+      summary: 获取短信验证码
+      description: 获取短信验证码
+      parameters:
+        - name: mobile
+          in: query
+          description: 手机号
+          required: true
+          type: string
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: 验证码字符串，如 "123456"
+          schema:
+            type: string
+        '400':
+          description: 非法请求参数，如非法手机号
+          schema:
+            $ref: '#/definitions/Error'
+        '403':
+          description: 该手机号达到频率规则，不再发送短信
+          schema:
+            $ref: '#/definitions/Error'
+  /users:
+    get:
+      summary: 用户信息查询
+      description: 用户信息查询
+      tags:
+        - 用户
+      responses: 
+        '200': 
+          description: OK
+          schema: 
+            title: data
+            type: object
+            properties: 
+              mobile: 
+                type: string
+                description: 用户手机号码
+              real_name:
+                type: string 
+                description: 用户姓名
+              hasPayPassword:
+                type: string
+                description: 是否有支付密码  true：有，false：无
+              code:
+                type: number
+                description: 信分宝接口返回码
+              resultCode:
+                type: string
+                description: 信分宝接口返回内容
+              creditSum:
+                type: string
+                description: 总信用额度
+              useSum:
+                type: string
+                description: 可使用信用额度
+        '400':
+          description: 查询失败
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: 注册新用户
+      description: 注册新用户
+      consumes:
+        - application/json
+      parameters:
+        - name: mobile
+          in: formData
+          description: 手机号
+          required: true
+          type: string
+        - name: realName
+          in: formData
+          description: 真实姓名
+          required: true
+          type: string
+        - name: idCard
+          in: formData
+          description: 身份证号
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: 密码 MD5
+          required: true
+          type: string
+        - name: verifyCode
+          in: formData
+          description: 短信验证码
+          required: true
+          type: string
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数，包括手机号已注册，验证码错误
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      consumes:
+        - application/json
+      summary: 找回密码，设置/修改支付密码
+      description: |
+        type = 0 找回密码第1步（预验证）<br>
+        type = 1 设置/修改支付密码第1步（预验证）<br>
+        type = 2 找回密码第2步<br>
+        type = 3 设置/修改支付密码第2步
+      parameters:
+        - name: type
+          in: formData
+          description: 0-3
+          required: true
+          type: integer
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+        - name: mobile
+          in: formData
+          description: 手机号
+          required: true
+          type: string
+        - name: idCard
+          in: formData
+          description: 身份证号
+          required: true
+          type: string
+        - name: verifyCode
+          in: formData
+          description: 短信验证码
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: 新密码 MD5，type = 2 时需要
+          required: false
+          type: string
+        - name: payPassword
+          in: formData
+          description: 支付密码 MD5，type = 3 时需要
+          required: false
+          type: string
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录，如果是支付密码，需要登录
+          schema:
+            $ref: '#/definitions/Error'
+        '403':
+          description: 无权限，如果是支付密码，需要身份一致
+          schema:
+            $ref: '#/definitions/Error'
+  /users/password:
+    put:
+      consumes:
+        - application/json
+      summary: 修改密码
+      description: 修改密码
+      parameters:
+        - name: password
+          in: formData
+          description: 原密码 MD5
+          required: true
+          type: string
+        - name: newPassword
+          in: formData
+          description: 新密码 MD5
+          required: true
+          type: string
+      tags:
+        - 用户
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /users/signup:
+    post:
+      consumes:
+        - application/json
+      summary: 用户登录
+      description: 用户登录
+      parameters:
+        - name: mobile
+          in: formData
+          description: 手机号
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: 密码 MD5
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 非法请求参数，包括用户名或密码错误
+          schema:
+            $ref: '#/definitions/Error'
+  /users/signout:
+    post:
+      summary: 用户注销
+      description: 用户注销
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /tags:
+    get:
+      summary: 获取标签树
+      description: |
+        包括tag标签树列表
+      parameters:
+        - name: tagId
+          in: formData
+          description: tag标签id
+          required: true
+          type: number
+          format: int
+        - name: level
+          in: formData
+          description: 标签树深度
+          required: true
+          type: number
+          format: int
+      tags:
+        - 标签
+      responses:
+        '200':
+          description: 标签树
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              message:
+                type: string
+              list:
+                description: 标签列表
+                type: array
+                items:
+                  $ref: '#/definitions/Tag'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /tag/skus:
+    get:
+      summary: 获取商品列表
+      description: |
+        包括tag标签 sku商品列表。
+      parameters:
+        - name: tagId
+          in: formData
+          description: tag标签id
+          required: true
+          type: number
+          format: int
+        - name: level
+          in: formData
+          description: 获取标签层级 哪一层级有商品
+          required: true
+          type: number
+          format: int
+        - name: limit
+          in: formData
+          description: 商品数量控制
+          required: true
+          type: number
+          format: int
+      responses:
+        '200':
+          description: 商品列表
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              message:
+                type: string
+              tagSkus:
+                type: array
+                description: 商品列表 含标签树
+                items:
+                  $ref: '#/definitions/Tag'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /sku/{id}:
+    get:
+      summary: 获取商品详情
+      description: |
+        包括spu_attribute sku_attribute sku详情等内容。
+      parameters:
+        - name: id
+          in: path
+          description: skuId商品id
+          required: true
+          type: number
+          format: int
+      tags:
+        - 商品
+      responses:
+        '200':
+          description: 详情
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              message:
+                type: string
+              parentTags:
+                type: array
+                description: 父标签列表
+                items:
+                  $ref: '#/definitions/Tag'
+              sku:
+                $ref: '#/definitions/Sku'
+              spuAttrs:
+                description: 商品所有属性
+                type: array
+                items:
+                  $ref: '#/definitions/SpuAttribute'
+              otherSkuAttrs:
+                description: 商品属性外其它属性
+                type: array
+                items:
+                  $ref: '#/definitions/SkuAttribute'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+  /orders:
+    get:
+      summary: 获取当前登录用户的所有订单
+      description: |
+        按时间倒序的所有状态的订单。
+      parameters:
+        - name: stauts
+          in: query
+          description: 订单状态
+          required: false
+          type: number
+          format: int
+        - name: offset
+          in: query
+          description: 从第几项开始，从0开始计数
+          required: false
+          type: number
+          format: int
+        - name: limit
+          in: query
+          description: 返回的结果条数，至少1条，至多100条
+          required: false
+          type: number
+          format: int
+      tags:
+        - 订单
+      responses:
+        '200':
+          description: 订单数组
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order'
+        '400':
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: 生成订单
+      description: 生成订单
+      parameters:
+        - name: skuId
+          in: formData
+          description: 商品ID
+          required: true
+          type: string
+        - name: skuCount
+          in: formData
+          description: 商品数量
+          required: true
+          type: string
+        - name: addressId
+          in: formData
+          description: 收货地址Id
+          required: true
+          type: string
+        - name: installmentAmount
+          in: formData
+          description: 分期金额
+          required: true
+          type: number
+          format: double
+        - name: installmentMonths
+          in: formData
+          description: 分期期数
+          required: true
+          type: integer
+        - name: couponRecordId
+          in: formData
+          description: 优惠券记录id
+          required: false
+          type: integer
+      tags:
+        - 订单
+      responses:
+        200:
+          description: 订单对象
+          schema:
+            $ref: '#/definitions/Order'
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /orders/{id}:
+    get:
+      summary: 获取订单详情
+      description: 获取订单详情
+      tags:
+        - 订单
+      parameters:
+        - name: id
+          in: path
+          description: 订单ID
+          required: true
+          type: number
+          format: int
+      responses:
+        200:
+          description: 订单详情对象
+          schema:
+            $ref: '#/definitions/Order'
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该订单
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: 订单签收（已发货）
+      description: 订单签收（已发货）
+      tags:
+        - 订单
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: 订单ID
+          required: true
+        - name: status
+          in: formData
+          type: integer
+          description: 新的订单状态，只支持6（签收）
+          required: true
+      responses:
+        200:
+          description: OK
+        400:
+          description: 非法请求参数，或者非法的订单状态
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该订单
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: 删除订单（已取消 9、已签收 6）
+      description: 逻辑删除，非物理删除
+      tags:
+        - 订单
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: 订单ID
+          required: true
+      responses:
+        200:
+          description: OK
+        400:
+          description: 非法请求参数，或者非法的订单状态
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该订单
+          schema:
+            $ref: '#/definitions/Error'
+  /orders/refunds/{order_id}:
+    post:
+      summary: 取消订单（未付款：已付首付且未付分期、已付款、已确认）
+      description: |
+        如果有分期，调用信分宝恢复分期额度，记录一条分期退款成功记录；如果有首付，记录一条首付退款未完成记录
+      tags:
+        - 订单
+        - 取消
+      parameters:
+        - name: order_id
+          in: path
+          type: string
+          description: 订单ID
+          required: true
+      responses:
+        200:
+          description: OK
+        400:
+          description: 非法请求参数，或者非法的订单状态
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该订单
+          schema:
+            $ref: '#/definitions/Error'
+  /orders/cancellations/{order_id}:
+    post:
+      summary: 申请取消订单（已制单、已发货）
+      description: |
+        如果没有申请中的记录，记录一条申请，否则拒绝
+      tags:
+        - 订单
+        - 取消
+      parameters:
+        - name: order_id
+          in: path
+          type: string
+          description: 订单ID
+          required: true
+      responses:
+        200:
+          description: OK
+        400:
+          description: 非法请求参数，或者非法的订单状态
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该订单
+          schema:
+            $ref: '#/definitions/Error'
+
+  /orders/return:
+    get:
+      summary: 退换列表（只有同意退货申请后用户才可见）
+      description: 按时间倒序
+      tags:
+        - 订单
+        - 售后
+      responses:
+        200:
+          description: 退换列表数组
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ReturnItem'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: 申请退货（已签收）
+      description: |
+        申请退货（已签收）
+      tags:
+        - 订单
+        - 售后
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: order_id
+          type: string
+          description: 订单ID
+          required: true
+        - in: formData
+          name: reason
+          type: string
+          required: true
+        - in: formData
+          name: pics
+          type: string
+          description: |
+            图片凭证，最多可以上传3张图片。逗号分隔的图片 URL
+          required: false
+      responses:
+        200:
+          description: OK
+        400:
+          description: 非法请求参数，或者非法的订单状态
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该订单
+          schema:
+            $ref: '#/definitions/Error'
+  /orders/return/{return_id}:
+    get:
+      summary: 退货单详情
+      description: 退货单详情
+      tags:
+        - 订单
+        - 售后
+      parameters:
+        - in: path
+          name: return_id
+          type: string
+          description: 售后单ID
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ReturnItem'
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该售后单
+          schema:
+            $ref: '#/definitions/Error'
+  /orders/wxprepay/{order_id}:
+    post:
+      summary: 微信预支付
+      description: |
+        在微信支付服务后台生成预支付交易单
+      tags:
+        - 订单
+        - 支付
+      parameters:
+        - name: order_id
+          in: path
+          type: string
+          description: 订单ID
+          required: true
+      responses:
+        200:
+          description: 预支付对象
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/WxPrepay'
+        400:
+          description: 非法请求参数，或者非法的订单状态
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该订单
+          schema:
+            $ref: '#/definitions/Error'
+  /weixin/unifiedorder:
+    post:
+      summary: 微信预支付
+      description: 微信预支付
+      parameters:
+        - name: orderId
+          in: formData
+          description: 如果为首付，则为单个订单id，如果为账单还款，为英文逗号隔开的多个账单id 
+          required: true
+          type: string
+        - name: type
+          in: formData
+          description: 支付类型标识 0:首付  1：账单还款
+          required: true
+          type: string
+        - name: grossAmount
+          in: formData
+          description: 账单还款总金额，当type为1时必填
+          required: false
+          type: string
+      tags:
+        - 微信预支付
+      responses:
+        200:
+          description: OK
+        400:
+          description: 操作失败
+          schema:
+            $ref: '#/definitions/Error'
+  /orders/installments/{order_id}&{payPassword}:
+    post:
+      summary: 分期支付
+      description: 分期支付，接口调用信分宝接口
+      tags:
+        - 订单
+        - 支付
+      parameters:
+        - name: order_id
+          in: path
+          type: string
+          description: 订单ID
+          required: true
+        - name: payPassword
+          in: path
+          type: string
+          description: 支付密码
+          required: true
+      responses:
+        200:
+          description: OK
+        400:
+          description: 非法请求参数，或者非法的订单状态
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户下的）该订单
+          schema:
+            $ref: '#/definitions/Error'
+  /bill:
+    get:
+      summary: 账单列表
+      description: 获取当前登录用户的账单列表
+      tags:
+        - 账单
+      responses:
+        200:
+          description: 账单数组
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Bill'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+  /bill/{id}:
+    get:
+      summary: 账单详情
+      description: 账单详情
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: 账单ID
+          required: true
+      tags:
+        - 账单
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/BillPart'
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户的）该账单
+          schema:
+            $ref: '#/definitions/Error'
+  /banner:
+    get:
+      summary: 轮播图
+      description: 轮播图
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/banner'
+        400:
+          description: 非法请求参数
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: 未登录
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: 未找到（当前用户的）该账单
+          schema:
+            $ref: '#/definitions/Error'
+  /creditCardPay:
+    get:
+      summary: 光大订单支付
+      description: 微信端调用光大订单支付接口
+      tags:
+       - 光大支付
+      parameters:
+        - name: id
+          in: query
+          description: 订单id
+          required: true
+          type: number
+          format: int
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/creditCardPay'
+definitions:
+  creditCardPay:
+    type: object
+    properties:
+      URL:
+        type: string
+        description: 请求网关地址
+      signReqMsg:
+        type: string
+        description: 支付签名
+  Logistics:
+    type: object
+    properties:
+      logistics_id:
+        type: string
+        description: 物流单号
+      company_name:
+        type: string
+        description: 公司名称
+  WxPrepay:
+    type: object
+    description: "参考 https://pay.weixin.qq.com/wiki/doc/api/app.php?chapter=9_1"
+    properties:
+      appid:
+        type: string
+        description: 公众账号ID
+      nonce_str:
+        type: string
+        description: 随机字符串
+      package:
+        type: string
+      sign_type:
+        type: string
+      pay_sign:
+        type: string
+      time_stamp:
+        type: string
+  Bill:
+    type: object
+    description: 账单
+    properties:
+      bill_id:
+        type: string
+        description: 账单ID
+  banner:
+    type: object
+    description: 首页轮播图
+    properties:
+      picUrl: 
+        type: string
+      url:
+        type: string
+      title:
+        type: string
+  ReturnItem:
+    type: object
+    properties:
+      order_id:
+        type: string
+        description: 订单ID
+      order_no:
+        type: string
+        description: 订单号
+      return_id:
+        type: string
+        description: 售后单ID
+      return_no:
+        type: string
+        description: 售后单号
+      create_time:
+        type: string
+        format: date-time
+        description: 申请时间
+      product_name:
+        type: string
+        description: 商品显示名称
+      status:
+        type: integer
+        description: 状态：待确认、已取消、待收货、完成
+      reason:
+        type: string
+        description: 退货原因
+      pics:
+        type: string
+        description: 图片
+  Order:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ID 订单ID
+      no:
+        type: string
+        description: 订单编号
+      custId:
+        type: string
+        description: 客户ID
+      amount:
+        type: number
+        format: double
+        description: 订单总金额
+      downPayment:
+        type: number
+        format: double
+        description: 首付款金额
+      installmentAmount:
+        type: number
+        format: double
+        description: 分期金额
+      installmentMonths:
+        type: integer
+        description: 分期数
+      downPaymentPayed:
+        type: boolean
+        description: 是否已支付首付，如果无首付，为 false
+      installmentPayed:
+        type: boolean
+        description: 是否已支付分期，如果无分期，为 false
+      downPaymentTime:
+        type: string
+        format: date-time
+        description: 首付成功的时间
+      installmentTime:
+        type: string
+        format: date-time
+        description: 分期成功的时间
+      payMethod:
+        type: integer
+        description: 订单支付类型 1全款 2全分期 3首付+分期
+      status:
+        type: integer
+        description: 订单状态 0草稿 1未付款 2已付款 3已确认 4已制单 5已发货 6已签收 9已取消
+      secondStatus:
+        type: integer
+        description: 第二状态 显示取消和退货的状态
+      invalid:
+        type: integer
+        description: 是否已删除
+      createTime:
+        type: string
+        format: date-time
+        description: 订单开始时间
+      closeTime:
+        type: string
+        format: date-time
+        description: 订单结束时间
+      addressName:
+        type: string
+        description: 收货人姓名
+      addressMobile:
+        type: string
+        description: 收货人手机号
+      addressFullText:
+        type: string
+        description: 收货人详细地址，从省市到门牌号
+      addressZip:
+        type: string
+        description: 收货人邮政编码
+      logisticsNo:
+        type: string
+        description: 物流单号
+      logisticsCompany:
+        type: string
+        description: 物流公司
+      orderSku:
+        type: array
+        $ref: '#/definitions/OrderSku'
+  OrderSku:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 商品ID
+      orderId:
+        type: integer
+        description: 订单ID
+      skuId:
+        type: integer
+        description: 商品ID
+      skuName:
+        type: string
+        description: 商品名称
+      skuDescription:
+        type: string
+        description: 描述（副标题）
+      skuDetail:
+        type: string
+        description: 商品介绍
+      skuErpCode:
+        type: string
+        description: ERP CODE
+      skuHeadThumbnail:
+        type: string
+        description: 商品图片
+      skuCount:
+        type: integer
+        description: 商品数量
+      skuPrice:
+        type: string
+        description: 单个商品价格
+      skuOriginalPrice:
+        type: string
+        description: 单个商品原价
+      skuAttribute:
+        type: string
+        description: 原商品规格
+      activityType:
+        type: string
+        description: 参与活动分类(1：秒杀 2：优惠券)
+      activityId:
+        type: string
+        description: 活动id(如果是秒杀活动等于秒杀活动id，如果是优惠券则等于优惠券id)
+  Attribute:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ID
+      name:
+        type: string
+        description: 属性名称
+      invalid:
+        type: integer
+        description: 是否删除。有关联 SPU 的不允许删除
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+  SpuAttribute:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ID sku 参数ID
+      spuId:
+        type: integer
+        description: SPU ID
+      attributeId:
+        type: integer
+        description: 属性ID
+      valueConstraintType:
+        type: string
+        description: 0 文本框，任意填写；1 下拉
+      valueConstraintExpression:
+        type: string
+        description: 如果是下拉，\t分隔的值
+      rank:
+        type: integer
+        description: 排序值，越大排序越靠后
+      attr:
+          $ref: '#/definitions/Attribute'
+  SkuAttribute:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ID sku 参数ID
+      skuId:
+        type: integer
+        description: skuID 商品ID
+      spuAttributeId:
+        type: integer
+        description: spu参数ID
+      attributeValue:
+        type: string
+        description: 参数值
+  Sku:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ID
+      name:
+        type: string
+        description: 商品名称（标题）
+      description:
+        type: string
+        description: 描述（副标题）
+      detail:
+        type: string
+        description: 商品详情
+      spuId:
+        type: integer
+        description: SPU ID
+      erpCode:
+        type: string
+        description: ERP CODE
+      invalid:
+        type: integer
+        description: 是否有效，默认有效。可用于上架、下架。
+      originalPrice:
+        type: number
+        format: double
+        description: 原价格（或者市场价格）
+      price:
+        type: number
+        format: double
+        description: 商品基础价格
+      installment:
+        type: string
+        description: 分期期数
+      installments:
+        type: string
+        description: 分期数和每期还款额列表
+      headThumbnail:
+        type: string
+        description: SKU缩略图
+      imagesThumbnail:
+        type: string
+        description: 缩略图，英文逗号分隔的图片URL
+      imagesOriginal:
+        type: string
+        description: 大图，英文逗号分隔的图片URL
+      isDefault:
+        type: integer
+        description: 是否 SPU 里默认显示的商品
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+      inventory:
+        type: integer
+        description: 库存
+      attrs:
+        type: array
+        items:
+          $ref: '#/definitions/SkuAttribute'
+  Tag:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: id
+      name:
+        type: string
+        description: 标签名称
+      parentId:
+        type: integer
+        description: 父标签id
+      invalid:
+        type: integer
+        description: 是否有效
+      rank:
+        type: integer
+        description: 排序
+      icon:
+        type: string
+        description: 图片地址
+      createTime:
+        type: string
+        format: date-time
+        description: 添加时间
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+      depth:
+        type: integer
+        description: 标签深度
+      parentTag:
+        $ref: '#/definitions/Tag'
+      childrens:
+        type: array
+        description: 子标签
+        items:
+          $ref: '#/definitions/Tag'
+      skus:
+        type: array
+        description: 商品列表
+        items:
+          $ref: '#/definitions/Sku'
+  AreaItem:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 省市县ID
+      name:
+        type: string
+        description: 省市县名字
+  Address:
+    type: object
+    properties:
+      address_id:
+        type: string
+        description: 地址ID
+      username:
+        type: string
+        description: 收货人姓名
+      mobile:
+        type: string
+        description: 收货人手机号
+      stateName:
+        type: string 
+        description: 省名字
+      cityName:
+        type: string 
+        description: 市名字
+      countyName:  
+        type: string
+        description: 县名字
+      street:
+        type: string
+        description: 街道门牌号
+      zip:
+        type: integer
+        description: 邮编
+      isDefault:
+        type: integer
+        description: 是否默认
+  PromotionRaffle:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 中奖id
+      user_id:
+        type: integer
+      prize_id:
+        type: integer
+        description: 奖品id
+      promotion_id:
+        type: integer
+        description: 活动id
+      code:
+        type: integer
+        description: 中奖类型
+      raCount:
+        type: integer
+        description: 抽奖次数
+      create_time:
+        type: string
+        format: date-time
+        description: 创建时间
+      modify_time:
+        type: string
+        format: date-time
+        description: 修改时间
+      expire_time:
+        type: string
+        format: date-time
+        description: 截止时间
+      real_name:
+        type: string 
+        description: 收货人姓名
+      mobile:
+        type: string 
+        description: 收货人手机号
+      address:
+        type: string 
+        description: 收货人地址
+      name:
+        type: string 
+        description: 奖品名称     
+      is_receive:
+        type: boolean
+        description: is_receive 是否已经收货，默认为0
+      extInt:
+        type: integer
+        description: 抽奖机会
+      isExpire:
+        type: boolean
+        description: isExpire 是否过期
+  PromotionPrize:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 奖品id
+      name:
+        type: string
+        description: 奖品名称
+      promotion_id:
+        type: integer
+        description: 活动id
+      description:
+        type: string
+        description: 活动说明
+      raffleId:
+        type: string
+        description: 活动说明 
+      inventory:
+        type: integer
+        description: 库存数量
+      awarded_amount:
+        type: integer
+        description: 中奖数量
+      virtual_type:
+        type: integer
+        description: 奖品类别
+      virtual_value:
+        type: number
+        format: double
+        description: 奖品价值
+      virtual_ext1:
+        type: integer
+        description: 拓展字段1
+      expire_seconds:
+        type: integer
+        description: 有效时间
+      virtual_ext2:
+        type: integer
+        description: 拓展字段2
+      rate:
+        type: integer
+        description: 中奖率    
+      expire_time:
+        type: integer
+        description: 奖品过期时间点
+      create_time:
+        type: string
+        format: date-time
+        description: 创建时间 
+      modify_time:
+        type: string
+        format: date-time
+        description: 修改时间 
+  CouponInfo :
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 优惠券信息id
+      name:
+        type: string
+        description: 优惠券名称
+      type:
+        type: integer
+        description: 1：SKU专用 2：SPU专用 3：活动专用 4：全场通用 5：品牌专用 6：类别专用
+      refId:
+        type: string
+        description: 根据所选类别设置该优惠券所关联的物品
+      picUrls:
+        type: string
+        description: 优惠券图片地址
+      summary:
+        type: string
+        description: 优惠券使用说明
+      validDay:
+        type: integer
+        description: 有效期
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      issueTime:
+        type: string
+        format: date-time
+        description: 发布时间
+      startTime:
+        type: string
+        format: date-time
+        description: 如果是活动专用，则记录活动开始时间
+      endTime:
+        type: string
+        format: date-time
+        description: 如果是活动专用，则记录活动结束时间
+      invalid:
+        type: integer
+        description: 是否有效  0：有效；1：无效
+      rank:
+        type: integer
+        description: 是否为相对时间 0：相对时间（使用用户收到优惠券时间+有效天数） 1：绝对时间（开始时间-结束时间）
+      isDelete:
+        type: integer
+        description: 是否删除 0：未删除；1：已删除
+      couType:
+        type: integer
+        description: 优惠方式  0：满减；1：折扣
+      startMoney:
+        type: string
+        description: 优惠起始金额
+      couMoney:
+        type: string
+        description: 优惠金额（满减：满减金额） 折扣（折扣百分比）
+      count:
+        type: integer
+        description: 优惠券数量
+      recordId:
+        type: integer
+        description: 优惠券记录id
+      categoryName:
+        type: string
+        description: 优惠券类别名称
+      receiveTime:
+        type: string
+        format: date-time
+        description: 用户收到优惠券时间
+  RushBuySku:
+    type: object
+    properties:
+      rushBuyId:
+        type: integer
+        description: 所属秒杀活动id
+      skuId:
+        type: integer
+        description: 秒杀商品id
+      skuName:
+        type: string
+        description: 秒杀商品名称
+      price:
+        type: string
+        description: 商品在此次秒杀的活动价
+      availableCount:
+        type: integer
+        description: 单个用户可购买数
+      availableTimes:
+        type: integer
+        description: 单个用户可秒杀次数
+      leftSku:
+        type: integer
+        description: 剩余库存量
+      soldSku:
+        type: integer
+        description: 已售出数理
+  RushBuy:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: 秒杀活动id
+      name:
+        type: string
+        description: 秒杀活动名称
+      needAppoint:
+        type: boolean
+        description: 是否需要预约才能参与
+      appointStartTime:
+        type: string
+        description: 开始接受预约的时间,当needAppoint为false的时候可空
+      appointEndTime:
+        type: string
+        description: 停止接受预约时间, 当need_appoint为false的时候可空
+      startTime:
+        type: string
+        description: 秒杀开始时间
+      endTime: 
+        type: string 
+        description: 秒杀结束时间
+  Bill:
+    type: object
+    description: 账单
+    properties:
+      overdueNumber:
+        type: string
+        description: 账单已逾期个数
+      page:
+        type: string
+        description: 页码
+      pageSize:
+        type: string
+        description: 条数
+      total:
+        type: string
+        description: 总数
+      billList:
+        type: array
+        description: 账单信息
+        $ref: '#/definitions/BillDetail'
+  BillDetail:
+    type: object
+    description: 账单
+    properties:
+      billId:
+        type: string
+        description: 账单编号
+      billNo:
+        type: string
+        description: 分期编号   order_name_期数
+      latestRepay:
+        type: string
+        description: 还款日
+      currentStage:
+        type: string
+        description: 当前期
+      billStatus:
+        type: string
+        description: 0 新建 1 待还款 2 已还款 3 已逾期 4 已退货 5 已退款
+      orderId:
+        type: string
+        description: 订单编号
+      userLimit:
+        type: string
+        description: 总还款金额（月供+服务费）
+      productName:
+        type: string
+        description: 产品名称
+      stagePlan:
+        type: string
+        description: 分期方案（共有几期）
+      actualRepay:
+        type: string
+        description: 实际还款日
+  BillPart:
+    type: object
+    description: 账单明细
+    properties:
+      billId:
+        type: string
+        description: 账单ID
+      billNo:
+        type: string
+        description: 账单编号
+      billStatus:
+        type: string
+        description: 0 新建 1 待还款 2 已还款 3 已逾期 4 已退货 5 已退款
+      productName:
+        type: string
+        description: 产品名称
+      stagePlan:
+        type: string
+        description: 分期方案（共有几期）
+      aRefundBillAmount:
+        type: string
+        description: 已还账单金额
+      createTime:
+        type: string
+        description: 创建时间
+      sRefundBillList:
+        type: array
+        description: 待还账单
+        $ref: '#/definitions/SRefundBill'
+      aRefundBillList:
+        type: array
+        description: 已还账单
+        $ref: '#/definitions/ARefundBill'
+  SRefundBill:
+    type: object
+    description: 已还账单
+    properties:
+      billId:
+        type: string
+        description: 账单ID
+      latestRepay:
+        type: string
+        description: 还款日
+      currentStage:
+        type: string
+        description: 当前期
+      overdueFine:
+        type: string
+        description: 违约金
+      userLimit:
+        type: string
+        description: 总还款金额（月供+服务费）
+  ARefundBill:
+    type: object
+    description: 待还账单
+    properties:
+      billId:
+        type: string
+        description: 账单ID
+      latestRepay:
+        type: string
+        description: 还款日
+      currentStage:
+        type: string
+        description: 当前期
+      overdueFine:
+        type: string
+        description: 违约金
+      userLimit:
+        type: string
+        description: 总还款金额（月供+服务费）
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string

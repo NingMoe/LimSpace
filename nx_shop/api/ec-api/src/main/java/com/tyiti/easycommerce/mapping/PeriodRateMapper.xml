@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PeriodRateDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.PeriodRate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="rate" property="rate" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, period, rate, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_period_rate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_period_rate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.PeriodRate" >
+    insert into t_period_rate (id, period, rate, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{period,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.PeriodRate" >
+    insert into t_period_rate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.PeriodRate" >
+    update t_period_rate
+    <set >
+      <if test="period != null" >
+        period = #{period,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.PeriodRate" >
+    update t_period_rate
+    set period = #{period,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectList" resultMap="BaseResultMap">
+  select id , period ,rate 
+  from t_period_rate
+  </select>
+</mapper>

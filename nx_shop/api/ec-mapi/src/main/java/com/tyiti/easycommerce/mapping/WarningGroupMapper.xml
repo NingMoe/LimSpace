@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.WarningGroupDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.WarningGroup">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="invalid" property="invalid" jdbcType="BIT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="BaseResultConfigMap" type="com.tyiti.easycommerce.entity.Config">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="key" property="key" jdbcType="VARCHAR" />
+		<result column="value" property="value" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">id,name,invalid,create_time,update_time</sql>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.tyiti.easycommerce.entity.WarningGroup">
+		insert into t_sku_shelves_schedule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="getWarningGroup" resultMap="BaseResultMap"
+		parameterType="com.tyiti.easycommerce.entity.WarningGroup">
+		select
+		<include refid="Base_Column_List" />
+		from t_warning_group
+		where 1=1
+		<if test="name != null">
+			and name = #{name,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<insert id="insertConfig" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.tyiti.easycommerce.entity.Config">
+		insert into t_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="key != null">
+				`key`,
+			</if>
+			<if test="value != null">
+				`value`,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="key != null">
+				#{key,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null">
+				#{value,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="getConfig" resultMap="BaseResultConfigMap"
+		parameterType="com.tyiti.easycommerce.entity.Config">
+		select id,`key`,`value`,remark from t_config
+		where 1=1
+		<if test="id != null">
+			and id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="key != null">
+			and `key` = #{key,jdbcType=VARCHAR}
+		</if>
+		<if test="value != null">
+			and `value` = #{value,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<update id="updateConfigByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Config">
+		update t_config
+		<set>
+			<if test="value != null">
+				`value` = #{value,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where `key` = #{key,jdbcType=INTEGER}
+	</update>
+
+	<!--查询列表总数 -->
+	<select id="selectTagLists" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT
+		tag.id as tag_id,
+		sku.id ,
+		tag.rank,
+		sku.`name`,
+		sku.description,
+		sku.detail,
+		sku.erp_code,
+		sku.invalid,
+		sku.original_price,
+		sku.price,
+		sku.installment,
+		sku.head_thumbnail,
+		sku.images_thumbnail,
+		sku.images_original,
+		sku.is_default,
+		sku.create_time,
+		sku.update_time,
+		sku.inventory,
+		sku.spu_id
+		FROM
+		t_tag AS tag
+		JOIN t_tag_sku AS ts ON
+		ts.tag_id = tag.id and ts.invalid = 0
+		JOIN t_sku AS sku ON sku.id =
+		ts.sku_id and sku.invalid = 0 and sku.status
+		= 1
+		where 1=1 and
+		tag.invalid = 0 and tag.status = 1
+		and sku.id not in (select id from t_sku s where
+		s.warning_inventory>0)
+		<if test="tagId!=null">
+			and tag.id=#{tagId,jdbcType=INTEGER}
+		</if>
+		ORDER BY ts.rank
+		<if test="limit != null and offset != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+</mapper>

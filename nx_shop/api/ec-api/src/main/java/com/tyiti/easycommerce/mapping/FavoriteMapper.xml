@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.FavoriteDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Favorite">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sku_id" property="skuId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="BOOLEAN" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<select id="getSkuIdsByUserId" resultType="java.lang.Integer">
+		SELECT f.sku_id as skuId
+		FROM t_favorite as f
+		left join t_sku as s on f.sku_id = s.id 
+		WHERE f.user_id = #{userId} and f.status = 1;
+	</select>
+		
+	<insert id="add" >
+		INSERT INTO `t_favorite` (`sku_id`, `user_id`, `status`) 
+		select #{skuId},#{userId},1 from dual
+		where not exists (select id from `t_favorite` where `sku_id` = #{skuId} and `user_id` = #{userId});
+	</insert>
+	
+	<update id="updateStatus" >
+		UPDATE `t_favorite` SET `status` = case `status` when 0 then 1 else 0 end ,`update_time` = now()
+		WHERE `sku_id` = #{skuId} and `user_id` = #{userId};
+	</update>
+
+</mapper>

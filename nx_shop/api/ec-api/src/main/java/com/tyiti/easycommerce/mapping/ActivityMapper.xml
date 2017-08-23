@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.ActivityDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Activity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activity_type" property="activityType" jdbcType="TINYINT" />
+    <result column="activity_mode" property="activityMode" jdbcType="TINYINT" />
+    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="activity_remarks" property="activityRemarks" jdbcType="VARCHAR" />
+    <result column="activity_status" property="activityStatus" jdbcType="TINYINT" />
+    <result column="invalid" property="invalid" jdbcType="TINYINT" />
+    <result column="coupon" property="coupon" jdbcType="VARCHAR" />
+    <result column="display" property="display" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, activity_type, activity_mode, activity_name, start_time, end_time, activity_remarks, 
+    activity_status, invalid, coupon, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_activity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_activity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.Activity" >
+    insert into t_activity (id, activity_type, activity_mode, 
+      activity_name, start_time, end_time, 
+      activity_remarks, activity_status, invalid, 
+      coupon, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{activityType,jdbcType=TINYINT}, #{activityMode,jdbcType=TINYINT}, 
+      #{activityName,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{activityRemarks,jdbcType=VARCHAR}, #{activityStatus,jdbcType=TINYINT}, #{invalid,jdbcType=TINYINT}, 
+      #{coupon,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.Activity" >
+    insert into t_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="activityMode != null" >
+        activity_mode,
+      </if>
+      <if test="activityName != null" >
+        activity_name,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="activityRemarks != null" >
+        activity_remarks,
+      </if>
+      <if test="activityStatus != null" >
+        activity_status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="coupon != null" >
+        coupon,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=TINYINT},
+      </if>
+      <if test="activityMode != null" >
+        #{activityMode,jdbcType=TINYINT},
+      </if>
+      <if test="activityName != null" >
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityRemarks != null" >
+        #{activityRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStatus != null" >
+        #{activityStatus,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="coupon != null" >
+        #{coupon,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.Activity" >
+    update t_activity
+    <set >
+      <if test="activityType != null" >
+        activity_type = #{activityType,jdbcType=TINYINT},
+      </if>
+      <if test="activityMode != null" >
+        activity_mode = #{activityMode,jdbcType=TINYINT},
+      </if>
+      <if test="activityName != null" >
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityRemarks != null" >
+        activity_remarks = #{activityRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStatus != null" >
+        activity_status = #{activityStatus,jdbcType=TINYINT},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=TINYINT},
+      </if>
+      <if test="coupon != null" >
+        coupon = #{coupon,jdbcType=VARCHAR},
+      </if>
+      <if test="display != null" >
+        display = #{display,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Activity" >
+    update t_activity
+    set activity_type = #{activityType,jdbcType=TINYINT},
+      activity_mode = #{activityMode,jdbcType=TINYINT},
+      activity_name = #{activityName,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      activity_remarks = #{activityRemarks,jdbcType=VARCHAR},
+      activity_status = #{activityStatus,jdbcType=TINYINT},
+      invalid = #{invalid,jdbcType=TINYINT},
+      display = #{display,jdbcType=TINYINT},
+      coupon = #{coupon,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<!-- 根据活动类型查找 所有活动时间-->
+  <select id="findActivityList" parameterType="java.lang.Integer" resultType="java.util.Map" >
+   select 
+        t_activity.id, activity_type, activity_mode, activity_name, start_time, end_time, activity_remarks, 
+        activity_status, invalid, coupon, t_activity.create_time, t_activity.update_time,t_activity_sku.reserved_inventory
+    from t_activity inner join t_activity_sku on t_activity.id=t_activity_sku.activity_id
+    where t_activity.invalid=0 and t_activity.display=0
+	    <if test="activityType == 1" >
+		<![CDATA[and t_activity.start_time<=date_add(now(), INTERVAL 1 day)]]>
+		and <![CDATA[t_activity.start_time >= DATE_FORMAT(now(),'%Y-%m-%d 00:00:00')]]> 
+		AND <![CDATA[t_activity.activity_status<2]]>
+	    </if>
+	    and  t_activity.activity_type = #{activityType,jdbcType=INTEGER}
+	    group by t_activity.id
+	    order by start_time
+  </select>
+</mapper>

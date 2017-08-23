@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.RushBuyDao">
+
+
+	<!--t_rush_buy 全表 -->
+	<sql id="Base_Column_List">
+		id,name,need_appoint,appoint_start_time,appoint_end_time,start_time,end_time,create_time,invalid
+	</sql>
+
+	<!--全表映射 -->
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.RushBuy">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="need_appoint" property="needAppoint" jdbcType="VARCHAR" />
+		<result column="appoint_start_time" property="appointStartTime"
+			jdbcType="TIMESTAMP" />
+		<result column="appoint_end_time" property="appointEndTime"
+			jdbcType="TIMESTAMP" />
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="invalid" property="invalid" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 订单条件查询where -->
+	<sql id="where_columns">
+		where 1=1
+		<if test="ids != null and  ids !=''">
+			and t1.id in
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</sql>
+
+	<!-- 订单条件查询排序 start -->
+	<sql id="order_columns">
+		<if test="sort =='name'">
+			ORDER BY t1.no ${order}
+		</if>
+		<if test="sort =='appointStartTime'">
+			ORDER BY t1.appoint_start_time ${order}
+		</if>
+		<if test="sort =='appointEndTime'">
+			ORDER BY t1.appoint_end_time ${order}
+		</if>
+		<if test="sort =='startTime'">
+			ORDER BY t1.start_time ${order}
+		</if>
+		<if test="sort =='endTime'">
+			ORDER BY t1.end_time ${order}
+		</if>
+		<if test="sort =='createTime'">
+			ORDER BY t1.create_time ${order}
+		</if>
+	</sql>
+
+	<!--删除秒杀 更改Invalid的数据状态 -->
+	<update id="delRushBuy" parameterType="java.lang.Integer">
+		UPDATE t_rush_buy
+		SET
+		invalid= 1
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!--添加秒杀 -->
+	<insert id="insertRushBuy" parameterType="com.tyiti.easycommerce.entity.RushBuy">
+		insert into t_rush_buy
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="needAppoint != null">
+				need_appoint,
+			</if>
+			<if test="appointStartTime != null">
+				appoint_start_time,
+			</if>
+			<if test="appointEndTime != null">
+				appoint_end_time,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+		</trim>
+
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="needAppoint != null">
+				#{needAppoint,jdbcType=VARCHAR},
+			</if>
+			<if test="appointStartTime != null">
+				#{appointStartTime,jdbcType=INTEGER},
+			</if>
+			<if test="appointEndTime != null">
+				#{appointEndTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=INTEGER},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!--修改秒杀 -->
+	<update id="updateRushBuy" parameterType="com.tyiti.easycommerce.entity.RushBuy">
+		update t_rush_buy
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="needAppoint != null">
+				need_appoint = #{needAppoint,jdbcType=BOOLEAN},
+			</if>
+			<if test="appointStartTime != null">
+				appoint_start_time =
+				#{appointStartTime,jdbcType=INTEGER},
+			</if>
+			<if test="appointEndTime != null">
+				appoint_end_time = #{appointEndTime,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=INTEGER},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=BOOLEAN},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!--查询秒杀 -->
+	<select id="selectRushBuyList" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_rush_buy
+		where id = #{id,jdbcType=INTEGER} and invalid = 0
+	</select>
+
+	<!--获取 t_rush_buy 的总数 -->
+	<select id="selectRushBuyCount" resultType="java.lang.Long">
+		SELECT COUNT(id) FROM
+		t_rush_buy
+	</select>
+
+	<!--查询秒杀列表 -->
+	<select id="selectRushBuyLists" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_rush_buy t1
+		<include refid="where_columns" />
+		<if test="sort != null and sort != ''">
+			<include refid="order_columns" />
+		</if>
+		<if test="limit != null and limit != '' and offset != null and offset !=''">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+
+</mapper>

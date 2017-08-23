@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.ShareRuleDao">
+
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.ShareRule">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="coupon_id" property="couponId" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="extra_threshold" property="extraThreshold"
+			jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_column_list">id,coupon_id,type,extra_threshold,status,create_time,update_time
+	</sql>
+
+	<insert id="add" parameterType="com.tyiti.easycommerce.entity.ShareRule">
+		<selectKey order="AFTER" keyProperty="id" resultType="Integer">
+			select
+			last_insert_id()
+		</selectKey>
+		insert into t_share_rule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="couponId != null">
+				coupon_id,
+			</if>
+			<if test="type != null ">
+				type,
+			</if>
+			<if test="extraThreshold != null">
+				extra_threshold,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createtime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="couponId != null">
+				#{couponId,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="extraThreshold != null">
+				#{extraThreshold,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="selectByShareRule" resultType="com.tyiti.easycommerce.entity.ShareRule"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_column_list" />
+		from t_share_rule
+		where 1=1
+		<if test="id != null">
+			and id= #{id,jdbcType=INTEGER}
+		</if>
+		<if test="couponId != null">
+			and coupon_id= #{couponId,jdbcType=INTEGER}
+		</if>
+		<if test="stratTime != null">
+			and create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="upStratTime != null">
+			and update_time &gt;= #{upStratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="upEndTime != null">
+			and update_time &lt;= #{upEndTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="type != null">
+			and type= #{type,jdbcType=INTEGER}
+		</if>
+		<if test="status!=null">
+			and status= #{status,jdbcType=INTEGER}
+		</if>
+		<if test="extraThreshold != null ">
+			and extra_threshold= #{extraThreshold,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="getListByShareRule" resultMap="BaseResultMap">
+		select
+		<include refid="Base_column_list" />
+		from t_share_rule
+		where 1=1
+		<if test="id != null">
+			and id= #{id,jdbcType=INTEGER}
+		</if>
+		<if test="couponId != null">
+			and coupon_id= #{couponId,jdbcType=INTEGER}
+		</if>
+		<if test="stratTime != null">
+			and create_time &gt;= #{stratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null">
+			and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="upStratTime != null">
+			and update_time &gt;= #{upStratTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="upEndTime != null">
+			and update_time &lt;= #{upEndTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="type != null">
+			and type= #{type,jdbcType=INTEGER}
+		</if>
+		<if test="status!=null">
+			and status= #{status,jdbcType=INTEGER}
+		</if>
+		<if test="extraThreshold != null">
+			and extra_threshold= #{extraThreshold,jdbcType=INTEGER}
+		</if>
+	</select>
+
+</mapper>

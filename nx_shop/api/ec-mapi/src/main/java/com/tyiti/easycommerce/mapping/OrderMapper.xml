@@ -1,0 +1,2213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyiti.easycommerce.repository.OrderDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Order">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="no" property="no" jdbcType="INTEGER" />
+		<result column="cust_id" property="custId" jdbcType="INTEGER" />
+		<result column="stage_id" property="stageId" jdbcType="INTEGER" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="third_party_amount" property="thirdPartyAmount"
+			jdbcType="DECIMAL" />
+		<result column="down_payment" property="downPayment" jdbcType="DECIMAL" />
+		<result column="installment_amount" property="installmentAmount"
+			jdbcType="DECIMAL" />
+		<result column="installment_months" property="installmentMonths"
+			jdbcType="INTEGER" />
+		<result column="down_payment_payed" property="downPaymentPayed"
+			jdbcType="BOOLEAN" />
+		<result column="installment_payed" property="installmentPayed"
+			jdbcType="BOOLEAN" />
+		<result column="down_payment_time" property="downPaymentTime"
+			jdbcType="TIMESTAMP" />
+		<result column="installment_time" property="installmentTime"
+			jdbcType="TIMESTAMP" />
+		<result column="pay_method" property="payMethod" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="invalid" property="invalid" jdbcType="BOOLEAN" />
+
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+
+		<result column="address_name" property="addressName" jdbcType="VARCHAR" />
+		<result column="address_mobile" property="addressMobile"
+			jdbcType="INTEGER" />
+		<result column="address_full_text" property="addressFullText"
+			jdbcType="VARCHAR" />
+		<result column="address_zip" property="addressZip" jdbcType="VARCHAR" />
+		<result column="invoice_title" property="invoiceTitle"
+			jdbcType="VARCHAR" />
+		<result column="invoice_type" property="invoiceType" jdbcType="INTEGER" />
+		<result column="invoice_status" property="invoiceStatus"
+			jdbcType="INTEGER" />
+		<result column="logistics_no" property="logisticsNo" jdbcType="VARCHAR" />
+		<result column="logistics_company" property="logisticsCompany"
+			jdbcType="VARCHAR" />
+		<result column="discount" property="discount" />
+		<result column="mobile" property="mobile" />
+		<collection property="cancellation"
+			javaType="com.tyiti.easycommerce.entity.OrderCancellation">
+			<result column="cancelId" property="id" />
+			<result column="cancelStatus" property="status" />
+			<result column="cancelCreateTime" property="createTime" />
+			<result column="cancelNo" property="no" />
+		</collection>
+		<collection property="orderSku"
+			ofType="com.tyiti.easycommerce.entity.OrderSku">
+			<result column="s_id" property="id" jdbcType="INTEGER" />
+			<result column="order_id" property="orderId" jdbcType="INTEGER" />
+			<result column="sku_id" property="skuId" jdbcType="INTEGER" />
+			<result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+			<result column="sku_description" property="skuDescription"
+				jdbcType="VARCHAR" />
+			<result column="sku_detail" property="skuDetail" jdbcType="VARCHAR" />
+			<result column="sku_erp_code" property="skuErpCode" jdbcType="VARCHAR" />
+			<result column="sku_head_thumbnail" property="skuHeadThumbnail"
+				jdbcType="VARCHAR" />
+			<result column="sku_count" property="skuCount" jdbcType="INTEGER" />
+			<result column="sku_price" property="skuPrice" jdbcType="DECIMAL" />
+			<result column="sku_original_price" property="skuOriginalPrice"
+				jdbcType="DECIMAL" />
+			<result column="sku_attribute" property="skuAttribute"
+				jdbcType="VARCHAR" />
+			<result column="activity_type" property="activityType"
+				jdbcType="INTEGER" />
+			<result column="activity_id" property="activityId" jdbcType="INTEGER" />
+			<result column="avg_price" property="avgPrice" jdbcType="DECIMAL" />
+			<result column="fact_amount" property="factAmount" jdbcType="DECIMAL" />
+        	<result column="return_count" property="returnCount" jdbcType="INTEGER" />
+			<result column="activity_id" property="activityId" jdbcType="INTEGER" />
+		</collection>
+	</resultMap>
+	<resultMap type="com.tyiti.easycommerce.entity.OrderCancellation"
+		id="cancellationMap">
+		<result column="cancelId" property="id" />
+		<result column="cancelStatus" property="status" />
+		<result column="cancelCreateTime" property="createTime" />
+		<result column="cancelNo" property="no" />
+	</resultMap>
+	<resultMap id="PartResultMap" type="com.tyiti.easycommerce.entity.Order">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="no" property="no" jdbcType="INTEGER" />
+		<result column="cust_id" property="custId" jdbcType="INTEGER" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="down_payment" property="downPayment" jdbcType="DECIMAL" />
+		<result column="installment_amount" property="installmentAmount"
+			jdbcType="DECIMAL" />
+		<result column="installment_months" property="installmentMonths"
+			jdbcType="INTEGER" />
+		<result column="down_payment_payed" property="downPaymentPayed"
+			jdbcType="BOOLEAN" />
+		<result column="installment_payed" property="installmentPayed"
+			jdbcType="BOOLEAN" />
+		<result column="down_payment_time" property="downPaymentTime"
+			jdbcType="TIMESTAMP" />
+		<result column="installment_time" property="installmentTime"
+			jdbcType="TIMESTAMP" />
+		<result column="pay_method" property="payMethod" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="invalid" property="invalid" jdbcType="BOOLEAN" />
+
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+
+		<result column="address_name" property="addressName" jdbcType="VARCHAR" />
+		<result column="address_mobile" property="addressMobile"
+			jdbcType="INTEGER" />
+		<result column="address_full_text" property="addressFullText"
+			jdbcType="VARCHAR" />
+		<result column="address_zip" property="addressZip" jdbcType="VARCHAR" />
+
+		<result column="logistics_no" property="logisticsNo" jdbcType="VARCHAR" />
+		<result column="logistics_company" property="logisticsCompany"
+			jdbcType="VARCHAR" />
+		<result column="stage_id" property="stageId" jdbcType="VARCHAR" />
+		<result column="installment_rate" property="installmentRate"
+			jdbcType="DECIMAL" />
+		<result column="delivery_time" property="deliveryTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!--管理端列表count -->
+	<select id="selectOrderCount" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(*)
+		from t_order t1 left join t_user t2 on t1.cust_id =
+		t2.id
+		left join
+		t_order_sku t3 on t1.id =t3.order_id
+		left join
+		( select id
+		,order_id
+		,no, create_time,
+		type, status from t_order_cancellation
+		where
+		id in
+		(select max(id) from
+		t_order_cancellation
+		group by order_id ) )t4
+		on t4.order_id = t1.id
+		left join t_pickup_order po
+		on po.order_id = t1.id
+		<include refid="where_columns"></include>
+	</select>
+
+	<sql id="Base_Column_List">
+		id, no, cust_id, amount, third_party_amount, down_payment,
+		installment_amount, installment_months,
+		installment_rate,
+		down_payment_payed, installment_payed, down_payment_time,
+		installment_time,
+		pay_method, status, invalid, create_time, close_time,
+		address_name,
+		address_mobile,
+		address_full_text, address_zip,
+		logistics_no, logistics_company, receipt_time,
+		return_time,
+		stage_id,invoice_title,invoice_type,invoice_status
+	</sql>
+	<sql id="select_column_list">
+		id, no, cust_id, amount,third_party_amount, down_payment,
+		installment_amount,
+		installment_months, down_payment_payed,
+		installment_payed,
+		down_payment_time, installment_time, pay_method,
+		status, invalid,
+		create_time, close_time, address_name, address_mobile,
+		address_full_text, address_zip, logistics_no,
+		logistics_company,stage_id,installment_rate,invoice_title,invoice_type,invoice_status
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_order
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_order
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.Order">
+		insert into t_order (id, no,
+		cust_id,
+		amount, third_party_amount, down_payment,
+		installment_amount,
+		installment_months, installment_rate,
+		down_payment_payed,
+		installment_payed, down_payment_time,
+		installment_time, pay_method,
+		status,
+		invalid, create_time, close_time,
+		address_name, address_mobile,
+		address_full_text,
+		address_zip, logistics_no, logistics_company,
+		receipt_time, return_time, stage_id
+		)
+		values (#{id,jdbcType=INTEGER},
+		#{no,jdbcType=VARCHAR},
+		#{custId,jdbcType=INTEGER},
+		#{amount,jdbcType=DECIMAL}, #{thirdPartyAmount,jdbcType=DECIMAL},
+		#{downPayment,jdbcType=DECIMAL},
+		#{installmentAmount,jdbcType=DECIMAL},
+		#{installmentMonths,jdbcType=INTEGER},
+		#{installmentRate,jdbcType=DECIMAL},
+		#{downPaymentPayed,jdbcType=BIT},
+		#{installmentPayed,jdbcType=BIT},
+		#{downPaymentTime,jdbcType=TIMESTAMP},
+		#{installmentTime,jdbcType=TIMESTAMP}, #{payMethod,jdbcType=TINYINT},
+		#{status,jdbcType=TINYINT},
+		#{invalid,jdbcType=BIT},
+		#{createTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP},
+		#{addressName,jdbcType=VARCHAR}, #{addressMobile,jdbcType=CHAR},
+		#{addressFullText,jdbcType=VARCHAR},
+		#{addressZip,jdbcType=INTEGER},
+		#{logisticsNo,jdbcType=VARCHAR},
+		#{logisticsCompany,jdbcType=VARCHAR},
+		#{receiptTime,jdbcType=TIMESTAMP}, #{returnTime,jdbcType=TIMESTAMP},
+		#{stageId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.Order">
+		insert into t_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="no != null">
+				no,
+			</if>
+			<if test="custId != null">
+				cust_id,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="thirdPartyAmount != null">
+				third_party_amount,
+			</if>
+			<if test="downPayment != null">
+				down_payment,
+			</if>
+			<if test="installmentAmount != null">
+				installment_amount,
+			</if>
+			<if test="installmentMonths != null">
+				installment_months,
+			</if>
+			<if test="installmentRate != null">
+				installment_rate,
+			</if>
+			<if test="downPaymentPayed != null">
+				down_payment_payed,
+			</if>
+			<if test="installmentPayed != null">
+				installment_payed,
+			</if>
+			<if test="downPaymentTime != null">
+				down_payment_time,
+			</if>
+			<if test="installmentTime != null">
+				installment_time,
+			</if>
+			<if test="payMethod != null">
+				pay_method,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="closeTime != null">
+				close_time,
+			</if>
+			<if test="addressName != null">
+				address_name,
+			</if>
+			<if test="addressMobile != null">
+				address_mobile,
+			</if>
+			<if test="addressFullText != null">
+				address_full_text,
+			</if>
+			<if test="addressZip != null">
+				address_zip,
+			</if>
+			<if test="logisticsNo != null">
+				logistics_no,
+			</if>
+			<if test="logisticsCompany != null">
+				logistics_company,
+			</if>
+			<if test="receiptTime != null">
+				receipt_time,
+			</if>
+			<if test="returnTime != null">
+				return_time,
+			</if>
+			<if test="stageId != null">
+				stage_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="no != null">
+				#{no,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				#{custId,jdbcType=INTEGER},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="thirdPartyAmount != null">
+				#{thirdPartyAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="downPayment != null">
+				#{downPayment,jdbcType=DECIMAL},
+			</if>
+			<if test="installmentAmount != null">
+				#{installmentAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="installmentMonths != null">
+				#{installmentMonths,jdbcType=INTEGER},
+			</if>
+			<if test="installmentRate != null">
+				#{installmentRate,jdbcType=DECIMAL},
+			</if>
+			<if test="downPaymentPayed != null">
+				#{downPaymentPayed,jdbcType=BIT},
+			</if>
+			<if test="installmentPayed != null">
+				#{installmentPayed,jdbcType=BIT},
+			</if>
+			<if test="downPaymentTime != null">
+				#{downPaymentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="installmentTime != null">
+				#{installmentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="payMethod != null">
+				#{payMethod,jdbcType=TINYINT},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=TINYINT},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="closeTime != null">
+				#{closeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addressName != null">
+				#{addressName,jdbcType=VARCHAR},
+			</if>
+			<if test="addressMobile != null">
+				#{addressMobile,jdbcType=CHAR},
+			</if>
+			<if test="addressFullText != null">
+				#{addressFullText,jdbcType=VARCHAR},
+			</if>
+			<if test="addressZip != null">
+				#{addressZip,jdbcType=INTEGER},
+			</if>
+			<if test="logisticsNo != null">
+				#{logisticsNo,jdbcType=VARCHAR},
+			</if>
+			<if test="logisticsCompany != null">
+				#{logisticsCompany,jdbcType=VARCHAR},
+			</if>
+			<if test="receiptTime != null">
+				#{receiptTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="returnTime != null">
+				#{returnTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="stageId != null">
+				#{stageId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.Order">
+		update t_order
+		<set>
+			<if test="no != null">
+				no = #{no,jdbcType=VARCHAR},
+			</if>
+			<if test="custId != null">
+				cust_id = #{custId,jdbcType=INTEGER},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="thirdPartyAmount != null">
+				third_party_amount =
+				#{thirdPartyAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="downPayment != null">
+				down_payment = #{downPayment,jdbcType=DECIMAL},
+			</if>
+			<if test="installmentAmount != null">
+				installment_amount =
+				#{installmentAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="installmentMonths != null">
+				installment_months =
+				#{installmentMonths,jdbcType=INTEGER},
+			</if>
+			<if test="installmentRate != null">
+				installment_rate = #{installmentRate,jdbcType=DECIMAL},
+			</if>
+			<if test="downPaymentPayed != null">
+				down_payment_payed = #{downPaymentPayed,jdbcType=BIT},
+			</if>
+			<if test="installmentPayed != null">
+				installment_payed = #{installmentPayed,jdbcType=BIT},
+			</if>
+			<if test="downPaymentTime != null">
+				down_payment_time =
+				#{downPaymentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="installmentTime != null">
+				installment_time = #{installmentTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="payMethod != null">
+				pay_method = #{payMethod,jdbcType=TINYINT},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="invalid != null">
+				invalid = #{invalid,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="closeTime != null">
+				close_time = #{closeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addressName != null">
+				address_name = #{addressName,jdbcType=VARCHAR},
+			</if>
+			<if test="addressMobile != null">
+				address_mobile = #{addressMobile,jdbcType=CHAR},
+			</if>
+			<if test="addressFullText != null">
+				address_full_text = #{addressFullText,jdbcType=VARCHAR},
+			</if>
+			<if test="addressZip != null">
+				address_zip = #{addressZip,jdbcType=INTEGER},
+			</if>
+			<if test="logisticsNo != null">
+				logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+			</if>
+			<if test="logisticsCompany != null">
+				logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+			</if>
+			<if test="receiptTime != null">
+				receipt_time = #{receiptTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="returnTime != null">
+				return_time = #{returnTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="stageId != null">
+				stage_id = #{stageId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Order">
+		update t_order
+		set
+		no = #{no,jdbcType=VARCHAR},
+		cust_id = #{custId,jdbcType=INTEGER},
+		amount = #{amount,jdbcType=DECIMAL},
+		third_party_amount =
+		#{thirdPartyAmount,jdbcType=DECIMAL},
+		down_payment =
+		#{downPayment,jdbcType=DECIMAL},
+		installment_amount =
+		#{installmentAmount,jdbcType=DECIMAL},
+		installment_months =
+		#{installmentMonths,jdbcType=INTEGER},
+		installment_rate =
+		#{installmentRate,jdbcType=DECIMAL},
+		down_payment_payed =
+		#{downPaymentPayed,jdbcType=BIT},
+		installment_payed =
+		#{installmentPayed,jdbcType=BIT},
+		down_payment_time =
+		#{downPaymentTime,jdbcType=TIMESTAMP},
+		installment_time =
+		#{installmentTime,jdbcType=TIMESTAMP},
+		pay_method =
+		#{payMethod,jdbcType=TINYINT},
+		status = #{status,jdbcType=TINYINT},
+		invalid = #{invalid,jdbcType=BIT},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		close_time =
+		#{closeTime,jdbcType=TIMESTAMP},
+		address_name =
+		#{addressName,jdbcType=VARCHAR},
+		address_mobile =
+		#{addressMobile,jdbcType=CHAR},
+		address_full_text =
+		#{addressFullText,jdbcType=VARCHAR},
+		address_zip =
+		#{addressZip,jdbcType=INTEGER},
+		logistics_no =
+		#{logisticsNo,jdbcType=VARCHAR},
+		logistics_company =
+		#{logisticsCompany,jdbcType=VARCHAR},
+		receipt_time =
+		#{receiptTime,jdbcType=TIMESTAMP},
+		return_time =
+		#{returnTime,jdbcType=TIMESTAMP},
+		stage_id =
+		#{stageId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 管理端 查询列表 start -->
+	<select id="selectOrderList" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		<include refid="select_columns" />
+		,po.status pickupStatus
+		from t_order t1 left join t_user t2 on
+		t1.cust_id = t2.id
+		left join
+		t_order_sku t3 on t1.id =t3.order_id
+		left
+		join
+		( select id ,order_id ,
+		type, status from t_order_cancellation
+		where id in (select max(id) from
+		t_order_cancellation
+		group by order_id
+		) )t4
+		on t4.order_id = t1.id
+		left join t_order_payment t5 on t5.order_id
+		= t1.id and t5.category=3 and
+		t5.type =11
+		left join t_pickup_order po on
+		po.order_id = t1.id
+		<include refid="where_columns"></include>
+		<if test="sort != null and sort != ''">
+			<include refid="order_columns" />
+		</if>
+		<if test="sort == null or sort == ''">
+			order by t1.create_time desc
+		</if>
+		<if test="limit != null and offset != null">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+	<!-- 管理端 查询列表 end -->
+	<!-- 订单条件查询where start 取消 订单和 订单列表公用一个方法 -->
+ 
+	<sql id="where_columns">
+		where 1=1
+		<if test="cancelList != null">
+			and t4.id is not null
+			<if test="id != null">
+				and t4.id = #{id}
+			</if>
+			<if test="orderNo != null">
+				and t1.no = #{orderNo}
+			</if>
+			<if test="cancelNo != null">
+				and t4.no = #{cancelNo}
+			</if>
+			<if test="startTime != null and  startTime !=''">
+				and t4.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null and  endTime !=''">
+				and t4.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="status != null and  status !=''">
+				and t4.status = #{status}
+			</if>
+		</if>
+		<if test="cancelList == null">
+			<if test="id != null">
+				and t1.id = #{id}
+			</if>
+			<if test="no != null and  no !=''">
+				and t1.no=#{no,jdbcType=VARCHAR}
+			</if>
+			<if test="startTime != null and  startTime !=''">
+				and t1.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null and  endTime !=''">
+				and t1.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			</if>
+
+			<if test="status != null and  status !=''">
+				and t1.status = #{status,jdbcType=VARCHAR}
+				and (t4.status
+				is null or (t4.status = 2 and t4.type = 1 ))
+			</if>
+			<if test="payMethod != null and  payMethod !=''">
+				and t1.pay_method = #{payMethod,jdbcType=VARCHAR}
+			</if>
+			<if test="cancelStatus != null and  cancelStatus !=''">
+				and t4.status = #{cancelStatus}
+			</if>
+			<if test="cancelType != null and  cancelType !=''">
+				and t4.type = #{cancelType}
+			</if>
+		</if>
+		<if test="mobile != null and  mobile !=''">
+			and t2.mobile like CONCAT(CONCAT('%',
+			#{mobile,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="pickup == null or pickup =='' ">
+			and po.order_id is null
+		</if>
+		<if test="pickup != null and pickup !='' ">
+			and po.order_id is not null
+		</if>
+		<if test="pickupPointId != null and  pickupPointId !=''">
+			and po.pickup_point_id = #{pickupPointId}
+		</if>
+		<if test="skuName != null and  skuName !=''">
+			and t3.sku_name like CONCAT(CONCAT('%',
+			#{skuName,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="no != null and  no !=''">
+			and t1.no=#{no,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null and  startTime !=''">
+			and t1.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null and  endTime !=''">
+			and t1.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+
+		<if test="mobile != null and  mobile !=''">
+			and t2.mobile like CONCAT(CONCAT('%',
+			#{mobile,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="status != null and  status !=''">
+			and t1.status = #{status,jdbcType=VARCHAR}
+			and (t4.status
+			is null or (t4.status = 2 and t4.type = 1 ))
+		</if>
+		<if test="payMethod != null and  payMethod !=''">
+			and t1.pay_method = #{payMethod,jdbcType=VARCHAR}
+		</if>
+		<if test="cancelStatus != null and  cancelStatus !=''">
+			and t4.status = #{cancelStatus,jdbcType=VARCHAR}
+		</if>
+		<if test="cancelType != null and  cancelType !=''">
+			and t4.type = #{cancelType,jdbcType=VARCHAR}
+		</if>
+	</sql>
+
+	<!-- 订单条件查询where end -->
+
+	<!-- 确定 、制单导出 修改状态 start -->
+	<update id="updateByIds" parameterType="java.util.Map">
+		update t_order
+		set status = #{status,jdbcType=INTEGER}
+		where id in
+		<if test="ids != null and  ids !=''">
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</update>
+	<!-- 制单导出 修改状态 end -->
+
+	<!-- 订单条件查询 显示字段 start -->
+	<sql id="select_columns">
+		t1.id,
+		t1.no,
+		t1.create_time createTime,
+		t3.sku_name skuName,
+		t1.installment_amount installmentAmount,
+		t1.installment_months
+		installmentMonths,
+		t1.down_payment downPayment,
+		t1.amount,
+		t3.sku_count
+		skuCount,
+		t3.sku_price skuPrice,
+		case
+		when t1.pay_method = '1' then '全款'
+		when t1.pay_method = '2' then '全分期'
+		when t1.pay_method = '3' then
+		'首付+分期'
+		else '异常信息' end payMethodText ,
+		t1.pay_method payMethod,
+		t2.real_name realName,
+		t2.mobile ,
+		case
+		when t1.status = '0' then '草稿'
+		when t1.status = '1' then '未付款'
+		when t1.status = '2' then '已付款'
+		when
+		t1.status = '3' then '已确认'
+		when t1.status = '4' then '已制单'
+		when
+		t1.status = '5' then '已发货'
+		when t1.status = '6' then '已完成'
+		when t1.status = '7' then '已失效'
+		when t1.status = '8' then '已退货'
+		when t1.status = '9' then '已取消'
+		else '异常信息'
+		end statusText ,
+		t1.status status
+		,
+		t4.type cancelType,
+		case
+		when t4.type
+		= '1' then '取消订单'
+		when t4.type =
+		'2' then '退货申请'
+		else '' end
+		cancelTypeText
+		,t4.status cancelStatus ,
+		case
+		when t4.status = '0' then
+		'待审核'
+		when t4.status = '1' then '已确认'
+		when
+		t4.status = '2' then '已拒绝'
+		when t4.status = '3' then '待入库'
+		when
+		t4.status = '4' then '待退款'
+		when t4.status = '5' then '已退款'
+		else '' end
+		cancelStatusText,
+		t5.amount
+		discount
+	</sql>
+	<!-- 订单条件查询 显示字段 end -->
+
+	<!-- 制单导出用 start -->
+	<select id="selectOrderCountByIds" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(*)
+		from t_order t1 left join t_user t2 on t1.cust_id =
+		t2.id
+		left join t_order_sku t3 on t1.id =t3.order_id
+		left join
+		t_pickup_order po on po.order_id = t1.id
+		<include refid="where_columns"></include>
+	</select>
+
+	<select id="selectOrderListByIds" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		t1.id ,
+		t1.no ,
+		t1.create_time createTime,
+		t1.status,
+		t1.amount,
+		t7.status cancelStatus,t9.id pickupId,t2.mobile,t2.id userId,
+		<!-- 增加查询 字段，author:Black date:2016-08-23 -->
+		t2.third_party_id thirdPartyId,t2.`password`,t1.stage_id stageId,
+		case
+		when t1.status = '0' then '草稿'
+		when t1.status = '1' then '未付款'
+		when
+		t1.status = '2' then '已付款'
+		when t1.status = '3' then '已确认'
+		when
+		t1.status = '4' then '已制单'
+		when t1.status = '5' then '已发货'
+		when
+		t1.status = '6' then '已完成'
+		when t1.status = '7' then '已失效'
+		when
+		t1.status = '8' then '已退货'
+		when t1.status = '9' then '已取消'
+		else '异常信息'
+		end statusText ,
+		t1.installment_months installmentMonths,
+		t1.down_payment downPayment,
+		t1.down_payment_payed downPaymentPayed,
+		CONCAT(
+		case
+		when t1.down_payment_payed = 0 then '首付未付'
+		when
+		t1.down_payment_payed = 1 then '首付已付'
+		else '首付信息异常' end ,
+		case
+		when
+		t1.installment_payed = 0 then '分期未付'
+		when t1.installment_payed = 1 then
+		'分期已付'
+		else '首付信息异常' end ) payedStatus,
+		t1.installment_payed
+		installmentPayed,
+		case when t9.id is not null then t2.mobile
+		when t9.id
+		is null then t1.address_name end addressName,
+		case when t9.id is not
+		null then t2.mobile
+		when t9.id is null then t1.address_mobile end
+		addressMobile,
+		case when t9.id is not null then t10.name
+		when t9.id is
+		null then t1.address_full_text end addressFullText,
+		t1.address_zip
+		addressZip,
+		t2.real_name realName,
+		CASE
+		WHEN (LENGTH(t2.id_card))=15 THEN
+		if(MOD(SUBSTR(t2.id_card,15,1),2),'女','男')
+		WHEN (LENGTH(t2.id_card))=18
+		THEN
+		if(MOD(SUBSTR(t2.id_card,17,1),2),'女','男')
+		ELSE ''
+		END sex,
+		t2.mobile,
+		t4.erp_code erpCode,
+		t3.sku_name skuName,
+		t4.images_original
+		imagesOriginal,
+		t3.sku_count skuCount,
+		t3.sku_price skuPrice,
+		t3.sku_count*t3.sku_price totalPrice,
+		t2.id_card idCard ,
+		<if test="sys == 'ceb'">
+			'光大商城' custSource,
+		</if>
+		<if test="sys == 'tyfq'">
+			'天尧分期' custSource,
+		</if>
+		<if test="sys =='thb' ">
+			'淘惠帮' custSource,
+		</if>
+		<if test="sys !='thb' and sys != 'tyfq' and sys != 'ceb'">
+			'XXXSHOP' custSource,
+		</if>
+		'' creditCard ,
+		'' otherTel,
+		case when t9.id is not null then '自提'
+		when
+		t9.id is null then '' end custComment,
+		'' bankExtract ,
+		'' bankRate,
+		case when t9.id is not null then '自提'
+		when t9.id is null then '' end
+		needs,
+		'' mainNo,
+		'' otherSubsidy,
+		'' score,
+		'' giftInfo,
+		t1.invoice_title receipt ,
+		t6.name brandName ,
+		t8.amount discount,
+		(t3.sku_count*t3.sku_price-t8.amount) factPay ,
+		case
+		when t7.type = 1
+		then '取消申请'
+		when t7.type = 2 then '退货申请' end
+		cancelTypeText,
+		case when
+		t9.id is not null then '自提'
+		when t9.id is null then '常规' end orderType
+		from t_order t1
+		left join t_user t2 on t2.id = t1.cust_id
+		left join
+		t_order_sku t3 on t1.id = t3.order_id
+		left join t_sku t4 on t3.sku_id =
+		t4.id
+		left join t_spu t5 on t4.spu_id = t5.id
+		left join t_category t6 on
+		t5.category_id = t6.id
+		left join
+		( select id ,order_id , type, status
+		from t_order_cancellation
+		where id in (select max(id) from
+		t_order_cancellation 
+		where id in
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>) )t7
+		on t7.order_id = t1.id
+		left
+		join t_order_payment t8 on t8.order_id = t1.id and t8.category=3 and
+		t8.type =11
+		<!-- 关联自提单 -->
+		left join t_pickup_order t9 on t9.order_id=t1.id
+		left join
+		t_pickup_point t10 on t9.pickup_point_id = t10.id
+		where 1=1
+		<if test="ids != null and  ids !=''">
+			and t1.id in
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<!-- 制单导出用 end -->
+	<!-- 根据订单部分字段信息，主要用于操作日志记录 start -->
+	<select id="selectOrderListByIdsForOperateLog" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		t1.id ,
+		t1.no ,
+		t1.status,
+		t7.status cancelStatus,t9.id pickupId,t2.mobile,t2.id userId,
+		t2.third_party_id thirdPartyId,t2.`password`,t1.stage_id stageId,
+		case
+		when t1.status = '0' then '草稿'
+		when t1.status = '1' then '未付款'
+		when
+		t1.status = '2' then '已付款'
+		when t1.status = '3' then '已确认'
+		when
+		t1.status = '4' then '已制单'
+		when t1.status = '5' then '已发货'
+		when
+		t1.status = '6' then '已完成'
+		when t1.status = '7' then '已失效'
+		when
+		t1.status = '8' then '已退货'
+		when t1.status = '9' then '已取消'
+		else '异常信息'
+		end statusText ,
+		case
+		when t7.type = 1
+		then '取消申请'
+		when t7.type = 2 then '退货申请' end
+		cancelTypeText,
+	  t2.mobile
+		from t_order t1
+		left join t_user t2 on t2.id = t1.cust_id
+		left join
+		( select id ,order_id , type, status
+		from t_order_cancellation
+		where id in (select max(id) from
+		t_order_cancellation
+		group by order_id ) )t7
+		on t7.order_id = t1.id
+		left join t_pickup_order t9 on t9.order_id=t1.id
+		where 1=1
+		<if test="ids != null and  ids !=''">
+			and t1.id in
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<!-- 根据订单部分字段信息，主要用于操作日志记录 end -->
+	<!-- 订单条件查询排序 start -->
+	<sql id="order_columns">
+		<if test="sort =='no'">
+			ORDER BY t1.no ${order}
+		</if>
+		<if test="sort =='createTime'">
+			ORDER BY t1.create_time ${order}
+		</if>
+		<if test="sort =='skuName'">
+			ORDER BY t3.sku_name ${order}
+		</if>
+		<if test="sort =='installmentAmount'">
+			ORDER BY t1.installment_amount ${order}
+		</if>
+		<if test="sort =='downPayment'">
+			ORDER BY t1.down_payment ${order}
+		</if>
+		<if test="sort =='skeCount'">
+			ORDER BY t3.sku_count ${order}
+		</if>
+		<if test="sort =='skuPrice'">
+			ORDER BY t3.sku_price ${order}
+		</if>
+		<if test="sort =='realName'">
+			ORDER BY t2.real_name ${order}
+		</if>
+		<if test="sort =='mobile'">
+			ORDER BY t2.mobile ${order}
+		</if>
+		<if test="sort =='payMethod'">
+			ORDER BY t1.pay_method ${order}
+		</if>
+		<if test="sort =='status'">
+			ORDER BY t1.status ${order}
+		</if>
+	</sql>
+	<!-- 订单条件查询排序 end -->
+
+	<!--查询订单详细列表 start -->
+	<select id="orderDetail" resultType="java.util.Map">
+		select
+		t1.id ,
+		t1.no ,
+		t1.invoice_title,
+		t1.invoice_type,
+		t1.invoice_status,
+		t1.create_time
+		createTime,
+		t1.status,
+		t7.status cancelStatus,
+		case
+		when
+		t1.status = '0'
+		then '草稿'
+		when t1.status = '1' then '未付款'
+		when
+		t1.status
+		= '2' then '已付款'
+		when t1.status = '3' then '已确认'
+		when
+		t1.status = '4'
+		then '已制单'
+ 
+		when
+		t1.status = '5' then '已发货'
+		when t1.status = '6' then
+		'已完成'
+		when t1.status
+		= '7' then '已失效'
+		when t1.status = '8' then '已退货'
+		when t1.status = '9'
+		then '已取消'
+		else '异常信息' end statusText ,
+		t1.installment_months
+		installmentMonths,
+		t1.down_payment downPayment,
+		t1.down_payment_payed
+		downPaymentPayed,
+		CONCAT(
+		case
+		when
+		t1.down_payment_payed = 0 then '首付未付'
+		when t1.down_payment_payed = 1
+		then '首付已付'
+		else '首付信息异常' end ,
+		case
+		when
+		t1.installment_payed = 0 then
+		'分期未付'
+		when t1.installment_payed = 1 then
+		'分期已付'
+		else '首付信息异常' end )
+		payedStatus,
+		t1.installment_payed
+		installmentPayed,
+		t1.address_name
+		addressName,
+		t1.address_mobile
+		addressMobile,
+		t1.address_zip addressZip,
+		t1.address_full_text
+		addressFullText,
+		t2.real_name realName,
+		CASE
+		WHEN
+		(LENGTH(t2.id_card))=15
+		THEN
+		if(MOD(SUBSTR(t2.id_card,15,1),2),'女','男')
+		WHEN
+		(LENGTH(t2.id_card))=18
+		THEN
+		if(MOD(SUBSTR(t2.id_card,17,1),2),'女','男')
+		ELSE '身份证号不正确'
+		END sex,
+		t2.mobile,
+		t4.erp_code erpCode,
+		t4.images_original imagesOriginal,
+		t3.sku_price skuPrice,
+		t1.installment_amount installmentAmount,
+		t3.sku_name skuName,
+		t3.sku_head_thumbnail skuHeadThumbnail,
+		t3.sku_count skuCount,
+		t3.sku_count*t3.sku_price totalPrice,
+		t2.id_card
+		idCard ,
+		'CEBSHOP' custSource,
+		'' creditCard ,
+		'' otherTel,
+		''
+		custComment,
+		'' bankExtract ,
+		'' giftInfo,
+ 		t1.invoice_title  receipt ,
+		t6.name brandName
+		,
+		t8.amount discount,
+		pp.code
+		pickCode,
+		pt.name pickupPointName,
+		pp.status pickupStatus ,
+		pt.address
+		pickupPointAddress
+		from t_order t1
+		left join t_user t2 on t2.id =
+		t1.cust_id
+		left join t_order_sku t3 on
+		t1.id = t3.order_id
+		left join
+		t_sku t4 on t3.sku_id = t4.id
+		left join
+		t_spu t5 on t4.spu_id = t5.id
+		left join t_category t6 on t5.category_id
+		= t6.id
+		left join
+		( select id
+		,order_id , type, status from
+		t_order_cancellation
+		where id in (select
+		max(id) from
+		t_order_cancellation
+		group by order_id ) )t7
+		on t7.order_id
+		= t1.id
+		left
+		join t_order_payment t8 on t8.order_id = t1.id and
+		t8.category=3 and
+		t8.type =11
+		left join t_pickup_order pp on pp.order_id
+		= t1.id
+		left join
+		t_pickup_point pt on pp.pickup_point_id = pt.id
+		where
+		t1.id =#{id,jdbcType=INTEGER}
+	</select>
+	<!-- 查询订单详细列表 end -->
+
+	<!-- 订单 取消 start -->
+	<update id="orderCancel" parameterType="java.lang.Integer">
+		update t_order
+		set status=
+		9
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 订单 取消 end -->
+
+	<!-- 订单 完成 start -->
+	<update id="orderFinish" parameterType="java.lang.Integer">
+		update t_order
+		set status
+		= 8
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 订单 完成 end -->
+	<!-- 获取订单状态 判断是否可以操作 start -->
+
+	<select id="getOrderStatus" parameterType="java.lang.Integer"
+		resultType="java.util.Map">
+		select t1.status ,t1.cust_id custId,t1.stage_id stageId,
+		case
+		when t1.status
+		= '0' then '草稿'
+		when t1.status = '1' then '未付款'
+		when
+		t1.status = '2'
+		then
+		'已付款'
+		when t1.status = '3' then '已确认'
+		when t1.status
+		= '4' then '已制单'
+		when t1.status = '5' then '已发货'
+		when t1.status = '6'
+		then '已完成'
+ 
+		when t1.status = '7' then '已失效'
+		when t1.status = '8' then
+		'已退货'
+		when t1.status = '9' then '已取消'
+		else '异常信息' end statusText from
+		t_order t1
+		where t1.id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 获取订单状态 判断是否可以操作 end -->
+
+	<!-- 查看sku库存 -->
+	<select id="getOrderSkuCount" parameterType="java.lang.Integer"
+		resultType="java.util.Map">
+		select t2.sku_count skuCount ,t2.sku_id skuId
+		from t_order
+		t1 left join t_order_sku t2
+		on t1.id = t2.order_id
+		where t1.id =
+		#{id,jdbcType=INTEGER}
+	</select>
+	<!-- 修改sku 库存 -->
+
+	<update id="updateSkuCount" parameterType="java.lang.Integer">
+		update t_sku
+		set
+		inventory= inventory+ #{skuCount,jdbcType=INTEGER}
+		where id=
+		#{skuId,jdbcType=INTEGER}
+	</update>
+ 
+	<select id="findBillList" parameterType="java.lang.Integer"
+		resultType="java.util.Map">
+		select orderTime,returnTime,`no`,third_party_id,third_party_amount,
+		sku_name,sku_price,
+		commission_rate,statusText,sku_erp_code,address_mobile,sku_count,orderType,`status`,cancellationId
+		from (
+		SELECT o.create_time orderTime,o.create_time as
+		queryOrderTime,o.return_time
+		as returnTime,'购买' as orderType,
+		o.`no`,os.third_party_id,o.third_party_amount,
+		os.sku_name,os.sku_price,os.commission_rate,os.sku_count,
+		CASE
+		WHEN
+		o.STATUS = '0' THEN
+		'草稿'
+		WHEN o. STATUS = '1' THEN
+		'未付款'
+		WHEN o. STATUS =
+		'2' THEN
+		'已付款'
+		WHEN o. STATUS = '3' THEN
+		'已确认'
+		WHEN o. STATUS = '4' THEN
+		'已制单'
+		WHEN o. STATUS = '5' THEN
+		'已发货'
+		WHEN o. STATUS = '6' THEN
+		'已完成'
+		WHEN
+		o. STATUS = '8' THEN
+		'已退货'
+		WHEN o. STATUS = '9' THEN
+		'已取消'
+		ELSE
+		'异常信息'
+		END
+		statusText,
+		os.sku_erp_code,
+		o.`status`,
+		c.order_id as cancellationId,
+		o.address_mobile
+		FROM t_order o
+		LEFT JOIN t_order_sku os ON o.id =
+		os.order_id
+		LEFT JOIN t_order_cancellation c ON o.id = c.order_id
+		where
+		o.`status` >= 6 or (o.`status`=9 and c.order_id!=null)
+		UNION
+		SELECT
+		o.create_time orderTime,'' as queryOrderTime,c.create_time as
+		returnTime,'退单' as orderType,
+		o.`no`,os.third_party_id,o.third_party_amount,
+		os.sku_name,os.sku_price,os.commission_rate,os.sku_count,
+		CASE
+		WHEN o.
+		STATUS = '0' THEN
+		'草稿'
+		WHEN o. STATUS = '1' THEN
+		'未付款'
+		WHEN o.STATUS = '2'
+		THEN
+		'已付款'
+		WHEN o. STATUS = '3' THEN
+		'已确认'
+		WHEN o. STATUS = '4' THEN
+		'已制单'
+		WHEN o. STATUS = '5' THEN
+		'已发货'
+		WHEN o. STATUS = '6' THEN
+		'已完成'
+		WHEN o.
+		STATUS = '8' THEN
+		'已退货'
+		WHEN o. STATUS = '9' THEN
+		'已取消'
+		ELSE
+		'异常信息'
+		END
+		statusText,
+		os.sku_erp_code,
+		o.`status`,
+		c.order_id as cancellationId,
+		o.address_mobile
+		FROM
+		t_order o
+		inner JOIN t_order_cancellation c ON o.id
+		= c.order_id
+		inner JOIN t_order_sku os ON o.id = os.order_id
+		INNER JOIN
+		t_refund r ON o.id = r.order_id and c.id=r.cancellation_id
+		WHERE
+		r.`status`=1
+		) bill
+		where sku_erp_code =#{skuErpCode,jdbcType=VARCHAR}
+          and ((bill.`status` >= 6 AND bill.`status` != 9 and bill.`status` != 7) OR (bill.`status`=9 and bill.cancellationId is not null))
+		<if test="startReturnTime != null and startReturnTime != ''">
+			and returnTime >= #{startReturnTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endReturnTime != null and endReturnTime != ''">
+			and <![CDATA[returnTime <= #{endReturnTime,jdbcType=TIMESTAMP}]]>
+		</if>
+		<if test="startCloseTime != null and startCloseTime != ''">
+			and queryOrderTime >= #{startCloseTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endCloseTime != null and endCloseTime != ''">
+			and <![CDATA[queryOrderTime <= #{endCloseTime,jdbcType=TIMESTAMP}]]>
+		</if>
+		order by orderTime desc
+		<if test="offset != null  and limit != null">
+			limit #{offset,jdbcType=INTEGER}
+			,#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<select id="findBillTotal" parameterType="java.lang.Integer" resultType="java.lang.Long">
+       select count(0) as total
+			from (
+			 	SELECT o.create_time orderTime,o.create_time as queryOrderTime,o.return_time as returnTime,'购买' as orderType,
+			    o.`no`,os.third_party_id,o.third_party_amount, os.sku_name,os.sku_price,os.commission_rate,os.sku_count,
+			CASE
+					WHEN o.STATUS = '0' THEN
+					'草稿'
+					WHEN o. STATUS = '1' THEN
+					'未付款'
+					WHEN o. STATUS = '2' THEN
+					'已付款'
+					WHEN o. STATUS = '3' THEN
+					'已确认'
+					WHEN o. STATUS = '4' THEN
+					'已制单'
+					WHEN o. STATUS = '5' THEN
+					'已发货'
+					WHEN o. STATUS = '6' THEN
+					'已完成'
+					WHEN o. STATUS = '8' THEN
+					'已退货'
+					WHEN o. STATUS = '9' THEN
+					'已取消'
+					ELSE
+					'异常信息'
+					END statusText,
+			  os.sku_erp_code,
+			  o.`status`,
+              c.order_id as cancellationId,
+			  o.address_mobile
+			FROM t_order o
+			LEFT JOIN t_order_sku os ON o.id = os.order_id
+			LEFT JOIN t_order_cancellation c ON o.id = c.order_id
+			where  o.`status` >= 6  or (o.`status`=9 and c.order_id!=null)
+			UNION
+			SELECT  o.create_time orderTime,'' as queryOrderTime,c.create_time as returnTime,'退单' as orderType,
+			    o.`no`,os.third_party_id,o.third_party_amount, os.sku_name,os.sku_price,os.commission_rate,os.sku_count,
+			  CASE
+					WHEN o. STATUS = '0' THEN
+					'草稿'
+					WHEN o. STATUS = '1' THEN
+					'未付款'
+					WHEN o.STATUS = '2' THEN
+					'已付款'
+					WHEN o. STATUS = '3' THEN
+					'已确认'
+					WHEN o. STATUS = '4' THEN
+					'已制单'
+					WHEN o. STATUS = '5' THEN
+					'已发货'
+					WHEN o. STATUS = '6' THEN
+					'已完成'
+					WHEN o. STATUS = '8' THEN
+					'已退货'
+					WHEN o. STATUS = '9' THEN
+					'已取消'
+					ELSE
+					'异常信息'
+					END statusText,
+			  os.sku_erp_code,
+			  o.`status`,
+              c.order_id as cancellationId,
+			  o.address_mobile
+			FROM
+				t_order o
+			inner JOIN t_order_cancellation c ON o.id = c.order_id
+			inner JOIN t_order_sku os ON o.id = os.order_id
+            INNER JOIN t_refund r ON o.id = r.order_id and  c.id=r.cancellation_id
+			WHERE  r.`status`=1 
+			) bill
+		where sku_erp_code =#{skuErpCode,jdbcType=VARCHAR}
+		 and ((bill.`status` >= 6 AND bill.`status` != 9 and bill.`status` != 7) OR (bill.`status`=9 and bill.cancellationId is not null))
+		<if test="startReturnTime != null and startReturnTime != ''">
+			and returnTime >= #{startReturnTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endReturnTime != null and endReturnTime != ''">
+			and <![CDATA[returnTime <= #{endReturnTime,jdbcType=TIMESTAMP}]]>
+		</if>
+		<if test="startCloseTime != null and startCloseTime != ''">
+			and queryOrderTime >= #{startCloseTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endCloseTime != null and endCloseTime != ''">
+			and <![CDATA[queryOrderTime <= #{endCloseTime,jdbcType=TIMESTAMP}]]>
+		</if>	
+		order by orderTime desc
+	</select>
+	<!--查询新东发订单信息===分页开始 -->
+	<select id="findKooOrders" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT
+			t1.id,
+			t1.NO,
+			t2.mobile,
+			t1.create_time createTime,
+			t3.sku_name skuName,
+			t1.installment_amount installmentAmount,
+			t1.installment_months installmentMonths,
+			t1.down_payment downPayment,
+			t3.sku_count skuCount,
+			t3.sku_price skuPrice,
+			t1.address_mobile addressMobile,
+			t1.third_party_amount as thirdPartyAmount,
+			t3.third_party_id as thirdPartyId,
+	        t3.sku_head_thumbnail as skuHeadThumbnail,
+			CASE
+			WHEN t1.pay_method = '1' THEN
+			'全款'
+			WHEN t1.pay_method = '2' THEN
+			'全分期'
+			WHEN t1.pay_method = '3' THEN
+			'首付+分期'
+			ELSE
+			'异常信息'
+			END payMethodText,
+			t1.pay_method payMethod,
+			t2.real_name realName,
+			t2.mobile,
+			CASE
+			WHEN t1. STATUS = '0' THEN
+			'草稿'
+			WHEN t1. STATUS = '1' THEN
+			'未付款'
+			WHEN t1. STATUS = '2' THEN
+			'已付款'
+			WHEN t1. STATUS = '3' THEN
+			'已确认'
+			WHEN t1. STATUS = '4' THEN
+			'已制单'
+			WHEN t1. STATUS = '5' THEN
+			'已发货'
+			WHEN t1. STATUS = '6' THEN
+			'已完成'
+			WHEN t1. STATUS = '7' THEN
+			'已失效'
+			WHEN t1. STATUS = '8' THEN
+			'已退货'
+			WHEN t1. STATUS = '9' THEN
+			'已取消'
+			ELSE
+			'异常信息'
+			END statusText,
+			t1. STATUS STATUS,
+			t4.type cancelType,
+			CASE
+			WHEN t4.type = '1' THEN
+			'取消订单'
+			WHEN t4.type = '2' THEN
+			'退货申请'
+			ELSE
+			''
+			END cancelTypeText,
+			t4. STATUS cancelStatus,
+			CASE
+			WHEN t4. STATUS = '0' THEN
+			'已提交'
+			WHEN t4. STATUS = '1' THEN
+			'已确认'
+			WHEN t4. STATUS = '2' THEN
+			'已拒绝'
+			WHEN t4. STATUS = '3' THEN
+			'待收货'
+			WHEN t4. STATUS = '4' THEN
+			'已收货'
+			WHEN t4. STATUS = '5' THEN
+			'完成'
+			ELSE
+			''
+			END cancelStatusText
+			FROM
+			t_order t1
+			LEFT JOIN t_user t2 ON t1.cust_id = t2.id
+			LEFT JOIN t_order_sku t3 ON t1.id = t3.order_id
+			LEFT JOIN(
+			SELECT
+			id,
+			order_id,
+			type,
+			STATUS
+			FROM
+			t_order_cancellation
+			WHERE
+			id IN(
+			SELECT
+			max(id)
+			FROM
+			t_order_cancellation
+			GROUP BY
+			order_id
+			)
+			)t4 ON t4.order_id = t1.id
+			where t1.`status`>=2
+			AND t1.id IN( select t_order.id 
+				 from  t_order LEFT join t_order_sku on t_order.id=t_order_sku.order_id   
+				 where t_order.`status`>=2 and t_order.`status`!=9 and t_order.`status`!=7 
+				UNION
+				SELECT
+					t_order.id
+				FROM
+					t_order t_order
+				LEFT JOIN t_order_sku ON t_order.id = t_order_sku.order_id
+				LEFT JOIN t_order_cancellation ON t_order.id = t_order_cancellation.order_id
+				WHERE
+					t_order.`status` = 9 and t_order_cancellation.type=1 
+				)
+			 and t3.sku_erp_code =#{erpCode,jdbcType=VARCHAR}
+			<if test="id != null and  id !=''">
+				and t1.id=#{id,jdbcType=INTEGER}
+			</if>
+			<if test="skuName != null and  skuName !=''">
+				and t3.sku_name like CONCAT(CONCAT('%',
+				#{skuName,jdbcType=VARCHAR}),'%')
+			</if>
+			<if test="no != null and  no !=''">
+				and t1.no=#{no,jdbcType=VARCHAR}
+			</if>
+			<if test="startTime != null and  startTime !=''">
+				and t1.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null and  endTime !=''">
+				and t1.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			</if>
+	
+			<if test="mobile != null and  mobile !=''">
+				and t1.address_mobile like CONCAT(CONCAT('%',
+				#{mobile,jdbcType=VARCHAR}),'%')
+			</if>
+			<if test="status != null and  status !=''">
+				and t1.status = #{status,jdbcType=VARCHAR}
+			</if>
+			order by t1.id desc 
+			<if test="limit !=null and offset!=null">
+				limit #{offset,jdbcType=INTEGER} ,#{limit,jdbcType=INTEGER}
+			</if>
+		</select>
+		<select id="findKooTotalOrders" parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT
+		  count(0)total
+			FROM
+			t_order t1
+			LEFT JOIN t_user t2 ON t1.cust_id = t2.id
+			LEFT JOIN t_order_sku t3 ON t1.id = t3.order_id
+			LEFT JOIN(
+			SELECT
+			id,
+			order_id,
+			type,
+			STATUS
+			FROM
+			t_order_cancellation
+			WHERE
+			id IN(
+			SELECT
+			max(id)
+			FROM
+			t_order_cancellation
+			GROUP BY
+			order_id
+			)
+			)t4 ON t4.order_id = t1.id
+			where t1.`status`>=2
+			AND t1.id IN( select t_order.id 
+				 from  t_order LEFT join t_order_sku on t_order.id=t_order_sku.order_id   
+				 where t_order.`status`>=2 and t_order.`status`!=9 and t_order.`status`!=7 
+				UNION
+				SELECT
+					t_order.id
+				FROM
+					t_order t_order
+				LEFT JOIN t_order_sku ON t_order.id = t_order_sku.order_id
+				LEFT JOIN t_order_cancellation ON t_order.id = t_order_cancellation.order_id
+				WHERE
+					t_order.`status` = 9 and t_order_cancellation.type=1 
+				)
+			 and t3.sku_erp_code =#{erpCode,jdbcType=VARCHAR}
+		<if test="id != null and  id !=''">
+			and t1.id=#{id,jdbcType=INTEGER}
+		</if>
+		<if test="skuName != null and  skuName !=''">
+			and t3.sku_name like CONCAT(CONCAT('%',
+			#{skuName,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="no != null and  no !=''">
+			and t1.no=#{no,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null and  startTime !=''">
+			and t1.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endTime != null and  endTime !=''">
+			and t1.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+		</if>
+
+		<if test="mobile != null and  mobile !=''">
+			and t1.address_mobile like CONCAT(CONCAT('%',
+			#{mobile,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="status != null and  status !=''">
+			and t1.status = #{status,jdbcType=VARCHAR}
+		</if>
+		order by t1.id desc 
+	</select>
+	<!--查询新东发订单信息===分页结束 -->
+	<select id="getById" resultType="com.tyiti.easycommerce.entity.Order"
+		resultMap="BaseResultMap">
+		select
+		<include refid="select_column_list" />
+		from t_order where id = #{id}
+	</select>
+	<!--parameterType="" -->
+	<select id="getByRefundId" resultType="com.tyiti.easycommerce.entity.Order"
+		resultMap="BaseResultMap">
+		select
+		<include refid="select_column_list" />
+		from t_order where id = (select order_id from t_refund where
+		id=#{id,jdbcType=INTEGER} LIMIT 1)
+	</select>
+	<select id="OrderByIdOrNo" resultType="java.util.Map">
+		select
+		<include refid="part_order_columns" />
+		from t_order where
+		<if test="id != null and id != ''">
+			id=#{id,jdbcType=INTEGER} and
+		</if>
+		<if test="no != null and no != ''">
+			no=#{no,jdbcType=VARCHAR} and
+		</if>
+		1=1
+	</select>
+	<select id="OrderByRefundIdOrNo" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		<include refid="part_order_columns" />
+		from t_order t where
+		t.id=(select order_id from t_refund r where
+		r.id=#{id,jdbcType=INTEGER} LIMIT 1)
+	</select>
+	<sql id="part_order_columns">
+		id,no,cust_id,stage_id,amount,
+		down_payment,installment_amount,
+		installment_months,installment_rate,down_payment_payed,
+		installment_payed,pay_method,`status`,invalid,create_time
+	</sql>
+
+	<!-- 购物车开发 新 接口 ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！ -->
+	<sql id="order_column_sku">
+		t1.id, t1.no, t1.cust_id, t1.amount, t1.third_party_amount,
+		t1.invoice_title, 
+	 	t1.invoice_type, 
+	 	t1.invoice_status, 
+		t1.down_payment,
+		t1.installment_amount, t1.installment_months,
+		t1.installment_rate, t1.down_payment_payed, t1.installment_payed,
+		t1.down_payment_time,
+		t1.installment_time,
+		t1.pay_method, t1.status,
+		t1.invalid, t1.create_time, t1.close_time, t1.address_name,
+		t1.address_mobile,
+		t1.address_full_text, t1.address_zip,
+		t1.logistics_no, t1.logistics_company, t1.receipt_time,
+		t1.return_time,
+		t1.stage_id,
+		t2.mobile
+	</sql>
+	<sql id="order_sku_column">
+		t3.id s_id,t3.order_id ,t3.sku_id
+		,t3.sku_name,t3.sku_description,t3.sku_detail,t3.sku_erp_code,t3.sku_head_thumbnail,t3.sku_count,t3.sku_price,t3.sku_original_price
+		,t3.sku_attribute,t3.activity_type,t3.activity_id,t3.avg_price,t3.fact_amount,t3.return_count
+	</sql>
+	<sql id="order_cancellation_column">
+		t4.id cancelId ,t4.status cancelStatus ,t4.no cancelNo
+		,t4.create_time
+		cancelCreateTime
+	</sql>
+	<select id="selectOrderSkusList" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="order_column_sku" />
+		,t5.amount discount,po.status pickupStatus ,
+		<include refid="order_sku_column" />
+		,
+		<include refid="order_cancellation_column" />
+		from t_order t1 left join t_user t2 on t1.cust_id = t2.id
+		left join
+		t_order_sku t3 on t1.id =t3.order_id
+		left join
+		( select id ,order_id
+		,no, create_time,
+		type, status from t_order_cancellation
+		where id in
+		(select max(id) from
+		t_order_cancellation
+		group by order_id ) )t4
+		on
+		t4.order_id = t1.id
+		left join t_order_payment t5 on t5.order_id = t1.id
+		and t5.category=3 and
+		t5.type =11
+		left join t_pickup_order po on
+		po.order_id = t1.id
+		<include refid="where_orders_skus_columns"></include>
+		<if test="cancelList == null">
+			order by t1.create_time desc 
+		</if>
+		<if test="cancelList != null">
+			order by t4.create_time desc 
+		</if>
+		<if test="limit != null  and offset != null ">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="selectOrderSkusCount" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(*)
+		from t_order t1 left join t_user t2 on t1.cust_id =
+		t2.id
+		left join
+		t_order_sku t3 on t1.id =t3.order_id
+		left join
+		<choose>
+		<!-- 订单和 申请取消订单 共用一个 查询   -->
+			<when test="cancelList != null">
+				t_order_cancellation t4 
+			</when>
+			<otherwise>
+			( select id,order_id,no, create_time,type, status from t_order_cancellation
+				where id in
+				(select max(id) from t_order_cancellation group by order_id ) ) t4
+			</otherwise>
+		</choose>
+		on
+		t4.order_id = t1.id
+		left join t_order_payment t5 on t5.order_id =
+		t1.id
+		and t5.category=3 and
+		t5.type =11
+		left join t_pickup_order po on
+		po.order_id = t1.id
+		<include refid="where_orders_skus_columns"></include>
+	</select>
+	<sql id="where_orders_skus_columns">
+		where 1=1
+		<if test="cancelList != null">
+			and t4.id is not null
+			<if test="id != null ">
+				and t4.id = #{id}
+			</if>
+			<if test="orderNo != null and orderNo !=''">
+				and t1.no = #{orderNo}
+			</if>
+			<if test="cancelNo != null and cancelNo != ''">
+				and t4.no = #{cancelNo}
+			</if>
+			<if test="startTime != null and  startTime !=''">
+				and t4.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null and  endTime !=''">
+				and t4.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="status != null and  status !=''">
+				and t4.status = #{status}
+			</if>
+		</if>
+		<if test="cancelList == null">
+			<if test="id != null">
+				and t1.id = #{id}
+			</if>
+			<if test="no != null and  no !=''">
+				and t1.no=#{no,jdbcType=VARCHAR}
+			</if>
+			<if test="startTime != null and  startTime !=''">
+				and t1.create_time &gt;= #{startTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null and  endTime !=''">
+				and t1.create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+			</if>
+
+			<if test="status != null and  status !=''">
+				and t1.status = #{status,jdbcType=VARCHAR}
+				and (t4.status
+				is null or (t4.status = 2 and t4.type = 1 ))
+			</if>
+			<if test="payMethod != null and  payMethod !=''">
+				and t1.pay_method = #{payMethod,jdbcType=VARCHAR}
+			</if>
+			<if test="cancelStatus != null and  cancelStatus !=''">
+				and t4.status = #{cancelStatus}
+			</if>
+			<if test="cancelType != null and  cancelType !=''">
+				and t4.type = #{cancelType}
+			</if>
+		</if>
+		<if test="mobile != null and  mobile !=''">
+			and t2.mobile like CONCAT(CONCAT('%',
+			#{mobile,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="pickup == null or pickup =='' ">
+			and po.order_id is null
+		</if>
+		<if test="pickup != null and pickup !='' ">
+			and po.order_id is not null
+		</if>
+		<if test="pickupPointId != null and  pickupPointId !=''">
+			and po.pickup_point_id = #{pickupPointId}
+		</if>
+		<if test="skuName != null and  skuName !=''">
+			and t3.sku_name like CONCAT(CONCAT('%',
+			#{skuName,jdbcType=VARCHAR}),'%')
+		</if>
+	</sql>
+	
+	<update id="logisticsImport" parameterType="com.tyiti.easycommerce.entity.Order">
+		update t_order
+		set
+		logistics_no = #{logisticsNo},
+		logistics_company = #{logisticsCompany},
+		delivery_time = #{deliveryTime}
+		where no = #{no};
+	</update>
+
+	<!-- 制单导出 新模板 对照 export_uporders_excel 兼容 购物车 selectOrdersMaking -->
+
+	<select id="selectOrdersMaking" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		t1.id ,
+		t1.no ,
+		t1.create_time createTime,
+		t1.status,
+		t1.amount,
+		t9.id pickupId,t2.id userId,
+		t1.down_payment downPayment,
+		t1.down_payment_payed downPaymentPayed,
+		t1.installment_payed
+		installmentPayed,
+		case when t9.id is not null then t2.mobile
+		when t9.id
+		is null then t1.address_name end addressName,
+		case when t9.id is not
+		null then t2.mobile
+		when t9.id is null then t1.address_mobile end
+		addressMobile,
+		case when t9.id is not null then t10.name
+		when t9.id is
+		null then t1.address_full_text end addressFullText,
+		t1.address_zip
+		addressZip,
+		t3.sku_name skuName,
+		t4.images_original
+		imagesOriginal,
+		t3.sku_count skuCount,
+		t3.sku_price skuPrice,
+		t3.sku_attribute
+		skuAttribute,
+		'' skuAttributeUnuse,
+		t2.id_card idCard ,
+		<if test="sys == 'ceb'">
+			'光大微商城' custSource,
+			t1.address_mobile mobile ,
+			t2.mobile otherTel ,
+			t1.installment_months installmentMonths,
+			<choose>
+				<when test="koo != null ">
+					'新东方' realName ,
+				</when>
+				<otherwise>
+					t1.address_name realName ,
+				</otherwise>
+			</choose>
+			t3.sku_id erpCode,
+			(t1.amount-IFNULL(t8.amount,0)) totalPrice ,
+			case
+			when t1.installment_months = 1 then '0.4'
+			when t1.installment_months =
+			3 then '2'
+			when t1.installment_months = 6 then '3.5'
+			when
+			t1.installment_months = 12 then '6.5'
+			end bankRate ,
+			case
+			when
+			t1.installment_months = 1 then
+			ROUND((t1.amount-IFNULL(t8.amount,0))*0.4/100,4)
+			when
+			t1.installment_months = 3 then
+			ROUND((t1.amount-IFNULL(t8.amount,0))*2/100,4)
+			when
+			t1.installment_months = 6 then
+			ROUND((t1.amount-IFNULL(t8.amount,0))*3.5/100,4)
+			when
+			t1.installment_months = 12 then
+			ROUND((t1.amount-IFNULL(t8.amount,0))*6.5/100,4)
+			end bankExtract ,
+			case
+			when t1.installment_months = 1 then
+			ROUND((t1.amount-IFNULL(t8.amount,0)-(t1.amount-IFNULL(t8.amount,0))*0.04/100),4)
+			when t1.installment_months = 3 then
+			ROUND((t1.amount-IFNULL(t8.amount,0)-(t1.amount-IFNULL(t8.amount,0))*2/100),4)
+			when t1.installment_months = 6 then
+			ROUND((t1.amount-IFNULL(t8.amount,0)-(t1.amount-IFNULL(t8.amount,0))*3.5/100),4)
+			when t1.installment_months = 12 then
+			ROUND((t1.amount-IFNULL(t8.amount,0)-(t1.amount-IFNULL(t8.amount,0))*6.5/100),4)
+			end refund ,
+			(t1.amount-IFNULL(t8.amount,0)) custPayed,
+		</if>
+		<if test="sys == 'fxb'">
+			t2.real_name realName,
+			t1.installment_months
+			installmentMonths,
+			'分信宝' custSource,
+			t2.real_name realName ,
+			t2.mobile
+			mobile ,
+			'' otherTel,
+			t4.erp_code erpCode,
+			t1.amount totalPrice ,
+			t1.amount refund ,
+			t1.amount custPayed,
+			'0' bankExtract ,
+			'0' bankRate,
+		</if>
+		<if test="sys =='thb' ">
+			'1' installmentMonths,
+			'淘惠帮分期商城' custSource,
+			'' realName ,
+			'' mobile ,
+			'' otherTel ,
+			t4.erp_code erpCode,
+			t1.amount totalPrice ,
+			t1.amount refund ,
+			'0' bankExtract ,
+			'0' bankRate,
+			(t1.amount-IFNULL(t8.amount,0)) custPayed,
+		</if>
+		<if test="sys !='thb' and sys != 'tyfq' and sys != 'ceb'">
+			'XXXSHOP' custSource,
+		</if>
+		'' creditCard ,
+		case when t9.id is not null then '自提'
+		when
+		t9.id is null
+		then '' end custComment,
+		case when t9.id is not null then '自提'
+		when
+		t9.id is null then '' end
+		needs,
+		t1.no mainNo,
+		t1.no sonNo,
+		''
+		otherSubsidy,
+		'' score,
+		'' giftInfo,
+		t1.invoice_title  receipt ,
+		t6.name brandName ,
+		t8.amount discount,
+		case when
+		t9.id is not null then '自提'
+		when t9.id is
+		null then '常规' end orderType
+		from t_order t1
+		left join t_user t2 on
+		t2.id = t1.cust_id
+		left join
+		t_order_sku t3 on t1.id = t3.order_id
+		left
+		join t_sku t4 on t3.sku_id =
+		t4.id
+		left join t_spu t5 on t4.spu_id =
+		t5.id
+		left join t_category t6 on
+		t5.category_id = t6.id
+		left
+		join
+		t_order_payment t8 on t8.order_id = t1.id and t8.category=3 and
+		t8.type =11
+		<!-- 关联自提单 -->
+		left join t_pickup_order t9 on t9.order_id=t1.id
+		left join
+		t_pickup_point t10 on t9.pickup_point_id = t10.id
+		where 1=1
+		<if test="ids != null and  ids !=''">
+			and t1.id in
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	
+	<!-- 向订单系统中插入数据 -->
+	<resultMap id="OrderSystemResultMap" type="com.tyiti.easycommerce.util.ordersystem.Orders">
+		<result column="id" property="shopOrderId" jdbcType="VARCHAR" />
+		<result column="custSource" property="bankName" jdbcType="VARCHAR" />
+		<result column="no" property="no" jdbcType="VARCHAR" />
+		<result column="createTime" property="bookingDate" jdbcType="VARCHAR" />
+		<result column="realName" property="customer" jdbcType="VARCHAR" />
+		<result column="mobile" property="customerTel" jdbcType="VARCHAR" />
+		<result column="otherTel" property="otherContact" jdbcType="VARCHAR" />
+		<result column="creditCard" property="creditCard" jdbcType="VARCHAR" />
+		<result column="custPayed" property="paidAmount" jdbcType="DECIMAL" />
+		<result column="bankRate" property="bankPoints" jdbcType="DECIMAL" />
+		<result column="giftInfo" property="gift" jdbcType="VARCHAR" />
+		<result column="installmentMonths" property="terms" jdbcType="VARCHAR" />
+		<result column="receipt" property="invoice" jdbcType="VARCHAR" />
+		<result column="needs" property="requirement" jdbcType="VARCHAR" />
+		<result column="addressName" property="buyerName" jdbcType="VARCHAR" />
+		<result column="addressMobile" property="buyerTel" jdbcType="VARCHAR" />
+		<result column="addressFullText" property="buyerAddress" jdbcType="VARCHAR" />
+		<result column="addressZip" property="buyerZipCode" jdbcType="VARCHAR" />
+		<result column="custComment" property="remark" jdbcType="VARCHAR" />
+		<result column="logistics" property="logistics" jdbcType="VARCHAR" />
+		<result column="otype" property="otype" jdbcType="VARCHAR" />
+		<result column="idCard" property="idno" jdbcType="VARCHAR" />
+		<result column="totalPrice" property="totalAmount" jdbcType="DECIMAL" />
+		<result column="bankExtract" property="bankFee" jdbcType="DECIMAL" />
+		<result column="refund" property="shouldBackAmount" jdbcType="DECIMAL" />
+		<result column="discount" property="coupon" jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="INTEGER" />
+		<result column="otherSubsidy" property="subsidy" jdbcType="VARCHAR" />
+		<result column="status" property="shopOrderStatus" jdbcType="VARCHAR" />
+		<result column="cancelStatus" property="cancelStatus" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectOrdersToOrderSystem" parameterType="java.util.Map"
+		resultMap="OrderSystemResultMap">
+		select
+		t1.id ,  
+		t1.no ,
+		t1.create_time createTime,
+		t1.status,
+		t1.amount,
+		t9.id pickupId,t2.id userId,
+		t1.down_payment downPayment,
+		t1.down_payment_payed downPaymentPayed,
+		t1.installment_payed
+		installmentPayed,
+		case when t9.id is not null then t2.mobile
+		when t9.id
+		is null then t1.address_name end addressName,
+		case when t9.id is not
+		null then t2.mobile
+		when t9.id is null then t1.address_mobile end
+		addressMobile,
+		case when t9.id is not null then t10.name
+		when t9.id is
+		null then t1.address_full_text end addressFullText,
+		t1.address_zip
+		addressZip,
+		t2.id_card idCard ,
+		<if test="sys == 'ceb'">
+			'光大微商城' custSource,
+			t1.address_mobile mobile ,
+			t2.mobile otherTel ,
+			t1.installment_months installmentMonths,
+			<choose>
+				<when test="koo != null ">
+					'新东方' realName ,
+				</when>
+				<otherwise>
+					t1.address_name realName ,
+				</otherwise>
+			</choose>
+			(t1.amount-IFNULL(t8.amount,0)) totalPrice ,
+			case
+			when t1.installment_months = 1 then '0.4'
+			when t1.installment_months =
+			3 then '2'
+			when t1.installment_months = 6 then '3.5'
+			when
+			t1.installment_months = 12 then '6.5'
+			end bankRate ,
+			case
+			when
+			t1.installment_months = 1 then
+			ROUND((t1.amount-IFNULL(t8.amount,0))*0.4/100,2)
+			when
+			t1.installment_months = 3 then
+			ROUND((t1.amount-IFNULL(t8.amount,0))*2/100,2)
+			when
+			t1.installment_months = 6 then
+			ROUND((t1.amount-IFNULL(t8.amount,0))*3.5/100,2)
+			when
+			t1.installment_months = 12 then
+			ROUND((t1.amount-IFNULL(t8.amount,0))*6.5/100,2)
+			end bankExtract ,
+			case
+			when t1.installment_months = 1 then
+			ROUND((t1.amount-IFNULL(t8.amount,0)-(t1.amount-IFNULL(t8.amount,0))*0.04/100),2)
+			when t1.installment_months = 3 then
+			ROUND((t1.amount-IFNULL(t8.amount,0)-(t1.amount-IFNULL(t8.amount,0))*2/100),2)
+			when t1.installment_months = 6 then
+			ROUND((t1.amount-IFNULL(t8.amount,0)-(t1.amount-IFNULL(t8.amount,0))*3.5/100),2)
+			when t1.installment_months = 12 then
+			ROUND((t1.amount-IFNULL(t8.amount,0)-(t1.amount-IFNULL(t8.amount,0))*6.5/100),2)
+			end refund ,
+			(t1.amount-IFNULL(t8.amount,0)) custPayed,
+		</if>
+		<if test="sys == 'fxb'">
+			t2.real_name realName,
+			t1.installment_months
+			installmentMonths,
+			'分信宝' custSource,
+			t2.real_name realName ,
+			t2.mobile
+			mobile ,
+			'' otherTel,
+			t1.amount totalPrice ,
+			t1.amount refund ,
+			t1.amount custPayed,
+			'0' bankExtract ,
+			'0' bankRate,
+		</if>
+		<if test="sys =='thb' ">
+			'1' installmentMonths,
+			'淘惠帮分期商城' custSource,
+			'' realName ,
+			'' mobile ,
+			'' otherTel ,
+			t1.amount totalPrice ,
+			t1.amount refund ,
+			'0' bankExtract ,
+			'0' bankRate,
+			(t1.amount-IFNULL(t8.amount,0)) custPayed,
+		</if>
+		<if test="sys !='thb' and sys != 'tyfq' and sys != 'ceb'">
+			'XXXSHOP' custSource,
+		</if>
+		'' creditCard ,
+		case when t9.id is not null then '自提'
+		when
+		t9.id is null
+		then '' end custComment,
+		case when t9.id is not null then '自提'
+		when
+		t9.id is null then '' end
+		needs,
+		t1.no mainNo,
+		t1.no sonNo,
+		''
+		otherSubsidy,
+		'' score,
+		'' giftInfo,
+		t1.invoice_title  receipt ,
+		t8.amount discount,
+		case when
+		t9.id is not null then '自提'
+		when t9.id is
+		null then '常规' end orderType
+		from t_order t1
+		left join t_user t2 on
+		t2.id = t1.cust_id
+		left join
+		( select id ,order_id
+		,no, create_time,
+		type, status from t_order_cancellation
+		where id in
+		(select max(id) from
+		t_order_cancellation
+		 group by order_id  ) )t4
+		on
+		t4.order_id = t1.id
+		left join
+		t_order_payment t8 on t8.order_id = t1.id and t8.category=3 and
+		t8.type =11
+		<!-- 关联自提单 -->
+		left join t_pickup_order t9 on t9.order_id=t1.id
+		left join
+		t_pickup_point t10 on t9.pickup_point_id = t10.id
+		where 1=1
+		<if test="ids != null and  ids !=''">
+			and t1.id in
+			<foreach item="item" index="index" collection="ids" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

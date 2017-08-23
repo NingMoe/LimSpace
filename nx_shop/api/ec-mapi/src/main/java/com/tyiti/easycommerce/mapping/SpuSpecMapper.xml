@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.SpuSpecDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.SpuSpec" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="spec_id" property="specId" jdbcType="INTEGER" />
+    <result column="spu_id" property="spuId" jdbcType="INTEGER" />
+    <result column="spec_value" property="specValue" jdbcType="VARCHAR" />
+    <result column="spec_values" property="specValues" jdbcType="VARCHAR" />
+    <result column="spec_name" property="specName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, spec_id, spu_id, spec_value ,spec_values
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_spu_spec
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_spu_spec
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.SpuSpec" >
+    insert into t_spu_spec (id, spec_id, spu_id, 
+      spec_value,spec_values)
+    values (#{id,jdbcType=INTEGER}, #{specId,jdbcType=INTEGER}, #{spuId,jdbcType=INTEGER}, 
+      #{specValue,jdbcType=VARCHAR},#{specValues,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.SpuSpec" >
+    insert into t_spu_spec
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="specId != null" >
+        spec_id,
+      </if>
+      <if test="spuId != null" >
+        spu_id,
+      </if>
+      <if test="specValue != null" >
+        spec_value,
+      </if>
+      <if test="specValues != null" >
+        spec_values,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="specId != null" >
+        #{specId,jdbcType=INTEGER},
+      </if>
+      <if test="spuId != null" >
+        #{spuId,jdbcType=INTEGER},
+      </if>
+      <if test="specValue != null" >
+        #{specValue,jdbcType=VARCHAR},
+      </if>
+      <if test="specValues != null" >
+        #{specValues,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.SpuSpec" >
+    update t_spu_spec
+    <set >
+      <if test="specId != null" >
+        spec_id = #{specId,jdbcType=INTEGER},
+      </if>
+      <if test="spuId != null" >
+        spu_id = #{spuId,jdbcType=INTEGER},
+      </if>
+      <if test="specValue != null" >
+        spec_value = #{specValue,jdbcType=VARCHAR},
+      </if>
+       <if test="specValues != null" >
+        spec_values = #{specValues,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.SpuSpec" >
+    update t_spu_spec
+    set spec_id = #{specId,jdbcType=INTEGER},
+      spu_id = #{spuId,jdbcType=INTEGER},
+      spec_value = #{specValue,jdbcType=VARCHAR},
+      spec_values = #{specValues,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="getListBySpuId" resultMap="BaseResultMap">
+  	select 
+    ss.<include refid="Base_Column_List" />, s.name as spec_name
+    from t_spu_spec ss
+    left join t_spec s on ss.spec_id = s.id
+    where ss.spu_id = #{spuId,jdbcType=INTEGER}
+  </select>
+  <select id="getBySpecId" resultType="com.tyiti.easycommerce.entity.SpuSpec"  parameterType="java.lang.Integer">
+  select 
+    <include refid="Base_Column_List" />
+    from t_spu_spec
+    where spu_id = #{spuId,jdbcType=INTEGER} and spec_id = #{specId,jdbcType=INTEGER}
+  
+  </select>
+  
+</mapper>

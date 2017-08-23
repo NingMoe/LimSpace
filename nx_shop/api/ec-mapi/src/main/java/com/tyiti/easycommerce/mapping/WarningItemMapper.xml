@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.WarningItemDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.WarningItem">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="send_sms" property="sendSms" jdbcType="BIT" />
+		<result column="send_email" property="sendEmail" jdbcType="BIT" />
+		<result column="sms_tpl" property="smsTpl" jdbcType="VARCHAR" />
+		<result column="email_title" property="emailTitle" jdbcType="VARCHAR" />
+		<result column="email_tpl" property="emailTpl" jdbcType="VARCHAR" />
+		<result column="invalid" property="invalid" jdbcType="BIT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">id,name,send_sms,send_email,sms_tpl,email_title,email_tpl,invalid,create_time,update_time
+	</sql>
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.tyiti.easycommerce.entity.WarningItem">
+		insert into t_sku_shelves_schedule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sendSms != null">
+				send_sms,
+			</if>
+			<if test="sendEmail != null">
+				send_email,
+			</if>
+			<if test="smsTpl != null">
+				sms_tpl,
+			</if>
+			<if test="emailTitle != null">
+				email_title,
+			</if>
+			<if test="emailTpl != null">
+				email_tpl,
+			</if>
+			<if test="invalid != null">
+				invalid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sendSms != null">
+				#{sendSms,jdbcType=BIT},
+			</if>
+			<if test="sendEmail != null">
+				#{sendEmail,jdbcType=BIT},
+			</if>
+			<if test="smsTpl != null">
+				#{smsTpl,jdbcType=VARCHAR},
+			</if>
+			<if test="emailTitle != null">
+				#{emailTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="emailTpl != null">
+				#{emailTpl,jdbcType=VARCHAR},
+			</if>
+			<if test="invalid != null">
+				#{invalid,jdbcType=BIT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

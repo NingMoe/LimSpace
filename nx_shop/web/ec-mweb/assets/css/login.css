@@ -1,0 +1,184 @@
+*{
+      padding: 0;margin: 0;list-style: none;
+    }
+    .clearfix:after {clear:both;content:'';display:block;}
+    body{
+      background: url(../img/bg.jpg);
+      background-size: cover;
+      background-repeat:no-repeat;
+    }
+    .thb .bj,.tyfq .bj,.ceb .bj{
+      width: 96%;
+      height: 490px;
+      background: url(../img/cloud.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 60px;
+      top: 390px;
+    }
+    h1{
+      width: 552px;
+      height: 90px;
+      background: url(../img/login_logo.png) no-repeat left center;
+      text-indent: -100em;
+      position: absolute;
+      left:calc(( 100% - 507px )/2);
+      top: 100px;
+    }
+    .ceb h1 {
+      background: url(../img/logo-ceb.png) no-repeat left center;
+    }
+    .tyfq h1 {
+      background: url(../img/logo-ssfq.png) no-repeat left center;
+    }
+    .thb h1 {
+      background: url(../img/logo-thb.png) no-repeat left center;
+    }
+    .login{
+      position: absolute;
+      top: 300px;
+      width: 900px;
+      height: 430px;
+      left: 50%;
+    	margin-left: -450px;
+    }
+    .thb .login img, .ceb .login img,.tyfq .login img{
+      float: left;
+    }
+    .thb .login div,.tyfq .login div,.ceb .login div,.fxb .login div{
+      float: left;
+      width: 595px;
+      height: 100%;
+      background: #fff;
+      padding-top: 30px;
+    }
+    .thb .login div input,.tyfq .login div input,.ceb .login div input{
+      width: 430px;
+      height: 50px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      display: block;
+      margin: 30px 80px;
+      padding-left: 50px;
+      line-height: 50px;
+      font-size: 20px;
+    }
+    .fxb .login div input{
+      width: 430px;
+      height: 60px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      display: block;
+      margin: 30px 80px;
+      padding-left: 50px;
+      line-height: 50px;
+      font-size: 20px;
+    }
+    input.name{
+      background: url(../img/name.png) no-repeat 10px center #ecf5fa;
+    }
+    input.pass{
+      background: url(../img/pass.png) no-repeat 10px center #ecf5fa;
+    }
+    .login div input.verificationcode{
+      background: url(../img/code.png) no-repeat 10px center #ecf5fa;
+      display: inline-block;
+      width: 270px;
+      margin-top: 0;
+      margin-right: 0;
+    }
+    .login div span{
+      width: 120px;
+      height: 50px;
+      background: #ecf5fa;
+      display: inline-block;
+      margin-left: 35px;
+      text-align: center;
+      line-height: 50px;
+      font-size: 18px;
+    }
+    .thb .login div button,.tyfq .login div button,.ceb .login div button{
+      width: 430px;
+      background: #4baae0;
+    }
+    .login div button{
+      display: block;
+      height: 45px;
+      
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      margin-left: 80px;
+      font-size: 26px;
+      text-align: center;
+    }
+    .fxb .login div button{
+      height: 60px;
+    }
+/*doudongzhe 0822*/
+body{
+  background: #3776c0;
+}
+.fxb .bj {
+  height: 100%;
+  top:0;
+  left: 3.6%;
+  background: url(../img/bg-css.png) ;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.login img{
+  display: none;
+}
+.login{
+   width: 500px;
+   margin-left: -250px;
+   top:230px;
+   height: 320px;
+}
+.fxb .login{
+   width: 610px;
+   margin-left: -305px;
+   top:270px;
+   height: 320px;
+}
+.fxb .login div{
+  width: 610px;
+  padding-top: 15px;
+  border-radius: 2px;
+}
+.login div input{
+  width: 335px;
+  margin: 20px 80px;
+}
+
+.fxb .login div input{
+  width: 450px;
+  margin: 30px 80px;
+}
+.fxb .login div button{
+  width: 450px;
+}
+h1{
+  top:50px;
+  width: 550px;
+  height:75px;
+  background:url(../img/fxblogo.png) no-repeat left center;
+ left: calc(( 100% - 550px )/2);
+}
+.fxb h1{
+  top: 100px;
+}
+.login div button{
+  background: #f77706;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+  background: #fff;
+}
+html.fxb,.fxb body{
+  height: 100%;
+}

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.CategoryDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Category" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="invalid" property="invalid" jdbcType="INTEGER" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="meta_title" property="metaTitle" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="meta_description" property="metaDescription" jdbcType="LONGVARCHAR" />
+    <result column="meta_keywords" property="metaKeywords" jdbcType="LONGVARCHAR" />
+    <result column="has_template" property="hasTemplate" jdbcType="BOOLEAN" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, icon, parent_id, invalid, rank, create_time, update_time, meta_title, status, 
+    icon,  meta_description, meta_keywords,supplier_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_category
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_category
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.Category" >
+    insert into t_category (id, name, parent_id, 
+      invalid, rank, create_time, 
+      update_time, meta_title, status, 
+      icon, meta_description, meta_keywords,supplier_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{invalid,jdbcType=INTEGER}, #{rank,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{metaTitle,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{icon,jdbcType=VARCHAR}, #{metaDescription,jdbcType=LONGVARCHAR}, #{metaKeywords,jdbcType=LONGVARCHAR}
+      #{supplierId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.Category" useGeneratedKeys="true"  keyProperty="id">
+    insert into t_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="metaTitle != null" >
+        meta_title,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="metaDescription != null" >
+        meta_description,
+      </if>
+      <if test="metaKeywords != null" >
+        meta_keywords,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="metaTitle != null" >
+        #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null" >
+        #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null" >
+        #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.Category" >
+    update t_category
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="invalid != null" >
+        invalid = #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="metaTitle != null" >
+        meta_title = #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="metaDescription != null" >
+        meta_description = #{metaDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="metaKeywords != null" >
+        meta_keywords = #{metaKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAllCategorys" resultMap="BaseResultMap">
+  select c.id, c.name, c.icon, c.parent_id, c.invalid, c.rank, c.create_time, c.update_time, c.meta_title, c.status, 
+    c.icon,  c.meta_description, c.meta_keywords, IF(t.id IS NULL, 0, 1) AS has_template
+  from t_category c
+  left join t_category_template t on c.id = t.category_id
+  where c.invalid = 0
+  group by c.id
+  order by c.parent_id , c.rank
+  </select>
+  <!--查询新东方的树型结构 -->
+ <select id="getKooAllCategorys" resultMap="BaseResultMap">
+  select c.id, c.name, c.icon, c.parent_id, c.invalid, c.rank, c.create_time, c.update_time, c.meta_title, c.status, 
+    c.icon,  c.meta_description, c.meta_keywords, IF(t.id IS NULL, 0, 1) AS has_template
+  from t_category c
+  left join t_category_template t on c.id = t.category_id
+  where c.invalid = 0 and c.supplier_id=1
+  group by c.id
+  order by c.parent_id , c.rank
+  </select>
+ <!-- 菜单联动 根据父id 查询字列表 -->
+ <select id="getListByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+ select <include refid="Base_Column_List"></include>
+ from t_category
+ where parent_id = #{parentId,jdbcType=INTEGER} and invalid = 0
+ order by rank
+ </select>
+ <!-- 置顶操作 -->
+ <update id="updateOtherRank" parameterType="com.tyiti.easycommerce.entity.Category" >
+ update t_category 
+ set rank = rank+1 
+ where parent_id =#{parentId,jdbcType=INTEGER} and rank &lt; #{rank,jdbcType=INTEGER} and invalid = 0
+ </update>
+ <!--根据parentId 获取最大 排序  -->
+ 
+ <select id="getMaxRank" resultType="java.lang.Integer">
+		select ifnull(max(rank),0) rank from t_category
+		where parent_id = #{parentId,jdbcType=INTEGER} 
+	</select>
+	<!-- 排序-->
+	<update id="updateSortOtherUp" parameterType="java.lang.Integer">
+		update t_category 
+		set rank = rank+1
+		where rank &gt;= #{toRank,jdbcType=INTEGER} and rank &lt; #{rank,jdbcType=INTEGER} and parent_id = #{parentId,jdbcType=INTEGER}  
+	</update>
+	<update id="updateSortOtherDown" parameterType="java.lang.Integer">
+		update t_category 
+		set rank = rank-1
+		where rank &lt;= #{toRank,jdbcType=INTEGER} and rank &gt; #{rank,jdbcType=INTEGER} and parent_id = #{parentId,jdbcType=INTEGER}  
+	</update>
+	<update id="updateSortOwn" parameterType="com.tyiti.easycommerce.entity.Category">
+		update t_category 
+		set rank = #{rank,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 获取节点及所有子节点id -->
+	<select id="getIdsByCategoryId" parameterType="java.lang.Integer" resultType="java.lang.String">
+	select concat(GROUP_CONCAT(distinct t1.id),',' , IFNULL(GROUP_CONCAT(distinct t2.id),''),',' ,IFNULL(GROUP_CONCAT(distinct t3.id),'') ) categoryIds
+	from t_category t1 
+	left join t_category t2 on t1.id = t2.parent_id 
+	left join t_category t3 on t2.id =t3.parent_id  
+	where t1.id =  #{categoryId,jdbcType=INTEGER}
+	</select>
+	<!--根据名字查询 -->
+	<select id="findKooCategoryCode"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_category
+    where t_category.name = #{name,jdbcType=VARCHAR}
+  </select>
+</mapper>

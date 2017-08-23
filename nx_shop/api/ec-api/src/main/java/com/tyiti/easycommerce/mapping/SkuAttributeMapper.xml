@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.SkuAttributeDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.SkuAttribute">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sku_id" property="skuId" jdbcType="INTEGER" />
+		<result column="spu_attribute_id" property="spuAttributeId"
+			jdbcType="INTEGER" />
+		<result column="attribute_value" property="attributeValue"
+			jdbcType="VARCHAR" />
+		<association property="attribute"
+			javaType="com.tyiti.easycommerce.entity.Attribute">
+			<id column="c_id" property="id" />
+			<result column="c_name" property="name" />
+		</association>
+	</resultMap>
+
+	<sql id="select_column_list">
+		a.id, a.sku_id, a.spu_attribute_id, a.attribute_value
+	</sql>
+
+	<sql id="insert_column_list">
+		sku_id, spu_attribute_id, attribute_value
+	</sql>
+
+	<select id="getListBySkuId" resultMap="BaseResultMap">
+		select
+		<include refid="select_column_list" />
+		, c.id as c_id, c.name as c_name
+		from
+		t_sku_attribute a
+		join
+		t_spu_attribute b on b.id = a.spu_attribute_id
+		join t_attribute c
+		on
+		c.id = b.attribute_id
+		where a.sku_id = #{skuId}
+		order by b.rank
+	</select>
+	<select id="getListBySpuIdAndNotSkuAttrId" resultMap="BaseResultMap">
+		select
+		<include refid="select_column_list" />
+		, b.attribute_id c_id
+		from
+		t_sku_attribute a,
+		t_spu_attribute b,
+		t_sku c
+		where
+		a.sku_id = c.id
+		and
+		b.spu_id = c.spu_id
+		and a.spu_attribute_id = b.id
+		and b.spu_id =
+		#{spuId}
+		and a.sku_id != #{skuId}
+		and c.status = 1
+		and c.invalid = 0
+	</select>
+	<insert id="addList" parameterType="java.util.List">
+		INSERT INTO t_sku_attribute (
+		<include refid="insert_column_list" />
+		) values
+		<foreach item="item" collection="list" separator=",">
+			(#{item.skuId}, #{item.spuAttributeId}, #{item.attributeValue})
+		</foreach>
+	</insert>
+
+	<insert id="add" parameterType="com.tyiti.easycommerce.entity.SkuAttribute"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		<!-- include 引用可重用的SQL代码段 -->
+		INSERT INTO t_sku_attribute (
+		<include refid="insert_column_list" />
+		) values (#{skuId}, #{spuAttributeId}, #{attributeValue})
+	</insert>
+</mapper>

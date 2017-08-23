@@ -1,0 +1,42 @@
+.tyfq .order_coupon .useNum{
+  color:#ff6633;
+}
+.tyfq .agreement{
+  background: #f4f8fb;
+  border-top: 1px solid rgba(217, 217, 217, 0.85);
+  margin-left: 0;
+  margin-top: 10px;
+}
+.tyfq .agreement > div{
+  margin-left: 18px;
+  margin-top: 20px;
+}
+.tyfq .button{
+  margin-top:5px;
+  background: #fe852a;
+}
+.tyfq .couponContain .bindB, .tyfq .couponOwn .bindB{
+  background: #ff6633;
+}
+.tyfq .unuseB span{
+  border-color: #ff6633;
+  color: #ff6633;
+}
+.tyfq .user .header .creditlimit p{
+  line-height: 0px;
+}
+.tyfq .MyBill .footer .Price {
+  text-align: left;
+  text-indent: 10px;
+}
+.tyfq .add >ul li dl dd p:last-child span{
+  background: #ff6633;
+}
+.tyfq .add >ul li.active{
+    background: #fff url('../img/gou.png') no-repeat;
+    background-size: 16px 18px;
+    background-position: 6px center;
+}
+.tyfq .index .header{
+  margin: 0;
+}

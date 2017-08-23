@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="app" class="">
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+	    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
+	    <link rel="stylesheet" type="text/css" href="assets/css/login.css">
+
+	</head>
+	<body ng-controller="LoginController">
+		<div class="bj"></div>
+		<h1>后台管理登录界面</h1>
+	    <div class="login clearfix">
+	      <img src="assets/img/login_img.png">
+	      <div>
+	        <input class="name" ng-model="user.tel"></input>
+	        <input class="pass" ng-model="user.pwd" type="password"></input>
+	        <button ng-click="log()">登录</button>
+	      </div>
+	    </div>
+
+		<script src="assets/js/lib/jquery-1.12.1.js"></script>
+		<script src="assets/js/lib/bootstrap.js"></script>
+
+		<script src="assets/js/lib/angular.js"></script>
+		<script src="assets/js/lib/angular-sanitize.js"></script>
+		<script src="assets/js/lib/ngToast.js"></script>
+		<script src="assets/js/lib/angular-drag.js"></script>
+
+		<script src="assets/js/lib/angular-ui-router.js"></script>
+
+		<script src="app/app.module.js"></script>
+		<script src="app/app.service.js"></script>
+		<script src="app/components/user/loginController.js"></script>
+		<script src="assets/js/lib/ng-file-upload-shim.min.js"></script>
+		<script src="assets/js/lib/ng-file-upload.min.js"></script>
+		<script src="assets/js/lib/ui-bootstrap-tpls.min.js"></script>
+		<script src="assets/js/lib/bootstrap.min.js"></script>
+	</body>
+</html>

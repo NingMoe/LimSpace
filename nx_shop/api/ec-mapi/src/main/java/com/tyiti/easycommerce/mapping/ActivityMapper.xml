@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.ActivityDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Activity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activity_type" property="activityType" jdbcType="INTEGER" />
+    <result column="activity_mode" property="activityMode" jdbcType="INTEGER" />
+    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="activity_remarks" property="activityRemarks" jdbcType="VARCHAR" />
+    <result column="activity_status" property="activityStatus" jdbcType="INTEGER" />
+    <result column="invalid" property="invalid" jdbcType="INTEGER" />
+    <result column="coupon" property="coupon" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insertActivity" parameterType="com.tyiti.easycommerce.entity.Activity" useGeneratedKeys="true" keyProperty="id">
+    insert into t_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="activityMode != null" >
+        activity_mode,
+      </if>
+      <if test="activityName != null" >
+        activity_name,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="activityRemarks != null" >
+        activity_remarks,
+      </if>
+      <if test="activityStatus != null" >
+        activity_status,
+      </if>
+      <if test="invalid != null" >
+        invalid,
+      </if>
+      <if test="coupon != null" >
+        coupon,
+      </if>
+      create_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=INTEGER},
+      </if>
+      <if test="activityMode != null" >
+        #{activityMode,jdbcType=INTEGER},
+      </if>
+      <if test="activityName != null" >
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityRemarks != null" >
+        #{activityRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStatus != null" >
+        #{activityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="invalid != null" >
+        #{invalid,jdbcType=INTEGER},
+      </if>
+      <if test="coupon != null" >
+        #{coupon,jdbcType=VARCHAR},
+      </if>
+      NOW()
+    </trim>
+  </insert>
+  
+  <!-- 根据活动Id获取活动详情 -->
+  <select id="getActivityById" parameterType="java.lang.Integer" resultType="com.tyiti.easycommerce.entity.Activity">
+	SELECT
+		a.activity_name as activityName,
+		a.activity_mode as activityMode,
+		a.start_time as startTime,
+		a.end_time as endTime,
+		a.activity_remarks as activityRemarks,
+		a.activity_status as activityStatus,
+		a.activity_type as activityType,
+		a.coupon as coupon
+	FROM
+		t_activity a
+	WHERE
+		a.id = #{id,jdbcType=INTEGER};
+  </select>
+  
+  <!-- 获取所有活动 -->
+  <select id="getAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT * FROM t_activity a WHERE a.invalid = 0 And a.activity_type = #{activityType,jdbcType=INTEGER} ORDER BY a.create_time;
+  </select>
+  
+  <!-- 根据条件查询活动列表 -->
+  <select id="searchByConditions" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	SELECT
+		*
+	FROM
+		t_activity a
+	WHERE
+		a.invalid = 0
+		And a.activity_type = #{activityType,jdbcType=INTEGER}
+		<if test="activityName!=null">
+		And	a.activity_name like CONCAT('%','${activityName}','%' )  
+		</if>
+		<if test="activityStatus!=null">
+		And	a.activity_status = #{activityStatus, jdbcType=INTEGER}
+		</if>
+  </select>
+  
+  <!-- 根据活动id修改活动信息 -->
+  <update id="updateActivity" parameterType="com.tyiti.easycommerce.entity.Activity">
+  	UPDATE t_activity 
+  	<set>
+  		<if test="activityName!=null">
+  			activity_name = #{activityName, jdbcType=VARCHAR},
+  		</if>
+  		<if test="startTime!=null">
+  			start_time = #{startTime, jdbcType=TIMESTAMP},
+  		</if>
+  		<if test="endTime!=null">
+  			end_time = #{endTime, jdbcType=TIMESTAMP},
+  		</if>
+  		<if test="activityRemarks!=null">
+  			activity_remarks = #{activityRemarks, jdbcType=VARCHAR},
+  		</if>
+  		<if test="activityStatus!=null">
+  			activity_status = #{activityStatus, jdbcType=INTEGER},
+  		</if>
+  		<if test="activityType!=null">
+  			activity_type = #{activityType, jdbcType=INTEGER},
+  		</if>
+  		<if test="activityMode!=null">
+  			activity_mode = #{activityMode, jdbcType=INTEGER},
+  		</if>
+  		<if test="coupon!=null">
+  			coupon = #{coupon, jdbcType=VARCHAR},
+  		</if>
+  		update_time = NOW()
+  	</set>
+  	WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据活动id删除活动信息 -->
+  <update id="deleteActivityById" parameterType="java.lang.Integer">
+    update t_activity set invalid = 1  where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据活动id结束活动 -->
+  <update id="endActivityById" parameterType="java.lang.Integer">
+    UPDATE t_activity a
+	LEFT JOIN t_activity_sku s ON a.id = s.activity_id
+	SET a.activity_status = 2,
+	 s.reserved_inventory = 0
+	WHERE
+		a.id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 修改活动状态 -->
+  <update id="updateActivityStatus" parameterType="java.lang.Integer">
+  	UPDATE t_activity a SET a.activity_status = 1 WHERE a.start_time &lt;=NOW() AND a.id = #{id,jdbcType=INTEGER};
+  </update>
+  
+</mapper>

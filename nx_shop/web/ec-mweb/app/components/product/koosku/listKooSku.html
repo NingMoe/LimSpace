@@ -1,0 +1,178 @@
+<style>
+  .search{
+    text-align: right;
+    margin: 5px 0px;
+}
+.search select{
+    width: 100px;
+    line-height: 26px;
+    height: 26px;
+    margin:0 10px; 
+}
+.search input{
+    width: 50px;
+    margin: 0 10px;
+}
+.search button{
+    width: 50px;
+    margin: 0 10px;
+}
+.skutable .table > thead:first-child > tr:first-child > td{
+    padding:8px 0px; 
+    text-align: center;
+}
+.skutable .table >tbody td{
+    min-width: 60px;
+    text-align: center;
+}
+.table .info td{
+    background-color:#428bca !important;
+    color: #fff;
+}
+.editskubox{
+    position: fixed;
+    left: -webkit-calc( 50% - 250px);
+    top: -webkit-calc( 50% - 180px);
+    z-index: 1001;
+    background: #fff;
+    width: 500px;
+    height: 360px;
+    padding: 40px 120px;
+    border: 2px solid #428bca;
+    border-radius: 5px;
+}
+.editskubox a{
+    background: url(./assets/img/uploadify-cancel.png) no-repeat;
+    background-size: 16px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.editskubox .tit{
+    font-size: 22px;
+    text-align: center;
+}
+.editskubox p>span:nth-child(1){
+    display: inline-block;
+    width: 60px;
+}
+.editskubox button{
+    background-color: #428bca;
+    width: 100%;
+    height: 40px;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 22px;
+    margin-top: 10px;
+}
+</style>
+<div class="spu-container" ng-class="{'show-tree': showTree}">
+  <!--a class="toggle-tree" ng-click="events.toggleTree()">{{showTree ? '隐藏' : '显示'}}分类树</a-->
+
+  <!--<a ng-show="currentId > 0 && currentNode.level == 2 && currentNode.hasTemplate" class="btn btn-primary pull-right" ui-sref="addSpu({categoryId: currentId})">添加SPU到{{currentNode.text}}</a>-->
+  <!--<a ng-show="currentId > 0 && currentNode.level == 2 && !currentNode.hasTemplate" class="btn btn-primary pull-right" ui-sref="categoryTemplate({id: currentNode.id})">新建{{currentNode.text}}的模板</a>-->
+
+
+  <div id="tree-container" class="pull-left">
+    <div id="tree"></div>
+  </div>
+  <div class="search">
+   <select  name="supplier" ng-model="searchInput.supplier" ng-options="supplier.name  for supplier  in suppliers">
+      <option value=""></option>
+    </select>
+    <select name="stateMap" ng-model="searchStateMap.stateMap" ng-options="stateMap.name  for stateMap  in stateMaps">
+    	<option =""></option>
+    </select>
+    <button ng-click="events.query()" >查询</buttion>
+    <!--<button ng-click="events.display()">隐藏</button>-->
+  </div>
+  <div ng-hide="isShow" class="spu-list-container sputable" style="overflow: auto;">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th style="width: 300px;">SPU标题</th>
+    <!--      <th>创建时间</th> -->
+          <th>更新时间</th>
+          <!--<th>操作</th>-->
+        </tr> 
+      </thead>
+      <tbody>
+        <tr ng-repeat="spu in spus" ng-class="{'info':spu.info}" ng-click="events.checkSpu(spu);">
+          <td>{{$index + 1}}</td>
+          <td>{{spu.name}}</td>
+      <!--     <td>{{spu.createTime | date: 'yyyy-MM-dd HH:mm'}}</td> -->
+          <td>{{spu.updateTime | date: 'yyyy-MM-dd HH:mm'}}</td>
+          <!--<td>
+            <a ng-href="#/product/koosku/{{spu.id}}">编辑</a>
+          </td>-->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="spu-container" class="spu-list-container skutable" style="overflow-y: auto;">
+  	 <div id='show-catainer'>
+  	 	 <table class="table" >
+  	 	 	<thead style="font-weight: bold;">
+  	 	 		<tr>
+  	 	 			 <td>序号</td>
+  	 	 			 <td>sku标题</td>
+  	 	 			 <td>线上价格</td>
+  	 	 			 <td>市场价</td>
+  	 	 			 <td>原价</td>
+  	 	 			 <td>商城定价</td>
+  	 	 			 <td>可分期</td>
+  	 	 			 <td>是否上架</td>
+  	 	 			 <td>供应商</td>
+  	 	 			 <td>更新时间</td>
+             <td>操作</td>
+  	 	 		</tr>
+  	 	 	</thead>
+  	 	 	<tbody>
+  	 	 		  <tr ng-repeat="sku in skus">
+  	 	 		  	<td>{{$index+1}}</td>
+  	 	 			  <td>{{sku.name}}</td>
+  	 	 			  <td>{{sku.price}}</td>
+  	 	 			  <td>{{sku.original_price}}</td>
+  	 	 			  <td>{{sku.field9}}</td>
+  	 	 			  <td>{{sku.field10}}</td>
+  	 	 			  <td>{{sku.installment}} </td>
+  	 	 			  <td>{{sku.status ? "上架中":"已下架"}}</td>
+  	 	 			  <td>{{sku.supplier_id==1?"新东方	":"其他"}}</td>
+  	 	 			  <td>{{sku.update_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td><a ng-href="javascript:;" ng-click="events.editsku(sku);">编辑</a></td>
+  	 	 			</tr>
+  	 	 	</tbody>
+  	 	 </table>
+  	 </div>
+  </div>
+  <div class="editskubox" style="display: none;" drag id="box">
+    <a href="javascript:;" ng-click="events.close();"></a>
+    <p class="tit">sku修改</p>
+    <p><span>市场价:</span>{{originalPrice}}</p>
+    <p><span>原价:</span>{{file9}}</p>
+    <p><span>商城定价:</span>{{file10}}</p>
+    <p><span>线上价格</span><input type="text"  ng-model="sku.price" onclick="this.focus();return false;" /></p>
+    <p><span>分期</span>
+      <span>1</span>
+      <input type="checkbox" ng-checked="installments[1]" value="1" >
+      <span>3</span>
+      <input type="checkbox" ng-checked="installments[3]" value="3" >
+      <span>6</span>
+      <input type="checkbox" ng-checked="installments[6]" value="6" >
+      <span>12</span>
+      <input type="checkbox" ng-checked="installments[12]" value="12" >
+    </p>
+    <p><span>是否上架</span>
+      <span>上架</span>
+      <input type="radio" name="sku.status" ng-model="sku.status" value="1">
+      <span>下架</span>
+      <input type="radio" name="sku.status" ng-model="sku.status" value="0">
+    </p>
+    <p><button ng-click="events.savesku();">保存</button></p>
+  </div>
+</div>

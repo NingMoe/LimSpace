@@ -1,0 +1,61 @@
+
+<div class="couponOwn">
+    <!--全部-->
+    <div class="list_one">
+        <div class="fullBind">
+            <div class="bind <%=(config.sys=='ceb'?'unceb':'')%>">
+                <span class="bindB">绑定</span>
+                <div class="bindBContent"><input type="text" id="code_bind" placeholder="请输入优惠码/代金码"> </div>
+            </div>
+        </div>
+        <div class="unuseB <%=(config.sys=='ceb'?'unuseBceb':'')%>">
+            <span>不使用优惠券/代金券</span>
+        </div>
+
+        <% _.each(avail, function(item,name) { %>
+            <div class="coup_list <%=item.class%>" discount="<%=item.coupon.discount%>" couId="<%=item.id%>">
+                <div class="ct_left">
+                    <div class="s1"><%=item.coupon.name%></div>
+                    <% if(item.coupon.type =='1'||item.coupon.type =='2'){%>
+                    <% if(item.ActivitySku){%>
+                    <% if(item.ActivitySku.coupon != 0){%>
+                    <div class="s2">满<%=item.coupon.threshold%>元可用</div>
+                    <% }%>
+                    <% } else {%>
+                      <div class="s2">满<%=item.coupon.threshold%>元可用</div>
+                    <% } %>
+                    <% } %>
+              
+                </div>
+                <div class="ct_right"><i>￥</i><span><%=item.coupon.discount%></span></div>
+                <div class="ct_foot">
+                    <i></i>
+                    <span class="usdate"><%=item.startTime%>-<%=item.expireTime%></span>
+                </div>
+            </div>
+
+        <%})%>
+
+        <% _.each(unvail, function(item,name) { %>
+        <div class="coup_list <%=item.class%>" discount="<%=item.coupon.discount%>" couId="<%=item.id%>" >
+            <div class="ct_left">
+                <div class="s1"><%=item.coupon.name%></div>
+                <% if(item.coupon.type =='1'||item.coupon.type =='2'){%>
+                <div class="s2">满<%=item.coupon.threshold%>元可用</div>
+                <%}%>
+            </div>
+            <div class="ct_right"><i>￥</i><span><%=item.coupon.discount%></span></div>
+            <div class="ct_foot">
+                <i></i>
+                <span class="usdate"><%=item.startTime%>-<%=item.expireTime%></span>
+            </div>
+        </div>
+
+        <%})%>
+
+
+    </div>
+
+
+
+</div>

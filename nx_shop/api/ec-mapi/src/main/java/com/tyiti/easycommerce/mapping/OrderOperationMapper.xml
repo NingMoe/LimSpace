@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.OrderOperationDao">
+	<resultMap id="BaseResultMap"
+		type="com.tyiti.easycommerce.entity.OrderCancellation">
+
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="no" property="no" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="pics" property="pics" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+
+	</resultMap>
+
+	<resultMap id="BaseResultMap1"
+		type="com.tyiti.easycommerce.entity.OrderCancellation">
+
+		<id column="c_id" property="id" jdbcType="INTEGER" />
+		<result column="c_order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="c_no" property="no" jdbcType="VARCHAR" />
+		<result column="c_type" property="type" jdbcType="INTEGER" />
+		<result column="c_reason" property="reason" jdbcType="VARCHAR" />
+		<result column="c_pics" property="pics" jdbcType="VARCHAR" />
+		<result column="c_create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="c_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="c_status" property="status" jdbcType="INTEGER" />
+
+		<association property="order"
+			javaType="com.tyiti.easycommerce.entity.Order">
+			<id column="o_id" property="id" />
+			<result column="o_no" property="no" />
+			<collection property="orderSku"
+				ofType="com.tyiti.easycommerce.entity.OrderSku" resultMap="OrderSkuMap">
+			</collection>
+		</association>
+
+	</resultMap>
+
+	<resultMap id="OrderSkuMap" type="com.tyiti.easycommerce.entity.OrderSku">
+		<id column="s_id" property="id" jdbcType="INTEGER" />
+		<result column="s_order_id" property="orderId" jdbcType="INTEGER" />
+		<result column="s_sku_id" property="skuId" jdbcType="INTEGER" />
+		<result column="s_sku_name" property="skuName" jdbcType="VARCHAR" />
+		<result column="s_sku_description" property="skuDescription"
+			jdbcType="VARCHAR" />
+		<result column="s_sku_detail" property="skuDetail" jdbcType="VARCHAR" />
+		<result column="s_sku_erp_code" property="skuErpCode" jdbcType="VARCHAR" />
+		<result column="s_sku_head_thumbnail" property="skuHeadThumbnail"
+			jdbcType="VARCHAR" />
+		<result column="s_sku_count" property="skuCount" jdbcType="INTEGER" />
+		<result column="s_sku_price" property="skuPrice" jdbcType="DECIMAL" />
+		<result column="s_sku_original_price" property="skuOriginalPrice"
+			jdbcType="DECIMAL" />
+	</resultMap>
+
+	<sql id="sku_column_list">
+	s.id as s_id, s.order_id as s_order_id, s.sku_id as
+	s_sku_id, s.sku_name
+	as s_sku_name, s.sku_head_thumbnail s_sku_head_thumbnail
+	</sql>
+    <!-- 新东发申请取消 -->
+	<insert id="applyToCancel">
+		insert into t_order_cancellation
+		(order_id,no,type,reason,create_time,update_time, status)
+		select 
+		id,#{no} ,1,#{reason} ,now(),now() ,0 from t_order where id = 
+		#{orderId};
+	</insert>
+	<update id="cancel">
+		update t_order set status = 9 where id = #{id} and
+		cust_id = #{custId} and status &lt; 2
+	</update>
+	<insert id="insertRefund">
+		insert into t_refund (order_id,cancellation_id,amount,type,create_time,refund_time,status)
+		values (#{orderId},0,#{amount},1,now(),now(),1);
+	</insert>
+	<delete id="delete">
+		update t_order set invalid = 1 where id = #{id} and
+		cust_id = #{custId}
+	</delete>
+	<update id="sign">
+		update t_order set status = 6 , receipt_time = now() where id = #{id} and
+		cust_id = #{custId} and status = 5
+	</update>
+	<select id="getByOrderIdAndType" resultType="com.tyiti.easycommerce.entity.OrderCancellation"
+		resultMap="BaseResultMap">
+		SELECT * FROM t_order_cancellation where order_id =
+		#{orderId} and type = #{type}
+	</select>
+
+	<insert id="applyToReturn">
+		insert into t_order_cancellation
+		(order_id,no,type,reason,pics,create_time,update_time, status)
+		select
+		id ,#{no} ,2,#{reason},'',now(),now() ,0 from t_order where id =
+		#{orderId} and cust_id = #{custId};
+	</insert>
+
+	<select id="getReturnList" resultMap="BaseResultMap1"
+		resultType="com.tyiti.easycommerce.entity.OrderCancellation">
+		select c.id as c_id, c.order_id as c_order_id,c.no as c_no,c.type as
+		c_type,c.reason as c_reason,c.pics as c_pics,c.create_time as
+		c_create_time,
+		c.update_time as c_update_time,c.status as c_status,o.id as o_id,o.no as o_no,
+		<include refid="sku_column_list" />
+		from t_order_cancellation c
+		join t_order o on c.order_id = o.id
+		left
+		outer join t_order_sku s on s.order_id = o.id
+		where o.cust_id =
+		#{custId} and c.type = 2
+		order by c.create_time desc
+	    <if test="limit != null and limit != '' and offset != null and offset !=''">
+			LIMIT #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="getReturnDetail" resultMap="BaseResultMap1"
+		resultType="com.tyiti.easycommerce.entity.OrderCancellation">
+		select c.id as c_id, c.order_id as c_order_id,c.no as c_no,c.type as
+		c_type,c.reason as c_reason,c.pics as c_pics,c.create_time as
+		c_create_time,
+		c.update_time as c_update_time,c.status as c_status,o.id as o_id,o.no as o_no,
+		<include refid="sku_column_list" />
+		from t_order_cancellation c
+		join t_order o on c.order_id = o.id
+		left
+		outer join t_order_sku s on s.order_id = o.id
+		where o.cust_id =
+		#{custId} and c.type = 2 and c.id = #{id}
+	</select>
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.KooPushLogDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.KooPushLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="push_time" property="pushTime" jdbcType="TIMESTAMP" />
+    <result column="is_success" property="isSuccess" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tyiti.easycommerce.entity.KooPushLog" extends="BaseResultMap" >
+    <result column="push_str" property="pushStr" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, user_id, push_time, is_success, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    push_str
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_koo_push_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_koo_push_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.KooPushLog"  useGeneratedKeys="true" keyProperty="id">
+    insert into t_koo_push_log (id, order_id, user_id, 
+      push_time, is_success, create_time, 
+      update_time, push_str)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{pushTime,jdbcType=TIMESTAMP}, #{isSuccess,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{pushStr,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.KooPushLog" >
+    insert into t_koo_push_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="pushTime != null" >
+        push_time,
+      </if>
+      <if test="isSuccess != null" >
+        is_success,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="pushStr != null" >
+        push_str,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSuccess != null" >
+        #{isSuccess,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushStr != null" >
+        #{pushStr,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.KooPushLog" >
+    update t_koo_push_log
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="pushTime != null" >
+        push_time = #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSuccess != null" >
+        is_success = #{isSuccess,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushStr != null" >
+        push_str = #{pushStr,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tyiti.easycommerce.entity.KooPushLog" >
+    update t_koo_push_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      push_time = #{pushTime,jdbcType=TIMESTAMP},
+      is_success = #{isSuccess,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      push_str = #{pushStr,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.KooPushLog" >
+    update t_koo_push_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      push_time = #{pushTime,jdbcType=TIMESTAMP},
+      is_success = #{isSuccess,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

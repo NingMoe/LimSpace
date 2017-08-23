@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<report name="订单" fileName="订单列表">
+	<report-header>
+		<column name="订单编号" mapping="no" />
+		<column name="商品名称" mapping="skuName" />
+		<column name="单价" mapping="skuPrice" />
+		<column name="数量" mapping="skuCount" />
+		<column name="首付款" mapping="downPayment" />
+		<column name="分期金额" mapping="installmentAmount" />
+		<column name="分期数" mapping="installmentMonths" />
+		<column name="买家" mapping="mobile" />
+		<column name="实收金额" mapping="downPayment" />
+		<column name="订单状态" mapping="statusText"/>
+		
+	</report-header>
+	<dataSource serviceClassId="orderService" serviceMethod="getOrderList" />
+</report>

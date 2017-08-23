@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 角色表的数据访问实现 -->
+<!-- author rainyhao -->
+<!-- since 2016-04-11 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.RoleDao" >
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Role" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="is_default" property="isDefault" jdbcType="BIT" />
+		<result column="status" property="status" jdbcType="INTEGER" typeHandler="com.tyiti.easycommerce.util.mybatis.IntEnumHandler" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		
+		<!-- 其他非持久化的辅助属性 -->
+		<result column="checked" property="checked" jdbcType="BIT" /> <!-- 标识用户是否已授权此角色 -->
+	</resultMap>
+	
+	<sql id="Base_Column_List" >
+		id, name, code, is_default, status, create_time
+	</sql>
+	
+	<!-- 通用多条件and查询条件 -->
+	<sql id="generic_where">
+		<where>
+			<!-- 按名称查 -->
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR}
+			</if>
+			<!-- 按shiro代码 -->
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR}
+			</if>
+			<!-- 按状态 -->
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER,typeHandler=com.tyiti.easycommerce.util.mybatis.IntEnumHandler}
+			</if>
+			<!-- 加载指定用户所具有的角色 -->
+			<if test="userId != null">
+				and exists (select 0 from t_user_role ur where r.id=ur.role_id and ur.user_id = #{userId,jdbcType=INTEGER}) 
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 通用查询语句 -->
+	<sql id="select">
+		select
+		<choose>
+			<when test="fields != null">${fields}</when>
+			<otherwise>
+				<include refid="Base_Column_List" />
+			</otherwise>
+		</choose>
+		from t_role r
+		<include refid="generic_where" />
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+		<include refid="Base_Column_List" />
+		from t_role
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 实现selectForObject -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-12 -->
+	<select id="selectForObject" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.Role" >
+		<include refid="select" />
+	</select>
+	
+	<!-- 实现selectForList -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-11 -->
+	<select id="selectForList" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.Role">
+		<include refid="select" />
+	</select>
+	
+	<!-- 实现selectForPagedList -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-12 -->
+	<select id="selectForPagedList" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.Role">
+		<include refid="select" /> 
+	</select>
+	
+	<!-- 查询所有角色并标识用户已授权的角色 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-13 -->
+	<select id="selectUserGranted" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select a.id, a.name, a.code, a.is_default, a.status, a.create_time, 
+			case when b.role_id is null then 0 else 1 end as checked <!-- 若右表能关联到数据, 说明此角色已被授权 --> 
+		from t_role a
+		left join (select role_id from t_user_role where user_id=#{userId,jdbcType=INTEGER}) b on (a.id=b.role_id)
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from t_role
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.Role" useGeneratedKeys="true" keyProperty="id">
+		<!-- add by hcy -->
+		<selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+			SELECT LAST_INSERT_ID() as id
+		</selectKey>
+		
+		insert into t_role (id, name, code, 
+		  is_default, status, create_time)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+		  #{isDefault,jdbcType=BIT}, #{status,jdbcType=INTEGER,typeHandler=com.tyiti.easycommerce.util.mybatis.IntEnumHandler}, 
+		  #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<update id="update" parameterType="com.tyiti.easycommerce.entity.Role" >
+		update t_role
+		<set >
+			<if test="name != null" >
+			  name = #{name,jdbcType=VARCHAR},
+			</if> 
+			<if test="code != null" >
+			  code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null" >
+			  status = #{status,jdbcType=INTEGER,typeHandler=com.tyiti.easycommerce.util.mybatis.IntEnumHandler},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+	<!-- add by hcy -->
+	<select id="selectAllRoles" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from t_role t  where t.status=0
+	</select>
+	
+	
+	<select id="selectRoles" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select a.id, a.name, a.code, a.is_default, a.status, a.create_time from t_role a ,t_user_role b where  b.role_id=a.id and b.user_id=#{user_id,jdbcType=INTEGER}
+	</select>
+	
+	
+	<select id="selectForListForCanuse" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.Role">
+		select id, name, code, is_default, status, create_time from t_role r where status=0  and exists (select 0 from t_user_role ur where r.id=ur.role_id and ur.user_id = #{userId,jdbcType=INTEGER}) 
+	</select>
+	
+	
+	
+</mapper>

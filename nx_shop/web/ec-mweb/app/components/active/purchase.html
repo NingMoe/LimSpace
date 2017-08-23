@@ -1,0 +1,142 @@
+<style>
+  /*#system-container {
+    margin-left: 250px;
+  }*/
+  
+  label {
+    width: 100px;
+    text-align: right;
+    padding-right: 10px;
+  }
+  
+  .form-control {
+    display: inline-block;
+    width: auto;
+  }
+  
+  .modal-footer {
+    text-align: center;
+  }
+  
+  .modal-body {
+    padding-top: 5px;
+  }
+  
+  .form-group {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .sear-css{
+    margin:10px 0;
+  }
+  .sear-css select{
+    margin-right: 10px;
+  }
+   .sear-css input{
+    width: 200px;
+   }
+  .over-css .form-control{
+    width: 120px !important;
+  }
+</style>
+<div class="sear-css">
+    <select class="form-control input-sm" ng-model="activityStatus" ng-change="events.activityStatus()" ng-change="">
+      <option value="3">全部</option>
+      <option value="0">未开始</option>
+      <option value="1">进行中</option>
+      <option value="2">已结束</option>
+    </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control input-sm" ng-model="activityName" placeholder="活动名称" ng-model="" />
+    <button class="btn btn-primary btn-sm" ng-click="events.seckillsear()">搜索</button>
+ </div>
+    <table class="table table-bordered table-hover tablecss-margin">
+      <tr>
+        <th>活动名称</th>
+        <th>活动ID</th>
+        <th>活动时间</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      <tr ng-repeat="x in purchaselist">
+        <td>{{x.activityName}}</td>
+        <td>{{x.id}}</td>
+        <td>{{x.startTime}}</td>
+        <td>{{x.status}}</td>
+        <td>
+           <a href="#/createActivity?{{x.id}}" ng-hide="x.activityStatus !=0" >修改</a>
+           <a href="" ng-hide="x.activityStatus !=1 && x.activityStatus !=2" ng-click="events.look(x)">查看</a>
+           <a href="" ng-hide="x.activityStatus !=1 && x.activityStatus !=0" ng-click="events.activity(x)">结束</a>
+           <a href="" ng-hide="x.activityStatus !=2" ng-click="events.delete(x)">删除</a>
+           <a href="" ng-click="events.remarks(x)">备注</a>
+        </td>
+      </tr>
+    </table>
+<div id="prompt" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">备注信息</h4>
+      </div>
+      <div class="modal-body">
+         <div class="sears last-sears" style="min-height: 100px">
+            <label>备注信息:</label>
+             <p style="max-width: 90%;margin-left: 5%;word-wrap: break-word;">{{textremarks}}</p>
+            </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<div id="look" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="min-width: 800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">活动详情</h4>
+      </div>
+      <div class="modal-body">
+         <div class="sears last-sears" style="min-height: 100px">
+            <table class="table table-bordered table-hover tablecss-margin">
+              <tr>
+                <th>商品名称</th>
+                <th>已售数量</th>
+                <th>剩余预留库存数</th>
+                <th>预留库存数</th>
+                <th>剩余总库存数</th>
+                <th ng-hide="setlook">操作</th>
+              </tr>
+              <tr ng-repeat="x in activitySkuList">
+                <td>{{x.skuName}}</td>
+                <td>{{x.soldNum}}</td>
+                 <td>{{x.reservedInventory}}</td>
+                <td>{{x.newinventory}}</td>
+                <td>{{x.inventory}}</td>
+                <td ng-hide="setlook">
+                  <a href="" ng-click="events.add(x)">补仓</a>
+                </td>
+              </tr>
+            </table>
+         </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<div id="numberadd" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="margin-top: 150px;width: 340px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">补仓</h4>
+      </div>
+      <div class="modal-body">
+         <div class="sears last-sears" style="vertical-align: middle;">
+            <label>数量:</label>
+            <input type="number" value=""  class="form-control input-sm" ng-model="addnumber" >
+         </div>  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click ="events.numberadd(thissku)">保存</button>
+      </div>
+    </div>
+  </div>
+</div>

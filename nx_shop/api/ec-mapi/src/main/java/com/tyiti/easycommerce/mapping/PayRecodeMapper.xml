@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.PayRecodeDao">
+    <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.PayRecode">    
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+        <result column="pay_no" property="payNo" jdbcType="VARCHAR" />
+        <result column="pay_state" property="payState" jdbcType="VARCHAR" />
+        <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <insert id="addPayRecode" parameterType="com.tyiti.easycommerce.entity.PayRecode" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    	insert into t_pay_record
+			(order_id,	pay_state,	create_time, trade_no,pay_no) values 
+    		(#{orderId}, #{payState}, now(), #{tradeNo},#{payNo})
+    </insert>
+    
+    <select id="queryOrder" resultType="java.lang.Integer">
+    	SELECT
+			count(1)
+		FROM
+			t_order o
+		LEFT JOIN t_pay_record p ON o.`no` = p.order_id
+		WHERE
+			o.`no` = #{orderNo}
+		AND p.trade_no = #{tradeNo}; 
+    </select>
+
+	<!-- 支付成功，修改流水表支付状态 -->
+    <update id="updatePayRecode" parameterType="com.tyiti.easycommerce.entity.PayRecode">
+    	update
+    		 t_pay_record p
+    		 set
+    		 	 p.pay_state='A2',
+    		 	 p.pay_no = #{payNo},
+    		 	 p.acc_no = #{accNo},
+    		 	 p.cst_name = #{cstName},
+    		 	 p.ip = #{ip},
+    		 	 p.pay_time = now()
+    		 where
+    		 	p.trade_no = #{tradeNo};
+    </update> 
+    
+    <!-- 支付成功，修改流水表支付状态 -->
+    <update id="updatePayRecodeByPayNo" parameterType="com.tyiti.easycommerce.entity.PayRecode">
+    	update
+    		 t_pay_record p
+    		 set
+    		 	 p.pay_state='A2',    		 	 
+    		 	 p.acc_no = #{accNo},
+    		 	 p.cst_name = #{cstName},
+    		 	 p.ip = #{ip},
+    		 	 p.pay_time = now()
+    		 where
+    		 	p.pay_no = #{payNo}
+    </update>
+    
+    <!-- 支付成功，修改订单状态 -->
+    <update id="updateOrder">
+    	update t_order o set o.`status` = '2', o.installment_payed = 1, o.down_payment_time = now() where o.`no` = #{no};
+    </update>
+    
+    <sql id="Base_Column">
+		id,order_id,trade_no,pay_no,pay_state,pay_time,create_time
+	</sql>
+	
+	<select id="payRecodeByOrderIdOrPayNo" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column" />
+		from t_pay_record
+		where 
+		<if test="orderId != null and orderId != ''">
+			order_id=#{orderId,jdbcType=VARCHAR} and
+		</if>
+		<if test="payNo != null and payNo != ''">
+			pay_no=#{payNo,jdbcType=VARCHAR}
+		</if>
+		1=1
+	</select>
+    
+</mapper>

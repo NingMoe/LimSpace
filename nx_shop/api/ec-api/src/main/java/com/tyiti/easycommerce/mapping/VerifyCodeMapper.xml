@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.VerifyCodeDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.VerifyCode">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="verify_code" property="verifyCode" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="insert_column_list">
+		 mobile, verify_code
+	</sql>
+	
+	<insert id="add" parameterType="com.tyiti.easycommerce.entity.VerifyCode">
+		<!-- include 引用可重用的SQL代码段 -->
+		INSERT INTO t_verify_code(<include refid="insert_column_list"/>) VALUES (#{mobile} ,#{verifyCode})  
+	</insert>
+</mapper>

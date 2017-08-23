@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 表t_rush_buy_sku的数据访问实现 -->
+<!-- author rainyhao -->
+<!-- since 2016-04-01 -->
+<mapper namespace="com.tyiti.easycommerce.repository.RushBuySkuDao" >
+	<!-- 列与实体属性的映射 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-01 -->
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.RushBuySku" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="rush_buy_id" property="rushBuyId" jdbcType="INTEGER" />
+		<result column="sku_id" property="skuId" jdbcType="INTEGER" />
+		<result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="original_price" property="originalPrice" jdbcType="DECIMAL" />
+		<result column="available_times" property="availableTimes" jdbcType="INTEGER" />
+		<result column="available_count" property="availableCount" jdbcType="INTEGER" />
+		<result column="left_sku" property="leftSku" jdbcType="INTEGER" />
+		<result column="sold_sku" property="soldSku" jdbcType="INTEGER" />
+		<result column="return_sku" property="returnSku" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<association property="sku" javaType="com.tyiti.easycommerce.entity.Sku">
+			<id column="k_id" property="id" jdbcType="INTEGER" />
+			<result column="k_description" property="description" jdbcType="VARCHAR" />
+			<result column="k_detail" property="detail" jdbcType="VARCHAR" />
+			<result column="k_head_thumbnail" property="headThumbnail" jdbcType="VARCHAR" />
+			<result column="k_images_thumbnail" property="imagesThumbnail" jdbcType="VARCHAR" />
+			<result column="k_images_original" property="imagesOriginal" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+	<!-- 所有列 -->
+	<sql id="Base_Column_List" >
+		id, rush_buy_id, sku_id, sku_name, price, original_price, available_times, available_count, left_sku, 
+		sold_sku, return_sku, create_time
+	</sql>
+	
+	<sql id="join_column">
+		a.id, a.rush_buy_id, a.sku_id, a.sku_name, a.price, a.original_price, 
+		a.available_times, a.available_count, a.left_sku, 
+		a.sold_sku, a.return_sku, a.create_time
+	</sql>
+	
+	<!-- sku的查询列 -->
+	<sql id="sku_column">
+		b.id as k_id, b.description as k_description, b.detail as k_detail, 
+		b.head_thumbnail as k_head_thumbnail, b.images_thumbnail as k_images_thumbnail,
+		b.images_original as k_images_original
+	</sql>
+	
+	<!-- 一般查询条件 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-05 -->
+	<sql id="generic_where">
+		<where>
+			<if test="rushBuyId != null">
+				rush_buy_id = #{rushBuyId,jdbcType=INTEGER}
+			</if>
+			<if test="skuId != null">
+				and sku_id = #{skuId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 按主键查 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-01 -->
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select <include refid="Base_Column_List" />
+		from t_rush_buy_sku
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 按特唯一查询条件查一行秒杀商品记录 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-01 -->
+	<select id="selectForObject" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.RushBuySku">
+		select <include refid="Base_Column_List" />
+		from t_rush_buy_sku
+		<include refid="generic_where" />
+	</select>
+	
+	<!-- 按特定条件查询一个集合 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-01 -->
+	<select id="selectForList" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.RushBuySku">
+		select <include refid="join_column" />, <include refid="sku_column" />
+		from t_rush_buy_sku a
+		left join t_sku b on (a.sku_id=b.id)
+		<include refid="generic_where" />
+	</select>
+	
+	<!-- 秒杀活动下单后减库存 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-01 -->
+	<update id="updateLeftSkuAsDecrease">
+		update t_rush_buy_sku set left_sku = left_sku - #{toDecrease,jdbcType=INTEGER}, sold_sku = sold_sku + #{toDecrease,jdbcType=INTEGER}
+		<!-- 要秒哪个活动 -->
+		where rush_buy_id = #{rushBuyId,jdbcType=INTEGER} 
+		<!-- 要秒此次活动的哪个商品 -->
+		and sku_id = #{skuId,jdbcType=INTEGER}
+		<!-- 保证减的时候不会被减到小于0 -->
+		and left_sku >= #{toDecrease,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 增加库存, 用于处理秒杀订单过期未支付的库存返还 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-01 -->
+	<update id="updateLeftSkuAsIncrease">
+		update t_rush_buy_sku
+		set left_sku = left_sku + #{toIncrease,jdbcType=INTEGER},
+			<!-- 已售出的数量, 减 -->
+			sold_sku = sold_sku - #{toIncrease,jdbcType=INTEGER},
+			<!-- 返库存要同时记录下返回还的总数 -->
+			return_sku = return_sku + #{toIncrease,jdbcType=INTEGER}
+		<!-- 过期未支付的秒杀活动 -->
+		where rush_buy_id = #{rushBuyId,jdbcType=INTEGER}
+		<!-- 在这处秒杀活动中过期未支付的商品 -->
+		and sku_id = #{skuId,jdbcType=INTEGER} and sold_sku > #{toIncrease,jdbcType=INTEGER}
+	</update>
+</mapper>

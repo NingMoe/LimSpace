@@ -1,0 +1,53 @@
+<form class="form-inline">
+	<div class="form-group">
+		<label>真实姓名</label>
+		<input type="text" class="form-control" placeholder="真实姓名" ng-model="searchInput.realName">
+	</div>
+	<div class="form-group">
+		<label>用户昵称</label>
+		<input type="text" class="form-control" placeholder="用户昵称" ng-model="searchInput.nickName">
+	</div>
+	<div class="form-group">
+		<label>手机号码</label>
+		<input type="text" class="form-control" placeholder="手机号码" ng-model="searchInput.mobile">
+	</div>
+	<div class="form-group">
+		<label>生日日期</label>
+		<input type="text" id="startTime" class="form-control" name="startTime" placeholder="开始时间" ng-model="searchInput.birthdayStartTime"> --
+		<input type="text" id="endTime" class="form-control" name="endTime" placeholder="结束时间" ng-model="searchInput.birthdayEndTime">
+		<span>{{errorDateMess}}</span>
+	</div>
+	<div class="form-group"><button type="button" class="btn btn-primary" ng-click="getData(1)">搜索</button></div>
+</form><br />
+<table class="table">
+	<thead>
+		<tr>
+			<th>真实姓名</th>
+			<th>手机号码</th>
+			<th>用户昵称</th>
+			<th>用户状态</th>
+			<th>头像</th>
+			<th>生日</th>
+			<th>性别</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="user in userList">
+			<td>{{user.real_name}}</td>
+			<td>{{user.mobile}}</td>
+			<td>{{user.nick_name}}</td>
+			<td>{{user.invalid==false?'有效':'无效'}}</td>
+			<td><img style="height: 100px;" src="{{imgHost}}/{{user.head_img}}"></td>
+			<td>{{user.birthday|date:'yyyy-MM-dd'}}</td>
+			<td>{{user.gender==null?'未知':user.gender==false?'男':'女'}}</td>
+		</tr>
+	</tbody>
+</table>
+<div class="pagination-wrapper paggerCommon">
+	<ul class="pager">
+		<li ng-if="pagination.zIndex>1"><a ng-click="getData(pagination.zIndex-1)">上一页</a></li>
+		<li><input type="text" ng-model="paggerInput"> <button class="btn btn-default btn-sm" ng-click="getData(paggerInput)">go</button></li>
+		<li ng-if="pagination.zIndex<pagination.totalPage"><a ng-click="getData(pagination.zIndex+1)">下一页</a></li>
+		<li>{{pagination.zIndex}}/{{pagination.totalPage}}页</li>
+	</ul>
+</div>

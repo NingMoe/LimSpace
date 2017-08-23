@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.FaqDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Fqa">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="manager_id" property="managerId" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.tyiti.easycommerce.entity.FqaWithBLOBs"
+		extends="BaseResultMap">
+		<result column="question" property="question" jdbcType="LONGVARCHAR" />
+		<result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, manager_id, status, create_time
+	</sql>
+	<sql id="Blob_Column_List">
+		question, answer
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_faq
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_faq
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.FqaWithBLOBs">
+		insert into t_faq (id, manager_id, status,
+		create_time, question, answer
+		)
+		values (#{id,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER},
+		#{status,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP}, #{question,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.FqaWithBLOBs">
+		insert into t_faq
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="managerId != null">
+				manager_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="question != null">
+				question,
+			</if>
+			<if test="answer != null">
+				answer,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="managerId != null">
+				#{managerId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="question != null">
+				#{question,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="answer != null">
+				#{answer,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.FqaWithBLOBs">
+		update t_faq
+		<set>
+			<if test="managerId != null">
+				manager_id = #{managerId,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="question != null">
+				question = #{question,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="answer != null">
+				answer = #{answer,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tyiti.easycommerce.entity.FqaWithBLOBs">
+		update t_faq
+		set manager_id = #{managerId,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		question = #{question,jdbcType=LONGVARCHAR},
+		answer = #{answer,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.Fqa">
+		update t_faq
+		set manager_id = #{managerId,jdbcType=INTEGER},
+		status = #{status,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 分页查询结果集 -->
+	<select id="selectFqaByPage" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		select
+		question, answer, create_time
+		from t_faq
+		order by create_time desc
+		<if test="limit != null and limit != '' and offset != null and offset !=''">
+			LIMIT #{offset},#{limit}
+		</if>
+	</select>
+	
+	<!-- 分页查询行数 -->
+	<select id="selectFqaCountByPage" parameterType="java.util.Map"
+		resultType="java.lang.Long">
+		select count(*) from t_faq
+	</select>
+</mapper>

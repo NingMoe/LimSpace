@@ -1,0 +1,117 @@
+* {
+      padding: 0;margin: 0;list-style: none;
+    }
+    .clearfix:after {clear:both;content:'';display:block;}
+    .navbar-brand{
+      background: url(../img/logo.png) no-repeat left center;
+      text-indent: -100em;
+      width: 208px;
+    }
+    .navbar-right .dropdown-menu a.btn{
+      width: 235px;
+      margin-left: 20px;
+      background: #ebe9e9;
+    }
+    .bill{
+      width: 22px;
+      height: 16px;
+      display: inline-block;
+      background: url(../img/bill.png) no-repeat left center;
+      margin-left: 130px;
+    }
+    .table th,.table td {
+      text-align: center;
+    }
+    head span {
+      float: left;
+      text-align: center;
+    }
+    ul li {
+      float: left;
+      text-align: center;
+    }
+    ul {
+      float: right;
+    }
+    .navbar {
+      border: none;
+      border-bottom: 1px solid #ccc;
+    }
+    .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+      margin-left: 115px;
+    }
+    .navbar-right {
+      margin-right: 130px;
+    }
+    .text {
+      float: left;
+    }
+    .thead input {
+      float: left;
+      margin: 0 15px;
+    }
+    button {
+      border: none;
+      padding: 2px 25px;
+      border-radius: 3px;
+      background: #65b4e4;
+      color: #fff;
+    }
+    .return {
+      margin-bottom: 10px;
+      margin-left: 155px;
+      display: inline-block;
+      margin-right: 20px;
+      font-weight: bold;
+      color: #000;
+    }
+    .order {
+      margin-bottom: 10px;
+      display: inline-block;
+      font-weight: bold;
+      color: #000;
+      padding: 2px 10px;
+    }
+    .thead {
+      padding-left: 155px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+    .table>tbody>tr>th {
+      border-top: none;
+    }
+    .table .last td {
+      border-top: none;
+      border-bottom: 1px solid #ddd;
+    }
+    .table {
+      width: 84%;
+      margin-left: 8%;
+      border: 1px solid #ccc;
+    }
+    nav.nav {
+      margin-right: 8%;
+      display: inline-block;
+      float: right;
+    }
+    .returns {
+      display: none;
+    }
+    a.active {
+      color: #65b4e4;
+      border-bottom: 1px solid #65b4e4;
+    }
+    .dropdown-menu {
+      top: 125px;
+    }
+    .navbar-right .dropdown-menu{
+      top:50px;
+    }
+    .navbar-right .dropdown-menu a{
+      margin: 10px 0px;
+    }
+    .navbar-right .dropdown-menu a input{
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }

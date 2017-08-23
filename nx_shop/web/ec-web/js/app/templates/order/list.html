@@ -1,0 +1,144 @@
+<header class="ui-bar main-header default orders">
+  <ul>
+		<li class="<%=type == 0 ? 'change' : ''%>" onclick="location.href='#order/type/0'">全部</li>
+		<% if (orderNumber.toPay > 0) {%>
+			<li class="<%=type == 1 ? 'change' : ''%>" onclick="location.href='#order/type/1'">待付款<i><%= orderNumber.toPay %></i></li>
+		<% } else {%>
+			<li class="<%=type == 1 ? 'change' : ''%>" onclick="location.href='#order/type/1'">待付款</li>
+		<% }%>
+		<% if (orderNumber.toReceive > 0) {%>
+			<li class="<%=type == 2 ? 'change' : ''%>" onclick="location.href='#order/type/2'">待收货<i><%= orderNumber.toReceive %></i></li>
+		<% } else {%>
+			<li class="<%=type == 2 ? 'change' : ''%>" onclick="location.href='#order/type/2'">待收货</li>
+		<% }%>
+		<li class="<%=type == 3 ? 'change' : ''%>" onclick="location.href='#order/type/3'">退换货</li>
+  </ul>
+</header>
+<div class="pj-site-container orders-cont">
+	<!--全部-->
+	<div class="list_one <%= type == 0 ? 'active' : ''%> ">
+		<% _.each(orders.all, function(item) { %>
+		  <% item.noop = _.indexOf([2, 3, 4, 5, 6], item.status) != -1 && item.secondStatus == 0 || item.secondStatus == 1 || item.secondStatus == 3 || item.secondStatus == 4%>
+		  <% item.noop = item.orderSku[0].skuErpCode =='koo' ? false : item.noop %>
+		  <ul<% if (item.noop) { %> class="noop"<% } %>>
+		  	<% if((item.status == 6)  && item.orderSku[0].skuErpCode =='koo' && ( item.secondStatus === undefined || item.secondStatus == 2)){%>
+		  		<li><span>订单号:<%= item.no %></span><span>已完成</span></li>
+		  	<% }else{%>
+		  		<li><span>订单号:<%= item.no %></span><span><%= item.allValues %></span></li>
+		  	<% }%>
+		  	<li class="li_cont"  onclick="location.href='/?#order/<%=item.id%>'">
+			    <dl>
+		        <dt>
+		        <% if(item.orderSku[0].skuErpCode =='koo') { %>
+		          <img src="<%= item.orderSku[0].skuHeadThumbnail %>">
+		        <% } else { %>
+		          <img src="<%= config.imgHost %>/<%= item.orderSku[0].skuHeadThumbnail %>@160h_160w">
+		        <% } %>
+		        </dt>
+			      <dd>
+			        <p><% if (item.orderSku[0].skuName.length > 37 ) {%> <%= item.orderSku[0].skuName %> ... <% } else {%> <%= item.orderSku[0].skuName %>  <% } %> </p>
+			        <p><span>￥ <%= item.installmentAmount.toFixed(2) %></span></p>
+			      </dd>
+			    </dl>
+		  	</li>
+		  	<li>
+				  <% if(item.status == 1) { %>
+				    <button class="butcolor cebpay" data-id="<%=item.id %>">立即支付</button>
+				    <button data-id="<%= item.id%>" class="<%= item.class %>"><%= item.operate %></button>
+					<% } else if((item.status == 6 && item.cancellationType == 2 && item.secondStatus == 2) || (item.status == 6 && item.cancellationType != 2 && item.orderSku[0].skuErpCode !='koo')) {%>
+	          <button onclick="location.href='/?#order/return/create/<%= item.id%>'">申请退货</button>
+		        <button  class="<%= item.id%>"  data-id="<%= item.id%>"><%= item.operate %></button>
+					<% } else {%>
+						<button data-id="<%= item.id%>" class="<%= item.class %>"><%= item.operate %></button>
+					<% }%>
+		  	</li>
+		  </ul>
+		<% }) %>
+	</div>
+
+	<!--待付款-->
+	<div class="list_two  <%= type == 1 ? 'active' : ''%> ">
+		<% _.each(orders.toPay, function(item) { %>
+		  <ul>
+		  	<li><span>订单号:<%= item.no %></span><span><%=item.allValues%></span></li>
+		  	<li class="li_cont"  onclick="location.href='/?#order/<%=item.id%>'">
+			    <dl>
+		        <dt>
+		        <% if(item.orderSku[0].skuErpCode =='koo') { %>
+		          <img src="<%= item.orderSku[0].skuHeadThumbnail %>">
+		        <% } else { %>
+		          <img src="<%= config.imgHost %>/<%= item.orderSku[0].skuHeadThumbnail %>@160h_160w">
+		        <% } %>
+		        </dt>
+		        <dd>
+		        	<p><% if (item.orderSku[0].skuName.length > 37 ) {%> <%= item.orderSku[0].skuName %> ... <% } else {%> <%= item.orderSku[0].skuName %>  <% } %> </p>
+		       	  <p><span>￥ <%= item.installmentAmount.toFixed(2) %></span></p>
+		        </dd>
+			    </dl>
+		  	</li>
+		  	<li>
+			  	<button class="butcolor cebpay" data-id="<%=item.id %>">立即支付</button>
+		      <button data-id="<%= item.id%>" class="refunds">取消</button>
+		  	</li>
+		  </ul>
+		<% }) %>
+	</div>
+
+	<!--待收货-->
+	<div class="list_three <%= type == 2 ? 'active' : '' %> ">
+		<% _.each(orders.toReceive, function(item) { %>
+	  	<% item.noop = _.indexOf([2, 3, 4, 5, 6], item.status) != -1 && item.secondStatus == 0 || item.secondStatus == 1 || item.secondStatus == 3 || item.secondStatus == 4 %>
+		  <ul<% if (item.noop) { %> class="noop"<% } %>>
+		  	<li><span>订单号:<%=item.no %></span><span><%=item.allValues%></span></li>
+		  	<li class="li_cont"  onclick="location.href='/?#order/<%=item.id%>'">
+			    <dl>
+			      <dt>
+			        <% if(item.orderSku[0].skuErpCode =='koo') { %>
+			          <img src="<%= item.orderSku[0].skuHeadThumbnail %>">
+			        <% } else { %>
+			          <img src="<%= config.imgHost %>/<%= item.orderSku[0].skuHeadThumbnail %>@160h_160w">
+			        <% } %>
+			      </dt>
+			      <dd>
+			        <p><% if (item.orderSku[0].skuName.length > 37 ) {%> <%= item.orderSku[0].skuName %> ... <% } else {%> <%= item.orderSku[0].skuName %>  <% } %> </p>
+			        <p><span>￥ <%= item.installmentAmount.toFixed(2) %></span></p>
+			      </dd>
+			    </dl>
+		  	</li>
+		  	<li>
+					<button  class="butcolor butSign" data-id="<%= item.id%>">确认收货</button>
+		  	</li>
+		  </ul>
+		<% }) %>
+	</div>
+
+	<!--退换货-->
+	<div class="list_four <%= type == 3 ? 'active' : '' %>">
+		<% _.each(returns.data, function(item) { %>
+		  <ul>
+		  	<li><span>售后单号:<%= item.no%></span><span><%=item.allValues%></span></li>
+		  	<li class="li_cont" onclick="location.href='/?#order/return/<%= item.id%>'">
+			    <dl>
+			      <dd>
+			        <p><% if (item.order.orderSku[0].skuName.length >37) {%> <%= item.order.orderSku[0].skuName%> ...  <% } else { %> <%= item.order.orderSku[0].skuName%>  <% } %></p>
+			        <p>订单号:<%= item.order.no%></p>
+			        <p>申请时间:<%= item.createTime%></p>
+			      </dd>
+			      <dt>
+			        <img src="img/arrow-ww@2x.png"/>
+			      </dt>
+			    </dl>
+		  	</li>
+		  	<li class="lastli"></li>
+		  </ul>
+		<% }) %>
+	</div>
+</div>
+<div class='orderCanceBj'></div>
+<div class='orderCance'>
+ 	<a href="javascript:void(0)"onclick='$(".orderCanceBj").hide();$(".orderCance").hide();'></a>
+ 	<h3>订单取消申请</h3><p>备注</p><textarea placeholder="请输入您的退款理由，以方便我们更好的为您服务~"></textarea><span>温馨提示：订单成功取消后无法恢复，该订单已付金额将返还支付信用卡</span><button class='cances'>取消订单</button>
+</div>
+<form method='post'>
+  <input type='submit' id='submitpay' style='display:none' value='提交' name='name'>
+</form>

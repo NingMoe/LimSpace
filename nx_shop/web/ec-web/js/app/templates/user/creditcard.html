@@ -1,0 +1,29 @@
+<div class="pj-site-container idcardcredit creditcard sign" style="width: 100%;height:100%;background: #fff!important">
+  <img src="../img/creditcard.png" alt="" />
+  <p>信用卡信息</p>
+  <div class="information">
+        <% if(data.cardNo){ %>
+            <% if(data.verifyState == 'A1' || data.verifyState == 'A2'){ %>
+              <p class="bankcard"><input placeholder="银行卡号" name="bankcard" value="<%=data.cardNo %>" optional></p>
+            <% }else if(data.verifyState == 'A3' || data.verifyState == 'A4'){%>
+              <p class="bankcard"><input placeholder="银行卡号" name="bankcard" value="<%=data.cardNo %>" optional disabled="disabled"></p>
+            <% } %>
+        <% } else {%>
+            <p class="bankcard"><input placeholder="银行卡号" name="bankcard" value="" optional></p>
+        <% } %> 
+        <% if(data.mobile){ %>
+            <% if(data.verifyState == 'A1' || data.verifyState == 'A2' || data.verifyState == ''){ %>   
+              <p class="account"><input placeholder="请输入手机号" type="tel" name="mobile" value="<%=data.mobile %>" data-validate-mobile></p>
+            <% }else if(data.verifyState == 'A3' || data.verifyState == 'A4'){%>
+              <p class="account"><input placeholder="请输入手机号" type="tel" name="mobile" value="<%=data.mobile %>" data-validate-mobile disabled="disabled"></p>
+            <% } %>
+        <% } else {%>
+              <p class="account"><input placeholder="请输入手机号" type="tel" name="mobile" value="" data-validate-mobile></p>
+        <% } %> 
+        <p class="checkcode"><input placeholder="请输入验证码" type="tel" name="checkcode" value="" /><button class="obtain">获取验证码</button></p>
+        <p class="prompt"></p>
+        <p><button class="submint" data-verifyState="<%=data.verifyState %>">下一步</button></p>
+      
+    </div>
+    <div class="z_box100 hidden"><img class="loading" src="../img/loading_circle_40b82ef.gif" alt=""></div>
+</div>

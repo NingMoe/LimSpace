@@ -1,0 +1,14 @@
+<div class="menu" ng-controller="SideBarController">
+
+  <div ng-repeat="menuItem1 in menu" ng-show="menuItem1.active" class="{{menuItem1.active}}">
+
+    <div ng-repeat="menuItem2 in menuItem1.nodes">
+      <div>
+      	<h3>{{menuItem2.text}}</h3>
+        <ul>
+          <li ng-class="{active: menuItem3.active}"  ng-repeat="menuItem3 in menuItem2.nodes"><a href="#/{{menuItem3.link}}">{{menuItem3.text}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

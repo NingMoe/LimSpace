@@ -1,0 +1,71 @@
+<style>
+	/*#system-container {
+	  margin-left: 250px;
+	}*/
+	
+	label {
+		width: 100px;
+		text-align: right;
+		padding-right: 10px;
+	}
+	
+	.form-control {
+		display: inline-block;
+		width: auto;
+	}
+	
+	.modal-footer {
+		text-align: center;
+	}
+	
+	.modal-body {
+		padding-top: 5px;
+	}
+	
+	.form-group {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+</style>
+
+
+<div id="system-container">
+	<form class="form-inline">
+  
+  <br>
+  <button class="btn btn-primary" ng-click="events.search('today')">今日</button>
+  <button class="btn btn-primary" ng-click="events.search('thisweek')">本周</button>
+  <button class="btn btn-primary" ng-click="events.search('thismonth')">本月</button>
+  <div class="form-group">
+    <label>时间段</label>
+    <input type="text" class="form-control" name="startTime" placeholder="开始时间" id="searchInputStartTime" ng-model="searchInput.startTime">
+
+    <input type="text" class="form-control" name="endTime" placeholder="结束时间" id="searchInputEndTime" ng-model="searchInput.endTime">
+  </div>
+
+  <button class="btn btn-primary" ng-click="events.search('timerange')">搜索</button>
+  <button class="btn btn-primary" ng-click="events.exportAll()">导出</button>
+</form>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>序号</th>
+				<th>商品名称</th>
+				<th>商品编码</th>
+				<th>收藏数</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in favoriteList">
+				<td>{{item.rownum}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.erpcode}}</td>
+				<td>{{item.count}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+ 
+<uib-pagination total-items="page.totalCount" ng-model="page.currentPage" max-size="10" items-per-page="page.pageSize" 
+		previous-text="上一页" next-text="下一页" ng-change="pageChanged()" class="samplePage pagination-sm" boundary-link-numbers="true">
+  </uib-pagination> 

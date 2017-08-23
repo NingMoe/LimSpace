@@ -1,0 +1,26 @@
+<div class="pj-site-container bankcard" style="width: 100%;height:100%;background: #f1f1f1">
+	<!-- <% if(data.bankCardInfo != ''){ %>
+	<ul>
+		<% _.each(data.bankCardInfo, function(item) { %>
+		<li>
+			<img src="<%=item.icon%>" alt="">
+			<p><%=item.bankName %></p>
+			<span><%=item.cardNo %></span>
+		</li>
+		<% }) %>
+	</ul>
+	<% } else { %>
+	<img src="../img/no-connectcard@2x.png" alt="">
+	<p>暂时没有绑定银行卡</p>
+	<% } %> -->
+	<% if(data.bankCardInfo != ''){ %>
+	<ul>
+		<% _.each(data.bankCardInfo, function(item) { %>
+		<li><%=item.cardNo.substring(0,4) %>&nbsp&nbsp&nbsp&nbsp<%=item.cardNo.substring(4,8) %>&nbsp&nbsp&nbsp&nbsp****&nbsp&nbsp&nbsp&nbsp<%=item.cardNo.substring(12) %></li>
+		<% }) %>
+	</ul>
+	<% } else { %>
+	<img src="../img/no-connectcard@2x.png" alt="">
+	<p>暂时没有绑定银行卡</p>
+	<% } %>
+</div>

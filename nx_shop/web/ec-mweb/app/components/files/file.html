@@ -1,0 +1,16 @@
+  <!-- 文件导入 -->
+<form name="form" id="impForm" novalidate ng-submit="events.impOrder(form)" class="css-form">
+<div class="form-group">
+  <label for="name">选择文件：</label>
+  <span class="btn btn-default btn-file">
+	<input name="file" ngf-select ng-model="impOrder.file" type="file">
+  </span>
+  <input type="button" class="btn btn-primary" ng-click="events.impOrder(form)" value="导入"/>
+</div>
+</form>
+
+  <!-- 导出 -->
+<button type="button" class="btn btn-primary" ng-click="events.exportclick() ">导出</button>
+
+
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 表t_rush_buy_appoint的数据访问实现 -->
+<!-- author rainyhao -->
+<!-- since 2016-03-30 -->
+<mapper namespace="com.tyiti.easycommerce.repository.RushBuyAppointDao" >
+	<!-- 列与实体属性的映射 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-03-30 -->
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.RushBuyAppoint" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="cust_id" property="custId" jdbcType="INTEGER" />
+		<result column="rush_buy_id" property="rushBuyId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="bank_card_no" property="bankCardNo" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- 所有列 -->
+	<sql id="Base_Column_List" >
+		id, cust_id, rush_buy_id, name, mobile, bank_card_no, create_time, update_time
+	</sql>
+	
+	<!-- 按主键查 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-03-30 -->
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select <include refid="Base_Column_List" />
+		from t_rush_buy_appoint
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 按特定的条件查一行 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-03-31 -->
+	<select id="selectForObject" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.RushBuyAppoint">
+		select <include refid="Base_Column_List" />
+		from t_rush_buy_appoint
+		<where>
+			<if test="custId != null">
+				cust_id = #{custId,jdbcType=INTEGER}
+			</if>
+			<if test="rushBuyId != null">
+				and rush_buy_id = #{rushBuyId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+</mapper>

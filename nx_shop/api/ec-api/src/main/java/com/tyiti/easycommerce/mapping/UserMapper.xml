@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.UserDao">
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="id_card" property="idCard" jdbcType="VARCHAR" />
+		<result column="head_img" property="headImg" jdbcType="VARCHAR" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+		<result column="gender" property="gender" jdbcType="INTEGER" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="pay_password" property="payPassword" jdbcType="VARCHAR" />
+		<result column="invalid" property="invalid" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="rec_by_code" property="recByCode" jdbcType="VARCHAR" />
+		<result column="rec_code" property="recCode" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="third_party_type" property="ThirdPartyType" jdbcType="INTEGER" />
+		<result column="third_party_id" property="ThirdPartyId" jdbcType="VARCHAR" />
+		<result column="open_id" property="openId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="insert_column_list">
+		mobile, real_name, id_card, password, rec_code, rec_by_code,third_party_type,third_party_id,open_id
+	</sql>
+	<sql id="column_list">
+		id, mobile, real_name,head_img,nick_name,birthday,gender,password,pay_password, id_card, status, rec_by_code, rec_code, create_time,third_party_type,third_party_id,open_id
+	</sql>
+	<select id="getById" resultType="com.tyiti.easycommerce.entity.User" resultMap="BaseResultMap">  
+		select <include refid="column_list"/> from t_user where id = #{id}
+	</select>
+	<select id="findByMobile" resultType="com.tyiti.easycommerce.entity.User" resultMap="BaseResultMap">  
+		select <include refid="column_list"/> from t_user where mobile = #{mobile}
+	</select>
+	<select id="findByOpenId" resultType="com.tyiti.easycommerce.entity.User" resultMap="BaseResultMap">  
+		select <include refid="column_list"/> from t_user where open_id = #{openId}
+	</select>
+	<select id="findByThirdParty" resultType="com.tyiti.easycommerce.entity.User" resultMap="BaseResultMap">  
+		select <include refid="column_list"/> from t_user where third_party_type = #{thirdPartyType} and third_party_id = #{thirdPartyId}
+	</select>
+	<select id="findByMobileAndPassword" resultType="com.tyiti.easycommerce.entity.User" resultMap="BaseResultMap">  
+		select <include refid="column_list"/> from t_user where mobile = #{mobile} and password = #{password}
+	</select>
+	<select id="findByMobileAndIdCard" resultType="com.tyiti.easycommerce.entity.User" resultMap="BaseResultMap">  
+		select <include refid="column_list"/> from t_user where mobile = #{mobile} and id_card = #{idCard}
+	</select>
+	<select id="getByIdAndPassword" resultType="com.tyiti.easycommerce.entity.User" resultMap="BaseResultMap">  
+		select <include refid="column_list"/> from t_user where id = #{id} and password = #{password}
+	</select>
+	<insert id="register" parameterType="com.tyiti.easycommerce.entity.User">
+		<!-- include 引用可重用的SQL代码段 -->
+		<selectKey order="AFTER" keyProperty="id" resultType="int">
+		select last_insert_id()
+		</selectKey>
+		insert into t_user(<include refid="insert_column_list"/>) values (#{mobile}, #{realName}, #{idCard}, #{password}, #{recCode}, #{recByCode}, #{ThirdPartyType}, #{ThirdPartyId}, #{openId})  
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.User">
+		update t_user
+		<set>
+			<if test="mobile != null and mobile!=''">
+				mobile = #{mobile,jdbcType=CHAR},
+			</if>
+			<if test="realName != null and realName!=''">
+				real_name = #{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null and headImg!=''">
+				head_img = #{headImg,jdbcType=VARCHAR},
+			</if>
+			<if test="nickName != null and nickName!=''">
+				nick_name = #{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="gender != null">
+				gender = #{gender,jdbcType=INTEGER},
+			</if>
+			<if test="idCard != null and idCard!=''">
+				id_card = #{idCard,jdbcType=CHAR},
+			</if>
+			<if test="password != null and password!=''">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="payPassword != null and payPassword!=''">
+				pay_password = #{payPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="invalid != null and invalid!=''">
+				invalid = #{invalid,jdbcType=INTEGER},
+			</if>
+			<if test="status != null and status!=''">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="recByCode != null and recByCode!=''">
+				rec_by_code = #{recByCode,jdbcType=VARCHAR},
+			</if>
+			<if test="recCode != null and recCode!=''">
+				rec_code = #{recCode,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null and updateTime!=''">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="thirdPartyType != null and thirdPartyType!=''">
+				third_party_type = #{thirdPartyType,jdbcType=INTEGER},
+			</if>
+			<if test="thirdPartyId != null">
+				third_party_id = #{thirdPartyId,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null and openId!=''">
+				open_id = #{openId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

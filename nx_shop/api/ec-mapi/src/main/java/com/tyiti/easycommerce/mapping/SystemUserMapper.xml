@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 系统管理端用户表的数据访问实现 -->
+<!-- author rainyhao -->
+<!-- since 2016-04-11 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.SystemUserDao" >
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.SystemUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<!-- <result column="user_name" property="userName" jdbcType="VARCHAR" /> -->
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" typeHandler="com.tyiti.easycommerce.util.mybatis.IntEnumHandler" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<!-- <result column="url" property="url" jdbcType="VARCHAR" /> -->
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id,  pwd, name, tel, status, create_time
+	</sql>
+	
+	<sql id="generic_where">
+		<where>
+			<!-- <if test="userName != null">
+				user_name = #{userName,jdbcType=INTEGER}
+			</if> -->
+			
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="tel != null">
+				and tel = #{tel,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				and status = #{status,jdbcType=INTEGER,typeHandler=com.tyiti.easycommerce.util.mybatis.IntEnumHandler}
+			</if>
+			<!-- <if test="url != null">
+				and url = #{url,jdbcType=VARCHAR}
+			</if> -->
+		</where>
+	</sql>
+	
+	<sql id="select">
+		select <include refid="Base_Column_List" />
+		from t_system_user
+		<include refid="generic_where" />
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+		select 
+		<include refid="Base_Column_List" />
+		from t_system_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 实现selectForObject -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-11 -->
+	<select id="selectForObject" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.SystemUser">
+		<include refid="select" />
+	</select>
+	
+	<!-- 实现selectForPagedList -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-12 -->
+	<select id="selectForPagedList" resultMap="BaseResultMap" parameterType="com.tyiti.easycommerce.entity.SystemUser">
+		<include refid="select" />
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Integer" >
+		delete from t_system_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.SystemUser" useGeneratedKeys="true" keyProperty="id">
+		<!-- add by hcy -->
+		<!-- 实现增加后自动获得id值 -->
+		<selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+			SELECT LAST_INSERT_ID() as id
+		</selectKey>
+		
+		insert into t_system_user (id,  pwd, 
+		  name, tel, status, 
+		  create_time)
+		values (#{id,jdbcType=INTEGER}, #{pwd,jdbcType=VARCHAR}, 
+		  #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER,typeHandler=com.tyiti.easycommerce.util.mybatis.IntEnumHandler}, 
+		  #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+	
+	<update id="update" parameterType="com.tyiti.easycommerce.entity.SystemUser" >
+		update t_system_user
+		<set >
+			<!-- <if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if> -->
+			<if test="pwd != null" >
+				pwd = #{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null" >
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null" >
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null" >
+				status = #{status,jdbcType=INTEGER,typeHandler=com.tyiti.easycommerce.util.mybatis.IntEnumHandler},
+			</if>
+			<!-- <if test="url != null" >
+				url = #{url,jdbcType=VARCHAR},
+			</if> -->
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+	<!-- add by hcy 检查用户是否重复 -->
+	<select id="selectupCount" resultType="java.lang.Integer" parameterType="com.tyiti.easycommerce.entity.SystemUser">
+		select COUNT(1) from t_system_user where id &lt;&gt;#{id,jdbcType=INTEGER} AND tel=#{tel,jdbcType=VARCHAR}
+	</select>
+	
+	
+	
+</mapper>

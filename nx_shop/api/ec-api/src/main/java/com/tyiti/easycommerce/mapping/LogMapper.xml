@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.LogDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.Log" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="key_id" property="keyId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="operate_model" property="operateModel" jdbcType="INTEGER" />
+    <result column="action" property="action" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="success_status" property="successStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.Log" >
+    insert into t_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operatorId != null" >
+        operator_id,
+      </if>
+      <if test="operatorName != null" >
+        operator_name,
+      </if>
+      <if test="keyId != null" >
+        key_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="operateModel != null" >
+        operate_model,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="successStatus != null" >
+        success_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="keyId != null" >
+        #{keyId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="operateModel != null" >
+        #{operateModel,jdbcType=INTEGER},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="successStatus != null" >
+        #{successStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectListByOperateModel" resultType="java.util.Map" parameterType="java.util.Map">
+  select id ,create_time createTime ,operate_model operateModel, action ,operator_name operatorName,message ,source
+  from t_log
+  where operate_model = #{operateModel,jdbcType=INTEGER} and key_id= #{keyId,jdbcType=INTEGER}
+  </select>
+</mapper>

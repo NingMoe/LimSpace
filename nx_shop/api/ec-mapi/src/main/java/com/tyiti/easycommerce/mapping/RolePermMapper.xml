@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 角色权限授权表的数据访问实现 -->
+<!-- author rainyhao -->
+<!-- since 2016-04-11 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.RolePermDao" >
+	<resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.RolePerm" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="role_id" property="roleId" jdbcType="INTEGER" />
+		<result column="perm_id" property="permId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id, role_id, perm_id
+	</sql>
+	<delete id="delete" parameterType="java.lang.Integer" >
+		delete from t_role_perm
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<!-- 按用户删除 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-0413 -->
+	<!-- modify by hcy 修改mapper  -->
+	<delete id="deleteByRoleId" parameterType="java.lang.Integer">
+		delete from t_role_perm where role_id = #{roleId,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="com.tyiti.easycommerce.entity.RolePerm" >
+		insert into t_role_perm (id, role_id, perm_id)
+		values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{permId,jdbcType=INTEGER})
+	</insert>
+	
+	<!-- 批量写一个集合 -->
+	<!-- author rainyhao -->
+	<!-- since 2016-04-13 -->
+	<insert id="insertList" parameterType="java.util.List">
+		insert into t_role_perm (role_id, perm_id)
+		values 
+		<foreach collection="entities" item="i" separator=",">
+			(#{i.roleId,jdbcType=INTEGER}, #{i.permId,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+</mapper>

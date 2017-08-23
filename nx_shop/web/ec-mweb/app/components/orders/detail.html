@@ -1,0 +1,193 @@
+<style>
+	table tr td{
+		word-break: break-all;
+	}
+</style>
+<div class="btn-group">
+  <button type="button" class="btn btn-default" ng-disabled="data.status != 2 || (data.cancelStatus !=undefined && data.cancelStatus !=2 ) " ng-click="transferState(3)">确认</button>
+  <button type="button" class="btn btn-default" ng-disabled="data.status != 3 || (data.cancelStatus !=undefined && data.cancelStatus !=2 ) " ng-click="exportOrder()">制单导出</button>
+  <button type="button" class="btn btn-default" ng-disabled="data.status != 4 || (data.cancelStatus !=undefined && data.cancelStatus !=2 ) " ng-click="transferState(5)">发货</button>
+</div>
+<div class="btn-group">
+  <button type="button" class="btn btn-default" ng-disabled="data.status < 1 || data.status > 4 || (data.cancelStatus !=null && data.cancelStatus !=undefined && data.cancelStatus !=2 ||data.disable) " ng-click="transferState(9)">取消</button>
+</div>
+
+<h2>订单信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>订单编号</th>
+      <th>下单时间</th>
+      <th>订单状态</th>
+      <th>分期数</th>
+      <th>订单金额</th>
+      <th>优惠金额</th>
+     <th ng-if="configSys != 'ceb'"> 首付金额</th>
+	<th ng-if="configSys != 'thb'">分期金额</th>
+      <th>支付状态</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.no}}</td>
+      <td>{{data.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{data.statusText}}</td>
+      <td>{{data.installmentMonths}}</td>
+      <td>{{data.totalPrice}}</td>
+      <td>{{data.totalCoupon}}</td>
+     <td ng-if="configSys != 'ceb'">{{data.downPayment}}</td>
+	<td ng-if="configSys != 'thb'">{{data.installmentAmount}}</td>
+	<td>{{data.payText}}</td>
+    </tr>
+  </tbody>
+</table>
+<div ng-if="!data.pickCode">
+<h2>收货人信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>手机号</th>
+      <th>邮编</th>
+      <th>地址</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.addressName}}</td>
+      <td>{{data.addressMobile}}</td>
+      <td>{{data.addressZip}}</td>
+      <td>{{data.addressFullText}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>发票信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>发票抬头</th>
+      <th>发票类型</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.invoice_title}}</td>
+      <td>{{data.invoice_type==1?'普通发票':'其他'}}</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+<div ng-if="data.pickCode">
+<h2>提货码</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <td>{{data.pickCode}}</td>
+  </tr>
+  </thead>
+
+</table>
+<h2>自提点信息</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th>网点</th>
+    <th>网点地址</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{data.pickupPointName}}</td>
+    <td>{{data.pickupPointAddress}}</td>
+  </tr>
+  </tbody>
+</table>
+</div>
+<h2>订购人信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>手机号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.mobile}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>商品清单</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>商品编号</th>
+      <th>商品</th>
+      <th>图片</th>
+      <th>价格</th>
+      <th>数量</th>
+      <th>合计</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.erpCode}}</td>
+      <td>{{data.skuName}}</td>
+      <td ng-if="data.erpCode != 'koo'">
+      	  <img style="height: 100px;" src="{{imgHost}}/{{data.skuHeadThumbnail}}">
+      </td>
+      <td ng-if="data.erpCode == 'koo'">
+      	  <img style="height: 100px;" src="{{data.skuHeadThumbnail}}">
+      </td>
+      <td>{{data.skuPrice}}</td>
+      <td>{{data.skuCount}}</td>
+      <td>{{data.totalPrice}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="tablehr">
+  <span><B>共计</B>：{{data.totalPrice}}</span>
+</div>
+
+<h2>优惠信息</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>优惠类型</th>
+      <th style="width: 100px;">合计</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="cou in discount">
+      <td>{{cou.typeText}} <span ng-if="cou.type==1||cou.type==2">（满{{cou.threshold}}减{{cou.discount}}）</span></td>
+      <td>{{cou.discount}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="tablehr">
+  <span><B>共计优惠</B>：{{data.totalCoupon}}</span>
+</div>
+
+<h2>订单日志</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th style="width: 60px; align: center;">序号</th>
+      <th style="width: 180px; align: center;">时间</th>
+      <th style="width: 100px; align: center;">操作</th>
+      <th style="width: 100px; align: center;">操作人</th>
+      <!-- <th>备注</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="log in logs">
+      <td>{{$index + 1}}</td>
+      <td>{{log.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{log.message}}</td>
+      <td>{{log.operatorName}}</td>
+      <!-- <td></td> -->
+    </tr>
+  </tbody>
+</table>

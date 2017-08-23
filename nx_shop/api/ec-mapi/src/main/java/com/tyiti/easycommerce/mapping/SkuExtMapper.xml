@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tyiti.easycommerce.repository.SkuExtDao">
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.SkuExt">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="field1" jdbcType="VARCHAR" property="field1" />
+    <result column="field2" jdbcType="VARCHAR" property="field2" />
+    <result column="field3" jdbcType="VARCHAR" property="field3" />
+    <result column="field4" jdbcType="VARCHAR" property="field4" />
+    <result column="field5" jdbcType="VARCHAR" property="field5" />
+    <result column="field6" jdbcType="VARCHAR" property="field6" />
+    <result column="field7" jdbcType="VARCHAR" property="field7" />
+    <result column="field8" jdbcType="VARCHAR" property="field8" />
+    <result column="field9" jdbcType="VARCHAR" property="field9" />
+    <result column="field10" jdbcType="VARCHAR" property="field10" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, sku_id, type, field1, field2, field3, field4, field5, field6, field7, field8, 
+    field9, field10
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sku_ext
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_sku_ext
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.SkuExt">
+    insert into t_sku_ext (id, sku_id, type, 
+      field1, field2, field3, 
+      field4, field5, field6, 
+      field7, field8, field9, 
+      field10)
+    values (#{id,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{field1,jdbcType=VARCHAR}, #{field2,jdbcType=VARCHAR}, #{field3,jdbcType=VARCHAR}, 
+      #{field4,jdbcType=VARCHAR}, #{field5,jdbcType=VARCHAR}, #{field6,jdbcType=VARCHAR}, 
+      #{field7,jdbcType=VARCHAR}, #{field8,jdbcType=VARCHAR}, #{field9,jdbcType=VARCHAR}, 
+      #{field10,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.SkuExt">
+    insert into t_sku_ext
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="field1 != null">
+        field1,
+      </if>
+      <if test="field2 != null">
+        field2,
+      </if>
+      <if test="field3 != null">
+        field3,
+      </if>
+      <if test="field4 != null">
+        field4,
+      </if>
+      <if test="field5 != null">
+        field5,
+      </if>
+      <if test="field6 != null">
+        field6,
+      </if>
+      <if test="field7 != null">
+        field7,
+      </if>
+      <if test="field8 != null">
+        field8,
+      </if>
+      <if test="field9 != null">
+        field9,
+      </if>
+      <if test="field10 != null">
+        field10,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="field1 != null">
+        #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null">
+        #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null">
+        #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null">
+        #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null">
+        #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="field6 != null">
+        #{field6,jdbcType=VARCHAR},
+      </if>
+      <if test="field7 != null">
+        #{field7,jdbcType=VARCHAR},
+      </if>
+      <if test="field8 != null">
+        #{field8,jdbcType=VARCHAR},
+      </if>
+      <if test="field9 != null">
+        #{field9,jdbcType=VARCHAR},
+      </if>
+      <if test="field10 != null">
+        #{field10,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.SkuExt">
+    update t_sku_ext
+    <set>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="field1 != null">
+        field1 = #{field1,jdbcType=VARCHAR},
+      </if>
+      <if test="field2 != null">
+        field2 = #{field2,jdbcType=VARCHAR},
+      </if>
+      <if test="field3 != null">
+        field3 = #{field3,jdbcType=VARCHAR},
+      </if>
+      <if test="field4 != null">
+        field4 = #{field4,jdbcType=VARCHAR},
+      </if>
+      <if test="field5 != null">
+        field5 = #{field5,jdbcType=VARCHAR},
+      </if>
+      <if test="field6 != null">
+        field6 = #{field6,jdbcType=VARCHAR},
+      </if>
+      <if test="field7 != null">
+        field7 = #{field7,jdbcType=VARCHAR},
+      </if>
+      <if test="field8 != null">
+        field8 = #{field8,jdbcType=VARCHAR},
+      </if>
+      <if test="field9 != null">
+        field9 = #{field9,jdbcType=VARCHAR},
+      </if>
+      <if test="field10 != null">
+        field10 = #{field10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.SkuExt">
+    update t_sku_ext
+    set sku_id = #{skuId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      field1 = #{field1,jdbcType=VARCHAR},
+      field2 = #{field2,jdbcType=VARCHAR},
+      field3 = #{field3,jdbcType=VARCHAR},
+      field4 = #{field4,jdbcType=VARCHAR},
+      field5 = #{field5,jdbcType=VARCHAR},
+      field6 = #{field6,jdbcType=VARCHAR},
+      field7 = #{field7,jdbcType=VARCHAR},
+      field8 = #{field8,jdbcType=VARCHAR},
+      field9 = #{field9,jdbcType=VARCHAR},
+      field10 = #{field10,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="findKooProductId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sku_ext
+    where type=#{type,jdbcType=INTEGER}  and field1 = #{productId,jdbcType=VARCHAR}
+  </select>
+  <select id="findSkuExtBySkuId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sku_ext
+    where sku_id=#{id,jdbcType=INTEGER} 
+  </select>
+</mapper>

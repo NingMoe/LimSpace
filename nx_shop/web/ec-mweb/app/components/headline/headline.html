@@ -1,0 +1,102 @@
+<style>
+	/*#system-container {
+	  margin-left: 250px;
+	}*/
+	
+	label {
+		width: 100px;
+		text-align: right;
+		padding-right: 10px;
+	}
+	
+	.form-control {
+		display: inline-block;
+		width: auto;
+	}
+	
+	.modal-footer {
+		text-align: center;
+	}
+	
+	.modal-body {
+		padding-top: 5px;
+	}
+	
+	.form-group {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+</style>
+<!-- {{sysuser}} -->
+<div id="system-container">
+	<button type="button" class="btn btn-default pull-right btn-primary" ng-click="events.add()">新建</button>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th width="50%">名称</th>
+				<th>开始时间</th>
+				<th>结束时间</th>
+				<th>状态</th>
+				<th width="12%"> 操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in headlineList">
+				<td>{{item.title}}</td>
+				<td>{{item.startTime}}</td>
+				<td>{{item.endTime}}</td>
+				<td>{{item.status}}</td>
+				<td>
+					<a class="template" ng-click="events.show(item)" ng-if="item.status=='未开始'||item.status=='进行中'">修改</a>
+					<a class="template" ng-click="events.del(item)" ng-if="item.status=='未开始'||item.status=='进行中'">结束</a>
+					<a class="template" ng-click="events.show(item)" ng-if="item.status=='已结束'">查看</a>
+					<a class="template" ng-click="events.del(item)" ng-if="item.status=='已结束'">删除</a>
+					<!--状态：（未开始---修改，结束）（进行中---修改，结束）（已结束---查看，删除）-->
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-center" >{{headline.h4}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="err-msg">
+					<ul ng-show="form.$submitted && form.$invalid">
+						<li ng-show="form.title.$error.required">请填写活动名称</li>
+						<li ng-show="form.startTime.$error.required">请填写开始时间</li>
+						<li ng-show="form.endTime.$error.required">请填写结束时间</li>
+						<li ng-show="form.link.$error.required">请填写活动地址</li>
+					</ul>
+				</div>
+				<form name="form" novalidate ng-submit="events.save(form)" class="css-form">
+					<div class="form-group">
+						<label for="name">活动名称</label>
+						<input class="form-control" style="width:250px;" name="title" ng-model="headline.title" required>
+					</div>
+					<div class="form-group">
+						<label for="status">起止时间</label>
+						<input  class="form-control" name="startTime" id="iptstartTime"   ng-model="headline.startTime" required>
+						<input  class="form-control" name="endTime" id="iptendTime"   ng-model="headline.endTime" required>
+					</div>
+					<div class="form-group">
+						<label for="name">活动地址</label>
+						<input class="form-control" style="width:250px;" name="link" ng-model="headline.link" required>
+					</div>
+					<input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button id="btnSave" type="button" class="btn btn-primary" ng-click="events.save(form)">保存</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

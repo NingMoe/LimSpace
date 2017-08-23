@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tyiti.easycommerce.repository.CategoryTemplateDao" >
+  <resultMap id="BaseResultMap" type="com.tyiti.easycommerce.entity.CategoryTemplate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="key_id" property="keyId" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="attr_name" property="attrName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, category_id, type, key_id, value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_category_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_category_template
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tyiti.easycommerce.entity.CategoryTemplate" >
+    insert into t_category_template (id, category_id, type, 
+      key_id, value)
+    values (#{id,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{keyId,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tyiti.easycommerce.entity.CategoryTemplate" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_category_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="keyId != null" >
+        key_id,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="keyId != null" >
+        #{keyId,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tyiti.easycommerce.entity.CategoryTemplate" >
+    update t_category_template
+    <set >
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="keyId != null" >
+        key_id = #{keyId,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tyiti.easycommerce.entity.CategoryTemplate" >
+    update t_category_template
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      key_id = #{keyId,jdbcType=INTEGER},
+      value = #{value,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getTemplateListByCategoryId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+ 	 select 
+    t.id as id, t.category_id as category_id, t.type as type, t.key_id as key_id, t.value as value ,
+		a.`name` as attr_name ,s.`name` as specName
+    from t_category_template t 
+    left join t_attribute a on t.key_id = a.id and t.type =2 
+		left join t_spec s on t.key_id = s.id and t.type =1 
+    where  category_id = #{categoryId,jdbcType=INTEGER}
+  
+  </select>
+  <!--  检查 是否有值 ，从而判断是添加修改还是删除 -->
+  <select id="getCheckList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select   <include refid="Base_Column_List"></include>
+  from t_category_template  
+  where  category_id = #{categoryId,jdbcType=INTEGER}  and type =#{type,jdbcType=INTEGER} and key_id =#{keyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteNotInByIds">
+  delete from t_category_template 
+  where id not in <foreach item="item" index="index" collection="ids"   
+                        open="(" separator="," close=")">  
+                       #{item}  
+               </foreach>  
+  and category_id in <foreach item="item" index="index" collection="categoryIds"   
+                        open="(" separator="," close=")">  
+                       #{item}  
+               </foreach>  
+  and type in <foreach item="item" index="index" collection="types"   
+                        open="(" separator="," close=")">  
+                       #{item}  
+               </foreach>  
+  </delete>
+  
+  <!-- 按照categoryId 删除   -->
+<delete id="deleteByCategoryId">
+ delete from t_category_template
+    where category_id = #{categoryId,jdbcType=INTEGER} and type =#{type,jdbcType=INTEGER}
+
+</delete>
+<!-- 清空某一分类的规格 或属性 -->
+<delete id="deleteByCategoryType" parameterType="java.lang.Integer">
+ delete from t_category_template
+    where category_id = #{categoryId,jdbcType=INTEGER} and type =#{type,jdbcType=INTEGER}
+</delete>
+</mapper>

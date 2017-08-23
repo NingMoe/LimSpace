@@ -1,0 +1,79 @@
+<form class="form-inline">
+  <div class="form-group">
+    <label>姓名</label>
+    <input type="text" class="form-control" placeholder="姓名" ng-model="searchInput.realName">
+  </div>
+  <div class="form-group">
+    <label>手机号码</label>
+    <input type="text" class="form-control" placeholder="手机号码" ng-model="searchInput.mobile">
+  </div>
+  <div class="form-group">
+    <label>优惠券名称</label>
+    <input type="text" class="form-control" placeholder="优惠券名称" ng-model="searchInput.couponName">
+  </div>
+  <div class="form-group">
+    <label>优惠码</label>
+    <input type="text" class="form-control" placeholder="优惠码" ng-model="searchInput.couCode">
+  </div>
+  <div class="form-group">
+    <label>是否使用</label>
+	<select class="form-control" ng-model="searchInput.isUsed">
+   		<option value="">-- 请选择 --</option>
+			<option value="0">未使用</option>
+			<option value="1">已使用</option>
+	</select>
+  </div>
+  <div class="form-group">
+    <label>优惠券类别</label>
+    <!--<input type="text" class="form-control" placeholder="优惠券类别" ng-model="searchInput.type">-->
+	<select class="form-control" ng-model="searchInput.type">
+   		<option value="">-- 请选择 --</option>
+		<option ng-repeat="x in couponCates" value="{{x.id}}">{{x.name}}</option>
+	</select>
+  </div>
+  <div class="form-group">
+    <label>优惠方式</label>
+	<select name="couType" class="form-control" ng-model="searchInput.couType">
+		<option value="">-- 请选择 --</option>
+		<option ng-repeat="c in couType" value="{{c.id}}">{{c.name}}</option>
+	</select>
+  </div>
+  <div class="form-group"><button type="button" class="btn btn-primary" ng-click="updateLocation()">搜索</button></div>
+</form><br />
+<table class="table">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>用户姓名</th>
+      <th>手机号码</th>
+      <th>优惠券名称</th>
+      <th>领取时间</th>
+      <th>优惠码</th>
+      <th>是否使用</th>
+      <th>使用时间</th>
+      <th style="width: 120px;">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="record in couponRecords">      
+      <td><input type="checkbox" ng-model="record.checked"></td>
+      <td>{{record.real_name}}</td>
+      <td>{{record.mobile}}</td>
+      <td>{{record.name}}</td>
+      <td>{{record.receive_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{record.c_code}}</td>
+      <td>{{record.usedText}}</td>
+      <td>{{record.use_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td><a ui-sref="couponRecordDetail({couponRecordId:record.id})">详细</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="pagination-wrapper">
+  <ul class="pagination" ng-if="pagination">
+    <li ng-class="{disabled: !pagination.hasPrev}"><a ng-if="!pagination.hasPrev">&laquo;</a><a ng-if="pagination.hasPrev" ng-click="navigateToPage(pagination.page - 1)">&laquo;</a></li>
+    <li ng-class="{active: page.active}" ng-repeat="page in pagination.pages"><a ng-if="page.active">{{page.num}}</a><a ng-if="!page.active" ng-click="navigateToPage(page.num)">{{page.num}}</a></li>
+    <li ng-class="{disabled: !pagination.hasNext}"><a ng-if="!pagination.hasNext">&raquo;</a><a ng-if="pagination.hasNext" ng-click="navigateToPage(pagination.page + 1)">&raquo;</a></li>
+  </ul>
+</div>
+
